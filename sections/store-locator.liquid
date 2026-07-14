@@ -1,0 +1,231 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+{{ 'storelocator.css' | asset_url | stylesheet_tag }}
+
+<script>
+    window.themeAssets = {
+        apiKey: 'AIzaSyDW3vqDk5Ow2bKE3pgC4i9GYi4IxZBcIkQ',
+        geojson_url: "{{ 'storelocator-geojson.js' | asset_url }}",
+        icon_marker: "{{ 'marker-alt-2.png' | asset_url }}",
+        default_marker: "{{ 'default-marker.png' | asset_url }}",
+        store_data: {{ page.metafields.store | json }}
+    };
+</script>
+
+
+<div class="cms-two-columns cw-storelocator">
+    <div class="row">
+      <div class="col-main">
+        <div class="container">
+          
+            <div class="pagecontents">
+            <div class="bootstrap-storeifyapps storeifyapps-storelocator-layout-2 storeifyapps-storelocator-shortcode">
+
+
+
+	<script type="text/javascript" defer="defer">
+		var layout = 2;
+		var owl_class="full-width";
+		var center_lat = '0';//'-122.748356';
+		var center_lng = '0';//'48.994323';
+		var initial_zoom = 7;//2;
+		var baseurl = '';
+		var search_result_zoom = 7;//2;
+		var radius_unit = 2;
+		var map;
+		var markers = [];
+		var infoWindow;
+		var locationDiv;
+		var randomID = 'main-slider-storelocator';
+		var trans= {
+					'link_detail':'View Details',
+					'getdirection':'Directions',
+					'email':'Email',
+					'phone':'Phone Number',
+					'phone_no':'Phone No',
+					'address':'Address',
+					'store_near':'There is no store near with',
+					'address_null':'is not found',
+					'no_result':'No results found',
+					'geocoder_failed':'Geocoder failed due to:',
+					'please_enter':'Please enter a location.',
+					'no_store':'There is no store.',
+					'no_store_product':'There is no store contain product name is:',
+					'no_store_name':'There is no store contain Store name is:'};
+					
+		// var icon_marker = "https://sl.storeify.app//images/base/store-1682588013.webp";
+        var icon_marker = window.themeAssets.icon_marker;
+	</script>
+
+	
+
+	<div class="container-fluid">
+		<div class="storelocator-search storelocator-layout-2" id="storeifyapps-storelocator-index">
+			<form id="frm-storelocator-search" class="form-inline">
+				<input type="hidden" name="_token" value="KzZXi3UibdqEXxvsqL2EQqOgxiMHSmE7cfFjPxmh">
+			<div class="row">
+				<div class="storeify-stl-col1 col-md-4 storeifyapps-storelocator-equal" >
+					<div class="storeify-sear-box">
+						<div class="search-address-box">
+                            								<button id="getbylocal" type="button">
+                                    <svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5.36328 12.0523C4.01081 11.5711 3.33457 11.3304 3.13309 10.9655C2.95849 10.6492 2.95032 10.2673 3.11124 9.94388C3.29694 9.57063 3.96228 9.30132 5.29295 8.76272L17.8356 3.68594C19.1461 3.15547 19.8014 2.89024 20.2154 3.02623C20.5747 3.14427 20.8565 3.42608 20.9746 3.7854C21.1106 4.19937 20.8453 4.85465 20.3149 6.16521L15.2381 18.7078C14.6995 20.0385 14.4302 20.7039 14.0569 20.8896C13.7335 21.0505 13.3516 21.0423 13.0353 20.8677C12.6704 20.6662 12.4297 19.99 11.9485 18.6375L10.4751 14.4967C10.3815 14.2336 10.3347 14.102 10.2582 13.9922C10.1905 13.8948 10.106 13.8103 10.0086 13.7426C9.89876 13.6661 9.76719 13.6193 9.50407 13.5257L5.36328 12.0523Z" stroke="#ba3c3d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+																					<div class="gr-search-slt" style="">
+								<input type="text" name="address" class="form-control-storeify"  placeholder="Start typing the address" id="address" />
+                                <span id="reset-search"  class="reset" title="{{ reset }}">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        >
+                                        <path d="M18 6L6 18M6 6l12 12" />
+                                    </svg>
+							    </span>
+							</div>
+							
+																					<input type="text" class="search-slt input form-control-storeify" placeholder="{{ search_store }}" name="store_search" id="store_search"  style="display: none;" >
+													</div>
+						<div class="search-radius-box" >
+							<div class="input-radius-slt">
+								<!--<div class="hidden-sm hidden-xs label-radius">
+									<label>{{ radius_1 }}</label>
+								</div>-->
+								<div class="radius-value-container">
+								   <div id="radius-value"><label>Radius:</label> <span class="num-range">20</span>
+									Miles								   </div>
+								</div>
+								<div class="range-radius">
+									<input style="padding: 0;" id="radius_search" class="slider" type="range" name="points" min="1" max="50" value="20" title="{{ radius_1 }}">
+								</div>
+								
+							</div>
+
+						</div>
+
+						<div id="btn-filter">{{ filter }}</div>
+
+						<div class="seach-action-box search-type">
+							<button id="submit-search" class="submit storelocator-submit-search" title="Search">
+								Search					</button>
+						</div>
+					</div>
+					<div class="map-tab-mobile-bnt">
+						<div class="map-tab-mobile-bnt-item" id="sl-tab-list" onclick="storeifyOpentab(this,'map-tab-result')" data-val ="map-tab-result" style="float: left;">List</div>
+						<div class="map-tab-mobile-bnt-item active" id="sl-tab-map" onclick="storeifyOpentab(this,'map-tab-ggmap')" data-val ="map-tab-ggmap" style="float: right;">Map</div>
+					</div>
+					<div class="map-tab-result map-tab-mobile">
+						<div id="results-empty" class="results-slt results-slt-layout-2 " ></div>
+						<div id="results-slt" class="results-slt results-slt-layout-2 ">
+
+							<h3 class="title">{{ store_list }} <span class="num-rs-wrap">(<span id="num-rs">0</span> <span id="storeify-text-result" data-result="{{ result }}" data-results="{{ results }}">{{ result }}</span>)</span></h3>
+
+							<div class="content-results-slt"  id="storeify_location">
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="storeify-stl-col1 col-md-8 map-tab-ggmap map-tab-mobile active" aria-hidden="true">
+					<div class="map_container top search-map">
+						<div id="map" ></div>
+					</div>
+                    <div id="info-window-wrapper"></div>
+					<p class="loader" id="loading_mask_loader" style="display:none">
+						<img src="https://sl.storeify.app/images/frontend/AjaxLoader.gif">
+					</p>
+					
+				</div>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" defer="defer">
+	function storeifyOpentab(t,ele) {
+	  // var element = document.getElementById("myDIV");
+	    var ele_1 =  document.getElementsByClassName("map-tab-mobile-bnt-item");
+	    var ele_2 = document.getElementsByClassName("map-tab-mobile");
+	    for (var i = 0; i < ele_1.length; i++) {
+		   ele_1[i].classList.remove('active');
+		   ele_2[i].classList.remove('active');
+		}
+	  t.classList.add('active');
+	  document.getElementsByClassName(ele)[0].classList.add("active");
+	  // $('.'+$(this).data('val')).addClass('active');
+	}
+	</script>
+	
+
+            
+          </div>
+        </div>
+      </div>
+    
+</div>
+</div>
+<div class="cms-two-column">
+    <div class="wrapper">
+        <div class="row">
+            <div class="col-main">
+                <div class="container">
+                    <div class="cms-content">
+                        {{ page.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'gtm-page' %}
+
+
+
+<script type="text/javascript" defer="defer">
+      
+      var storeifyStorelocator = storeifyStorelocator || {};
+        storeifyStorelocator.root_url = '/';
+        storeifyStorelocator.permanent_domain = 'online-wilsons-peterborough.myshopify.com';
+        storeifyStorelocator.shopify_domain = 'www.wilsonscarpets.com';
+        storeifyStorelocator.geojson_url = window.themeAssets.geojson_url;  
+        storeifyStorelocator.center_lat = '0';
+        storeifyStorelocator.center_lng = '0';
+        storeifyStorelocator.shopify_template = "page.page-stores2";
+        storeifyStorelocator.location_list = null;
+        
+        
+        storeifyStorelocator.ify_layout = 2;
+        
+        storeifyStorelocator.lang = {"store_locator":"Store Locator","location":"Location","type_to_search":"Enter Your Postcode","product_name":"Product name","use_my_location":"Use my location","radius_1":"Radius","kilometers":"kilometers","miles":"miles","reset":"Reset","search":"Search","store_list":"Store list","result":"result","no_store":"There is no store","not_found":"is not found","directions":"Directions","your_location":"Your Location","description":"Description","information_of_store":"Information of store","mon":"Monday","tue":"Tuesday","wed":"Wednesday","thu":"Thursday","fri":"Friday","sat":"Saturday","sun":"Sunday","closed":"Close","opening_hours":"Opening hours","contact_us":"Contact Us","full_name":"Full Name","email":"Email","telephone":"Telephone","phone_number":"Phone Number","phone_no":"Phone No","comment":"Comment","address":"Address","website":"Website","street_view":"Street View","store_operation":"Store Operation Hours","about":"About","required":"Required Fields","submit":"Submit","name_required":"Name field is required","token_required":"Token field is required","email_required":"Email field is required","email_format":"Email must be a valid email address","recipient_required":"Recipient field is required","recipient_email":"Recipient must be a valid email address","comment_required":"Comment field is required","recaptcha_required":"Recaptcha field is required","email_failed":"Message sending failed.","email_success":"Your message has been sent successfully!","please_enter":"Please enter a location.","no_result":"No results found","geocoder_failed":"Geocoder failed due to:","address_null":"is not found","store_near":"There is no store near with","link_detail":"View Store","radius_2":"Radius:","filter_tags":"Filter Tags","back":"Back to Store List","store_information":"Store Infomation","results":"results","list":"List","map":"Map","store_name":"Store name","no_store_product":"There is no store contain product name is:","no_store_name":"There is no store contain Store name is:","pm":"PM","am":"AM","filter_country":"Filter by Country","all":"All","contact_store":"Contact store","store_products":"Store Products","load_map_text":"Enter your city or postal\/zip code to find locations near you.","filter":"Filter","search_product":"Search by product name","search_store":"Search by store name","open_new_tab":"This link opens in a new tab.","the_next_day":"(the next day)","filter_by_region":"Filter by region","filter_by_city":"Filter by city","select_country":"Select country","select_region":"Select region","select_city":"Select city","unnamed_region":"Unnamed region","unnamed_city":"Unnamed city","ify_select_provider":"Select location"}; 
+        
+        
+        
+        storeifyStorelocator.show_contact_us = 0;
+        
+      
+      var geojson_url = storeifyStorelocator.geojson_url;
+     //var default_marker = "https://cdn.shopify.com/extensions/019e3e61-d0b1-71d2-9a47-158733a44983/storeify-store-locator-406/assets/default-mark-icon.png";
+      var ify_gmaps_language = "en";
+      
+      var api_key = "https://maps.googleapis.com/maps/api/js?libraries=places&key=" + window.themeAssets.apiKey +"&language=en";
+      
+    </script>
+
+    <script src="{{ 'storelocator-params.js?v=1769158683' |  asset_url}}" defer="defer"></script>
+
+    <script src="{{ 'storelocator.js' |  asset_url}}" defer="defer"></script>

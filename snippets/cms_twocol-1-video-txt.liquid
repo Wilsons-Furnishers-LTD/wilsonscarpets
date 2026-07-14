@@ -1,0 +1,136 @@
+{% case block.settings.add_border_top %}
+	{% when 'add_border_top_yes' %}
+		{%- assign border_top = 'border-top' -%}
+	{% when 'add_border_top_no' %}
+		{%- assign border_top = '' -%}
+{% endcase %} 
+
+{% case block.settings.add_border_bottom %}
+	{% when 'add_border_bottom_yes' %}
+		{%- assign border_bottom = 'border-bottom' -%}
+	{% when 'add_border_bottom_no' %}
+		{%- assign border_bottom = '' -%}
+{% endcase %}  
+
+<div data-section-id="{{ section.id }}" data-section-type="twocol-1-img-txt-section" class="twocolumn-1-img-txt-section video txt-section {% if block.settings.background_color != blank %}bg{% endif %}" {% if block.settings.background_color != blank %}style="background-color: {{block.settings.background_color}}" {% endif %}>
+    <div class="wrapper {% if block.settings.full_width == true %}full-width{% endif %}">
+    {% case block.settings.column_order %}
+        {% when 'image-right' %}
+        {%- assign flex_direction = 'row-flex-reverse' -%}
+        {% when 'image-left' %}
+        {%- assign flex_direction = 'row-flex-row' -%}
+    {% endcase %}
+    
+    {% case block.settings.vertical_align %}
+        {% when 'content-center' %}
+        {%- assign flex_valign = 'row-flex-aligncenter' -%}
+        {% when 'content-top' %}
+        {%- assign flex_valign = '' -%}
+        {% when 'content-bottom' %}
+        {%- assign flex_valign = '' -%}
+    {% endcase %}
+    
+    {% case block.settings.row_width %}
+        {% when 'wrapper-full' %}
+        {%- assign wrapper_width = 'wrapper-width-12' -%}
+        {% when 'wrapper-twothirds' %}
+        {%- assign wrapper_width = 'wrapper-width-10' -%}
+        {% when 'wrapper-threequarters' %}
+        {%- assign wrapper_width = 'wrapper-width-9' -%}
+        {% when 'wrapper-half' %}
+        {%- assign wrapper_width = 'wrapper-width-6' -%}
+    {% endcase %}
+    
+    {% case block.settings.row_align %}
+        {% when 'wrapper-left' %}
+        {%- assign wrapper_align = 'wrapper-align-left' -%}
+        {% when 'wrapper-center' %}
+        {%- assign wrapper_align = 'wrapper-align-center' -%}
+        {% when 'wrapper-right' %}
+        {%- assign wrapper_align = 'wrapper-align-right' -%}
+    {% endcase %}
+        
+    {% case block.settings.image_width %}
+        {% when 'image-twothirds' %}
+        {%- assign image_col_width = 'col-wide-8 col-medium-12 col-small-12 col-smallest-12' -%}
+        {%- assign content_col_width = 'col-wide-4 col-medium-12 col-small-12 col-smallest-12' -%}
+        {% when 'image-half' %}
+        {%- assign image_col_width = 'col-wide-6 col-medium-12 col-small-12 col-smallest-12' -%}
+        {%- assign content_col_width = 'col-wide-6 col-medium-12 col-small-12 col-smallest-12' -%}
+        {% when 'image-third' %}
+        {%- assign image_col_width = 'col-wide-4 col-medium-12 col-small-12 col-smallest-12' -%}
+        {%- assign content_col_width = 'col-wide-8 col-medium-12 col-small-12 col-smallest-12' -%}
+        {% when 'image-quarter' %}
+        {%- assign image_col_width = 'col-wide-3 col-medium-12 col-small-12 col-smallest-12' -%}
+        {%- assign content_col_width = 'col-wide-9 col-medium-12 col-small-12 col-smallest-12' -%}
+        {% when 'image-threequarters' %}
+        {%- assign image_col_width = 'col-wide-9 col-medium-12 col-small-12 col-smallest-12' -%}
+        {%- assign content_col_width = 'col-wide-3 col-medium-12 col-small-12 col-smallest-12' -%}
+    {% endcase %}
+    <div class="container {{ border_bottom }} {{ border_top }}">
+        <div class="row row-flex {{ flex_direction }} {{ flex_valign }} {{ wrapper_width }} {{ wrapper_align }}">           
+			<div class="col-image {{ image_col_width }}">
+                <div class="thumbnail" id="play-youtube">
+                {% if block.settings.image %}
+					<picture>
+                        <source media="(min-width: 1024px)" srcset="{{ block.settings.image | img_url: '1920x' }}">
+                        <source media="(min-width: 768px)" srcset="{{ block.settings.image | img_url: '1024x680', crop: 'center' }}">
+                        {% if block.settings.mobile_image != blank %}
+                            <source srcset="{{ block.settings.mobile_image | img_url: '1920x' }}">
+                        {% else %}
+                            <source srcset="{{ block.settings.image | img_url: '640x600', crop: 'center' }}">    
+                        {% endif %}
+                        <img src="{{ block.settings.image | img_url: '1920x' }}" alt="" />
+                    </picture>
+                {% endif %}
+                {% if block.settings.image == blank %}
+                  <div class="placeholder-background">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {% endif %}
+                <span class="btn-play"><i class="fal fa-play-circle"></i></span>
+                </div>
+                {% if block.settings.video_link != blank %}
+                    <div id="youtube-iframe" data-youtube-url="{{ block.settings.video_link }}"></div>
+                {% endif %}
+            </div>
+            <div class="{{ content_col_width }} col-text">
+                <div class="text-content">
+            	{% if block.settings.title != blank %}
+		        	{% if block.settings.is_title_h1 == 'is_title_h1_yes' %}
+			            <h1>
+			            	{{ block.settings.title | escape }}
+			            </h1>
+		            {% else %}
+			            <h2>
+			            	{{ block.settings.title | escape }}
+			            </h2>
+		            {% endif %}
+	            {% endif %}
+              
+                {% if block.settings.content != blank %}
+                    <div class="subtitle">{{ block.settings.content}}</div>
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  function getYoutubeId(url) {
+      var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      var match = url.match(regExp);
+      if (match && match[2].length == 11) {
+          return match[2];
+      } else {
+          return 'error';
+      }
+  }
+  jQuery('#play-youtube').click(function(){
+      jQuery(this).parent().addClass('play');
+      var youtubeUrl = jQuery('#youtube-iframe').data('youtube-url');
+      YoutubeId = getYoutubeId(youtubeUrl);
+      jQuery('#youtube-iframe').html('<iframe height="640" src="//www.youtube.com/embed/' + YoutubeId + '?autoplay=1" frameborder="0" allowfullscreen></iframe>');
+  });
+</script>

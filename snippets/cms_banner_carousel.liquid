@@ -1,0 +1,53 @@
+
+            {% if block.settings.link != blank %}
+              <a href="{{ block.settings.link }}" class="slideshow__link">
+            {% endif %}
+            <div class="slideshow__slide">
+            	<div class="slideshow__image">
+                {% if block.settings.image %}
+                    
+                    <picture>
+						<source media="(min-width: 900px)" srcset="{{ block.settings.image | img_url: '2048x' }}">
+						<source media="(min-width: 500px)" srcset="{{ block.settings.image | img_url: '900x' }}">
+						{% if block.settings.mobile_image %}<source srcset="{{ block.settings.mobile_image | img_url: '500x' }}">{% endif %}
+						<img src="{{ block.settings.image | img_url: '2048x' }}" alt="{% if block.settings.alttext %}{{ block.settings.alttext | escape }}{% endif %}" />
+					</picture>
+
+                {% endif %}
+                {% if block.settings.image == blank %}
+                  <div class="placeholder-background">
+                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {% endif %}
+                </div>
+	            <div class="slideshow__text-wrap{% if block.settings.title != blank or block.settings.subheading != blank %} slideshow__overlay{% endif %}">
+	              <div class="slideshow__text-content">
+	                <div class="page-width">
+	                  {% unless block.settings.title == blank %}
+		            	{% if block.settings.is_title_h1 == 'is_title_h1_yes' %}
+		                    <h1 class="h1 mega-title slideshow__title{% if settings.link != blank %} slideshow__title--has-link{% endif %} {{ block.settings.text_color | escape }}">
+		                      {{ block.settings.title | escape }}
+		                    </h1>
+		                {% else %}
+		                    <h2 class="h1 mega-title slideshow__title{% if settings.link != blank %} slideshow__title--has-link{% endif %} {{ block.settings.text_color | escape }}">
+		                      {{ block.settings.title | escape }}
+		                    </h2>
+		                {% endif %}
+	                  {% endunless %}
+	                  {% unless block.settings.subheading == blank %}
+	                    <span class="mega-subtitle slideshow__subtitle {{ block.settings.text_color | escape }}">
+	                      {{ block.settings.subheading | escape }}
+	                    </span>
+	                  {% endunless %}
+	                </div>
+	              </div>
+	            </div>
+                
+
+
+                </div>
+            {% if block.settings.link != blank %}
+              </a>
+            {% endif %}
+  

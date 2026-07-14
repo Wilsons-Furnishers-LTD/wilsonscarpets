@@ -1,0 +1,65 @@
+<div data-section-id="{{ section.id }}" data-section-type="banner" class="banner-one">
+    {% if block.settings.full_width == false %}
+    <div class="wrapper">
+    {% endif %}
+    <div class="container {{ border_bottom }} {{ border_top }}">
+        <div class="row">
+                <div class="col-wide-12 {{ block.settings.text_color | escape }}">
+                    {% if block.settings.image %}
+                        {% if block.settings.link != blank %}
+                        <a class="image" href="{{ block.settings.link_1 }}">
+                        {% endif %}	
+                            <picture>
+                                <source media="(min-width: 1024px)" srcset="{{ block.settings.image | img_url: '1920x' }}">
+                                <source media="(min-width: 768px)" srcset="{{ block.settings.image | img_url: '1024x680', crop: 'center' }}">
+                                {% if block.settings.mobile_image != blank %}
+                                    <source srcset="{{ block.settings.mobile_image | img_url: '1920x' }}">
+                                {% else %}
+                                    <source srcset="{{ block.settings.image | img_url: '640x600', crop: 'center' }}">    
+                                {% endif %}
+                                <img src="{{ block.settings.image | img_url: '1920x' }}" alt="" />
+                            </picture>
+                        {% if block.settings.link != blank %}
+                            </a>
+                        {% endif %}	
+                    {% else %}
+                    <span class="placeholder-background">
+                        {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                        {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                    </span>
+                    {% endif %}
+                    <div class="text-wrap {{ block.settings.button_position }} button_position {{ block.settings.vertical_align }} {{ block.settings.horizontal_align }}">
+                        <div class="wrapper">
+                            <div class="text-content">
+                                {% unless block.settings.title == blank %}
+                                {% if block.settings.is_title_h1 == 'is_title_h1_yes' %}
+                                    <h1 class="title">
+                                        {{ block.settings.title | escape }}
+                                    </h1>
+                                {% else %}
+                                    <h2 class="title">
+                                        {{ block.settings.title | escape }}
+                                    </h2>
+                                {% endif %}
+                                {% endunless %}
+                                {% unless block.settings.subheading == blank %}
+                                <div class="subtitle">{{ block.settings.subheading }}</div>
+                                {% endunless %}
+                                <div class="buttons">
+                                {% if block.settings.link_1 != blank %}
+                                    <p><a class="button small {% if block.settings.text_color == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_1 }}">{{ block.settings.button_text_1 }}</a></p>
+                                {% endif %}	
+                                {% if block.settings.link_2 != blank %}
+                                    <p><a class="button small {% if block.settings.text_color == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_2 }}">{{ block.settings.button_text_2 }}</a></p>
+                                {% endif %}	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    {% if block.settings.full_width == false %}
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "404": {
+      "type": "404"
+    },
+    "featured-collection": {
+      "type": "featured-collection"
+    },
+    "bannergrid-two": {
+      "type": "bannergrid-two"
+    }
+  },
+  "order": [
+    "404",
+    "featured-collection",
+    "bannergrid-two"
+  ]
+}

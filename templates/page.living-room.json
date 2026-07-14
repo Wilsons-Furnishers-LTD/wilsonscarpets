@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "main": {
+      "type": "living-room-sections"
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

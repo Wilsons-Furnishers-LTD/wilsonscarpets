@@ -1,0 +1,244 @@
+{%- if section.settings.show_promo -%}
+
+    {%- liquid
+    assign this_settings = section.settings
+
+    assign heading_title_tag = this_settings.heading_title_tag
+
+    assign background_colour = ''
+    assign background_image = ''
+    assign border_colour = ''
+    assign add_border = this_settings.add_border
+
+    assign title_colour = this_settings.title_colour | prepend: 'color: ' | append: ';'
+    assign title_border_colour = ''
+    assign add_title_border = this_settings.add_title_border
+
+    assign subtitle_colour = this_settings.subtitle_colour | prepend: 'color: ' | append: ';'
+    assign subtitle_border_colour = ''
+    assign add_subtitle_border = this_settings.add_subtitle_border
+
+    assign button_colour = this_settings.button_colour | prepend: 'background-color: ' | append: ';'
+    assign button_text_colour = this_settings.button_text_colour | prepend: 'color: ' | append: ';'
+
+    if add_border != ''
+        assign border_colour = this_settings.border_colour | prepend: 'border: 2px solid ' | append: ';'
+    endif
+
+    if add_title_border != ''
+        assign title_border_colour = this_settings.title_border_colour | prepend: 'border: 2px solid ' | append: ';'
+    endif
+
+    if add_subtitle_border != ''
+        assign subtitle_border_colour = this_settings.subtitle_border_colour | prepend: 'border: 2px solid ' | append: ';'
+    endif
+
+    if section.settings.image
+        assign background_image = section.settings.image | img_url: 'master' | prepend: 'background-image: url(' | append: ');'
+    endif
+
+    if section.settings.background_colour
+        assign background_colour = section.settings.background_colour | prepend: 'background-color:' | append: ';'
+    endif
+
+-%}
+
+    <div
+        data-section-id="{{ section.id }}"
+        data-section-type="banner"
+        class="promo-bar {{add_border}} {{add_title_border}} {{add_subtitle_border}}"
+        style="{{background_colour}} {{background_image}} ">
+        <div class="wrapper">
+            <div class="txt" style="{{border_colour}}">
+                <div class="left">
+                    {%- if section.settings.title != blank -%}
+                        <{{heading_title_tag}} class="title" style="{{title_border_colour}} {{title_colour}}">{{ section.settings.title }}</{{heading_title_tag}}>
+                    {%- endif -%}
+                    {%- if section.settings.sub_title != blank -%}
+                        <p style="{{subtitle_border_colour}} {{subtitle_colour}}">{{ section.settings.sub_title }}</p>
+                    {%- endif -%}
+                </div>
+                <div class="right">
+                    {%- if section.settings.link != blank -%}
+                        <a
+                            class="button"
+                            style="{{button_colour}}{{button_text_colour}}"
+                            href="{{ section.settings.link }}">{{ section.settings.button_text }}</a>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endif -%}
+
+{% schema %}
+    {
+        "name": "Promo Bar",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Background Image"
+            },
+            {
+                "type": "color",
+                "id": "background_colour",
+                "label": "Background Colour"
+            },
+            {
+                "type": "color",
+                "id": "border_colour",
+                "label": "Border Colour",
+                "info": "Content Border #1f325d Blue #f2bf00 Yellow",
+                "default": "#f2bf00"
+            },
+            {
+                "type": "select",
+                "id": "add_border",
+                "label": "Add Border",
+                "options": [
+                    {
+                        "value": "",
+                        "label": "No"
+                    }, {
+                        "value": "content-border",
+                        "label": "Yes - Add border around content"
+                    }
+                ],
+                "default": ""
+            }, {
+                "type": "paragraph",
+                "content": "Title and border"
+            }, {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default": "Lorem ipsum dolor sit amet"
+            }, {
+                "type": "color",
+                "id": "title_border_colour",
+                "label": "Title Border Colour",
+                "info": "Title Border #1f325d Blue #f2bf00 Yellow",
+                "default": "#f2bf00"
+            }, {
+                "type": "color",
+                "id": "title_colour",
+                "label": "Title Colour",
+                "info": "Title Border #1f325d Blue #f2bf00 Yellow",
+                "default": "#f2bf00"
+            }, {
+                "type": "select",
+                "id": "add_title_border",
+                "label": "Add title Border",
+                "options": [
+                    {
+                        "value": "",
+                        "label": "No"
+                    }, {
+                        "value": "title-border",
+                        "label": "Yes - Add border to title"
+                    }
+                ],
+                "default": ""
+            }, {
+                "type": "select",
+                "id": "heading_title_tag",
+                "label": "Heading H Tag",
+                "options": [
+                    {
+                        "value": "h1",
+                        "label": "H1"
+                    },
+                    {
+                        "value": "h2",
+                        "label": "H2"
+                    },
+                    {
+                        "value": "h3",
+                        "label": "H3"
+                    },
+                    {
+                        "value": "h4",
+                        "label": "H4"
+                    }, {
+                        "value": "h5",
+                        "label": "H5"
+                    }, {
+                        "value": "h6",
+                        "label": "H6"
+                    }, {
+                        "value": "h7",
+                        "label": "H7"
+                    }, {
+                        "value": "h8",
+                        "label": "H8"
+                    }, {
+                        "value": "h9",
+                        "label": "H9"
+                    }
+                ],
+                "default": "h2"
+            }, {
+                "type": "paragraph",
+                "content": "Sub Title and border"
+            }, {
+                "type": "text",
+                "id": "sub_title",
+                "label": "Sub Title",
+                "default": "Lorem ipsum dolor sit amet"
+            }, {
+                "type": "color",
+                "id": "subtitle_colour",
+                "label": "Sub Title Colour",
+                "info": "Sub Title Colour #1f325d  Blue #f2bf00 yellow",
+                "default": "#FFFFFF"
+            }, {
+                "type": "color",
+                "id": "subtitle_border_colour",
+                "label": "Sub Title Border Colour",
+                "info": "Subtitle Border #1f325d Blue #f2bf00 Yellow",
+                "default": "#f2bf00"
+            }, {
+                "type": "select",
+                "id": "add_subtitle_border",
+                "label": "Add sub title Border",
+                "options": [
+                    {
+                        "value": "",
+                        "label": "No"
+                    }, {
+                        "value": "subtitle-border",
+                        "label": "Yes - Add border to subtitle"
+                    }
+                ],
+                "default": ""
+            }, {
+                "type": "url",
+                "id": "link",
+                "label": "Button Url"
+            }, {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button Text",
+                "default": "Shop Now"
+            }, {
+                "type": "color",
+                "id": "button_text_colour",
+                "label": "Button Text Color",
+                "default": "#ffffff"
+            }, {
+                "type": "color",
+                "id": "button_colour",
+                "label": "Button Colour",
+                "info": "Button #1f325d Blue #f2bf00 Yellow",
+                "default": "#1f325d"
+            }, {
+                "type": "checkbox",
+                "id": "show_promo",
+                "label": "Show Promo Bar",
+                "default": true
+            }
+        ]
+    }
+{% endschema %}

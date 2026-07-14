@@ -1,0 +1,21 @@
+<div class="cms-page">
+  <div class="wrapper">
+    <div class="row">
+      <div class="stores-container">
+        <div class="cms-content">
+          {{ page.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% render 'gtm-page' %}
+
+{% schema %}
+{
+  "name": "Main page",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

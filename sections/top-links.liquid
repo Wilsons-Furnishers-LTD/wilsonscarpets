@@ -1,0 +1,101 @@
+<div id="mastHeadTop">
+    <div class="wrapper">
+        <div class="row">
+            <div class="owl-carousel">
+                {% if section.blocks.size > 0 %}
+                    {% for block in section.blocks %}
+                        <div class="item">
+                            {% if block.settings.link != blank %}
+                                <a href="{{ block.settings.link }}">
+                                {% endif %}
+                                <span class="icon">
+                                    {% if block.settings.svg_icon != blank %}
+                                      {% render 'icons', icon:  block.settings.svg_icon %}
+                                    {% elsif block.settings.fa_icon != blank %}
+                                        <i class="fas {{ block.settings.fa_icon }}"></i>
+                                    {% elsif block.settings.sign_icon != blank %}
+                                        <i class="sign">{{ block.settings.sign_icon }}</i>
+                                    {% else %}
+                                        {% if block.settings.image %}
+                                            <img
+                                                src="{{ block.settings.image | img_url: 'master' }}"
+                                                alt=""
+                                                loading="eager"
+                                                importance="low" />
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+                                <span class="text">
+                                    {% unless block.settings.title == blank %}
+                                        <span class="title">{{ block.settings.title }}</span>
+                                    {% endunless %}
+                                    {% unless block.settings.subheading == blank %}
+                                        <span class="subtitle">
+                                            {{ block.settings.subheading }}
+                                            <i class="icon-chevron-right"></i>
+                                        </span>
+                                    {% endunless %}
+                                </span>
+                                {% if block.settings.link != blank %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Top Messages",
+        "max_blocks": 4,
+        "blocks": [
+            {
+                "type": "image",
+                "name": "Item",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Title",
+                        "default": "Lowest Price Guaranteed"
+                    },
+                    {
+                        "type": "text",
+                        "id": "subheading",
+                        "label": "Subheading",
+                        "default": "Price checked daily"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Link"
+                    }, {
+                        "type": "checkbox",
+                        "id": "show_mobile",
+                        "label": "Show for Mobile"
+                    }, {
+                        "type": "text",
+                        "id": "svg_icon",
+                        "label": "SVG Icon "
+                    }, {
+                        "type": "text",
+                        "id": "fa_icon",
+                        "label": "FontAwesome Icon"
+                    }, {
+                        "type": "text",
+                        "id": "sign_icon",
+                        "label": "Sign Icon"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

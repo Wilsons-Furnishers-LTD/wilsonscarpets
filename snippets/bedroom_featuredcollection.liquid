@@ -1,0 +1,52 @@
+{% case block.settings.add_border_top %}
+	{% when 'add_border_top_yes' %}
+		{%- assign border_top = 'border-top' -%}
+	{% when 'add_border_top_no' %}
+		{%- assign border_top = '' -%}
+{% endcase %}
+
+{% case block.settings.add_border_bottom %}
+	{% when 'add_border_bottom_yes' %}
+		{%- assign border_bottom = 'border-bottom' -%}
+	{% when 'add_border_bottom_no' %}
+		{%- assign border_bottom = '' -%}
+{% endcase %}
+
+<div class="featured-collections">
+    <div class="wrapper">
+		<div class="container {{ border_bottom }} {{ border_top }}">
+			{% if block.settings.title != blank %}
+				<h2 class="title-section">{{ block.settings.title | escape }}</h2>
+			{% endif %}
+
+			{% assign collection = collections[block.settings.collection] %}
+
+			{% assign product_limit = block.settings.grid %}
+
+			<div class="product-grid owl-carousel carousel">
+				{% for product in collection.products limit: product_limit %}
+					{% render 'product-grid-item' %}
+
+					{% else %}
+
+					{% for i in (1..product_limit) %}
+						<div class="item">
+							<div class="grid-view-item">
+								<a href="#" class="grid-view-item__link">
+								<div class="grid-view-item__image">
+									{% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+									{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+								</div>
+								<div class="h4 grid-view-item__title">Product Title</div>
+								<div class="grid-view-item__meta">
+									Product Price
+								</div>
+								</a>
+							</div>
+						</div>
+					{% endfor %}
+				{% endfor %}
+			</div>
+		</div>
+	 </div>
+</div>

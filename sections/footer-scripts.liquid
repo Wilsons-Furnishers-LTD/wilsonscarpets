@@ -1,0 +1,61 @@
+{% assign templateType = template | split:'.' %}
+{% unless templateType[0] == 'blog' or templateType[0] == 'article' %}
+  <script src="{{ 'shop.js' |  asset_url}}"></script>
+{%endunless%}
+  {% if template contains "customers" %}
+    <script src="{{ 'customer.js' |  asset_url}}"></script>
+    {% endif %}
+<script src="{{ 'timber.js' |  asset_url}}" defer></script>
+
+	{% if settings.ajax_cart_method == "drawer" %}
+	<script src="{{ 'handlebars.min.js' |  asset_url}}" defer></script>
+	{% include 'ajax-cart-template' %}
+		<script src="{{ 'ajax-cart.js' |  asset_url}}" defer></script>
+	<script>
+		jQuery(document).ready(function() {
+		ajaxCart.init({
+			formSelector: '#AddToCartForm',
+			cartContainer: '#CartContainer',
+			addToCartSelector: '#AddToCart',
+			cartCountSelector: '#CartCount',
+			cartCostSelector: '#CartCost',
+			moneyFormat: {{ shop.money_format | json }}
+		});
+		ajaxCart.load();
+		});
+
+		jQuery(document.body).on('afterCartLoad.ajaxCart', function(evt, cart) {
+		// Bind to 'afterCartLoad.ajaxCart' to run any javascript after the cart has loaded in the DOM
+
+		});
+	</script>
+	{% endif %}
+  <script src="{{ 'jquery.js' |  asset_url}}"></script>
+  <script src="{{ 'moment.min.js' |  asset_url}}" ></script>
+  <script src="{{ 'moment-timezone-with-data-10-year-range.min.js' |  asset_url}}" defer></script>
+  {% if template == "product" %}
+	<script src="{{ 'jquery.zoom.min.js' |  asset_url}}" defer></script>
+	<script src="{{ 'pinch-zoom.min.js' |  asset_url}}" defer></script>
+	<script src="{{ 'hammer.min.js' |  asset_url}}" defer></script>
+
+  {% endif %}
+
+  {% if templateType[0] == 'collection' %}
+	<script>
+		{% assign temp_current_tags = current_tags | where: "Filter-Colour_" %}
+		{% assign colour_filter = '' %}
+		{% if temp_current_tags.size == 1 %}
+		{% assign colour_filter = current_tags | where: "Filter-Colour_" | first | downcase | replace: 'filter-colour_', '' %}
+		{% endif %}
+
+		var colour_filter = {{colour_filter | json}}
+
+	</script>
+	<script src="{{ 'collection.js' |  asset_url}}"></script>
+  {% endif %}
+
+  <script src="https://js.klevu.com/klevu-js-v1/js/klevuScript.js?klevuapi=klevu-167888826575414734&lang=en&online-carpets-peterborough.myshopify.com"></script>
+  <script>
+
+    jQuery('html').removeClass('no-js').addClass('js');
+  </script>

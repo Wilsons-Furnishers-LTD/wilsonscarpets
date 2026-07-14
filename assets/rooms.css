@@ -1,0 +1,81 @@
+#pagecontainer .top-main-image {
+margin: 0;
+width:100%;
+}
+#pagecontainer {
+padding:0;
+font-family: "Gill Sans Nova", sans-serif;
+color: #414b52;
+text-align: center;
+}
+#pagecontainer * {
+padding:0;
+}
+.top-main-image img {
+width: 100%;
+}
+#pagecontainer .carp {
+width:100%;
+background:#EFEFEF;
+margin: 0 auto;
+text-align: center;
+padding: 5px;
+}
+#pagecontainer .discl {
+font-size: 12px;
+font-weight: 100;
+letter-spacing: 0.6px;
+margin: 40px auto;
+}
+#pagecontainer .discl a {
+font-size: 12px;
+font-weight: 300;
+letter-spacing: 0.6px;
+text-decoration: underline;
+}
+#pagecontainer .pagetitle {
+font-weight: 600;
+font-size: 36px;
+letter-spacing: 0.6px;
+line-height: 46.8px;
+margin: 50px auto 20px;
+}
+#pagecontainer .pagesubtitle1 {
+font-size: 22px;
+font-weight: 400;
+line-height: 28.6px;
+}
+#pagecontainer .rooms {
+width:100%;
+background:#fff;
+margin: 0 auto;
+text-align: center;
+padding: 5px;
+}
+#pagecontainer .p17l {
+font-size: 17px;
+font-weight: 200;
+}
+#pagecontainer .carp a {
+color: #484848;
+font-weight: bold;
+text-decoration: underline;
+}
+
+#pagecontainer .link3 {
+background: #DC2830;
+text-decoration: none;
+font-size: 12px;
+padding: 10px;
+border: none;
+}
+#pagecontainer .link3 > a {
+text-decoration:none;
+color:white;
+letter-spacing:1px;
+font-family: 'Gill Sans Nova', sans-serif;
+}
+.bmoffers {
+width: 30%;
+margin: 2px auto 10px;
+}

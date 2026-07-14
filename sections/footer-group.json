@@ -1,0 +1,23 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "cookie-popup": {
+      "type": "section-cookie-popup",
+      "settings": {}
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "cookie-popup",
+    "footer",
+    "newsletter"
+  ]
+}

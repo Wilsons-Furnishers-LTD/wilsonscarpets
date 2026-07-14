@@ -1,0 +1,110 @@
+{% case block.settings.add_border_top %}
+	{% when 'add_border_top_yes' %}
+		{%- assign border_top = 'border-top' -%}
+	{% when 'add_border_top_no' %}
+		{%- assign border_top = '' -%}
+{% endcase %} 
+
+{% case block.settings.add_border_bottom %}
+	{% when 'add_border_bottom_yes' %}
+		{%- assign border_bottom = 'border-bottom' -%}
+	{% when 'add_border_bottom_no' %}
+		{%- assign border_bottom = '' -%}
+{% endcase %}  
+
+{% case block.settings.image_width %}
+    {% when 'image-twothirds' %}
+    {%- assign image_col_1_width = 'col-wide-8 col-medium-12 col-small-12 col-smallest-12' -%}
+    {%- assign image_col_2_width = 'col-wide-4 col-medium-12 col-small-12 col-smallest-12' -%}
+    {% when 'image-half' %}
+    {%- assign image_col_1_width = 'col-wide-6 col-medium-12 col-small-12 col-smallest-12' -%}
+    {%- assign image_col_2_width = 'col-wide-6 col-medium-12 col-small-12 col-smallest-12' -%}
+    {% when 'image-third' %}
+    {%- assign image_col_1_width = 'col-wide-4 col-medium-12 col-small-12 col-smallest-12' -%}
+    {%- assign image_col_2_width = 'col-wide-8 col-medium-12 col-small-12 col-smallest-12' -%}
+{% endcase %}
+
+<div data-section-id="{{ section.id }}" data-section-type="banner" class="bannergrid two txt-section">
+    <div class="wrapper">
+        <div class="container {{ border_bottom }} {{ border_top }}">
+            <div class="row">
+                <div class="{{ image_col_1_width }}">
+                    {% if block.settings.image_1 %}
+                        {% if block.settings.link_1 != blank %}
+                        <a class="image" href="{{ block.settings.link_1_1 }}">
+                        {% endif %}	
+                        <picture>
+                            <source media="(min-width: 1024px)" srcset="{{ block.settings.image_1 | img_url: '1920x' }}">
+                            {% if block.settings.mobile_image_1 != blank %}
+                                <source srcset="{{ block.settings.mobile_image_1 | img_url: '1920x' }}">
+                            {% endif %}
+                            <img src="{{ block.settings.image_1 | img_url: '1920x' }}" alt="" />
+                        </picture>
+                        {% if block.settings.link_1 != blank %}
+                            </a>
+                        {% endif %}	
+                    {% else %}
+                    <span class="placeholder-background">
+                        {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                        {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                    </span>
+                    {% endif %}
+                    <div class="text-content">
+                        {% unless block.settings.title_1 == blank %}
+                        <h2 class="title">{{ block.settings.title_1 }}</h2>
+                        {% endunless %}
+                        {% unless block.settings.subheading_1 == blank %}
+                        <div class="subtitle">{{ block.settings.subheading_1 }}</div>
+                        {% endunless %}
+                        <div class="buttons-set">
+                        {% if block.settings.link_1_1 != blank %}
+                            <p><a class="btn {% if block.settings.text_color_1 == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_1_1 }}">{{ block.settings.button_text_1_1 }}</a></p>
+                        {% endif %}	
+                        {% if block.settings.link_1_2 != blank %}
+                            <p><a class="btn {% if block.settings.text_color_1 == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_1_2 }}">{{ block.settings.button_text_1_2 }}</a></p>
+                        {% endif %}	
+                        </div>
+                    </div>
+                </div>
+                <div class="{{ image_col_2_width }}">
+                    {% if block.settings.image_2 %}
+                        {% if block.settings.link_2 != blank %}
+                        <a class="image" href="{{ block.settings.link_2_1 }}">
+                        {% endif %}	
+                        <picture>
+                            <source media="(min-width: 1024px)" srcset="{{ block.settings.image_2 | img_url: '1920x' }}">
+                            {% if block.settings.mobile_image_2 != blank %}
+                                <source srcset="{{ block.settings.mobile_image_2 | img_url: '1920x' }}">
+                            {% endif %}
+                            <img src="{{ block.settings.image_2 | img_url: '1920x' }}" alt="" />
+                        </picture>
+                        {% if block.settings.link_2 != blank %}
+                            </a>
+                        {% endif %}	
+                    {% else %}
+                    <span class="placeholder-background">
+                        {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                        {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                    </span>
+                    {% endif %}
+                    <div class="text-content">
+                        {% unless block.settings.title_2 == blank %}
+                        <h2 class="title">{{ block.settings.title_2 }}</h2>
+                        {% endunless %}
+                        {% unless block.settings.subheading_2 == blank %}
+                        <div class="subtitle">{{ block.settings.subheading_2 }}</div>
+                        {% endunless %}
+                        <div class="buttons-set">
+                        {% if block.settings.link_2_1 != blank %}
+                            <p><a class="btn {% if block.settings.text_color_2 == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_2_1 }}">{{ block.settings.button_text_2_1 }}</a></p>
+                        {% endif %}	
+                        {% if block.settings.link_2_2 != blank %}
+                            <p><a class="btn {% if block.settings.text_color_2 == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_2_2 }}">{{ block.settings.button_text_2_2 }}</a></p>
+                        {% endif %}	
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

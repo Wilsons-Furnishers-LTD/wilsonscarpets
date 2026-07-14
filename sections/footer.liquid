@@ -1,0 +1,208 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+{%- capture footerHTML -%}
+<footer class="site-footer" id="mastFooter">
+	<div class="footer-top" itemscope="" itemtype="https://schema.org/Organization">
+		<meta itemprop="url" content="{{ shop.url }}" />
+	<meta itemprop="logo" content="https:{{'wc-logo.png' | asset_url}}"/>
+		<div class="wrapper">
+			<div class="row">
+				{% if shop.phone %}
+	<span itemprop="contactPoint" itemscope="" itemtype="https://schema.org/ContactPoint">
+		{%assign shopPhoneNumber = shop.phone | replace: ' ', '' %}
+
+{% assign splitPhone = shopPhoneNumber | split: '' %}
+{% if splitPhone[0] == '0' %}
+
+
+{%assign shopPhoneNumber = shopPhoneNumber | slice: 1,shopPhoneNumber.size %}
+{% assign shopPhoneNumber = '+44(0)' | append: shopPhoneNumber  %}
+
+{% endif %}
+
+	<meta itemprop="telephone" content="{{shopPhoneNumber}}" />
+	<meta itemprop="contactType" content="customer service" />
+	</span>
+	{% endif %}
+				<p class="sign-up">
+					<a href="#" class="js-open-newsletter"><i class="icon-envelope-open"></i>Sign up to our newsletter for the latest news & offers from {{ shop.name }}</a>
+					<span class="sign-success"><i class="icon-envelope-open"></i> {{ 'general.newsletter_form.confirmation' | t | strip_html}}</span>
+				</p>
+				<ul class="social">
+					<li><span>Follow us on</span></li>
+					<li><a href="https://en-gb.facebook.com/wilsonscarpets" target="_blank" rel="me" itemprop="sameAs"><i class="icon-facebook"></i></a></li>
+					<li><a href="https://www.instagram.com/wilsonscarpetsuk" target="_blank" rel="me" itemprop="sameAs"><i class="icon-instagram"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper">
+		<div class="footer-links">
+			<div class="row">
+				<div class="col-1 col-wide-3">
+					{% assign footer_linklist = section.settings.footer_linklist %}
+                    
+					{% if linklists[footer_linklist].links.size > 0 %}
+					{% comment %} <h6>{{ linklists[footer_linklist].title }}</h6> {% endcomment %}
+					<div class="skip-content">
+						<ul>
+							{% for link in linklists[footer_linklist].links %}
+							<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+				</div>
+				<div class="col-2 col-wide-3">
+					{% assign footer_linklist_two = section.settings.footer_linklist_two %}
+					{% if linklists[footer_linklist_two].links.size > 0 %}
+					<h6>{{ linklists[footer_linklist_two].title }}</h6>
+					<div class="skip-content">
+						<ul>
+							{% for link in linklists[footer_linklist_two].links %}
+							<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+				</div>
+				<div class="col-3 col-wide-3">
+					{% assign footer_linklist_three = section.settings.footer_linklist_three %}
+					{% if linklists[footer_linklist_three].links.size > 0 %}
+					<h6>{{ linklists[footer_linklist_three].title }}</h6>
+					<div class="skip-content">
+						<ul>
+							{% for link in linklists[footer_linklist_three].links %}
+							<li><a href="{{ link.url }}">{{ link.title }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+					<div class="col-inside">
+						{% assign footer_linklist_four = section.settings.footer_linklist_four %}
+						{% if linklists[footer_linklist_four].links.size > 0 %}
+						<h6>{{ linklists[footer_linklist_four].title }}</h6>
+						<div class="skip-content">
+							<ul>
+								{% for link in linklists[footer_linklist_four].links %}
+								<li><span>{{ link.title }}</span></li>
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				<div class="col-4 col-wide-3">
+					{% assign footer_linklist_five = section.settings.footer_linklist_five %}
+					{% if linklists[footer_linklist_five].links.size > 0 %}
+					<h6>{{ linklists[footer_linklist_five].title }}</h6>
+					<div class="skip-content">
+						<ul>
+							{% for link in linklists[footer_linklist_five].links %}
+							<li>
+								{% if link.url contains '#' %}
+								<span>{{ link.title }}</span>
+								{% else %}
+								<a href="{{ link.url }}">{{ link.title }}</a>
+								{% endif %}
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom" itemscope="" itemtype="https://schema.org/Organization">
+			<div class="row">
+				<div class="col-wide-3">
+					<p class="logo">
+                        <a href="{{ shop.url }}">
+                            {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
+                                <img style="width: 100px;" width="100" height="{{section.settings.logo_height}}" src="{{ 'wilsons-beds-logo.svg' |  asset_url }}"  alt="{{ shop.name }}">
+                            {% else %}
+                                <img width="180" height="35" src="{{ 'logo.png' | asset_url }}"  alt="{{ shop.name }}"/>
+                            {% endif %}
+                        </a>
+                    </p>
+				</div>
+				<div class="col-wide-6">
+					<!-- <p class="copyright">Copyright &copy; Online Carpets 2019. All Rights Reserved. Company Registration Number: 8202565</p> -->
+					<p class="copyright">Copyright &copy; {{ shop.name }} {{ 'now' | date: "%Y" }}. {{ section.settings.copyright }}</p>
+				</div>
+				<div class="col-wide-3">
+
+					<p class="payment-logos"><img width="176" height="24" src="{{ 'payments.png' | asset_url }}" alt="Payment Logos"/></p>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+</footer>
+{% comment %}<!-- minify the html output: /-->{% endcomment %}
+{%- endcapture -%}{%- assign footerHTML = footerHTML | replace: "    ", " " | replace: "   ", " " | replace: "  ", " " | strip_newlines -%}{{footerHTML}}
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+		{
+			"type": "link_list",
+			"id": "footer_linklist",
+			"label": "Footer 1"
+		},
+		{
+			"type": "link_list",
+			"id": "footer_linklist_two",
+			"label": "Footer 2"
+		},
+		{
+			"type": "link_list",
+			"id": "footer_linklist_three",
+			"label": "Footer 3"
+		},
+		{
+			"type": "link_list",
+			"id": "footer_linklist_four",
+			"label": "Footer 4"
+		},
+		{
+			"type": "link_list",
+			"id": "footer_linklist_five",
+			"label": "Footer 5"
+		},
+		{
+			"type": "image_picker",
+			"id": "payment_logos",
+			"label": "Payment Logos"
+		},
+		{
+			"type": "text",
+			"id": "copyright",
+			"label": "Copyright",
+			"default": "Lorem ipsum dolor sit amet, consectetur"
+		}
+    ]
+  }
+{% endschema %}
+
+
+
+    
+    
+       
+       
+      
+    
+    
+    
+    

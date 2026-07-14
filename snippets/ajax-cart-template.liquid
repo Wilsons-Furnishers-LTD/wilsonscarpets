@@ -1,0 +1,135 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+{% comment %}
+
+/snippets/ajax-cart-template.liquid
+
+  This snippet provides the default handlebars.js templates for
+  the ajax cart plugin. Use the raw liquid tags to keep the
+  handlebar.js template tags as available hooks.
+
+{% endcomment %}
+  <script id="CartTemplate" type="text/template">
+  {% raw %}
+    <h3 class="count-{{{cartCount}}}">Your Basket</h3>
+    <form action="/cart" method="post" novalidate class="cart ajaxcart">
+      <div class="ajaxcart__inner">
+        {{#items}}
+        <div class="ajaxcart__product">
+          <div class="ajaxcart__row" data-line="{{line}}" data-variant="{{id}}">
+            <div class="row">
+              <div class="item">
+                <a href="{{url}}" class="ajaxcart__product-image"><img src="{{img}}" alt=""></a>
+              </div>
+              <div class="item">
+                <a href="{{url}}" class="ajaxcart__product-name">{{name}}</a>
+                {{#if variation}}
+                  {{#each variation}}
+                      <span class="ajaxcart__product-meta {{name}}" data-value="{{value}}"><span>{{name}}:</span> {{value}}</span>
+                  {{/each}}
+                {{/if}}
+                {{#properties}}
+                  {{#each this}}
+                    {{#if this}}
+                      <span class="ajaxcart__product-meta {{@key}}"><span>{{@key}}:</span> {{this}}</span>
+                    {{/if}}
+                  {{/each}}
+                {{/properties}}{% endraw %}
+                {% if settings.cart_vendor_enable %}{% raw %}
+                  <span class="ajaxcart__product-meta">{{ vendor }}</span>
+                {% endraw %}{% endif %}{% raw %}
+                <div class="row">
+                  <div class="ajaxcart__remove">
+                    <a class="remove" href="#" data-variant-key="{{key}}">Remove</a>
+                  </div>
+                  <div class="ajaxcart__price">
+                    {{#if discountsApplied}}
+                    <small class="ajaxcart-item__price-strikethrough"><s>{{{originalLinePrice}}}</s></small>
+                    <br><span class="price">{{{linePrice}}}</span>
+                    {{else}}
+                    <span class="price">{{{linePrice}}}</span>
+                    {{/if}}
+                    {{#if discountsApplied}}
+                      {{#each discounts}}
+                      <small class="ajaxcart-item__discount">{{ this.title }}</small><br>
+                      {{/each}}
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {{/items}}
+
+        {% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+          <div>
+            <label for="CartSpecialInstructions">{% endraw %}{{ 'cart.general.note' | t }}{% raw %}</label>
+            <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ note }}</textarea>
+          </div>
+        {% endraw %}{% endif %}{% raw %}
+      </div>
+      <div class="ajaxcart__footer">
+        <div class="row">
+          <div class="item">
+            <p>{% endraw %}{{ 'cart.general.subtotal' | t }}{% raw %}</p>
+          </div>
+          <div class="item">
+            <p class="price" id="minicart-total-price">{{{totalPrice}}}</p>
+          </div>
+          {{#if totalCartDiscount}}
+            <p class="ajaxcart__savings text-center"><em>{{{totalCartDiscount}}}</em></p>
+          {{/if}}
+        </div>
+        <div class="buttons-set">
+            <!-- <a href="{{shop.url}}/cart" class="button button-primary cart__checkout" name="checkout">
+                <span>{% endraw %}Checkout{% raw %}</span>
+            </a>
+            <input class="button button-primary" type="submit" name="checkout" value="Checkout">-->
+
+            <a href="{{shop.url}}/checkout" class="button button-primary">
+              <span>{% endraw %}Checkout{% raw %}</span>
+            </a>
+
+            <a href="{{shop.url}}/cart" class="button button-second">
+              <span>View Basket</span>
+            </a>
+
+            <a id="closeBasket" class="button-text js-cart-continue">Continue shopping</a>
+            {% endraw %}
+            {% comment %} {% if additional_checkout_buttons %}
+            <div class="additional_checkout_buttons">{{ content_for_additional_checkout_buttons }}</div>
+            {% endif %} {% endcomment %}
+            {% raw %}
+        </div>
+      </div>
+    </form>
+  {% endraw %}
+  </script>
+  <script id="AjaxQty" type="text/template">
+  {% raw %}
+    <div class="ajaxcart__qty">
+      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus icon-fallback-text" data-id="{{key}}" data-qty="{{itemMinus}}"><i class="icon-minus"></i></button>
+      <input type="number" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*">
+      <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus icon-fallback-text" data-id="{{key}}" data-qty="{{itemAdd}}"><i class="icon-plus"></i></button>
+    </div>
+  {% endraw %}
+  </script>
+  <script id="JsQty" type="text/template">
+  {% raw %}
+    <div class="js-qty">
+      <button type="button" class="js-qty__adjust js-qty__adjust--minus icon-fallback-text" data-id="{{key}}" data-qty="{{itemMinus}}"><i class="icon-minus"></i></button>
+      <input type="number" class="js-qty__num" value="{{itemQty}}" min="0" data-id="{{key}}" aria-label="quantity" pattern="[0-9]*" name="{{inputName}}" id="{{inputId}}">
+      <button type="button" class="js-qty__adjust js-qty__adjust--plus icon-fallback-text" data-id="{{key}}" data-qty="{{itemAdd}}"><i class="icon-plus"></i></button>
+    </div>
+  {% endraw %}
+  </script>

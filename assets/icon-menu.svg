@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="612px" height="792px" viewBox="0 0 612 792" enable-background="new 0 0 612 792" xml:space="preserve">
+<title>hamburger-ui</title>
+<g id="budicon-hamburger-ui">
+	<path d="M85.68,285.84h440.64c7.344,0,12.239-4.896,12.239-12.24c0-7.344-4.896-12.24-12.239-12.24H85.68
+		c-7.344,0-12.24,4.896-12.24,12.24C73.44,280.944,78.336,285.84,85.68,285.84z"/>
+	<path d="M526.32,408.24H85.68c-7.344,0-12.24,4.896-12.24,12.24c0,7.344,4.896,12.239,12.24,12.239h440.64
+		c7.344,0,12.239-4.896,12.239-12.239C538.56,413.136,533.664,408.24,526.32,408.24z"/>
+	<path d="M526.32,555.12H85.68c-7.344,0-12.24,4.896-12.24,12.24c0,7.344,4.896,12.239,12.24,12.239h440.64
+		c7.344,0,12.239-4.896,12.239-12.239C538.56,560.016,533.664,555.12,526.32,555.12z"/>
+</g>
+</svg>

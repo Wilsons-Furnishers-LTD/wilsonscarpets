@@ -1,0 +1,64 @@
+{% case block.settings.add_border_top %}
+	{% when 'add_border_top_yes' %}
+		{%- assign border_top = 'border-top' -%}
+	{% when 'add_border_top_no' %}
+		{%- assign border_top = '' -%}
+{% endcase %} 
+
+{% case block.settings.add_border_bottom %}
+	{% when 'add_border_bottom_yes' %}
+		{%- assign border_bottom = 'border-bottom' -%}
+	{% when 'add_border_bottom_no' %}
+		{%- assign border_bottom = '' -%}
+{% endcase %}  
+
+<div data-section-id="{{ section.id }}" data-section-type="twocolumn-txt-section" class="twocolumn-txt-section txt-section {{ border_top }} {{ border_bottom }}" {% if block.settings.background_color != blank %}style="background-color: {{block.settings.background_color}}" {% endif %}>
+	<div class="wrapper">
+		{% case block.settings.text_align %}
+			{% when 'text-left' %}
+				{%- assign text_direction = 'text-left' -%}
+			{% when 'text-center' %}
+				{%- assign text_direction = 'text-center' -%}
+			{% when 'text-right' %}
+				{%- assign text_direction = 'text-right' -%}
+		{% endcase %}  
+    	<div class="row {{ text_direction }}">
+			<div class="col-wide-6">
+				<div class="text-content">
+					{% if block.settings.title != blank %}
+						{% if block.settings.is_title_h1 == 'is_title_h1_yes' %}
+							<h1>
+								{{ block.settings.title | escape }}
+							</h1>
+						{% else %}
+							<h2>
+								{{ block.settings.title | escape }}
+							</h2>
+						{% endif %}
+					{% endif %}
+					{% if block.settings.content != blank %}
+						{{ block.settings.content }}
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-wide-6">
+				<div class="text-content">
+					{% if block.settings.title2 != blank %}
+						{% if block.settings.is_title_h1_2 == 'is_title_h1_yes' %}
+							<h1>
+								{{ block.settings.title2 | escape }}
+							</h1>
+						{% else %}
+							<h2>
+								{{ block.settings.title2 | escape }}
+							</h2>
+						{% endif %}
+					{% endif %}
+					{% if block.settings.content2 != blank %}
+						{{ block.settings.content2 }}
+					{% endif %}
+				</div>
+			</div>
+        </div>
+	</div>
+</div>

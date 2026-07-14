@@ -1,0 +1,377 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+
+	{% assign canonical =  canonical_url | replace: shop.url, '' %}
+	{% assign haveCanonical =  true %}
+	{% assign robots_meta =  '' %}
+	{% case canonical %}
+		{% when '/collections/carpets/filter-colour_beige' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_grey' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_blue' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_brown' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_cream' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_green' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_grey' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_multi' %}
+			{% assign canonical = shop.url | append: '/collections/multi-coloured-carpets' %}
+		{% when '/collections/carpets/filter-colour_pink' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_multi' %}
+			{% assign canonical = shop.url | append: '/collections/multi-coloured-carpets' %}
+		{% when '/collections/carpets/filter-colour_purple' %}
+			{% assign canonical = shop.url | append: '/collections/purple-carpets' %}
+		{% when '/collections/carpets/filter-colour_red' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/filter-colour_white' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/backing_action-hessian-backing' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/backing_felt-backing' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/backing_foam-backing' %}
+			{% assign canonical = shop.url | append: '/collections/cord-carpet' %}
+		{% when '/collections/carpets/backing_fusion-backing' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/backing_gel-backing' %}
+			{% assign canonical = shop.url | append: '/collections/gel-backed-carpets' %}
+		{% when '/collections/carpets/backing_foam-backing' %}
+			{% assign canonical = shop.url | append: '/collections/cord-carpet' %}
+		{% when '/collections/carpets/backing_woven-backing' %}
+			{% assign canonical = shop.url | append: '/collections/woven-backing' %}
+		{% when '/collections/carpets/manufacturer_abingdon-carpets' %}
+			{% assign canonical = shop.url | append: '/collections/abingdon-carpets' %}
+		{% when '/collections/carpets/manufacturer_associated-weavers' %}
+			{% assign canonical = shop.url | append: '/collections/associated-weavers-carpets' %}
+		{% when '/collections/carpets/manufacturer_cormar' %}
+			{% assign canonical = shop.url | append: '/collections/cormar-carpets' %}
+		{% when '/collections/carpets/material_100-polyamide' %}
+			{% assign canonical = shop.url | append: '/collections/polyamide-carpets' %}
+		{% when '/collections/carpets/material_100-polypropylene' %}
+			{% assign canonical = shop.url | append: '/collections/polypropylene-carpets' %}
+		{% when '/collections/carpets/material_100-wool' %}
+			{% assign canonical = shop.url | append: '/collections/wool-carpets' %}
+		{% when '/collections/carpets/material_polyester' %}
+			{% assign canonical = shop.url | append: '/collections/polyester-carpets' %}
+		{% when '/collections/carpets/material_wool-mix' %}
+			{% assign canonical = shop.url | append: '/collections/wool-carpets' %}
+		{% when '/collections/carpets/style_cut-and-loop-pile' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/style_deep-pile-saxony' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/style_kids-childrens' %}
+			{% assign canonical = shop.url | append: '/collections/kids-carpets' %}
+		{% when '/collections/carpets/style_loop-pile' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/style_outdoor-carpet' %}
+			{% assign canonical = shop.url | append: '/collections/outdoor-carpet' %}
+		{% when '/collections/carpets/style_patterned' %}
+			{% assign canonical = shop.url | append: '/collections/patterned-carpets' %}
+		{% when '/collections/carpets/style_sparkle' %}
+			{% assign canonical = shop.url | append: '/collections/sparkle-carpets' %}
+		{% when '/collections/carpets/style_twist-pile' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/width_4m' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/width_5m' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+		{% when '/collections/carpets/style_sparkle' %}
+			{% assign canonical = shop.url | append: '/collections/sparkle-carpets' %}
+		{% when '/collections/vinyl-flooring/filter-colour_beige' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_pink' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_cream' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_black' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_blue' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_brown' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_green' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_grey' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_multi' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_red' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_white' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/filter-colour_yellow' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/backing_foam-backing' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/backing_felt-backing' %}
+			{% assign canonical = shop.url | append: '/collections/felt-backed-vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/manufacturer_tarkett' %}
+			{% assign canonical = shop.url | append: '/collections/tarkett-vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/style_patterned' %}
+			{% assign canonical = shop.url | append: '/collections/patterned-vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/style_plain' %}
+			{% assign canonical = shop.url | append: '/collections/plain-vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/style_stone-effect' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/style_tile-effect' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/style_wood-effect' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/tile-vinyl-flooring/width_2m' %}
+			{% assign canonical = shop.url | append: '/collections/2m-wide-vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/width_3m' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/vinyl-flooring/width_4m' %}
+			{% assign canonical = shop.url | append: '/collections/vinyl-flooring' %}
+		{% when '/collections/laminate-flooring/filter-colour_beige' %}
+			{% assign canonical = shop.url | append: '/collections/oak-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/filter-colour_black' %}
+			{% assign canonical = shop.url | append: '/collections/black-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/filter-colour_brown' %}
+			{% assign canonical = shop.url | append: '/collections/walnut-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/filter-colour_cream' %}
+			{% assign canonical = shop.url | append: '/collections/beech-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/filter-colour_grey' %}
+			{% assign canonical = shop.url | append: '/collections/grey-laminate-flooring' %}
+		{% when '/collections/grey-laminate-flooring/filter-colour_white' %}
+			{% assign canonical = shop.url | append: '/collections/white-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/manufacturer_balterio' %}
+			{% assign canonical = shop.url | append: '/collections/balterio-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/shade_light' %}
+			{% assign canonical = shop.url | append: '/collections/light-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/shade_medium' %}
+			{% assign canonical = shop.url | append: '/collections/medium-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/shade_dark' %}
+			{% assign canonical = shop.url | append: '/collections/dark-laminate-flooring' %}
+		{% when '/collections/laminate-flooring/thickness_6mm', '/collections/laminate-flooring/thickness_7mm' %}
+			{% assign canonical = shop.url | append: '/collections/under-8mm' %}
+		{% when '/collections/laminate-flooring/thickness_8mm', '/collections/laminate-flooring/thickness_9mm' %}
+			{% assign canonical = shop.url | append: '/collections/8mm-10mm' %}
+		{% when '/collections/laminate-flooring/thickness_12mm' %}
+			{% assign canonical = shop.url | append: '/collections/over-10mm' %}
+		{% when '/collections/lvt/filter-colour_beige' %}
+			{% assign canonical = shop.url | append: '/collections/oak-lvt' %}
+		{% when '/collections/lvt/filter-colour_black' %}
+			{% assign canonical = shop.url | append: '/collections/black-lvt' %}
+		{% when '/collections/lvt/filter-colour_brown' %}
+			{% assign canonical = shop.url | append: '/collections/dark-lvt' %}
+		{% when '/collections/lvt/style_tile' %}
+			{% assign canonical = shop.url | append: '/collections/tile-lvt' %}
+		{% when '/collections/lvt/style_wood' %}
+			{% assign canonical = shop.url | append: '/collections/wood-lvt' %}
+		{% when '/collections/rugs/filter-colour_beige' %}
+			{% assign canonical = shop.url | append: '/collections/beige-rugs' %}
+		{% when '/collections/rugs/filter-colour_brown' %}
+			{% assign canonical = shop.url | append: '/collections/brown-rugs' %}
+		{% when '/collections/rugs/filter-colour_cream' %}
+			{% assign canonical = shop.url | append: '/collections/cream-rugs' %}
+		{% when '/collections/rugs/filter-colour_grey' %}
+			{% assign canonical = shop.url | append: '/collections/grey-rugs' %}
+		{% when '/collections/rugs/filter-colour_pink' %}
+			{% assign canonical = shop.url | append: '/collections/pink-rugs' %}
+		{% when '/collections/rugs/filter-colour_purple' %}
+			{% assign canonical = shop.url | append: '/collections/purple-rugs' %}
+		{% when '/collections/rugs/filter-colour_red' %}
+			{% assign canonical = shop.url | append: '/collections/red-rugs' %}
+		{% when '/collections/rugs/style_twist-pile' %}
+			{% assign canonical = shop.url | append: '/collections/twist-pile-rugs' %}
+		{% when '/collections/rugs/filter-colour_grey' %}
+			{% assign canonical = shop.url | append: '/collections/grey-rugs' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_realistic-grass' %}
+			{% assign canonical = shop.url | append: '/collections/artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% when '/collections/artificial-grass/style_budget-grass' %}
+			{% assign canonical = shop.url | append: '/collections/budget-artificial-grass' %}
+		{% comment %} {% when '/collections/carpets/backing_latex-backing', '/collections/carpets/width_1m', '/collections/carpets/width_2m', '/collections/carpets/thickness_2-5mm',
+			'/collections/carpets/thickness_3mm', '/collections/carpets/thickness_4mm', '/collections/carpets/thickness_5mm',
+			'/collections/carpets/thickness_6mm', '/collections/carpets/thickness_7mm', '/collections/carpets/thickness_8mm',
+			'/collections/carpets/thickness_8-5mm', '/collections/carpets/thickness_9mm', '/collections/carpets/thickness_9-5mm',
+			'/collections/carpets/thickness_9-6mm', '/collections/carpets/thickness_10mm', '/collections/carpets/thickness_10-5mm',
+			'/collections/carpets/thickness_11mm', '/collections/carpets/thickness_11-6mm', '/collections/carpets/thickness_11-7mm',
+			'/collections/carpets/thickness_12mm', '/collections/carpets/thickness_12-5mm', '/collections/carpets/thickness_13mm',
+			'/collections/carpets/thickness_13-5mm', '/collections/carpets/thickness_14mm', '/collections/carpets/thickness_14-5mm',
+			'/collections/carpets/thickness_15mm', '/collections/carpets/thickness_15-5mm', '/collections/carpets/thickness_16mm',
+			'/collections/carpets/thickness_16-5mm', '/collections/carpets/thickness_17mm', '/collections/carpets/thickness_17-5mm',
+			'/collections/carpets/thickness_18mm', '/collections/carpets/thickness_19mm', '/collections/carpets/thickness_19-5mm',
+			'/collections/carpets/thickness_20mm', '/collections/carpets/thickness_20-5mm', '/collections/lvt/thickness_2-5mm',
+			'/collections/lvt/thickness_4-5mm', '/collections/lvt/thickness_5mm', '/collections/rugs/filter-colour_white',
+			'/collections/rugs/material_100-polypropylene', '/collections/rugs/material_polyester' , '/collections/rugs/thickness_2-7cm',
+			'/collections/rugs/thickness_4-2cm', '/collections/rugs/thickness_5-2cm', '/collections/rugs/thickness_8mm',
+			'/collections/artificial-grass/backing_latex-backing', '/collections/artificial-grass/backing_latex-backing-drainage-holes',
+			'/collections/artificial-grass/material_100-polypropylene', '/collections/artificial-grass/thickness_5mm', '/collections/artificial-grass/thickness_6mm',
+			'/collections/artificial-grass/thickness_7-5mm', '/collections/artificial-grass/thickness_13mm', '/collections/artificial-grass/thickness_15mm',
+			'/collections/artificial-grass/thickness_17mm', '/collections/artificial-grass/thickness_19mm', '/collections/artificial-grass/thickness_20mm',
+			'/collections/artificial-grass/thickness_22mm', '/collections/artificial-grass/thickness_25mm','/collections/artificial-grass/thickness_27mm',
+			'/collections/artificial-grass/thickness_30mm', '/collections/artificial-grass/thickness_32mm', '/collections/artificial-grass/thickness_37mm',
+			'/collections/artificial-grass/thickness_40mm', '/collections/artificial-grass/thickness_42mm', '/collections/artificial-grass/thickness_47mm',
+			'/collections/artificial-grass/width_2m', '/collections/artificial-grass/width_4m', '/collections/artificial-grass/width_5m',
+			'/collections/accessories/filter-colour_beige', '/collections/accessories/filter-colour_brown', '/collections/accessories/filter-colour_cream',
+			'/collections/accessories/filter-colour_grey', '/collections/accessories/filter-colour_white', '/collections/accessories/manufacturer_ball-young',
+			'/collections/accessories/manufacturer_tredaire', '/collections/accessories/style_wood-effect', '/collections/accessories/tape-width_200mm',
+			'/collections/accessories/thickness_3mm', '/collections/accessories/thickness_5mm', '/collections/accessories/thickness_6mm',
+			'/collections/accessories/thickness_8mm', '/collections/accessories/thickness_9mm', '/collections/accessories/thickness_9mm-approx',
+			'/collections/accessories/thickness_10mm', '/collections/accessories/thickness_11mm', '/collections/accessories/thickness_12mm',
+			'/collections/accessories/thickness_15mm' %}
+			{% assign haveCanonical =  false %}
+			{% capture robots_meta %}
+				<meta name="robots" content="noodp,noydir">
+				<meta name="robots" content="noindex" />
+			{% endcapture %}
+		 {% endcomment %}
+		{% when '/collections/carpets/backing_latex-backing' %}
+			{% assign canonical = shop.url | append: '/collections/carpets-by-backing' %}
+
+		{% when '/collections/carpets/width_1m', '/collections/carpets/width_2m' %}
+			{% assign canonical = shop.url | append: '/collections/width' %}
+
+		{% when '/collections/carpets/thickness_2-5mm',
+			'/collections/carpets/thickness_3mm', '/collections/carpets/thickness_4mm', '/collections/carpets/thickness_5mm',
+			'/collections/carpets/thickness_6mm', '/collections/carpets/thickness_7mm', '/collections/carpets/thickness_8mm',
+			'/collections/carpets/thickness_8-5mm', '/collections/carpets/thickness_9mm', '/collections/carpets/thickness_9-5mm',
+			'/collections/carpets/thickness_9-6mm', '/collections/carpets/thickness_10mm', '/collections/carpets/thickness_10-5mm',
+			'/collections/carpets/thickness_11mm', '/collections/carpets/thickness_11-6mm', '/collections/carpets/thickness_11-7mm',
+			'/collections/carpets/thickness_12mm', '/collections/carpets/thickness_12-5mm', '/collections/carpets/thickness_13mm',
+			'/collections/carpets/thickness_13-5mm', '/collections/carpets/thickness_14mm', '/collections/carpets/thickness_14-5mm',
+			'/collections/carpets/thickness_15mm', '/collections/carpets/thickness_15-5mm', '/collections/carpets/thickness_16mm',
+			'/collections/carpets/thickness_16-5mm', '/collections/carpets/thickness_17mm', '/collections/carpets/thickness_17-5mm',
+			'/collections/carpets/thickness_18mm', '/collections/carpets/thickness_19mm', '/collections/carpets/thickness_19-5mm',
+			'/collections/carpets/thickness_20mm', '/collections/carpets/thickness_20-5mm' %}
+			{% assign canonical = shop.url | append: '/collections/carpets' %}
+
+		{% when '/collections/lvt/thickness_2-5mm',
+			'/collections/lvt/thickness_4-5mm', '/collections/lvt/thickness_5mm' %}
+			{% assign canonical = shop.url | append: '/collections/lvt' %}
+
+		{% when '/collections/rugs/filter-colour_white' %}
+			{% assign canonical = shop.url | append: '/collections/cream-rugs' %}
+
+		{% when '/collections/rugs/material_100-polypropylene', '/collections/rugs/material_polyester' , '/collections/rugs/thickness_2-7cm',
+			'/collections/rugs/thickness_4-2cm', '/collections/rugs/thickness_5-2cm', '/collections/rugs/thickness_8mm' %}
+			{% assign canonical = shop.url | append: '/collections/rugs' %}
+
+		{% when '/collections/artificial-grass/backing_latex-backing', '/collections/artificial-grass/backing_latex-backing-drainage-holes',
+			'/collections/artificial-grass/material_100-polypropylene', '/collections/artificial-grass/thickness_5mm', '/collections/artificial-grass/thickness_6mm',
+			'/collections/artificial-grass/thickness_7-5mm', '/collections/artificial-grass/thickness_13mm', '/collections/artificial-grass/thickness_15mm',
+			'/collections/artificial-grass/thickness_17mm', '/collections/artificial-grass/thickness_19mm', '/collections/artificial-grass/thickness_20mm',
+			'/collections/artificial-grass/thickness_22mm', '/collections/artificial-grass/thickness_25mm','/collections/artificial-grass/thickness_27mm',
+			'/collections/artificial-grass/thickness_30mm', '/collections/artificial-grass/thickness_32mm', '/collections/artificial-grass/thickness_37mm',
+			'/collections/artificial-grass/thickness_40mm', '/collections/artificial-grass/thickness_42mm', '/collections/artificial-grass/thickness_47mm',
+			'/collections/artificial-grass/width_2m', '/collections/artificial-grass/width_4m', '/collections/artificial-grass/width_5m' %}
+			{% assign canonical = shop.url | append: '/collections/artificial-grass' %}
+
+		{% when '/collections/accessories/filter-colour_beige', '/collections/accessories/filter-colour_brown', '/collections/accessories/filter-colour_cream',
+			'/collections/accessories/filter-colour_grey', '/collections/accessories/filter-colour_white', '/collections/accessories/manufacturer_ball-young',
+			'/collections/accessories/manufacturer_tredaire', '/collections/accessories/style_wood-effect', '/collections/accessories/tape-width_200mm',
+			'/collections/accessories/thickness_3mm', '/collections/accessories/thickness_5mm', '/collections/accessories/thickness_6mm',
+			'/collections/accessories/thickness_8mm', '/collections/accessories/thickness_9mm', '/collections/accessories/thickness_9mm-approx',
+			'/collections/accessories/thickness_10mm', '/collections/accessories/thickness_11mm', '/collections/accessories/thickness_12mm',
+			'/collections/accessories/thickness_15mm' %}
+			{% assign canonical = shop.url | append: '/collections/accessories' %}
+
+
+	{% endcase %}
+
+	{% if template.name == 'search' %}
+		{% assign canonical =  '/search' %}
+	{% endif  %}
+
+	{% if template.name == 'product' %}
+		{% assign productTags = product.tags %}
+		{% assign cloneProductTags = productTags | join: ', ' %}
+		{% if cloneProductTags contains 'clone product' and cloneProductTags contains 'parent_' %}
+			{% for tag in productTags %}
+				{% if tag contains 'parent_'%}
+					{% assign parent_url_p = tag | replace: 'parent_', '' %}
+					{% assign canonical = shop.url | append: '/products/' | append: parent_url_p %}
+					{% break %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+
+		{% if product.type == "Sample" %}
+			{% for tag in productTags %}
+				{% if tag contains 'parent_'%}
+					{% assign parent_url_p = tag | replace: 'parent_', '' %}
+					{% assign canonical = shop.url | append: '/products/' | append: parent_url_p %}
+					{% break %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	{% endif  %}
+
+	{% comment %} {% assign robots_meta = robots_meta | strip %} {% endcomment %}
+
+	{% if template.name == '404' %}
+		<script>
+			const href = window.location.href;
+			const re = /(.*?)(-\d?-?\d*m-x)/;
+			const found = href.match(re);
+			if(found.length > 2){
+				var xmlhttp = new XMLHttpRequest();
+
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == XMLHttpRequest.DONE) {   // XMLHttpRequest.DONE == 4
+						if (xmlhttp.status == 200) {
+							//console.log(xmlhttp.response)
+							var link=document.createElement('link');
+							link.href=found[1];
+							link.rel='canonical';
+							document.head.appendChild(link);
+
+							window.location = found[1];
+						}
+						else if (xmlhttp.status == 400) {
+							//alert('There was an error 400');
+						}
+						else {
+							//alert('something else other than 200 was returned');
+						}
+					}
+				};
+
+				xmlhttp.open("GET", found[1] + '.js', true);
+				xmlhttp.send();
+			}
+		</script>
+	{% else %}
+
+		{% if haveCanonical %}
+			<link rel="canonical" href="{{ canonical | split: "?" | first }}" />
+		{% else %}
+			<link rel="canonical" href="" />
+		{% endif %}
+	{% endif %}
+
+	{% if robots_meta != '' %}
+			{{ robots_meta }}
+	{% endif %}

@@ -1,0 +1,11 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+  analytics.track('Viewed Page', {
+    title: "{{ page.title }}",
+    url: "{{ page.url }}",
+    author: "{{ page.author }}",
+    handle: "{{ page.handle }}",
+    id: "{{ page.id }}"
+  });
+</script>
+{% endunless %}

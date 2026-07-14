@@ -1,0 +1,23 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "top-links": {
+      "type": "top-links",
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    },
+    "promo-bar": {
+      "type": "promo-bar",
+      "settings": {}
+    }
+  },
+  "order": [
+    "top-links",
+    "header",
+    "promo-bar"
+  ]
+}

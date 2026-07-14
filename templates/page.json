@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-content-page",
+      "blocks": {
+        "cms_sidebar": {
+          "type": "cms_page_left",
+        "settings": {
+            "cms_heading": "Information Pages",
+            "cms_linklist": "information-pages",
+            "cms_linklist_two": "customer-service",
+            "cms_linklist_three": "about-us"
+          }
+        }
+      },
+      "block_order": [
+        "cms_sidebar"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

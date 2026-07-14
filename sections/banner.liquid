@@ -1,0 +1,125 @@
+<div data-section-id="{{ section.id }}" data-section-type="banner" class="banner-one">
+    {% if section.blocks.size > 0 %}
+        <div class="row">
+        {% for block in section.blocks %}
+            <div class="col-wide-12 col-img {{ block.settings.text_color | escape }}">
+                {% if block.settings.link != blank %}
+                    <a class="image" href="{{ block.settings.link }}">
+                {% endif %}	
+                {% if block.settings.image %}
+                    <picture>
+                        <source media="(min-width: 1440px)" srcset="{{ block.settings.image | img_url: 'master' }}">
+                        <source media="(min-width: 1390px)" srcset="{{ block.settings.image | img_url: '1440x' }}">
+                        <source media="(min-width: 1340px)" srcset="{{ block.settings.image | img_url: '1390x' }}">
+                        <source media="(min-width: 1280px)" srcset="{{ block.settings.image | img_url: '1340x' }}">
+                        <source media="(min-width: 1024px)" srcset="{{ block.settings.image | img_url: '1280x' }}">
+                        <source media="(min-width: 768px)" srcset="{{ block.settings.image | img_url: '1024x640', crop: 'center' }}">
+                        {% if block.settings.mobile_image != blank %}
+                            <source media="(min-width: 540px)" srcset="{{ block.settings.mobile_image | img_url: 'master' }}">
+                        {% else %}
+                            <source media="(min-width: 540px)" srcset="{{ block.settings.image | img_url: '640x600', crop: 'center' }}">
+                        {% endif %}
+
+     {% if block.settings.mobile_image != blank %}
+                            <source srcset="{{ block.settings.mobile_image | img_url: '540x' }}">
+                        {% else %}
+                            <source srcset="{{ block.settings.image | img_url: '540x506', crop: 'center' }}">
+                        {% endif %}
+
+                        <img width="1600" height="533" loading="lazy" importance="low" src="{{ block.settings.image | img_url: 'master' }}" alt="" />
+                    </picture>
+                {% else %}
+                <span class="placeholder-background">
+                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                </span>
+                {% endif %}
+                {% if block.settings.link != blank %}
+                    </a>
+                {% endif %}	
+                <div class="text-wrap overlay">
+                    <div class="wrapper">
+                        <div class="text-content">
+                            {% unless block.settings.title == blank %}
+                            <h2 class="title">{{ block.settings.title }}</h2>
+                            {% endunless %}
+                            {% unless block.settings.subheading == blank %}
+                            <p class="subtitle">{{ block.settings.subheading }}</p>
+                            {% endunless %}
+                            <a class="button" href="{{ block.settings.link }}">{{ block.settings.button_text }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% schema %}
+    {
+        "name": "Banner",
+        "class": "index-section",
+        "max_blocks": 1,
+        "blocks": [
+            {
+                "type": "image",
+                "name": "Banner",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "image_picker",
+                        "id": "mobile_image",
+                        "label": "Mobile Image"
+                    },
+                    {
+                        "type": "select",
+                        "id": "text_color",
+                        "label": "Text color",
+                        "options": [
+                            { "value": "text-light", "label": "Light" },
+                            { "value": "text-dark", "label": "Dark" }
+                        ],
+                        "default": "text-light"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Heading",
+                        "default": "Image slide"
+                    },
+                    {
+                        "type": "text",
+                        "id": "subheading",
+                        "label": "Subheading",
+                        "default": "Lorem ipsum dolor sit amet, consectetur"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Link"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_text",
+                        "label": "Button Text",
+                        "default": "Shop Now"
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "Banner",
+            "category": "Image",
+            "blocks": [
+                {
+                    "type": "image"
+                }
+            ]
+        }]
+    }
+{% endschema %}

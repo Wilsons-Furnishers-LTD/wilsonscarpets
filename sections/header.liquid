@@ -1,0 +1,534 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+
+<div data-section-id="{{ section.id }}" data-section-type="header-section">
+    <header id="mastHead" itemscope itemtype="https://schema.org/WebSite">
+        {% if page_description %}
+            <meta itemprop="description" content="{{ page_description }}" />
+        {% endif %}
+        <meta itemprop="name" content="{{ shop.name }}" />
+        <div class="wrapper">
+            <div class="row">
+                <a href="#" id="menuToggle" class="hide-for-desktop"><i class="ico-menu"></i></a>
+                <a href="{{ shop.url }}" id="logo" itemprop="url" class="logo">
+                    {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
+                        <img width="{{section.settings.logo_width}}" height="{{section.settings.logo_height}}" src="{{ 'wilsons-beds-logo.svg' |  asset_url }}"  alt="{{ shop.name }}">
+                    {% else %}
+                        {% if section.settings.logo_svg != blank %}
+                        <img width="{{section.settings.logo_width}}" height="{{section.settings.logo_height}}" src="{{ section.settings.logo_svg }}"  alt="{{ shop.name }}">
+                        {% elsif section.settings.logo %}
+                        <img width="{{section.settings.logo_width}}" height="{{section.settings.logo_height}}" src="{{ section.settings.logo | img_url: 'master' }} "  alt="{{ shop.name }}">
+                        {% else %}
+                        <img width="200" height="39" src="{{ 'logo.svg' | asset_url }}"  alt="{{ shop.name }}">
+                        {% endif %}
+                    {% endif %}
+                </a>
+                    
+
+                <div class="miniCart">
+                    <a href="/cart" id="basketToggle">
+                      <span class="txt"><img width="23" height="26" src="{{ 'icon-bag.svg' | asset_url }}"  alt=""></span>
+                      <span id="CartCount">{%- liquid
+                          assign item_quantity = 0
+                          for item in cart.items
+                            assign quantity_prop = item.properties | where: 0, 'Quantity' | first
+                            if quantity_prop
+                              assign item_quantity = item_quantity | plus: quantity_prop.last
+                              continue
+                            endif
+                            assign item_quantity = item_quantity | plus: item.quantity
+                          endfor
+                          echo item_quantity
+                        -%}</span>
+                    </a>
+                    <div id="cart-container" class="  {%- unless settings.free_delivery_enabled -%}cart-container-outer{%- endunless-%}">
+
+                      {% if settings.free_delivery_enabled %}
+                        <label class="delivery-progress  js-cart-freeshipping-progress">
+
+                          {%- liquid
+                            assign remaining = settings.free_delivery_threshold | minus: cart.total_price
+                            if remaining > 0
+                              assign remaining_money = remaining | money
+                              assign label = 'general.free_delivery.in_progress_html' | t: money: remaining_money
+                            else
+                              assign label = 'general.free_delivery.completed' | t
+                            endif
+                          -%}
+
+                          <span class="delivery-progress__label  js-cart-freeshipping-label">{{ label }}</span>
+                          <progress max="{{ settings.free_delivery_threshold }}" value="{{ cart.total_price }}"></progress>
+                        </label>
+                      {% endif %}
+
+                        <div id="CartContainer"></div>
+                    </div>
+                </div>
+
+                {% if shop.customer_accounts_enabled %}
+                  <div class="customer hide-for-mobi" hidden>
+                      <a id="accountToggle" class="account" href="/account"><i class="icon-user"></i></a>
+                      <div id="account-container" class="dropdown">
+                          <div class="content">
+                              <h4>My Account</h4>
+                              <ul>
+                                  {% if customer %}
+                                      <li>{{ 'Sign out' | customer_logout_link }}</li>
+                                  {% else %}
+                                  <li>{{ 'Sign in' | customer_login_link }}</li>
+                                  {% if shop.customer_accounts_optional %}
+                                  <li>{{ 'Register' | customer_register_link }}</li>
+                                  {% endif %}
+                                  {% endif %}
+                                  <li><a href="/account">Account Dashboard</a></li>
+                                  <li><a href="/pages/my-orders">My Orders</a></li>
+                                  <li><a href="/account/addresses">Address Book</a></li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+                  {% endif %}
+
+
+                <a href="{{ section.settings.location_url }}" class="location location--mobile">
+                  <span class="location__icon icon"><img src="{{ 'icon-location.svg' | asset_url }}" alt="location"></span>
+                  <div class="location__text">{{ section.settings.location_text }}</div>
+                </a>
+
+                <a href="#" id="searchToggle" class="search-trigger  hide-for-desktop"><i class="icon-search"></i></a>
+
+                <div id="search-container">
+                  <div class="search">
+                      <form action="/search" method="get" class="search-form" role="search" itemprop="potentialAction" itemscope itemtype="https://schema.org/SearchAction">
+                          <meta itemprop="target" content="{{shop.url}}/search?q={q}"/>
+                          <input
+                              type="search"
+                              itemprop="query-input"
+                              id="search-input"
+                              placeholder="Search our store here"
+                              value="{{ search.terms | replace: '-tag:clone+product', '' | replace: ' -tag:Sample', '' | replace: '-product_type:Discontinued+Flooring', '' | strip | escape }}"
+                              name="q"
+                          />
+                          {% comment %} <input type="hidden" name="type" value="product" /> {% endcomment %}
+                          <button type="submit" id="search-submit" class="hide-for-mobi"><i class="icon-search"></i></button>
+
+
+                      </form>
+                      <!-- <div id="search-suggestions" class="dropdown">
+                          <div class="popular-searches">
+                              <h4>Popular Searches</h4>
+                              <ul>
+                              {% for link in linklists.search-suggestions.links %}
+                                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                              {% endfor %}
+                              </ul>
+                          </div>
+                          <div class="product-suggestions">
+
+                          </div>
+                      </div> -->
+                      <div id="suggess-ajax"></div>
+                  </div>
+              </div>
+
+            </div>
+        </div>
+        <div id="navigation">
+            <div class="container">
+                <nav class="nav-inner wrapper">
+                    <ul class="nav-primary">
+                        <li class="level0 menu">
+                            <span class="level0">Menu</span>
+                        </li>
+                        <li class="level0 phone">
+                          <a href="{{ section.settings.location_url }}" class="location  location--nav">
+                            <span class="location__icon icon"><img src="{{ 'icon-location.svg' | asset_url }}" alt="add to wishlist" height="26"></span>
+                            <div class="location__text">{{ section.settings.location_text }}</div>
+                          </a>
+                        </li>
+                        {% for link in linklists.wilsons-main-menu.links %}
+                            {% assign _tooltip = link.title | handle %}
+                            {% assign _link = link.title | downcase | replace: ' & ', '-' | replace: ' ', '-' %}
+                            {% comment %} Tooltip {% endcomment %}
+                            {% assign tooltip = '' %}
+                            {% if linklists[_tooltip].links.size > 0 %}
+                                {% for tooltip_el in linklists[_tooltip].links %}
+                                    {% assign tooltip = tooltip_el.title %}
+                                {% endfor %}
+                            {% endif %}
+
+                            {% comment %} Link Active {% endcomment %}
+                            {% assign parent_link_active = false %}
+                            {% if linklists[_link].links.size > 0 %}
+                            {% for link in linklists[_link].links %}
+                                {% assign child_list_handle = link.title | handle %}
+                                {% if linklists[child_list_handle].links.size > 0 %}
+                                {% for child_link in linklists[child_list_handle].links %}
+                                    {% if child_link.active %}
+                                        {% assign parent_link_active = true %}
+                                    {% endif %}
+                                    {% assign grand_child_list_handle = child_link.title | handle %}
+                                    {% if linklists[grand_child_list_handle].links.size > 0 %}
+                                    {% for grand_child_link in linklists[grand_child_list_handle].links %}
+                                        {% if grand_child_link.active %}
+                                            {% assign parent_link_active = true %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            {% endif %}
+
+                            <li class="level0 {{ link.handle }} {% if linklists[_link].links.size > 0 %}parent{% endif %}">
+                                {% if linklists[_link].links.size > 0 %}<div class="level0 wrap">{% endif %}
+                                    <a href="{{ link.url }}" class="level0 {% if link.current or parent_link_active %} current{% endif %}" data-tooltip="{{ tooltip }}">{{ link.title }}</a>
+                                {% if linklists[_link].links.size > 0 %}
+                                <span class="toggle-parent hide-for-desktop">{{ link.title }}</span>
+                                </div>
+                                <div class="nav-drop">
+                                    <div class="top hide-for-mobi">
+                                        <div class="wrapper">
+                                            <h3>{{ link.title | prepend: 'View all ' }} <a class="button small" href="{{ link.url }}">Shop Now</a></h3>
+                                            <span>{{ tooltip }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="wrapper">
+                                        <div class="row">
+                                        <div class="hide-for-desktop">
+                                            <ul class="level1">
+                                                <li class="level1 "><span class="toggle-parent back"><span>Back</span>{{ link.title }}</span></li>
+                                                <li class="level1 shopall-{{ link.title | handle }}"><a href="{{ link.url }}" class="level1">{{ link.title | downcase | prepend: 'Shop all ' }}</a></li>
+                                            </ul>
+                                        </div>
+                                        {% for link in linklists[_link].links %}
+                                            {% assign child_list_handle = link.title | handle %}
+                                            <div class="col-wide-3">
+                                                {% if linklists[child_list_handle].links.size > 0 %}
+                                                    <ul class="level1">
+                                                        {% for child_link in linklists[child_list_handle].links %}
+                                                            {% assign grand_child_list_handle = child_link.title | handle %}
+                                                            <li class="level1 {{ link.handle }} {% if linklists[grand_child_list_handle].links.size > 0 %}parent{% endif %}">
+                                                                {% if linklists[grand_child_list_handle].links.size > 0 %}<div class="level1 wrap">{% endif %}
+                                                                <a href="{{ child_link.url }}" class="level1">{{ child_link.title }}</a>
+                                                                {% if linklists[grand_child_list_handle].links.size > 0 %}
+                                                                <span class="toggle-parent hide-for-desktop">{{ child_link.title }}</span>
+                                                                </div>
+                                                                <div class="nav-drop">
+                                                                    <ul class="level2">
+                                                                        <li class="level2 hide-for-desktop"><span class="toggle-parent back"><span>Back</span>{{ child_link.title }}</span></li>
+                                                                        {% for grand_child_link in linklists[grand_child_list_handle].links %}
+                                                                        <li class="level2">
+                                                                            {% assign _child_link_title = child_link.title | downcase | strip | replace: ' ', '-' %}
+                                                                            <a href="{{ grand_child_link.url }}" class="level2">
+                                                                                {% if _child_link_title == 'by-colour' %}
+                                                                                    {% assign colour_image_name = grand_child_link.title | downcase | strip | replace: ' / ', ' ' | replace: ' ', '-' | append: '.jpg' %}
+                                                                                    <span class="colour-img"><img width="18" height="18" src="{{ colour_image_name | file_url }}" alt="{{ grand_child_link.title }}" loading="lazy" importance="low"/></span>
+                                                                                {% endif %}
+                                                                                {{ grand_child_link.title }}
+                                                                            </a>
+                                                                        </li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                </div>
+                                                                {% endif %}
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                 {% endif %}
+                            </li>
+                        {% endfor %}
+                        <li class="level0 account">
+                            {% if shop.customer_accounts_enabled %}<i class="icon-user"></i>{% if customer %}<a href="/account">Account</a> / {{ 'Sign out' | customer_logout_link }} {% else %} <a href="/account/login" id="customer_login_link2">Login</a> {% if shop.customer_accounts_optional %} / <a href="/account/register" id="customer_register_link2">Register</a> {% endif %} {% endif %} {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        {% if section.settings.show_announcement %}
+
+
+
+            {% if section.settings.text_color == 'custom' %}
+            <style>
+                #announcement{
+                    color: {{section.settings.custom_text_color}};
+                    stroke: {{section.settings.custom_text_color}};
+                    fill: {{section.settings.custom_text_color}};
+                }
+            </style>
+            {% endif %}
+
+            {% assign max_announcement = 5 %}
+            {%- capture announcement_html -%}
+                {% for i in (1..max_announcement) %}
+                    {% assign b_message = 'message_' | append: forloop.index %}
+                    {% assign b_show_message = 'show_message_' | append: forloop.index %}
+
+                    {% if section.settings[b_show_message] %}
+                    <div class="item">{{ section.settings[b_message] }}</div>
+                    {% endif %}
+                {% endfor %}
+            {%- endcapture -%}
+
+            {% if  announcement_html contains 'class="item' %}
+            <div id="announcement" class="{% if section.settings.text_color == 'custom' %}{{ section.settings.text_color }}{% endif %}" style="background-color: {{section.settings.background_color}};">
+                <div class="wrapper">
+                    <div class="owl-carousel">
+                        {{announcement_html}}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+
+      </header>
+</div>
+
+<script>
+    jQuery(document).ready(function() {
+        if (location.pathname.indexOf('collections') !== -1) {
+            jQuery('.nav-primary a.level0[href*="'+location.pathname.split('/')[2]+'"]').addClass('current');
+        }
+    });
+    jQuery(document).mouseup(function(e) {
+        if (!jQuery('#search-suggestions').is(e.target) && jQuery('#search-suggestions').has(e.target).length === 0) {
+            jQuery('#search-suggestions').removeClass('active');
+        }
+    });
+    jQuery('#search-input').autocomplete({
+        delay: 500,
+        minLength: 1,
+        source: function(request, response) {
+            var url = '/search?q='+request.term+'+-tag%3aclone%2bproduct+-tag%3ASample+-product_type%3ADiscontinued%2BFlooring&type=product&view=ajax-suggestions';
+            jQuery.ajax({
+                type: 'GET',
+                url: url,
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    jQuery('.product-suggestions').html(data);
+                    jQuery('#search-suggestions').addClass('active');
+                }
+            });
+        }
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Header",
+    "blocks": [
+        {
+            "type": "text",
+            "name": "Call Time",
+            "settings": [
+                {
+                    "type": "text",
+                    "label": "Date",
+                    "id": "title",
+                    "default": "1 November 2021",
+                    "info": "convention: date[1–31] FullMonthName FullYear"
+                },
+                {
+                    "type": "text",
+                    "id": "call_today",
+                    "label": "Call Today",
+                    "default": "8am - 8pm"
+                },
+                {
+                    "type": "text",
+                    "id": "call_today_text",
+                    "label": "Call Today Text",
+                    "default": "Call Today"
+                }
+            ]
+        }
+    ],
+    "settings": [
+        {
+            "type": "text",
+            "id": "call_time_weekday",
+            "label": "Call Time Weekday",
+            "default": "8am - 8pm"
+        },
+        {
+            "type": "text",
+            "id": "call_time_saturday",
+            "label": "Call Time Saturday",
+            "default": "9am - 5.30pm"
+        },
+        {
+            "type": "text",
+            "id": "call_time_sunday",
+            "label": "Call Time Sunday",
+            "default": "9am - 5.30pm"
+        },
+        {
+            "type": "text",
+            "id": "phone",
+            "label": "Phone",
+            "default": "0800 9705 705"
+        },
+        {
+          "type": "text",
+          "id": "location_text",
+          "label": "Find location text",
+          "default": "<span>Find your</span><span>local store</span>"
+        },
+        {
+          "type": "url",
+          "id": "location_url",
+          "label": "Find location URL"
+        },
+        {
+            "type": "text",
+            "id": "email",
+            "label": "Email",
+            "default": "enquiries@wilsonscarpets.com"
+        },
+        {
+            "type": "text",
+            "id": "email_subject",
+            "label": "Email subject",
+            "default": "Hello"
+        },
+        {
+            "type": "header",
+            "content": "Announcement Settings"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_announcement",
+            "label": "Show Announcement",
+            "default": false
+        },
+        {
+            "type": "select",
+            "id": "text_color",
+            "label": "Text color",
+            "options": [
+                { "value": "text-light", "label": "Light" },
+                { "value": "text-dark", "label": "Dark" },
+                { "value": "custom", "label": "Custom" }
+            ],
+            "default": "text-dark"
+        },
+        {
+            "type": "color",
+            "id": "custom_text_color",
+            "label": "Custom text color",
+            "default": "#000000"
+        },
+        {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background color",
+            "default": "#f2bf00"
+        },
+        {
+            "type": "richtext",
+            "id": "message_1",
+            "label": "Message 1",
+            "default": "<p>Lorem ipsum dolor sit amet</p>"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_message_1",
+            "label": "Show message 1",
+            "default": false
+        },
+        {
+            "type": "richtext",
+            "id": "message_2",
+            "label": "Message 2",
+            "default": "<p>Lorem ipsum dolor sit amet</p>"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_message_2",
+            "label": "Show message 2",
+            "default": false
+        },
+        {
+            "type": "richtext",
+            "id": "message_3",
+            "label": "Message 3",
+            "default": "<p>Lorem ipsum dolor sit amet</p>"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_message_3",
+            "label": "Show message 3",
+            "default": false
+        },
+        {
+            "type": "richtext",
+            "id": "message_4",
+            "label": "Message 4",
+            "default": "<p>Lorem ipsum dolor sit amet</p>"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_message_4",
+            "label": "Show message 4",
+            "default": false
+        },
+        {
+            "type": "richtext",
+            "id": "message_5",
+            "label": "Message 5",
+            "default": "<p>Lorem ipsum dolor sit amet</p>"
+        },
+        {
+            "type": "checkbox",
+            "id": "show_message_5",
+            "label": "Show message 5",
+            "default": false
+        },
+        {
+            "type": "header",
+            "content": "Logo"
+        },
+        {
+            "type": "textarea",
+            "id": "logo_svg",
+            "label": "Logo SVG",
+            "info": "Upload file to admin , Full file URL, If this one empty logo will pick below or fallback to the old logo"
+        },
+        {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+        },
+        {
+            "type": "text",
+            "id": "logo_width",
+            "label": "Logo width",
+            "default": "200"
+        },
+        {
+            "type": "text",
+            "id": "logo_height",
+            "label": "Logo height",
+            "default": "39"
+        }
+    ]
+}
+{% endschema %}

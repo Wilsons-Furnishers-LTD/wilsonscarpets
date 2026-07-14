@@ -1,0 +1,129 @@
+.pagecontents {
+width: 100%;
+box-sizing: border-box;
+margin: 0 auto;
+color: #414B52;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+}
+.linkst {
+color:#555;
+text-decoration:none;
+}
+.linkst:hover {
+color:#F2BF00; 
+}
+.icon-phone {
+padding-top: 4px;
+}
+.storelisting .stadrr {
+font-size: 16px;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+letter-spacing: .6px;
+font-weight: 900;
+}
+.storelisting .stphn {
+font-size: 16px;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+letter-spacing: .6px;
+font-weight: 900;
+}
+.storelisting .stlnk {
+text-align: center;
+}
+.storelisting .stlnk .stbutton {
+margin: 10px auto;
+padding: 8px 20px;
+background-color: #ba3c3d;
+border: 1px solid #ba3c3d;
+width: 100%;
+text-align: center;
+color: #fff;
+font-size: 14px;
+font-weight: 900;
+display: inline-block;
+}
+.storelisting .stlnk .stbutton:hover {
+margin: 10px auto;
+padding: 8px 20px;
+background-color: #414b52;
+border: 1px solid #414b52;
+width: 100%;
+text-align: center;
+color: #fff;
+font-size: 14px;
+font-weight: 900;
+display: inline-block;
+}
+@media only screen and (min-width: 700px) {
+#viewallstores {
+margin: 10px 50px;
+padding: 10px;
+background-color: #ba3c3d;
+border: 1px solid #ba3c3d;
+max-width: 350px;
+text-align: center;
+color: #fff;
+font-weight: 700;
+}
+#viewallstores:hover {
+margin: 10px 50px;
+padding: 10px;
+background-color: #414b52;
+border: 1px solid #414b52;
+max-width: 350px;
+text-align: center;
+color: #fff;
+font-weight: 700;
+}
+#gridstarts {
+padding-bottom: 10px;
+}
+.storesgrid .storelisting a.town {
+font-size: 1.25rem;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+letter-spacing: .6px;
+font-weight: 900;
+}
+} 
+@media only screen and (min-width: 450px) and (max-width: 700px) {
+#viewallstores {
+margin: 10px 50px;
+padding: 10px;
+background-color: #ba3c3d;
+border: 1px solid #ba3c3d;
+max-width: 350px;
+text-align: center;
+color: #fff;
+font-weight: 700;
+}
+#gridstarts {
+padding-bottom: 10px;
+}
+.storesgrid .storelisting a.town {
+font-size: 2.3rem;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+letter-spacing: .6px;
+font-weight: 900;
+}
+}
+@media only screen and (max-width: 450px) {
+#viewallstores {
+margin: 10px auto;
+padding: 10px;
+background-color: #ba3c3d;
+border: 1px solid #ba3c3d;
+max-width: 80%;
+text-align: center;
+color: #fff;
+font-weight: 700;
+}
+#gridstarts {
+padding-bottom: 10px;
+}
+.storesgrid .storelisting a.town {
+font-size: 1.6rem;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+letter-spacing: .6px;
+font-weight: 900;
+}
+}

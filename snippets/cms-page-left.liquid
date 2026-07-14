@@ -1,0 +1,49 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+<a href="#" id="toggleCMSNav">{{ block.settings.cms_heading }}</a>
+<div id="informational-pages">
+    
+	{% assign cms_linklist = block.settings.cms_linklist %}
+	{% if linklists[cms_linklist].links.size > 0 %}
+	<h3>{{ linklists[cms_linklist].title }}</h3>
+	<ul>
+		{% for link in linklists[cms_linklist].links %}
+		<li {% if page_title == link.title %}class="active"{% endif %}>
+			<a href="{{ link.url }}">{{ link.title }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% assign cms_linklist_two = block.settings.cms_linklist_two %}
+	{% if linklists[cms_linklist_two].links.size > 0 %}
+	<h3>{{ linklists[cms_linklist_two].title }}</h3>
+	<ul>
+		{% for link in linklists[cms_linklist_two].links %}
+		<li {% if page_title == link.title %}class="active"{% endif %}>
+			<a href="{{ link.url }}">{{ link.title }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	{% assign cms_linklist_three = block.settings.cms_linklist_three %}
+	{% if linklists[cms_linklist_three].links.size > 0 %}
+	<h3>{{ linklists[cms_linklist_three].title }}</h3>
+	<ul>
+		{% for link in linklists[cms_linklist_three].links %}
+		<li {% if page_title == link.title %}class="active"{% endif %}>
+			<a href="{{ link.url }}">{{ link.title }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+</div>
+

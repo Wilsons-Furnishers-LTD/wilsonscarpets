@@ -1,0 +1,33 @@
+<div class="newsletter-section">
+    <div class="wrapper">
+        <div class="newsletter">
+            <div class="row">
+                <div class="col-image">
+                    <picture>
+                        <source media="(min-width: 1024px)" srcset="{{ block.settings.image | img_url: 'master' }}">
+                        <img src="{{ block.settings.image | img_url: 'master' }}" alt="" />
+                    </picture>
+                </div>
+                <div class="col-form">
+                    {% form 'customer' %}
+                        {{ form.errors | default_errors }}
+                        {% if form.posted_successfully? %}
+                            <p class="form-success">{{ 'general.newsletter_form.confirmation' | t }}</p>
+                        {% else %}
+                            {% if block.settings.title != blank %}
+                                <label for="Email"><strong>{{ block.settings.title | escape }}</strong> {% if block.settings.subtitle != blank %}{{ block.settings.subtitle | escape }}{% endif %}</label>
+                            {% endif %}
+                            <input type="hidden" name="contact[tags]" value="newsletter">
+                            <div class="input-box">
+                                <input type="email" name="contact[email]" id="Email" class="newsletter-input" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}" autocorrect="off" autocapitalize="off">
+                                <button type="submit" class="newsletter-submit" name="commit" id="Subscribe"><i class="far fa-long-arrow-alt-right"></i></button>
+                            </div>
+                            <p><small>By signing up to the Alpkit newsletter you agree to our <a href="/pages/terms-conditions" target="_blank">Terms and Conditions</a>, read our <a href="/pages/privacy-policy" target="_blank">Privacy Policy</a> and <a href="/pages/cookie-policy" target="_blank">Cookie Policy</a>.</small></p>
+                        {% endif %}
+                    {% endform %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

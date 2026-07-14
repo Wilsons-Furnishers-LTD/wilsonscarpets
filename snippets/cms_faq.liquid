@@ -1,0 +1,13 @@
+
+{% if block.settings.content != blank %}
+<dl class="faq-list">
+    	<dt>{{ block.settings.title | escape }}</dt>		               
+     <dd>
+
+{% if block.settings.image != blank %}
+<img src="{{ block.settings.image | img_url: '950x' }}" alt="" />
+{% endif %}
+
+     	{{ block.settings.content }}</dd>  
+</dl>
+{% endif %}

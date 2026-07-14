@@ -1,0 +1,107 @@
+#bedroom-template .item .container {
+margin-top: 0;
+margin-bottom: 0;
+padding-top: 0;
+padding-bottom: 0;
+}
+
+#bedroom-template .text-content {
+padding-top: 2.5rem;
+padding-bottom: 3rem;
+}
+
+#bedroom-template .text-content h1 {
+margin-top: 1.5rem;
+margin-bottom: 1.6rem;
+}
+
+#bedroom-template .text-content .subtitle p {
+margin-top: 0.5rem;
+margin-bottom: 0.5rem;
+}
+
+#bedroom-template .bannergrid {
+padding-top: 2.5rem;
+padding-bottom: 0.5rem;
+}
+
+#bedroom-template .onecolumn-txt-section .row {
+max-width: fit-content;
+}
+#bedroom-template .text6 {
+font-size: 12.5px;
+font-weight: 100;
+word-spacing: 0px;
+letter-spacing: 0px;
+line-height: 1.5;
+margin-left: auto;
+margin-right: auto;
+}
+#bedroom-template .text6 a {
+text-decoration: underline;
+font-weight: 500;
+}
+#bedroom-template .bedroom-findout {
+text-align: center;
+margin: 40px auto 10px;
+}
+#bedroom-template .findout-button {
+text-align: center;
+color: #fff;
+width: 300px;
+display: inline-block;
+background: #ba3c3d;
+border: 1px solid #ba3c3d;
+cursor: pointer;
+font-size: 15px;
+padding-top: 15px;
+padding-bottom: 15px;
+text-decoration: none;
+font-weight: 900;
+}
+#bedroom-template .findout-button:hover {
+text-align: center;
+color: #fff;
+width: 300px;
+display: inline-block;
+background: #414b52;
+border: 1px solid #414b52;
+cursor: pointer;
+font-size: 15px;
+padding-top: 15px;
+padding-bottom: 15px;
+text-decoration: none;
+font-weight: 900;
+}
+#bedroom-template .findout {
+text-align: center;
+margin: 20px auto 40px;
+color: #fff;
+display: block;
+}
+#bedroom-template .owl-carousel {
+margin-top: 15px;
+padding-top: 15px;
+padding-bottom: 15px;
+}
+
+.randgallery {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+  gap: 40px;
+}
+.randgallery img {
+max-width: 500px;
+object-fit: cover;
+}
+.featured-collections {
+padding-bottom: 20px;
+}
+#bedroom-template .txt-section {
+padding-bottom: 20px;
+}
+#bedroom-template .subtitle a {
+text-decoration: underline;
+font-weight: 500;
+}

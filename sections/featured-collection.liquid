@@ -1,0 +1,119 @@
+{% case section.settings.add_border_top %}
+	{% when 'add_border_top_yes' %}
+		{%- assign border_top = 'border-top' -%}
+	{% when 'add_border_top_no' %}
+		{%- assign border_top = '' -%}
+{% endcase %}
+
+{% case section.settings.add_border_bottom %}
+	{% when 'add_border_bottom_yes' %}
+		{%- assign border_bottom = 'border-bottom' -%}
+	{% when 'add_border_bottom_no' %}
+		{%- assign border_bottom = '' -%}
+{% endcase %}
+
+<div class="featured-collections">
+    <div class="wrapper {{ border_top }} {{ border_bottom }}">
+		{% if section.settings.title != blank %}
+			<h2 class="title-section">{{ section.settings.title | escape }}</h2>
+		{% endif %}
+
+		{% assign collection = collections[section.settings.collection] %}
+
+		{% assign product_limit = section.settings.grid %}
+
+		<div class="product-grid owl-carousel carousel">
+			{% for product in collection.products limit: product_limit %}
+					{% render 'product-grid-item' %}
+				{% else %}
+
+				{% for i in (1..product_limit) %}
+					<div class="item">
+						<div class="grid-view-item">
+							<a href="#" class="grid-view-item__link">
+							<div class="grid-view-item__image">
+								{% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+								{{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+							</div>
+							<div class="h4 grid-view-item__title">Product Title</div>
+							<div class="grid-view-item__meta">
+								Product Price
+							</div>
+							</a>
+						</div>
+					</div>
+				{% endfor %}
+			{% endfor %}
+		</div>
+	 </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Featured collection",
+    "class": "index-section",
+    "settings": [
+        {
+			"type": "text",
+			"id": "title",
+			"label": "Heading",
+			"default": "Featured Collection"
+		},
+		{
+			"id": "collection",
+			"type": "collection",
+			"label": "Collection"
+		},
+		{
+			"type": "select",
+			"id": "grid",
+			"label": "Number of Products",
+			"default": "4",
+			"options": [
+			{
+				"value": "4",
+				"label": "4"
+			},
+			{
+				"value": "8",
+				"label": "8"
+			},
+			{
+				"value": "12",
+				"label": "12"
+			},
+			{
+				"value": "16",
+				"label": "16"
+			}
+			]
+			},
+		{
+			"type": "select",
+			"id": "add_border_top",
+			"label": "Add border top?",
+			"options": [
+			{ "value": "add_border_top_yes", "label": "Yes" },
+			{ "value": "add_border_top_no", "label": "No" }
+			],
+			"default": "add_border_top_no"
+		},
+		{
+			"type": "select",
+			"id": "add_border_bottom",
+			"label": "Add border bottom?",
+			"options": [
+			{ "value": "add_border_bottom_yes", "label": "Yes" },
+			{ "value": "add_border_bottom_no", "label": "No" }
+			],
+			"default": "add_border_bottom_no"
+		}
+    ],
+    "presets": [
+      {
+        "name": "Featured collection",
+        "category": "Collection"
+      }
+    ]
+  }
+{% endschema %}

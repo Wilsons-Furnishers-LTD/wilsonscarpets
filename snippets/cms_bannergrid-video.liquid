@@ -1,0 +1,56 @@
+
+<div data-section-id="{{ section.id }}" data-section-type="banner" class="banner-one video">
+    <div class="container {{ border_bottom }} {{ border_top }}">
+        <div class="row">
+            {% for block in section.blocks %}
+                <div class="col-wide-12 {{ block.settings.text_color | escape }}">
+                    {% if block.settings.video-src %}
+                        {% assign fullScreenVideo = false %}
+                        {% assign aspectRatio = 56.25 %}
+
+                        {% if block.settings.aspectRatio == "fullscreen" %}
+                            {% assign fullScreenVideo = true %}
+                        {%else%}
+                            {% if block.settings.aspectRatio contains ":" %}
+                                {% assign aspectSplit = block.settings.aspectRatio | split: ':' %}
+
+                                {%comment%} convert to a Float so the divided_by doesn't round down: {%endcomment%}
+                                {% assign secondValue =  aspectSplit[1] %}
+                                {% assign secondValue = secondValue | plus: 0.0 %}
+                                {% assign aspectRatio = secondValue | times: 100 | divided_by: aspectSplit[0]  %}
+                            {% endif %}
+                        {% endif %} 
+
+                        <div class="videoWrapper{% if fullScreenVideo%} fullScreen{%endif%}" style="background-image: url({{ block.settings.video-src | append: '.jpg' | file_url  }});{% unless fullScreenVideo %}padding-bottom: {{aspectRatio}}%{%endunless%}">
+                            <video preload="auto" autoplay="autoplay" muted {% if block.settings.shouldLoop == "yes" %}loop="loop" {%endif%}poster="{{ 'video-poster-transp.png' | file_url  }}" playsinline>
+                                <source src="{{ block.settings.video-src | append: '.mp4' | file_url  }}" type="video/mp4"></source>
+                                <source src="{{ block.settings.video-src | append: '.webm' | file_url  }}" type="video/webm"></source>
+                                <source src="{{ block.settings.video-src | append: '.ogv' | file_url  }}" type="video/ogg"></source>
+                            </video>
+                        </div>
+                    {% endif %}
+                    <div class="text-wrap overlay">
+                        <div class="wrapper">
+                            <div class="text-content">
+                                {% unless block.settings.title == blank %}
+                                <h2 class="title">{{ block.settings.title }}</h2>
+                                {% endunless %}
+                                {% unless block.settings.subheading == blank %}
+                                <p class="subtitle">{{ block.settings.subheading }}</p>
+                                {% endunless %}
+                                <div class="buttons-set">
+                                {% if block.settings.link_1 != blank %}
+                                    <p><a class="button small {% if block.settings.text_color == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_1 }}">{{ block.settings.button_text_1 }}</a></p>
+                                {% endif %}	
+                                {% if block.settings.link_2 != blank %}
+                                    <p><a class="button small {% if block.settings.text_color == 'text-light' %}button-white{% else %}button-black{% endif %}" href="{{ block.settings.link_2 }}">{{ block.settings.button_text_2 }}</a></p>
+                                {% endif %}	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

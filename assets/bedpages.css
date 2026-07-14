@@ -1,0 +1,349 @@
+.stores-container {
+margin-top: 25px;
+}
+.grid-container {
+display: grid;
+grid-template-columns: 1fr 2fr;
+gap: 20px;
+padding: 0;
+font-family: 'gill-sans-nova','Gill Sans Nova', Sans-serif;
+width: 100%;
+height: fit-content;
+}
+.grid-item {
+padding: 0;
+text-align: left;
+}
+/* Item 1: Lower height */
+.item-1 {
+text-align: center;
+grid-column: 2;
+}
+/* Item 2: Takes up two rows */
+.item-2 {
+grid-column: 2;
+}
+/* Item 3: Starts higher */
+.item-3 {
+grid-column: 1;
+grid-row: 1 / span 2;
+}
+.bedproductpic {
+max-width: 862px;
+margin: auto;
+}
+.bedproductpic img {
+width: 100%;
+}
+
+.bpimain {
+display: block;
+width: 100%;
+margin: 0;
+padding: 0;
+}
+.bpimain .matinfo {
+display: block;
+margin: 0;
+padding: 20px;
+}
+
+.bedproductinfo h1 {
+display: block;
+font-size: 36px;
+line-height: 38px;
+font-weight: 300;
+color: #ffffff;
+background-color: #596c6b;
+text-transform: uppercase;
+margin: 0;
+padding: 25px;
+letter-spacing: 2px;
+text-align: center;
+}
+
+.bedproductinfo h2 {
+display: block;
+font-size: 26px;
+line-height: 38px;
+font-weight: 300;
+color: #ffffff;
+background-color: #596c6b;
+text-transform: uppercase;
+margin: 0;
+padding: 15px;
+border-top: 2px solid #ffffff;
+letter-spacing: 2px;
+text-align: center;
+}
+
+.bedproductinfo h3 {
+display: block;
+font-size: 20px;
+line-height: 22px;
+font-weight: 500;
+color: #414b52;
+margin: 0;
+padding: 30px 0 20px 0;
+}
+.matfeatures {
+display: block;
+text-align: center;
+background-color: #f0f2f0;
+}
+.matfeatures > img {
+max-height: 380px;
+}
+.bpiside {
+display: block;
+width: 100%;
+margin: 0;
+background-color: #c8a62d;
+padding: 20px 35px;
+}
+
+.bedproductinfo .bpsnippet {
+font-size: 18px;
+font-weight: 100;
+color: #414b52;
+line-height: 26px;
+padding-top: 20px;
+}
+.bedproductinfo .bpfreefast {
+font-size: 23px;
+font-weight: 400;
+color: #414b52;
+letter-spacing: 1px;
+line-height: 26px;
+padding-top: 30px;
+padding-bottom: 30px;
+}
+
+.bpvariant {
+font-size: 18px;
+word-spacing: 0px;
+letter-spacing: 0px;
+font-weight: 100;
+color: #414b52;
+margin: 0;
+}
+.bpvariantprice {
+font-size: 30px;
+font-weight: 600;
+word-spacing: 0px;
+letter-spacing: 0px;
+color: #414b52;
+text-align: right;
+margin: 0;
+}
+/* DivTable.com */
+.divTable {
+display: table;
+margin:0;
+padding:0;
+width: 100%;
+}
+.divTableRow {
+display: table-row;
+}
+.divTable:last-child {
+border-bottom: 1px solid #e3e3e3;
+}
+
+.divTableCell {
+border-top: 1px solid #e3e3e3;
+display: table-cell;
+padding: 5px 15px;
+vertical-align: middle;
+}
+
+.bedbundle {
+padding-top: 10px;
+}
+.bedbundle .divTable {
+padding-top: 10px;
+}
+.bedbundle .divTable:last-child {
+border-bottom: 1px solid #e3e3e3;
+}
+
+.bpiside2 .divTable:last-child {
+border-bottom: 1px solid #e3e3e3;
+}
+
+.moreoffers {
+text-decoration: none;
+font-size: 15px;
+padding-top: 14px;
+padding-bottom: 14px;
+margin: 15px auto 30px;
+min-width: 85%;
+letter-spacing: 0.5px;
+background: #ba3c3d;
+color: #fff;
+border: 1px solid #ba3c3d;
+}
+.findyourlocal  {
+text-decoration: none;
+font-size: 15px;
+padding-top: 14px;
+padding-bottom: 14px;
+border: 1px solid #ba3c3d;
+margin: 15px auto 30px;
+min-width: 85%;
+letter-spacing: 0.5px;
+background: #ba3c3d;
+color: #fff;
+}
+.seemoreoffers {
+background: #fff;
+text-align: center;
+padding: 15px;
+}
+.seemoreoffers button: {
+padding-bottom: 15px;
+}
+.moreoffers: {
+padding-bottom: 15px;
+}
+.localstore {
+background: #ededed;
+text-align: center;
+padding: 15px;
+}
+.localstore p {
+font-size: 18px;
+color: #414b52;
+text-align: center;
+}
+.pointercursor:hover {
+cursor: pointer;
+}
+.matmakerh1 {
+font-size: 34px;
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 3px;
+margin: 0;
+padding:0;
+color: #ffffff;
+}
+.matmakerh2 {
+font-size: 14px;
+font-weight: 300;
+text-transform: uppercase;
+letter-spacing: 1px;
+margin: 0;
+padding:0;
+color: #ffffff;
+}
+.matmakerlogo {
+padding-bottom: 0;
+}
+.bpiside hr {
+border-top: 1px solid #ffffff;
+padding: 0;
+}
+.sideheading {
+font-size: 38px;
+font-weight: 300;
+line-height: 36px;
+letter-spacing: 0px;
+text-align: left;
+padding-top: 25px;
+padding-bottom: 10px;
+}
+.headboardflex {
+display: flex;
+flex-wrap: nowrap;
+width: 100%;
+gap: 25px;
+justify-content: flex-start;
+align-items: center;
+padding: 15px 0;
+margin 0 auto;
+}
+.headboardleft {
+width: 40%;
+font-size: 26px;
+text-align: left;
+}
+.headboardright {
+width: 35%;
+font-size: 50px;
+font-weight: 600;
+}
+.headboardsave {
+color: #ffffff;
+font-size: 28px;
+text-align: left;
+padding-bottom: 10px;
+}
+.headboard-small {
+font-size: 15px;
+line-height: 16px;
+padding-top: 20px;
+}
+
+.bpiside2 {
+display: block;
+width: 100%;
+margin: 0;
+background-color: #394752;
+padding: 20px 35px;
+}
+.bpiside2 .noheadbord1 {
+color: #ffffff;
+text-align: center;
+text-transform: uppercase;
+font-size: 25px;
+padding: 10px 0;
+}
+.bpiside2 .noheadbord2 {
+color: #c8a62d;
+text-align: center;
+text-transform: uppercase;
+font-size: 25px;
+padding: 10px 0 25px;
+}
+
+.bpiside2 .bedupgrade1 {
+color: #c8a62d;
+text-align: center;
+text-transform: uppercase;
+font-size: 24px;
+padding: 15px 0 0 0;
+margin: 0;
+}
+.bpiside2 .bedupgrade2 {
+color: #ffffff;
+text-align: center;
+text-transform: uppercase;
+font-size: 24px;
+margin: 0;
+padding: 10px 0 25px;
+}
+
+.bpiside2 .bpvariant, .bpiside2 .bpvariantprice {
+color: #ffffff;
+}
+
+/* Responsive: Stack columns on smaller screens */
+@media (max-width: 800px) {
+.grid-container {
+grid-template-columns: 1fr;
+}
+.item-1, .item-2, .item-3 {
+grid-column: 1;
+}
+
+.item-1 {
+grid-row: 1;
+}
+.item-2 {
+grid-row: 2;
+}
+.item-3 {
+grid-row: 3;
+}
+}

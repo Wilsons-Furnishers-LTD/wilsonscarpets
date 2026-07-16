@@ -24,18 +24,18 @@
         "image_i4cHPb": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-desktop_7450248b-1639-464f-8a2a-2e00878ad6e8.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/Wilsons-Carpets-Nottingham-bed-store-desktop_77c23bbd-b554-4324-8f8a-958dc71fbcb9.jpg",
+            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Nottingham-store-location-map-mobile.jpg",
+            "link": "shopify://pages/nottingham",
             "position": "4"
           }
         },
         "image_m9aNzX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-desktop.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/Wilsons-Carpets-Nottingham-store-desktop.jpg",
+            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Nottingham-store-mobile.jpg",
+            "link": "shopify://pages/nottingham",
             "position": "1"
           }
         }

@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "collection-lincolncarpets",
+      "type": "collection-storecarpets",
       "blocks": {
         "image_YAUcRz": {
           "type": "image",

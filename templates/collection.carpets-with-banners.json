@@ -1,8 +1,53 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "collections-withbanners",
-      "settings": {}
+      "blocks": {
+        "image_pPtwMz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/a-family-business-since-1968-desktop_314x_35886d66-95fe-49c2-bd02-f9a581eb9336.webp",
+            "mobileimage": "shopify://shop_images/A-family-business-since-1968-mobile_520x520_crop_center_d63f8421-3350-4628-9c5e-d0880e681508.webp",
+            "link": "shopify://pages/about-us",
+            "position": "6"
+          }
+        },
+        "image_a93VxR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/lowest-carpet-prices-desktop-314_314x_08644afa-1ec9-4e5b-aefa-0ca97d0e3801.webp",
+            "mobileimage": "shopify://shop_images/lowest-carpet-prices_520x520_crop_center_d7a143fb-c06c-46d6-b19d-2b34818f6434.webp",
+            "link": "shopify://pages/price-promise",
+            "position": "12"
+          }
+        },
+        "image_PQinPG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/wilsons-carpets-stores-near-me-desktop_314x_1fdda5ce-c2ee-4516-b912-80ae6146cdee.webp",
+            "mobileimage": "shopify://shop_images/Wilsons-carpets-stores-mobile_520x520_crop_center_1.webp",
+            "link": "shopify://pages/stores",
+            "position": "2"
+          }
+        }
+      },
+      "block_order": [
+        "image_pPtwMz",
+        "image_a93VxR",
+        "image_PQinPG"
+      ],
+      "settings": {
+        "banner_per_page": "3"
+      }
     }
   },
   "order": [

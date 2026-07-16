@@ -24,18 +24,18 @@
         "image_i4cHPb": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wilsons-carpets-artificial-grass-STORE-LOCATION-MAP-rotherham_0d3af526-7222-4ac7-8ed4-5bca658a03bb.jpg",
-            "mobileimage": "shopify://shop_images/wilsons-carpets-store-rotherham_location_map-mobile.jpg",
-            "link": "shopify://pages/rotherham-parkgate",
+            "image": "shopify://shop_images/Wilsons-Carpets-doncaster-stores-map-desktop_bdbd2edc-ffcb-48a6-8c99-e8e9661a9f55.jpg",
+            "mobileimage": "shopify://shop_images/Wilsons-Carpets-doncaster-stores-map-mobile_096b7355-9452-4895-9a29-777087711725.jpg",
+            "link": "shopify://pages/doncaster-stores",
             "position": "4"
           }
         },
         "image_m9aNzX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wilsons-carpets-beds-store-rotherham-desktop.jpg",
-            "mobileimage": "shopify://shop_images/wilsons-carpets-store-rotherham-mobile.jpg",
-            "link": "shopify://pages/rotherham-parkgate",
+            "image": "shopify://shop_images/Wilsons-Carpets-doncaster-stores-dektop_3a32c41a-6494-4134-b686-1f8d5d1f33b5.jpg",
+            "mobileimage": "shopify://shop_images/Wilsons-Carpets-doncaster-stores-mobile_2c0822bb-0b4f-48b8-b8fa-0d6e7dd8641d.jpg",
+            "link": "shopify://pages/doncaster-stores",
             "position": "1"
           }
         }

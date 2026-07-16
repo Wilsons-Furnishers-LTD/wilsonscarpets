@@ -24,18 +24,18 @@
         "image_i4cHPb": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-desktop_7450248b-1639-464f-8a2a-2e00878ad6e8.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/wilsons_carpets_Sheffield_stores_map_desktop_a3cfbb70-dc07-4654-8ff7-9895ae6bf45f.jpg",
+            "mobileimage": "shopify://shop_images/wilsons_carpets_Sheffield_stores_map_mobile_c6a509c1-db71-43a3-b0d0-70814e504def.jpg",
+            "link": "shopify://pages/sheffield-stores",
             "position": "4"
           }
         },
         "image_m9aNzX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-desktop.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/wilsons_carpets_Sheffield_stores_image_desktop.jpg",
+            "mobileimage": "shopify://shop_images/wilsons_carpets_Sheffield_stores_image_mobile_8c6c41f6-eebd-4962-8571-c69a56039001.jpg",
+            "link": "shopify://pages/sheffield-stores",
             "position": "1"
           }
         }

@@ -1,0 +1,207 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+
+{% assign products_per_page = settings.products_per_row | times: settings.number_of_rows %}
+{% assign numbers = 'zero, one, two, three, four, five, six' | split: ',' %}
+{% assign products_per_row = settings.products_per_row | times: 1 %}
+{% assign products_per_row = numbers[products_per_row] | strip | append: '-per-row' %}
+
+
+{% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
+{{ 'filters.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+{% paginate collection.products by products_per_page %}
+{% if collection.image %}
+  <div class="c-breadcrumb">
+    <div class="wrapper">
+      <div class="row">
+        {% render 'breadcrumbs' %}
+      </div>
+    </div>
+  </div>
+  <div class="collection-main-banner collection-product">
+    <div class="wrapper">
+      <div class="row collection-main-banner__inner">
+        <div class="collection-main-banner__content">
+          {%- render 'collection-content', show_title: false -%}
+        </div>
+        <div class="collection-main-banner__image">
+          {% assign collection_image = collection.image | img_url: 'master' %}
+          {% assign collection_image_mobile = collection.image | img_url: '640x600', crop: 'center' %}
+            <picture>
+                <img src="{{ collection_image_mobile }}" alt="{{ collection.title }}" />
+            </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+<div class="collection-product no-banner">
+    <div class="wrapper">
+        <div class="row">
+          {% unless collection.image %}
+            {% render 'breadcrumbs' %}
+            {%- render 'collection-content' -%}
+          {% endunless %}
+        </div>
+        <div class="row" id="product-grid-wrapper">
+            <div class="col-left">
+                {% comment %}
+                  This snippet is used to display the filter by tags section on the collection page.
+                {% endcomment %}
+                {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
+                    {% if collection.filters %}
+                        {% render 'filters' %}
+                    {% endif %}
+                {% else %}
+                    {% render 'filter-by-tags' %}
+                {% endif %}
+            </div>
+            <div class="col-main" id="product-grid">
+                <div class="toolbar toolbar-product">
+                    <div class="row">
+						<div class="wrap-filter-sorter">
+							<div class="filter-by">
+								<span class="js-filter-by">Filter by <i class="icon-chevron-right"></i></span>
+							</div>
+							<div class="sorter">
+								<label for="sorter">Sort by</label>
+								<div class="selectWrapper">
+                                    <select id="sorter" class="sort-by right">
+                                        <option value="manual">Featured</option>
+                                        <option value="price-ascending">Price: Low to High</option>
+                                        <option value="price-descending">Price: High to Low</option>
+                                        <option value="title-ascending">A-Z</option>
+                                        <option value="title-descending">Z-A</option>
+                                        <option value="created-ascending">Oldest to Newest</option>
+                                        <option value="created-descending">Newest to Oldest</option>
+                                        <option value="best-selling">Best Selling</option>
+                                    </select>
+								</div>
+							</div>
+						</div>
+                        {% if paginate.pages > 1 %}
+                        <div class="wrap-pagi">
+                            <div class="collection-pagination">
+                                {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="product-grid">
+                    {% assign loopCounter = 1 %}
+					{% for product in collection.products %}
+						{% comment %}
+                        {% render 'product-grid-item' with products_per_row %}
+                        {% assign loopCount = loopCounter | modulo: 3 %}
+                        {% if loopCount == 0 and loopCounter != forloop.length %}
+                            </div>
+                            <div class="product-grid">
+                        {% endif %}
+                        {% assign loopCounter = loopCounter | plus: 1 %}
+
+                        {% else %}
+                        <p id="noProducts">
+                            There are no products in this view.
+						</p>
+						{% endcomment %}
+
+						{% render 'product-grid-item', product: product with products_per_row %}
+					{% else %}
+    					<p id="noProducts">
+    						There are no products in this view.
+                            {% if current_tags %}
+                                <script>
+                                    window.location = '/page-not-found';
+                                </script>
+                            {% endif %}
+    					</p>
+                    {% endfor %}
+                </div>
+                <div class="toolbar bottom toolbar-product">
+                    <div class="row">
+                        {% if paginate.pages > 1 %}
+                        <div class="wrap-pagi">
+                            <div class="collection-pagination">
+                                {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endpaginate %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %}
+  JavaScript for collection sorting.
+{% endcomment %}
+<script>
+    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+        Shopify.queryParams.sort_by = jQuery(this).val();
+        location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+    });
+</script>
+
+<script>
+  /* Product Tag Filters - Good for any number of filters on any type of collection page. */
+  Shopify.queryParams = {};
+  if (location.search.length) {
+      for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+        aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+      }
+  }
+
+  var collFilters = jQuery('.coll-filter');
+  collFilters.change(function() {
+      var newTags = [];
+      var newURL = '';
+    collFilters.each(function() {
+      if (jQuery(this).val()) {
+          newTags.push(jQuery(this).val());
+      }
+    });
+
+  if (newTags.length) {
+      Shopify.queryParams.constraint = newTags.join('+');
+    }
+    else {
+      delete Shopify.queryParams.constraint;
+    }
+    location.search = jQuery.param(Shopify.queryParams);
+  });
+
+  jQuery(document).ready(function() {
+    var desc = jQuery('.collection-description');
+    jQuery('.read', desc).click(function(e) {
+      e.preventDefault();
+      if (jQuery(this).hasClass('readMore')) {
+        desc.addClass('active');
+      } else {
+        desc.removeClass('active');
+      }
+    });
+  });
+</script>
+
+{% render 'quick-view-ajaxify-cart' %}
+
+{% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
+{{ 'filters.js' | asset_url | script_tag }}
+{% endif %}

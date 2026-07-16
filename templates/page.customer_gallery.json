@@ -1,0 +1,72 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "customer-gallery-section",
+      "blocks": {
+        "image_dnfcmq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bill-wilson-about-us-page_1.png"
+          }
+        }
+      },
+      "block_order": [
+        "image_dnfcmq"
+      ],
+      "settings": {
+        "gap": 10
+      }
+    },
+    "inspiration": {
+      "type": "static-inspiration-section",
+      "blocks": {
+        "inspiration_iKkHC9": {
+          "type": "inspiration",
+          "settings": {
+            "image": "shopify://shop_images/insp-living-room_9aa432b1-7cb6-423b-a5b4-3ba02a1b87b9.jpg",
+            "title": "kITCHEN",
+            "link": ""
+          }
+        },
+        "inspiration_zxyCMW": {
+          "type": "inspiration",
+          "settings": {
+            "image": "shopify://shop_images/insp-living-room_9aa432b1-7cb6-423b-a5b4-3ba02a1b87b9.jpg",
+            "title": "kITCHEN",
+            "link": ""
+          }
+        },
+        "inspiration_mzUkAQ": {
+          "type": "inspiration",
+          "settings": {
+            "image": "shopify://shop_images/insp-living-room_9aa432b1-7cb6-423b-a5b4-3ba02a1b87b9.jpg",
+            "title": "kITCHEN",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "inspiration_iKkHC9",
+        "inspiration_zxyCMW",
+        "inspiration_mzUkAQ"
+      ],
+      "settings": {
+        "banner_link": "",
+        "inspiration_link": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "inspiration"
+  ]
+}

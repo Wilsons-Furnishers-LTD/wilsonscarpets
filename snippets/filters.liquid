@@ -1,0 +1,102 @@
+{% assign filters_active = false %}
+{% assign filter_count = 0 %}
+
+<div class="filters-wrapper" id="filters-wrapper">
+    <form id="CollectionFiltersForm">
+        <div class="filters-wrapper__selected" id="filter-button-wrapper">
+            <div class="filters-wrapper__selected__inner">
+                <div id="filter-button-area" class="filters-wrapper__selected__list">
+                    {% for filter in collection.filters %}
+                        {% assign filter_count = forloop.index %}
+                        {% for value in filter.values %}
+                            {% if value.active %}
+                                {% assign filters_active = true %}
+                                <div class="filters-wrapper__selected__list-item" data-name="filter.p.m.custom.spring_count" data-value="800">
+                                    <div class="filters-wrapper__selected__list-item-key">{{ filter.label }}:</div>
+                                    <div class="filters-wrapper__selected__list-item-value">
+                                        {% if value.param_name == 'filter.p.m.custom.filter_colours' %}
+                                            {{ value.label }}
+                                        {% else %}    
+                                            {{ value.value }}
+                                        {% endif %}  
+                                    </div>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                                    <path d="M18 6L6 18M6 6l12 12"></path>
+                                    </svg>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <div id="filter-button-title" class="filters-wrapper__selected__title {% if filters_active == true %} show-wrapper {% endif %}">Selected Filters</div>
+            </div>
+        </div>
+        {% if filter_count > 0 %}
+            <div class="filters-wrapper__header">
+                <div class="filters-wrapper__header-title">Filter by</div>
+            </div>
+        {% endif %}
+        <div id="filters-wrapper-main-section">
+            
+            {% for filter in collection.filters %}
+                {% assign filter_item_count = 0 %}
+                <div class="filters-wrapper__section">
+                    <div class="filters-wrapper__section--main" id="toggle-{{ forloop.index }}">
+                        {% for value in filter.values %}
+                            {% if value.count > 0 %}
+                                {% assign filter_item_count = forloop.index %}
+                                <label class="wc-checkbox-container">
+                                    <input
+                                        type="checkbox"
+                                        title="{{ filter.label }}"
+                                        name="{{ value.param_name }}"
+                                        data-button-value="{{value.label}}"
+                                        value="{{ value.value }}"
+                                        {% if value.active %}checked{% endif %}
+                                    >
+                                    
+                                    {% if value.param_name == 'filter.p.m.custom.filter_colours' %}
+                                        {% assign colour = shop.metaobjects.filter_colour.values
+                                        | where: "name", value.label
+                                        | first
+                                        %}
+
+                                        {% if colour.image %}
+                                            <div class="filter-image-container">
+                                                <img 
+                                                    src="{{ colour.image | image_url: width: 40 }}"
+                                                    alt="{{ colour.name }}"
+                                                    class="filter-image"
+                                                >
+                                            </div>
+                                        {% endif %}
+                                    {% else %}    
+                                        <span class="checkmark"></span>
+                                    {% endif %}  
+                                    
+                                    <div class="wc-checkbox-label">{{ value.label }} ({{ value.count }})</div>
+                                    
+                                </label>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% if filter_item_count > 0 %}
+                        <div class="filters-wrapper__section--header" data-container="toggle-{{ forloop.index }}">
+                            <div class="filters-wrapper__section--header-inner">
+                                <h4>{{ filter.label }}</h4>
+                                <div class="filters-wrapper__section--header-toggle"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="filters-wrapper__footer">
+            <div id="filter-clear" class="mobile-button button clear">Clear All</div>
+            <div id="filter-apply" class="mobile-button button apply">View Items</div>
+        </div>
+    </form>
+    <div class="filters-wrapper__close">
+        <i class="icon-times"></i>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "builder-section",
+      "blocks": {
+        "banner_DtbBxc": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/pets-top_1920x_c8d68e6f-b89f-4b0b-a9f5-1faa208a00cd.webp",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "Image slide",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "Lorem ipsum dolor sit amet",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_cFRTQW": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Flooring best suited for pets",
+            "content": "<p>For pet owners, choosing the right flooring for your home is a decision not to be taken lightly. Pets undoubtedly cause more wear and tear (scratches, dirt, stains) to your flooring. This is why we’ve put together this pet-friendly flooring guide that will hopefully help you in choosing the flooring best suited for you and your pets. We will examine several pros and cons for different flooring types, as well as several tips on how to prevent further damage on existing floors.</p>\n<p>Before you begin reading further we thought it would be best to outline the five primary considerations when looking for pet-friendly flooring options. Whatever option you decide on we recommend keeping these qualities in your mind when making your decision.</p>\n<ol style=\"list-style-type: decimal;list-style-position: inside;\">\n<li>Resistance to scratches</li>\n<li>Resistance to damage (wear and dirt)</li>\n<li>Potentially water-resistant</li>\n<li>Pet traction</li>\n<li>Pet comfort</li>\n</ol>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        }
+      },
+      "block_order": [
+        "banner_DtbBxc",
+        "onecol_txt_cFRTQW"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

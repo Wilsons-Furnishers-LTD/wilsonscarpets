@@ -1,0 +1,14 @@
+{{ 'bedpages.css' | asset_url | stylesheet_tag }}
+{{ 'slider-pages.js' | asset_url | script_tag }}
+<div class="cms-page">
+	<div class="wrapper">
+		<div class="row">
+          <div class="stores-container">
+			<div class="product-content">
+				{{ page.content }}
+			</div>
+          </div>
+		</div>
+	</div>
+</div>
+{% include 'gtm-page' %}

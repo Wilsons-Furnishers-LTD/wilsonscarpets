@@ -1,0 +1,70 @@
+{% unless template == 'index' %}
+	<nav class="breadcrumb" aria-label="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+		{% assign crumbPosition = 1 %}
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span><a href="{{shop.url}}" itemprop="item" title="Home">Home</a></span><meta itemprop="name" content="Home"><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		{% if template contains 'page' %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span>{{ page.title }}</span>
+		{% elsif template contains 'product' %}
+		{% if collection.url %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name" itemprop="item">{{ collection.title | link_to: collection.url }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}<meta itemprop="item" content="{{shop.url}}{{collection.url}}"></span>
+		{% endif %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}<span itemprop="name">{{ product.title }}</span></span>
+		{% elsif template contains 'collection' and collection.handle %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		{% if current_tags %}
+		{% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ collection.title | link_to: url }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}
+		<meta itemprop="item" content="{{shop.url}}{{url}}">
+		</span>
+		{% assign theseTags = '' %}
+		{% for tag in current_tags %}
+			{% assign cat = tag | split: '-' | last | capitalize %}
+			{% capture theseTags %}
+			{{theseTags}}{% if forloop.first != true %} &amp; {% endif %}{{cat | split: "_" | last | capitalize}}
+			{% endcapture %}
+		{% endfor %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+			<span itemprop="name">{{ theseTags }}</span>
+			<meta itemprop="position" content="{{crumbPosition}}" />
+			{% assign crumbPosition = crumbPosition | plus: 1 %}
+		</span>
+		{% else %}
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ collection.title }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}<meta itemprop="item" content="{{shop.url}}{{collection.url}}"></span>
+		{% endif %}
+		{% elsif template == 'blog' %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		{% if current_tags %}
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ blog.title | link_to: blog.url }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ current_tags | join: " + " }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		{% else %}
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ blog.title }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		{% endif %}
+		{% elsif template == 'article' %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ blog.title | link_to: blog.url }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ article.title }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		{% elsif template == 'cart' %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">Your Shopping Basket</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		{% else %}
+		<span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ page_title | replace: ' -tag:Sample', '' }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
+		{% endif %}
+	</nav>
+	{% if template contains 'product' %}
+		<script>
+			if (location.pathname.indexOf('collections') === -1) {
+				var $item = $('.breadcrumb a[href*="collections"]').closest('[itemprop="itemListElement"]');
+				$item.prev().remove();
+				$item.remove();
+			}
+		</script>
+	{% endif %}
+{% endunless %}
+

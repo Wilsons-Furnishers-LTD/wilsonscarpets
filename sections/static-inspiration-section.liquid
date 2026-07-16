@@ -1,0 +1,146 @@
+<div class="wrapper">
+<div class="cust-gallery-wrapper">
+<!-- ===================== -->
+  <!-- STORE BANNERS -->
+  <!-- ===================== -->
+  <div class="storebanners">
+
+    <div class="storebanner1">
+      <a href="{{ section.settings.banner_link }}">
+        {% if section.settings.banner_desktop != blank %}
+          <img class="nomob" src="{{ section.settings.banner_desktop | image_url }}">
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="storebanner2">
+      <a href="{{ section.settings.banner_link }}">
+        {% if section.settings.banner_mobile != blank %}
+          <img class="nodesk" src="{{ section.settings.banner_mobile | image_url }}">
+        {% endif %}
+      </a>
+    </div>
+
+  </div>
+
+
+  <!-- ===================== -->
+  <!-- ROOMS GRID -->
+  <!-- ===================== -->
+  <div class="roomsflex">
+
+    {% for block in section.blocks %}
+      {% if block.type == 'room' %}
+        <div class="roomsfl">
+
+          <div class="zoombox">
+            <a href="{{ block.settings.link }}" target="_blank">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}">
+              {% endif %}
+            </a>
+          </div>
+
+          <p class="desc">{{ block.settings.title }}</p>
+
+        </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+
+
+  <!-- ===================== -->
+  <!-- INSPIRATION GRID -->
+  <!-- ===================== -->
+  <div class="inspiration-grid">
+
+    {% for block in section.blocks %}
+      {% if block.type == 'inspiration' %}
+        <div class="inspiration-box">
+
+          <div class="zoombox">
+            <a href="{{ block.settings.link }}" target="_blank">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title }}">
+              {% endif %}
+            </a>
+          </div>
+
+          <p class="desc">{{ block.settings.title }}</p>
+
+        </div>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+
+
+  <div class="inspir">
+    <a href="{{ section.settings.inspiration_link }}">
+      <button class="downbutton">View All Inspiration</button>
+    </a>
+  </div>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Gallery Complete",
+  "settings": [
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_desktop",
+      "label": "Banner Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_mobile",
+      "label": "Banner Mobile"
+    },
+    {
+      "type": "url",
+      "id": "inspiration_link",
+      "label": "Inspiration Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_image",
+      "name": "Gallery Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "url", "id": "link", "label": "Link (optional)" }
+      ]
+    },
+    {
+      "type": "room",
+      "name": "Room Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "inspiration",
+      "name": "Inspiration Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Text" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Gallery Complete"
+    }
+  ]
+}
+{% endschema %}

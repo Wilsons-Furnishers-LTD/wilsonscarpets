@@ -1,7 +1,145 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "living-room-sections"
+      "type": "builder-section",
+      "blocks": {
+        "banner_aXn4dj": {
+          "type": "banner",
+          "settings": {
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_WX7n6T": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "#e4e4e4",
+            "title": "Lounge and living room carpets at amazing prices.",
+            "content": "Chill out in style with a premium super soft deep pile carpet, or choose from our range of hard wearing budget options. Alternatively, go for the look of real wood with our choice of laminates and accessorise with one of our shaggy rugs in an accent colour.",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "onecol_txt_ctb4rp": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Carpets for living rooms",
+            "content": "<p>For most people, when it comes to the room we relax in most, comfort is the top priority. So, if you want the deeply cushioned, super soft look and feel of a premium carpet, then take a look at our saxony range and combine with one of our carpet underlays for the ultimate in luxurious flooring.</p>\n<p>Sometimes deep pile is not always practical with kids and pets, so we have plenty of alternatives that will look great and are easy to maintain, with berbers, loops and twists to suit every pocket, in every colour imaginable... including plenty of choice in the ever popular and trending greys.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_RLK7a9": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "carpets",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_zrRWmA": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our carpets range",
+            "link_url": "shopify://collections/carpets",
+            "link_txt": "Our Carpets Range"
+          }
+        },
+        "banner_TFHrfd": {
+          "type": "banner",
+          "settings": {
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_X9Mfkn": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Laminate flooring for living rooms",
+            "content": "<p>For a contemporary or rustic feel, take a look at our extensive range of laminate flooring. It’s a great alternative to carpet in living and dining areas and with the latest modern styles and designs it can replicate the look of wooden planks to make it almost impossible to tell apart from the real thing. Shabby chic, or super sleek, we have every possible choice in stock.</p>\n<p>Three dimensional, embossed finishes, V-Groove and high definition will make your floor look amazing. Lay with underlay to dampen sound and add insulation and you’ll have a floor that’s comfortable, quiet and infinitely practical.</p>\n<p class=\"text6\">Products illustrated are subject to availability in selected stores, please call for details.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_PQdzPX": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "laminate-flooring",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_crmgHg": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our laminate range",
+            "link_url": "shopify://collections/laminate-flooring",
+            "link_txt": "Our Laminate Range"
+          }
+        }
+      },
+      "block_order": [
+        "banner_aXn4dj",
+        "onecol_txt_WX7n6T",
+        "onecol_txt_ctb4rp",
+        "featured_collection_RLK7a9",
+        "bedroom_button_findout_zrRWmA",
+        "banner_TFHrfd",
+        "onecol_txt_X9Mfkn",
+        "featured_collection_PQdzPX",
+        "bedroom_button_findout_crmgHg"
+      ],
+      "settings": {}
     }
   },
   "order": [

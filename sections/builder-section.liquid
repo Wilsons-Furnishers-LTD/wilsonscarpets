@@ -1,0 +1,1138 @@
+{{ 'bedroom.css' | asset_url | stylesheet_tag }}
+<div id="bedroom-template" class="cms-template">
+    {% render 'builder-sections' %}
+</div>
+
+{% if page.content != blank %}
+    <div class="cms-template">
+    {{ page.content }}
+    </div>
+{% endif %}
+
+{% include 'gtm-page' %}
+
+
+{% schema %}
+{
+	"blocks": [	
+		{
+			"type": "banner",
+		    "name": "Banner Grid - One",
+		    "settings": [
+			 	{
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "mobile_image",
+                    "label": "Mobile Image"
+                },
+				{
+                    "type": "checkbox",
+                    "id": "full_width",
+                    "label": "Full Width",
+                    "default": true
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Image Link"
+                },
+                {
+                    "type": "select",
+                    "id": "text_color",
+                    "label": "Text color",
+                    "options": [
+                        { "value": "text-light", "label": "Light" },
+                        { "value": "text-dark", "label": "Dark" }
+                    ],
+                    "default": "text-light"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Heading",
+                    "default": "Image slide"
+                },
+				{
+					"type": "select",
+					"id": "is_title_h1",
+					"label": "Wrap title in H1 tag?",
+					"options": [
+					{ "value": "is_title_h1_yes", "label": "Yes" },
+					{ "value": "is_title_h1_no", "label": "No" }
+					],
+					"default": "is_title_h1_no"
+				},
+                {
+                    "type": "textarea",
+                    "id": "subheading",
+                    "label": "Subheading",
+                    "default": "Lorem ipsum dolor sit amet"
+                },
+				{
+                    "type": "select",
+                    "id": "vertical_align",
+                    "label": "Vertical align",
+                    "options": [
+                        { "value": "top", "label": "Top" },
+                        { "value": "middle", "label": "Middle" },
+                        { "value": "bottom", "label": "Bottom" }
+                    ],
+                    "default": "middle"
+                },
+                {
+                    "type": "select",
+                    "id": "horizontal_align",
+                    "label": "Horizontal align",
+                    "options": [
+                        { "value": "left", "label": "Left" },
+                        { "value": "center", "label": "Center" },
+                        { "value": "right", "label": "Right" }
+                    ],
+                    "default": "center"
+                },
+                {
+                    "type": "url",
+                    "id": "link_1",
+                    "label": "Button Link 1"
+                },
+                {
+                    "type": "text",
+                    "id": "button_text_1",
+                    "label": "Button Text 1",
+                    "default": "Shop Now"
+                },
+                {
+                    "type": "url",
+                    "id": "link_2",
+                    "label": "Button Link 2"
+                },
+                {
+                    "type": "text",
+                    "id": "button_text_2",
+                    "label": "Button Text 2",
+                    "default": "Shop Now"
+                },
+				{
+                    "type": "select",
+                    "id": "button_position",
+                    "label": "Button Position",
+                    "options": [
+                        { "value": "button-top", "label": "Top" },
+                        { "value": "button-below-content", "label": "Below Content" },
+                        { "value": "button-bottom", "label": "Bottom" }
+                    ],
+                    "default": "button-below-content"
+                },
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}
+			]
+		},
+		{
+			"type": "bannertwo",
+		    "name": "Banner Grid - Two",
+		    "settings": [
+				{
+					"type": "select",
+					"id": "image_width",
+					"label": "Column Width",
+					"options": [
+					{ "value": "image-twothirds", "label": "Third / Two Thirds" },
+					{ "value": "image-half", "label": "Half / Half" },
+					{ "value": "image-third", "label": "Two Thirds / Third" }
+					],
+					"default": "image-half"
+				},
+			 	{
+					"type": "image_picker",
+					"id": "image_1",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_1",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_1",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_1",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_1",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_1_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_1_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_1_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_1_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_2",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_2",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_2",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_2",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_2",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_2_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_2_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_2_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_2_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}		
+			]
+		},	
+		{
+			"type": "bannerthree",
+		    "name": "Banner Grid - Three",
+		    "settings": [
+			 	{
+					"type": "image_picker",
+					"id": "image_1",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_1",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_1",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_1",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_1",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_1_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_1_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_1_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_1_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_2",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_2",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_2",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_2",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_2",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_2_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_2_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_2_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_2_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_3",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_3",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_3",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_3",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_3",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_3_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_3_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_3_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_3_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}			
+			]
+		},	
+		{
+			"type": "bannerfour",
+		    "name": "Banner Grid - Four",
+		    "settings": [
+			 	{
+					"type": "image_picker",
+					"id": "image_1",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_1",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_1",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_1",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_1",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_1_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_1_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_1_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_1_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_2",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_2",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_2",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_2",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_2",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_2_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_2_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_2_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_2_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_3",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_3",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_3",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_3",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_3",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_3_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_3_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_3_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_3_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_4",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image_4",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "url",
+					"id": "link_4",
+					"label": "Image Link"
+				},
+				{
+					"type": "text",
+					"id": "title_4",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_4",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "url",
+					"id": "link_4_1",
+					"label": "Button Link 1"
+				},
+				{
+					"type": "text",
+					"id": "button_text_4_1",
+					"label": "Button Text 1",
+					"default": "Shop Now"
+				},
+				{
+					"type": "url",
+					"id": "link_4_2",
+					"label": "Button Link 2"
+				},
+				{
+					"type": "text",
+					"id": "button_text_4_2",
+					"label": "Button Text 2",
+					"default": "Shop Now"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}				
+			]
+		},	
+		{
+		    "type": "onecol-txt",
+		    "name": "1 Col - Text",
+		    "settings": [
+				{
+					"type": "color",
+					"id": "background_color",
+					"label": "Background Color"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Content Title",
+					"default": "Content Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content",
+					"label": "Content",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "select",
+					"id": "text_align",
+					"label": "Text Alignment",
+					"options": [
+					{ "value": "text-left", "label": "Align Left" },
+					{ "value": "text-center", "label": "Align Center" },
+					{ "value": "text-right", "label": "Align Right" }
+					],
+					"default": "text-center"
+				},
+				{
+					"type": "select",
+					"id": "is_title_h1",
+					"label": "Wrap title in H1 tag?",
+					"options": [
+					{ "value": "is_title_h1_yes", "label": "Yes" },
+					{ "value": "is_title_h1_no", "label": "No" }
+					],
+					"default": "is_title_h1_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				},
+				{
+					"type": "text",
+					"id": "class",
+					"label": "Custom class"
+				}
+		    ]				
+		},	
+		{
+		    "type": "onecol-txt-img",
+		    "name": "1 Col - Text Img",
+		    "settings": [
+				{
+					"type": "color",
+					"id": "background_color",
+					"label": "Background Color"
+				},
+				{
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Image"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "mobile_image",
+                    "label": "Mobile Image"
+                },
+				{
+					"type": "select",
+					"id": "image_position",
+					"label": "Image Position",
+					"options": [
+					{ "value": "image_above_text", "label": "Image Above Text" },
+					{ "value": "image_under_text", "label": "Image Under Text" }
+					],
+					"default": "image_under_text"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Content Title",
+					"default": "Content Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content",
+					"label": "Content",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "select",
+					"id": "text_align",
+					"label": "Text Alignment",
+					"options": [
+					{ "value": "text-left", "label": "Align Left" },
+					{ "value": "text-center", "label": "Align Center" },
+					{ "value": "text-right", "label": "Align Right" }
+					],
+					"default": "text-center"
+				},
+				{
+					"type": "select",
+					"id": "is_title_h1",
+					"label": "Wrap title in H1 tag?",
+					"options": [
+					{ "value": "is_title_h1_yes", "label": "Yes" },
+					{ "value": "is_title_h1_no", "label": "No" }
+					],
+					"default": "is_title_h1_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				},
+				{
+					"type": "text",
+					"id": "class",
+					"label": "Custom class"
+				}
+		    ]				
+		},	
+		{
+		    "type": "twocol-txt",
+		    "name": "2 Col - 1 Text 1 Text",
+		    "settings": [
+				{
+					"type": "color",
+					"id": "background_color",
+					"label": "Background Color"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Content Title",
+					"default": "Content Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content",
+					"label": "Content",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "select",
+					"id": "is_title_h1",
+					"label": "Wrap title in H1 tag?",
+					"options": [
+					{ "value": "is_title_h1_yes", "label": "Yes" },
+					{ "value": "is_title_h1_no", "label": "No" }
+					],
+					"default": "is_title_h1_no"
+				},
+				{
+					"type": "text",
+					"id": "title2",
+					"label": "Content Title 2",
+					"default": "Content Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content2",
+					"label": "Content 2",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "select",
+					"id": "is_title_h1_2",
+					"label": "Wrap title in H1 tag?",
+					"options": [
+					{ "value": "is_title_h1_yes", "label": "Yes" },
+					{ "value": "is_title_h1_no", "label": "No" }
+					],
+					"default": "is_title_h1_no"
+				},
+				{
+					"type": "select",
+					"id": "text_align",
+					"label": "Text Alignment",
+					"options": [
+					{ "value": "text-left", "label": "Align Left" },
+					{ "value": "text-center", "label": "Align Center" },
+					{ "value": "text-right", "label": "Align Right" }
+					],
+					"default": "text-center"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}
+		    ]				
+		},		
+		{
+	        "type": "twocol-1-img-txt",
+	        "name": "2 Col - 1 Img 1 Text",
+	        "settings": [
+				{
+					"type": "color",
+					"id": "background_color",
+					"label": "Background Color"
+				},
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Image"
+				},
+				{
+					"type": "image_picker",
+					"id": "mobile_image",
+					"label": "Mobile Image"
+				},
+				{
+					"type": "text",
+					"id": "alttext",
+					"label": "Alt Text",
+					"default": "Banner"
+				},
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Content Title",
+					"default": "Content Title"
+				},
+				{
+					"type": "textarea",
+					"id": "content",
+					"label": "Content",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "select",
+					"id": "image_width",
+					"label": "Image Column Width",
+					"options": [
+					{ "value": "image-twothirds", "label": "Third / Two Thirds" },
+					{ "value": "image-half", "label": "Half / Half" },
+					{ "value": "image-third", "label": "Two Thirds / Third" },
+					{ "value": "image-quarter", "label": "Three Quarters / Quarter" },
+					{ "value": "image-threequarters", "label": "Quarter / Three Quarter" }
+					],
+					"default": "image-half"
+				},
+				{
+					"type": "select",
+					"id": "column_order",
+					"label": "Column Order",
+					"options": [
+					{ "value": "image-left", "label": "Image Left - Content Right" },
+					{ "value": "image-right", "label": "Image Right - Content Left" }
+					],
+					"default": "image-left"
+				},
+				{
+					"type": "select",
+					"id": "row_width",
+					"label": "Row Width",
+					"options": [
+					{ "value": "wrapper-full", "label": "Full" },
+					{ "value": "wrapper-twothirds", "label": "Two Thirds" },
+					{ "value": "wrapper-threequarters", "label": "Three Quarters" },
+					{ "value": "wrapper-half", "label": "Half" }
+					],
+					"default": "wrapper-full"
+				},
+				{
+					"type": "select",
+					"id": "row_align",
+					"label": "Row Alignment",
+					"options": [
+					{ "value": "wrapper-left", "label": "Left" },
+					{ "value": "wrapper-center", "label": "Center" },
+					{ "value": "wrapper-right", "label": "Right" }
+					],
+					"default": "wrapper-center"
+				},
+				{
+					"type": "select",
+					"id": "vertical_align",
+					"label": "Vertical Align",
+					"options": [
+					{ "value": "content-center", "label": "Center aligned" },
+					{ "value": "content-top", "label": "Top aligned" },
+					{ "value": "content-bottom", "label": "Bottom aligned" }
+					],
+					"default": "content-center"
+				},
+				{
+					"type": "select",
+					"id": "is_title_h1",
+					"label": "Wrap title in H1 tag?",
+					"options": [
+					{ "value": "is_title_h1_yes", "label": "Yes" },
+					{ "value": "is_title_h1_no", "label": "No" }
+					],
+					"default": "is_title_h1_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}
+	        ]				
+		},
+         {
+			"type": "bedroom-button-findout",
+		    "name": "Bedroom Button Find Out",
+           	"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Find out..."
+				},
+              				{
+					"type": "url",
+					"id": "link_url",
+					"label": "Button Link"
+				},
+              	{
+					"type": "text",
+					"id": "link_txt",
+					"label": "Link text",
+					"default": "Our range"
+				}
+                    ]
+         },
+		{
+			"type": "featured-collection",
+		    "name": "Featured Collection",
+			"settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading",
+					"default": "Featured Collection"
+				},
+				{
+					"id": "collection",
+					"type": "collection",
+					"label": "Collection"
+				},
+				{
+					"type": "select",
+					"id": "grid",
+					"label": "Number of Products",
+					"default": "4",
+					"options": [
+					{
+						"value": "4",
+						"label": "4"
+					},
+					{
+						"value": "8",
+						"label": "8"
+					},
+					{
+						"value": "12",
+						"label": "12"
+					},
+					{
+						"value": "16",
+						"label": "16"
+					}
+					]
+					},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "builder-section",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

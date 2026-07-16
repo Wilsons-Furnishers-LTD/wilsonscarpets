@@ -1,0 +1,430 @@
+{% assign products_per_page = settings.products_per_row | times: settings.number_of_rows %}
+{% assign numbers = 'zero, one, two, three, four, five, six' | split: ',' %}
+{% assign products_per_row = settings.products_per_row | times: 1 %}
+{% assign products_per_row = numbers[products_per_row] | strip | append: '-per-row' %}
+
+{% if section.blocks.size > 0 %}
+    {% assign products_per_page = products_per_page | minus: section.settings.banner_per_page %}
+{% endif %}
+
+{% paginate collection.products by products_per_page %}
+
+<div class="collection-product {{products_per_page}} {{section.settings.banner_per_page}} {{section.blocks.size}} {% if collection.image %}yes-banner{% else %}no-banner{% endif %}">
+{% if collection.image %}
+  <div class="c-breadcrumb">
+    <div class="wrapper">
+      <div class="row">
+        {% render 'breadcrumbs' %}
+      </div>
+    </div>
+  </div>
+  <div class="collection-main-banner collection-product">
+    <div class="wrapper">
+      <div class="row collection-main-banner__inner">
+        <div class="collection-main-banner__content">
+          <div class="collection-description">
+              <div class="content">
+                  <h1>{{ collection.title }}</h1>
+                  {% if collection.description.size > 0 %}
+                    {% assign descriptionParagraphs = collection.description | split: '</p>' %}
+                        <div class="description">
+                        {% if descriptionParagraphs.size > 1 %}
+                            <div class="limit">{{descriptionParagraphs[0]}}<span class="dot">...</span> <a href="#" class="read active readMore">Read more</a></p></div>
+                            <div class="more">
+                                {{ collection.description }}
+                                <a href="#" class="read less">Read less</a>
+                            </div>
+                        {% else %}
+                            {{ collection.description }}
+                        {% endif %}
+                    </div>
+                  {% endif %}
+              </div>
+          </div>
+        </div>
+        <div class="collection-main-banner__image">
+          {% assign collection_image = collection.image | img_url: 'master' %}
+          {% assign collection_image_mobile = collection.image | img_url: '640x600', crop: 'center' %}
+            <picture>
+                <img src="{{ collection_image_mobile }}" alt="{{ collection.title }}" />
+            </picture>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+    <div class="wrapper">
+        <div class="row">
+          {% unless collection.image %}
+            {% render 'breadcrumbs' %}
+            <div class="collection-description">
+                <div class="content">
+                    <h1>{{ collection.title }}</h1>
+                    {% if collection.description.size > 0 %}
+                      {% assign descriptionParagraphs = collection.description | split: '</p>' %}
+                          <div class="description">
+                          {% if descriptionParagraphs.size > 1 %}
+                              <div class="limit">{{descriptionParagraphs[0]}}<span class="dot">...</span> <a href="#" class="read active readMore">Read more</a></p></div>
+                              <div class="more">
+                                  {{ collection.description }}
+                                  <a href="#" class="read less">Read less</a>
+                              </div>
+                          {% else %}
+                              {{ collection.description }}
+                          {% endif %}
+                      </div>
+                    {% endif %}
+                </div>
+            </div>
+          {% endunless %}
+        </div>
+        <div class="row">
+            <div class="col-left">
+                {% render 'filter-by-tags' %}
+            </div>
+            <div class="col-main">
+                <div class="toolbar toolbar-product">
+                    <div class="row">
+                        <div class="wrap-filter-sorter">
+                            <div class="filter-by">
+                                <span class="js-filter-by">Filter by <i class="icon-chevron-right"></i></span>
+                            </div>
+                            <div class="sorter">
+                                <label for="sorter">Sort by</label>
+                                <div class="selectWrapper">
+                                <select id="sorter" class="sort-by right">
+                                    <option value="manual">Featured</option>
+                                    <option value="price-ascending">Price: Low to High</option>
+                                    <option value="price-descending">Price: High to Low</option>
+                                    <option value="title-ascending">A-Z</option>
+                                    <option value="title-descending">Z-A</option>
+                                    <option value="created-ascending">Oldest to Newest</option>
+                                    <option value="created-descending">Newest to Oldest</option>
+                                    <option value="best-selling">Best Selling</option>
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        {% if paginate.pages > 1 %}
+                        <div class="wrap-pagi">
+                            <div class="collection-pagination">
+                                {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+
+{% assign thisCollectionsImages = '' %}
+{% assign thisCollectionsVideos = '' %}
+{% assign thisCollectionsImagePositions = '' %}
+{% assign thisCollectionsVideoPositions = '' %}
+
+{% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+        {% if block.settings.image != blank %}
+            {% assign outputMarkup = '<div class="item">' %}
+            {% unless block.settings.link == blank %}
+                {% assign outputMarkup = outputMarkup | append: '<a href="' | append: block.settings.link | append: '">' %}
+            {% endunless %}
+            
+            {% assign thisImage =  block.settings.image | img_url: '314x' %}
+            {% assign thisMobileImage = block.settings.image | img_url: '520x520', crop: 'center' %}
+                
+                {% if block.settings.mobileimage != blank %}
+                    {% assign thisMobileImage = block.settings.mobileimage | img_url: '520x520', crop: 'center' %}
+                {% endif %}
+
+            {% assign outputMarkup = outputMarkup | append: '<picture><source media="(min-width: 1024px)" srcset="' | append: thisImage | append: '">' %}
+            {% assign outputMarkup = outputMarkup | append: '<source srcset="' | append: thisMobileImage | append: '">' %}
+            {% assign outputMarkup = outputMarkup | append: '<img src="' | append: thisImage | append: '" loading="lazy" importance="low"></picture>' %}
+
+            {% unless block.settings.link == blank %}
+                {% assign outputMarkup = outputMarkup | append: '</a>' %}
+            {% endunless %}
+
+            {% assign outputMarkup = outputMarkup | append: '</div>' %}
+
+            {% unless thisCollectionsImages == '' %}
+                {% assign thisCollectionsImages = thisCollectionsImages | append: "|||" %}
+            {% endunless %}
+
+            {% assign thisCollectionsImages = thisCollectionsImages | append: outputMarkup %}
+            {% unless thisCollectionsImagePositions == '' %}
+                {% assign thisCollectionsImagePositions = thisCollectionsImagePositions | append: "|||" %}
+            {% endunless %}
+            
+            {% assign thisCollectionsImagePositions = thisCollectionsImagePositions | append: block.settings.position %}
+
+        {% elsif block.settings.videoURL != blank %}
+        
+            {% assign collectionVideo = block.settings.videoURL %}
+            {% capture outputMarkup %}
+                <div class="item collectionBannerVideo">
+                    {% unless block.settings.link == blank %}<a href="{{ block.settings.link }}">{% endunless %}
+                    <div class="videoWrapper" style="background-image: url('{{collectionVideo | append: '.jpg' | file_url}}');">
+                        <video class="grid-view-item__image" preload="auto" autoplay="autoplay" muted="muted" loop="loop" poster="{{'video-poster-transp.png' | asset_url}}" playsinline>
+                            <source src="{{collectionVideo | append: '.mp4' | file_url}}" type="video/mp4"></source>
+                            <source src="{{collectionVideo | append: '.webm' | file_url}}" type="video/webm"></source>
+                            <source src="{{collectionVideo | append: '.ogv' | file_url}}" type="video/ogg"></source>
+                        </video>
+                    </div>
+                    {% unless block.settings.link == blank %}</a>{% endunless %}
+                </div>
+            {% endcapture %}
+
+            {% unless thisCollectionsVideos == '' %}
+                {% assign thisCollectionsVideos = thisCollectionsVideos | append: "|||" %}
+            {% endunless %}
+
+            {% assign thisCollectionsVideos = thisCollectionsVideos | append: outputMarkup %}
+
+            {% unless thisCollectionsVideoPositions == '' %}
+                {% assign thisCollectionsVideoPositions = thisCollectionsVideoPositions | append: "|||" %}
+            {% endunless %}
+
+            {% assign thisCollectionsVideoPositions = thisCollectionsVideoPositions | append: block.settings.position %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+        {% assign thisCollectionsImagesArray = thisCollectionsImages | split: "|||" %}
+        {% assign thisCollectionsVideosArray = thisCollectionsVideos | split: "|||" %}
+        {% assign thisCollectionsImagePositionsArray = thisCollectionsImagePositions | split: "|||" %}
+        {% assign thisCollectionsVideoPositionsArray = thisCollectionsVideoPositions | split: "|||" %}
+                <div class="product-grid">
+                    {% assign loopCounter = 1 %}
+                    {% for product in collection.products %}
+                        {% comment %}
+                        {% include 'product-grid-item' with products_per_row %}
+                        {% assign loopCount = loopCounter | modulo: 3 %}
+                        {% if loopCount == 0 and loopCounter != forloop.length %}
+                            </div>
+                            <div class="product-grid">
+                        {% endif %}
+                        
+
+                        {% else %}
+                        <p id="noProducts">
+                            There are no products in this view.
+                        </p>
+                        {% endcomment %}
+                        
+                        {% assign loopCounterString = loopCounter | append: "" %}
+                        {% if thisCollectionsImagePositionsArray contains loopCounterString %}
+                            {% for collectionPosition in thisCollectionsImagePositionsArray %}
+                                {% assign thisCollectionPosition = collectionPosition | plus: 0 %}
+                                {% if loopCounter == thisCollectionPosition %}
+                                        {{thisCollectionsImagesArray[forloop.index0]}}
+                                    {% break %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+                        {% if thisCollectionsVideoPositionsArray contains loopCounterString %}
+                            {% for collectionPosition in thisCollectionsVideoPositionsArray %}
+                                {% assign thisCollectionPosition = collectionPosition | plus: 0 %}
+                                {% if loopCounter == thisCollectionPosition %}
+                                    {{thisCollectionsVideosArray[forloop.index0]}}
+                                    {% break %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+
+
+                       
+                        {% render 'product-grid-item', product: product with products_per_row %}
+
+                        {% assign loopCounter = loopCounter | plus: 1 %}
+
+                    {% else %}
+                        <p id="noProducts">
+                            There are no products in this view.
+                            {% if current_tags %}
+                                <script>
+                                    window.location = '/page-not-found';
+                                </script>
+                            {% endif %}
+                        </p>
+                    {% endfor %}
+                </div>
+                <div class="toolbar bottom toolbar-product">
+                    <div class="row">
+                        {% if paginate.pages > 1 %}
+                        <div class="wrap-pagi">
+                            <div class="collection-pagination">
+                                {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endpaginate %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %}
+  JavaScript for collection sorting.
+{% endcomment %}
+<script>
+    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+        Shopify.queryParams.sort_by = jQuery(this).val();
+        location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+    });
+</script>
+
+<script>
+  /* Product Tag Filters - Good for any number of filters on any type of collection page. */
+  Shopify.queryParams = {};
+  if (location.search.length) {
+      for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+        aKeyValue = aCouples[i].split('=');
+        if (aKeyValue.length > 1) {
+            Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+        }
+      }
+  }
+
+  var collFilters = jQuery('.coll-filter');
+  collFilters.change(function() {
+      var newTags = [];
+      var newURL = '';
+    collFilters.each(function() {
+      if (jQuery(this).val()) {
+          newTags.push(jQuery(this).val());
+      }
+    });
+
+  if (newTags.length) {
+      Shopify.queryParams.constraint = newTags.join('+');
+    }
+    else {
+      delete Shopify.queryParams.constraint;
+    }
+    location.search = jQuery.param(Shopify.queryParams);
+  });
+
+  jQuery(document).ready(function() {
+    var desc = jQuery('.collection-description');
+    jQuery('.read', desc).click(function(e) {
+      e.preventDefault();
+      if (jQuery(this).hasClass('readMore')) {
+        desc.addClass('active');
+      } else {
+        desc.removeClass('active');
+      }
+    });
+  });
+</script>
+
+{% render 'quick-view-ajaxify-cart' %}
+
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Collection Banners",
+    "class": "index-section",
+    "settings": [
+       {
+           "id": "banner_per_page",
+            "type": "select",
+            "label": "Banners per page",
+            "default": "3",
+            "options": [
+                    {
+                        "value": "1",
+                        "label": "1"
+                    },
+                    {
+                        "value": "2",
+                        "label": "2"
+                    },
+                    {
+                        "value": "3",
+                        "label": "3"
+                    },
+                    {
+                        "value": "4",
+                        "label": "4"
+                    },
+                    {
+                        "value": "5",
+                        "label": "5"
+                    }
+                ]
+       }
+    ],
+    "presets": [
+    ],
+    "blocks": [ 
+      {
+            "type": "image",
+            "name": "Banner image",
+            "settings": [
+        {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+              },
+                  {
+                "type": "image_picker",
+                "id": "mobileimage",
+                "label": "Mobile image"
+              },
+
+                      {
+              "id": "link",
+              "type": "url",
+              "label": "Banner link",
+              "info": "(Leave this blank for no link)"
+            },
+                       {
+              "id": "position",
+              "type": "text",
+              "label": "Banner position",
+              "default": "1"
+            }
+
+             
+            ]       
+      },
+            {
+            "type": "video",
+            "name": "Banner video",
+            "settings": [
+        {
+                "type": "text",
+                "id": "videoURL",
+                "label": "video filename",
+                "info": ".webm, .mp4, .ogv and .jpg should be uploaded to Settings > Files all with this filename"
+              },
+
+                      {
+              "id": "link",
+              "type": "url",
+              "label": "Banner link",
+              "info": "(Leave this blank for no link)"
+            },
+                       {
+              "id": "position",
+              "type": "text",
+              "label": "Banner position",
+              "default": "1"
+            }
+
+             
+            ]       
+      }
+    ]
+  }
+{% endschema %}

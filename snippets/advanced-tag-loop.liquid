@@ -1,0 +1,72 @@
+{% comment %}
+  A loop to catch and filter out the different tag categories.
+  This is mainly for advanced tagging, but will also help us strip
+  out any tag categories from our tags (E.g. remove BRAND_ from BRAND_tag)
+{% endcomment %}
+{% if collection.all_tags.size > 0 %}
+  {% assign categories = '' %}
+  {% assign colourCategory = '' %}
+
+  {% for tag in collection.all_tags %}
+    {% if tag contains 'Filter-Colour_' %}
+      {% capture colourCategory %}{% unless colourCategory == blank  %}{{ colourCategory }}|{% endunless %}Filter-Colour{% endcapture %}
+    {% endif %}
+    {% if tag contains 'Backing_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}Backing{% endcapture %}
+    {% endif %}
+     {% if tag contains 'Style_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}Style{% endcapture %}
+    {% endif %}
+    {% if tag contains 'FilterLength_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}FilterLength{% endcapture %}
+    {% endif %}
+    {% if tag contains 'Width_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}Width{% endcapture %}
+    {% endif %}
+     {% if tag contains 'Shade_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}Shade{% endcapture %}
+    {% endif %}
+    {% if tag contains 'Thick_Filter_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}Thick_Filter{% endcapture %}
+    {% endif %}
+    {% if tag contains 'Manufacturer_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}Manufacturer{% endcapture %}
+    {% endif %}
+    {% if tag contains 'Material_' %}
+      {% capture categories %}{% unless categories == blank  %}{{ categories }}|{% endunless %}Material{% endcapture %}
+    {% endif %}
+
+
+  {% endfor %}
+
+  {% unless colourCategory == ''  %}
+    {% unless categories == blank  %}
+      {% assign categories = colourCategory | append: '|' | append: categories %}
+    {% else %}
+      {% assign categories = colourCategory %}
+    {% endunless %}
+  {% endunless %}
+
+
+  {% assign cat_array = categories | split: '|' | uniq %}
+  {% assign cat_order = 'Filter-Colour|Material|FilterLength|Width|Style|Backing|Manufacturer|Thick_Filter' | downcase%}
+  {% assign cat_order_array = cat_order | split: '|' %}
+
+
+  {% assign cat_new_order = '' %}
+
+
+  {% for temp1 in cat_order_array  %}
+    {% for temp2 in cat_array %}
+      {% assign temp2_downcase = temp2 | downcase  %}
+      {% if temp1 == temp2_downcase  %}
+        {% assign cat_new_order = cat_new_order | append: temp2 | append: '|' %}
+      {% endif%}
+    {% endfor %}
+  {% endfor %}
+
+
+  {% assign cat_array = cat_new_order | split: '|' | concat: cat_array  | uniq  %}
+
+{% endif %}
+

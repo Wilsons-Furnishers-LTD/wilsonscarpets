@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "collection-carpets",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

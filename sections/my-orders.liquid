@@ -1,0 +1,98 @@
+{% if customer %}
+	<div class="page-2-columns my-account">
+		<div class="wrapper">
+			<div class="row">
+				<div class="col-left">
+					{% render 'account-sidebar' %}
+				</div>
+				<div class="col-main my-orders">
+					{% paginate customer.orders by 20 %}
+					<h1>{{ page.title }}</h1>
+					{% if customer.orders.size != 0 %}
+						<table class="orders-table">
+							<tbody>
+								{% for order in customer.orders %}
+								<tr>
+									<td class="order-image">
+										<a href="{{ order.customer_url }}">	
+											{% for line_item in order.line_items %}
+												{% if forloop.first == true %}
+
+													{% assign parent_handle = line_item.properties.ProductHandle %}
+													{% assign variant_id = line_item.properties.VariantID | plus: 0  %}
+													
+													{% if line_item.properties.ProductHandle %}
+														{% assign product = all_products[parent_handle] %}
+													{% else %}
+														{% assign product = line_item.product %}
+													{% endif %}
+
+													{% assign variant = product.variants | where: 'id', variant_id | first %}
+
+                                                    {%- if parent_handle != null-%}
+                                                        {{ variant.image | img_url: '160x' | img_tag }}
+                                                    {%- else -%}
+                                                        {{ line_item.image | img_url: '160x' | img_tag }}
+                                                    {%- endif -%}
+												{% endif %}
+											{% endfor %}
+											<span class="count">
+											{% if order.line_items.size == 1 %}
+												{{ order.line_items.size | append: ' Item' }}
+											{% else %}
+												{{ order.line_items.size | append: ' Items' }}
+											{% endif %}
+											</span>
+										</a>
+									</td>
+									<td class="order-detail">
+										<div class="row">
+											<div class="col order-number">
+												<span class="title">{{ 'customer.orders.order_number' | t }}</span>
+												<a href="{{ order.customer_url }}">{{ order.name }}</a>
+											</div>
+											<div class="col order-date">
+												<span class="title">{{ 'customer.orders.date' | t }}</span>
+												{{ order.created_at | date: format: 'month_day_year' }}
+											</div>
+											<div class="col order-status">
+												<span class="title">{{ 'customer.orders.fulfillment_status' | t }}</span>
+												{{ order.fulfillment_status | capitalize }}
+											</div>
+											<div class="col tracking-no">
+												<span class="title">Tracking No.</span>
+												{% for line_item in order.line_items %}
+													{% if line_item.fulfillment.tracking_number %}
+														<a class="tracking-url" href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_number}}</a>
+													{% endif %}
+												{% endfor %}
+											</div>
+											<div class="col view-order">
+												<div class="actions">
+													<a class="button" href="{{ order.customer_url }}">View Order</a>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					{% else %}
+						<p class="no-order">{{ 'customer.orders.none' | t }}</p>
+					{% endif %}
+					{% if paginate.pages > 1 %}
+						{% render 'pagination' %}
+						{% endif %}
+					{% endpaginate %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<script type="text/javascript">
+        window.location.href= "/account/"
+    </script>
+{% endif %}
+
+

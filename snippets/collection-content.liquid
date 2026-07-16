@@ -1,0 +1,34 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+{%- assign show_title = show_title | default: true -%}
+
+<div class="collection-description">
+  <div class="content rte">
+      {%- if show_title -%}
+        <h1>{{ collection.title }}</h1>
+      {%- endif -%}
+      {% if collection.description.size > 0 %}
+      {% assign descriptionParagraphs = collection.description | split: '</p>' %}
+          <div class="description">
+          {% if descriptionParagraphs.size > 1 %}
+              <div class="limit">{{descriptionParagraphs[0]}}<span class="dot">...</span> <a href="#" class="read active readMore">Read more</a></p></div>
+              <div class="more">
+                  {{ collection.description }}
+                  <a href="#" class="read less">Read less</a>
+              </div>
+          {% else %}
+              {{ collection.description }}
+          {% endif %}
+      </div>
+      {% endif %}
+  </div>
+</div>

@@ -1,0 +1,58 @@
+{{ 'customer_gallery.css' | asset_url | stylesheet_tag }}
+{{ 'masonry.js' | asset_url | script_tag }}
+
+{% render 'gtm-page' %}
+<div class="wrapper">
+    
+    {{ page.content }}
+    <div class="masonry-gallery" id="masonry-{{ section.id }}">
+    {% for block in section.blocks %}
+        {% if block.settings.image != blank %}
+        <div class="masonry-item">
+            <img 
+            src="{{ block.settings.image | image_url: width: 1000 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            >
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+
+    {% schema %}
+    {
+    "name": "Masonry Gallery",
+    "settings": [
+        {
+        "type": "range",
+        "id": "gap",
+        "label": "Gap",
+        "min": 0,
+        "max": 30,
+        "step": 2,
+        "default": 10
+        }
+    ],
+    "blocks": [
+        {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+            {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+            }
+        ]
+        }
+    ],
+    "presets": [
+        {
+        "name": "Masonry Gallery"
+        }
+    ]
+    }
+    {% endschema %}
+</div>
+
+

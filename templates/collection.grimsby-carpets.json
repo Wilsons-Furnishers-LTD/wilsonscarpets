@@ -24,18 +24,18 @@
         "image_i4cHPb": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-desktop_7450248b-1639-464f-8a2a-2e00878ad6e8.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/Wilsons_Carpets_Grimsby_location_map_desktop.jpg",
+            "mobileimage": "shopify://shop_images/Wilsons_Carpets_Grimsby_location_map_mobilep.jpg",
+            "link": "shopify://pages/grimsby",
             "position": "4"
           }
         },
         "image_m9aNzX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-desktop.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/Wilsons-Carpets-Grimsby-store-banner-desktop.jpg",
+            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Grimsby-store-banner-mobile.jpg",
+            "link": "shopify://pages/grimsby",
             "position": "1"
           }
         }

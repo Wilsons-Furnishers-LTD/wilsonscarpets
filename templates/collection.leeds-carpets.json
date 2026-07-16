@@ -1,8 +1,53 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "collection-storecarpets",
-      "settings": {}
+      "blocks": {
+        "image_fKTgai": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/lowest-carpet-prices-desktop-314_314x_08644afa-1ec9-4e5b-aefa-0ca97d0e3801.webp",
+            "mobileimage": "shopify://shop_images/lowest-carpet-prices_520x520_crop_center_d7a143fb-c06c-46d6-b19d-2b34818f6434.webp",
+            "link": "shopify://pages/price-promise",
+            "position": "7"
+          }
+        },
+        "image_i4cHPb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/leeds-store-map-desktop.jpg",
+            "mobileimage": "shopify://shop_images/leeds-store-map-mobile.jpg",
+            "link": "shopify://pages/leeds",
+            "position": "4"
+          }
+        },
+        "image_m9aNzX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/leeds-store-desktop.jpg",
+            "mobileimage": "shopify://shop_images/leeds-store-mobile.jpg",
+            "link": "shopify://pages/leeds",
+            "position": "1"
+          }
+        }
+      },
+      "block_order": [
+        "image_fKTgai",
+        "image_i4cHPb",
+        "image_m9aNzX"
+      ],
+      "settings": {
+        "banner_per_page": "3"
+      }
     }
   },
   "order": [

@@ -24,18 +24,18 @@
         "image_i4cHPb": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/leeds-store-map-desktop.jpg",
-            "mobileimage": "shopify://shop_images/leeds-store-map-mobile.jpg",
-            "link": "shopify://pages/leeds",
+            "image": "shopify://shop_images/wilsons-carpets-artificial-grass-STORE-LOCATION-MAP-rotherham_0d3af526-7222-4ac7-8ed4-5bca658a03bb.jpg",
+            "mobileimage": "shopify://shop_images/wilsons-carpets-store-rotherham_location_map-mobile.jpg",
+            "link": "shopify://pages/rotherham-parkgate",
             "position": "4"
           }
         },
         "image_m9aNzX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/leeds-store-desktop.jpg",
-            "mobileimage": "shopify://shop_images/leeds-store-mobile.jpg",
-            "link": "shopify://pages/leeds",
+            "image": "shopify://shop_images/wilsons-carpets-beds-store-rotherham-desktop.jpg",
+            "mobileimage": "shopify://shop_images/wilsons-carpets-store-rotherham-mobile.jpg",
+            "link": "shopify://pages/rotherham-parkgate",
             "position": "1"
           }
         }

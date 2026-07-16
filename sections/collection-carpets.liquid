@@ -202,7 +202,7 @@
 
 
 
-                        {% render 'product-grid-item' with products_per_row %}
+                        {% render 'product-grid-item', product: product with products_per_row %}
 
                         {% assign loopCounter = loopCounter | plus: 1 %}
 

@@ -24,18 +24,18 @@
         "image_i4cHPb": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-desktop_7450248b-1639-464f-8a2a-2e00878ad6e8.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-location-map-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/wilsons_carpets_Scunthorpe_store_map_desktop_f620087f-87f8-4838-bc48-fa4e38fc37ef.jpg",
+            "mobileimage": "shopify://shop_images/wilsons_carpets_Scunthorpe_store_map_mobile_6315e38f-84d2-42b3-8af4-b5d4b7a5f0e5.jpg",
+            "link": "shopify://pages/scunthorpe",
             "position": "4"
           }
         },
         "image_m9aNzX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-desktop.jpg",
-            "mobileimage": "shopify://shop_images/Wilsons-Carpets-Barnsley-store-mobile.jpg",
-            "link": "shopify://pages/barnsley",
+            "image": "shopify://shop_images/wilsons-carpets-Scunthorpe-store-image-desktop.jpg",
+            "mobileimage": "shopify://shop_images/wilsons-carpets-Scunthorpe-store-image-mobile.jpg",
+            "link": "shopify://pages/scunthorpe",
             "position": "1"
           }
         }

@@ -1,0 +1,13 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+
+// Viewed Cart Event
+
+  analytics.track('Viewed Cart', {
+    itemCount: "{{ cart.item_count }}",
+    totalPrice: "{{ cart.total_price | money_without_currency }}",
+    totalWeight: "{{ cart.total_weight }}"
+  });
+
+</script>
+{% endunless %}

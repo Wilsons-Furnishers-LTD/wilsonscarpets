@@ -17,6 +17,7 @@
         ".freedelivery-banner {border-top: 1px solid #fff;}"
       ],
       "settings": {
+        "show_block": "no",
         "price": 199,
         "background_over": "shopify://shop_images/safsf.png",
         "title_over": "Visit one of our 19 stores today!",
@@ -30,7 +31,7 @@
         "specifications_title": "Specifications"
       }
     },
-    "cms_bannergrid_four_icon_mR7yqf": {
+        "cms_bannergrid_four_icon_mR7yqf": {
       "type": "cms_bannergrid-four-icon",
       "name": "Banner Grid - Icon",
       "settings": {

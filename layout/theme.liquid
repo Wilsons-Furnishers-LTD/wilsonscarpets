@@ -240,7 +240,7 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 
 
 
-<main class="main-content" id="MainContent">
+<main class="main-content {% if request.page_type == 'cart' %} shopping-bag  {% endif %}" id="MainContent">
     {% if request.page_type == 'index' %}
         <div class="cms-homepage">
     {% endif %}

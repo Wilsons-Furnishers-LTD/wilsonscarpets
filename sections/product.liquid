@@ -1,3 +1,10 @@
+{% assign GTINexist = '' %}
+{% for tag in product.tags %}
+    {% if tag contains 'identifier_exists_' %}
+        {% assign GTINexist = tag | replace: 'identifier_exists_', '' %}
+    {% endif %}
+{% endfor %}
+
 {%- render 'product-top' -%}
 <div class="wrapper">
     <div class="product-page" itemscope itemtype="https://schema.org/Product">
@@ -39,7 +46,30 @@
                 {%- render 'product-details' -%}
             </div>
         </form>
-        {%- render 'product-description' -%}
+        <div class="product-page">
+            <div class="product-description">
+                <div class="row">
+                    <div class="description">
+                        <h2 class="title">Description</h2>
+                        <div class="content" itemprop="description">
+                            {{ product.description }}
+                        </div>
+                    </div>
+
+                    {% render 'product-specifications' %}
+
+                    <div class="delivery">
+                        <h2 class="title">Delivery</h2>
+                        {% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
+                        <div class="content">
+                            {% if pages[delivery_type] %}
+                                {{ pages[delivery_type].content }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% if section.settings.show_related_products == true %}
 			{% comment %}
 			Number of related items per row,
@@ -163,65 +193,92 @@
 
 {% schema %}
 {
-"name": "Related products",
-"settings": [
-{
-"type": "checkbox",
-"id": "show_related_products",
-"label": "Show related products",
-"default": true
-},
-{
-"id": "related_title",
-"type": "text",
-"label": "Section title",
-"default": "You may also like"
-},
-{
-"type": "select",
-"id": "related_grid_num",
-"label": "Products per row (Desktop)",
-"default": "3",
-"options": [
-{
-"value": "2",
-"label": "2"
-},
-{
-"value": "3",
-"label": "3"
-},
-{
-"value": "4",
-"label": "4"
-},
-{
-"value": "5",
-"label": "5"
-}
-]
-},
-{
-"type": "select",
-"id": "related_grid_row",
-"label": "Number of rows (Desktop)",
-"default": "3",
-"options": [
-{
-"value": "1",
-"label": "1"
-},
-{
-"value": "2",
-"label": "2"
-},
-{
-"value": "3",
-"label": "3"
-}
-]
-}
-]
+  "name": "Product Settings",
+  "max_blocks": 200,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "label": "Show related products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_title",
+      "label": "Related products title",
+      "default": "You may also like"
+    },
+    {
+      "type": "select",
+      "id": "related_grid_num",
+      "label": "Products per row (Desktop)",
+      "default": "3",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "related_grid_row",
+      "label": "Number of rows (Desktop)",
+      "default": "3",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "specifications_title",
+      "label": "Specifications title",
+      "default": "Specifications"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tags",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Product Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Image slide"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Lorem ipsum dolor sit amet, consectetur"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
 

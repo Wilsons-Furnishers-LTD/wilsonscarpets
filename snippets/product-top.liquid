@@ -28,6 +28,7 @@
     {% if tag contains 'RRP_' %}
         {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
     {% endif %}
+    
     {% if tag contains 'Pack Size (M²)_' %}
         {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
     {% endif %}

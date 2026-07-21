@@ -8,6 +8,25 @@
 
   If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
 {%- endcomment -%}
+{% assign afterText = "" %}
+{% assign beforeText = "Only " %}
+{% assign packSizePerSQM = 1 %}
+{% for tag in product.tags %}
+    {% if tag contains 'After Label_' %}
+        {% assign afterText = tag | replace: 'After Label_', '' | prepend: " " %}
+    {% endif %}
+    {% if tag contains 'RRP_' %}
+        {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Before Label_' %}
+        {% assign beforeText = tag | replace: 'Before Label_', '' | prepend: "<small>" | append: "</small> " %}
+    {% endif %}
+{% endfor %}
+
+{% if RRPPrice != '' %}
+    {% assign priceSquareMetre = RRPPrice | times: 100 %}
+    {% assign purchasePricePerSQM = product.price | divided_by: packSizePerSQM %}
+{% endif %}
 
 <div class="product-details first">
   <div class="details">
@@ -37,7 +56,7 @@
           {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
         {% endif %}
       {% endif %}
-
+      
       {% if priceSquareMetre > purchasePricePerSQM or product.compare_at_price > product.price %}
         <h3>
           <span>{{ wasPrice }}</span>

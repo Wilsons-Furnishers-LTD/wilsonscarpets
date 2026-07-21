@@ -6,10 +6,10 @@
     <script src="{{ 'customer.js' |  asset_url}}"></script>
     {% endif %}
 <script src="{{ 'timber.js' |  asset_url}}" defer></script>
-
+    
 	{% if settings.ajax_cart_method == "drawer" %}
 	<script src="{{ 'handlebars.min.js' |  asset_url}}" defer></script>
-	{% include 'ajax-cart-template' %}
+	{% render 'ajax-cart-template' %}
 		<script src="{{ 'ajax-cart.js' |  asset_url}}" defer></script>
 	<script>
 		jQuery(document).ready(function() {

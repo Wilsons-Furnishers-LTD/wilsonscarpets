@@ -223,13 +223,28 @@
 </script>
 {% render 'gtm-cart' %}
 
-
 {% schema %}
 {
   "name": "Cart Free Delivery",
   "class": "index-section",
   "max_blocks": 200,
   "settings": [
+    {
+      "type": "select",
+      "id": "show_block",
+      "label": "Show Delivery Date?",
+      "options": [
+        {
+          "value": "yes",
+          "label": "Yes"
+        },
+        {
+          "value": "no",
+          "label": "No"
+        }
+      ],
+      "default": "yes"
+    },
     {
       "type": "number",
       "id": "price",

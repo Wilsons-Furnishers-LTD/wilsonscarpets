@@ -30,6 +30,27 @@
         "specifications_title": "Specifications"
       }
     },
+    "cms_bannergrid_four_icon_mR7yqf": {
+      "type": "cms_bannergrid-four-icon",
+      "name": "Banner Grid - Icon",
+      "settings": {
+        "title": "Why choose us",
+        "icon_1": "£",
+        "title_1": "Lowest Price Guaranteed",
+        "subheading_1": "Over 1,000 competitor prices are checked by us daily",
+        "icon_2": "<i class=\"fas fa-truck\"></i>",
+        "title_2": "Fast Fitting & Delivery",
+        "subheading_2": "Fitting and delivery available within a week in most cases",
+        "icon_3": "<i class=\"fas fa-envelope-open\"></i>",
+        "title_3": "Visit Us In Store",
+        "subheading_3": "We have 20 stores around the Yorkshire, Nottinghamshire & Lincolnshire area",
+        "icon_4": "<i class=\"fas fa-star\"></i>",
+        "title_4": "57 Years In The Industry",
+        "subheading_4": "Wilsons has been selling flooring and providing great service since 1968",
+        "add_border_top": "add_border_top_no",
+        "add_border_bottom": "add_border_bottom_no"
+      }
+    },
     "featured_collection_wQiERn": {
       "type": "featured-collection",
       "name": "Featured collection",
@@ -40,32 +61,11 @@
         "add_border_top": "add_border_top_no",
         "add_border_bottom": "add_border_bottom_no"
       }
-    },
-    "cms_bannergrid_four_icon_mR7yqf": {
-      "type": "cms_bannergrid-four-icon",
-      "name": "Banner Grid - Icon",
-      "settings": {
-        "title": "Why choose us",
-        "icon_1": "£",
-        "title_1": "Lowest Price Guaranteed",
-        "subheading_1": "Over 1,000 competitor prices are checked by us daily",
-        "icon_2": "<i class="fas fa-truck"></i>",
-        "title_2": "Fast Fitting & Delivery",
-        "subheading_2": "Fitting and delivery available within a week in most cases",
-        "icon_3": "<i class="fas fa-envelope-open"></i>",
-        "title_3": "Visit Us In Store",
-        "subheading_3": "We have 20 stores around the Yorkshire, Nottinghamshire & Lincolnshire area",
-        "icon_4": "<i class="fas fa-star"></i>",
-        "title_4": "57 Years In The Industry",
-        "subheading_4": "Wilsons has been selling flooring and providing great service since 1968",
-        "add_border_top": "add_border_top_no",
-        "add_border_bottom": "add_border_bottom_no"
-      }
     }
   },
   "order": [
     "main",
-    "featured_collection_wQiERn",
-    "cms_bannergrid_four_icon_mR7yqf"
+    "cms_bannergrid_four_icon_mR7yqf",
+    "featured_collection_wQiERn"
   ]
 }

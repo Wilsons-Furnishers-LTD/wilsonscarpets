@@ -1,0 +1,283 @@
+{% assign itemIsShown = true %}
+{% assign itemIsInStock = false %}
+
+{% for variant in product.variants %}
+  {% if variant.metafields.juno.is_in_stock != '0' %}
+    {% assign itemIsInStock = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if searchItem %}
+  {% assign product = searchItem %}
+  {% if itemIsInStock == false %}
+    {% assign itemIsShown = false %}
+  {% endif %}
+{% endif %}
+
+
+{% if itemIsShown %}
+  {% unless product.tags contains "clone product" or product.type == "Sample" %}
+    {% assign value_colors = '' %}
+    {% for product_option in product.options_with_values %}
+      {% assign product_option_name = product_option.name | downcase %}
+      {% assign position = product_option.position | minus: 1 %}
+      {% if product_option_name == 'color' or product_option_name == 'colour' %}
+        {% for variant in product.variants %}
+          {% assign value = variant.title | split: '/' %}
+          {% assign value = value[position] | lstrip %}
+          {% assign value_colors = value_colors | append: value %}
+          {% if forloop.last == false %}
+            {% assign value_colors = value_colors | append: ' / ' %}
+          {% endif %}
+        {% endfor %}
+        {% assign value_colors = value_colors | split: ' / ' | uniq %}
+      {% endif %}
+    {% endfor %}
+
+    {% assign merchant = 'online-carpets' %}
+    {% if shop.permanent_domain contains 'grass' %}
+      {% assign merchant = 'Grass247' %}
+    {% endif %}
+
+    <div class="item">
+      <div class="product-image-wrap">
+        {% assign iconsFlag = '' %}
+        {% assign productTag = '' %}
+        {% assign productPromo = '' %}
+        {% assign onSaleClass = '' %}
+        {% assign packSizePerSQM = 1 %}
+        {% assign RRPPrice = '' %}
+        {% assign priceSquareMetre = 0 %}
+        {% assign beforeText = 'Only ' %}
+        {% assign afterText = '' %}
+        {% assign ShoppingID = '' %}
+
+        {% for tag in product.tags %}
+          {% if tag contains 'RRP_' %}
+            {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
+          {% endif %}
+          {% if tag contains 'flag_' or tag contains 'Flag_' %}
+            {% assign iconsFlag = tag | replace: 'flag_' | replace: 'Flag_' %}
+          {% endif %}
+          {% if tag contains 'promo_' %}
+            {% assign productPromo = tag | replace: 'promo_' %}
+          {% endif %}
+          {% if tag contains 'Pack Size (M²)_' %}
+            {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
+          {% endif %}
+          {% if tag contains 'Before Label_' %}
+            {% assign beforeText = tag | replace: 'Before Label_', '' | prepend: "<small>" | append: "</small> " %}
+          {% endif %}
+          {% if tag contains 'After Label_' %}
+            {% assign afterText = tag | replace: 'After Label_', '' | downcase | replace: 'free delivery', '' | strip %}
+          {% endif %}
+          {% if tag contains 'ShoppingID_' %}
+            {% assign ShoppingID = tag | replace: 'ShoppingID_', '' %}
+          {% endif %}
+        {% endfor %}
+
+        {% if RRPPrice != '' %}
+          {% assign priceSquareMetre = RRPPrice | times: 100 %}
+          {% assign purchasePricePerSQM = product.price | divided_by: packSizePerSQM %}
+        {% endif %}
+
+        {% if product.compare_at_price > product.price %}
+          {% assign onSaleClass = ' sale' %}
+        {% assign beforeText = '<small>Now</small> ' %}
+          {% comment %}
+            {% assign productTag = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | append: '%<br>OFF' | prepend: '<span>Up to</span>' %}
+          {% endcomment %}
+          {% assign productTag = 'Sale<br>Price' %}
+        {% endif %}
+
+        <a href="{{ product.url }}" class="image">
+          <ul class="iconsFlag">
+            {% for tag in product.tags %}
+              {% if tag contains 'flag_' or tag contains 'Flag_' %}
+                <li><img
+                    loading="lazy"
+                    width="90"
+                    height="90"
+                    src="{{ tag | capitalize | file_img_url: 'master' }}"
+                    alt="" /></li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+
+          {% if productPromo != '' %}
+            <span class="productTag">{{ productPromo }}</span>
+          {% else %}
+            {% if productTag != '' %}
+              <span class="productTag">{{ productTag }}</span>
+            {% endif %}
+          {% endif %}
+          <picture>
+            {% if forloop.index > 10 %}
+              <source media="(min-width: 1024px)" srcset="{{ product | img_url: '313x' }}">
+              <img
+                loading="lazy"
+                width="313"
+                height="313"
+                importance="low"
+                src="{{ product | img_url: '500x' }}"
+                alt="{{ product.featured_image.alt | escape }}" />
+            {% else %}
+              <source media="(min-width: 1024px)" srcset="{{ product | img_url: '313x' }}">
+              <img
+                loading="lazy"
+                width="313"
+                height="313"
+                importance="low"
+                src="{{ product | img_url: '600x' }}"
+                alt="{{ product.featured_image.alt | escape }}" />
+            {% endif %}
+          </picture>
+        </a>
+      </div>
+      <!-- .prod-image-wrap -->
+      <div class="product-caption">
+
+
+        <h2 class="product-name">
+          <a href="{{ product.url }}">
+            {{ product.title }}
+          </a>
+        </h2>
+
+        <span class="product-price">
+          {% assign variant = product.selected_or_first_available_variant %}
+
+          {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
+            <span class="price only{{onSaleClass}}">{{ beforeText }}{{ product.price | money }}{{ afterText }}</span>
+            {% if product.compare_at_price > product.price %}
+              {% assign wasPrice = product.compare_at_price | money | prepend: 'was ' | append: afterText %}
+            {% else %}
+              {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+            {% endif %}
+          {% elsif product.type == 'Laminate' or product.type == 'LVT' %}
+            <span class="price only{{onSaleClass}}">{{ beforeText }}{{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</span>
+
+            {% if product.compare_at_price > product.price %}
+              {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
+            {% else %}
+              {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+            {% endif %}
+
+          {% else %}
+            <span class="price{{onSaleClass}}">{{ beforeText }}{{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</span>
+            {% if product.compare_at_price > product.price %}
+              {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
+            {% else %}
+              {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+            {% endif %}
+          {% endif %}
+
+          {% if priceSquareMetre > purchasePricePerSQM or product.compare_at_price > product.price %}
+            <span class="wasPrice price rrp">{{ wasPrice }}</span>
+          {% else %}
+            {% if product.metafields.carpets.RRPM2 %}
+              <span class="price rrp">RRP {{ product.metafields.carpets.RRPM2 | times: 100 | money }} m<sup>2</sup>
+                {% if product.metafields.carpets.RRPM2 %}
+                  {% assign priceSquareMetre = product.metafields.carpets.RRPM2 | times: 100 %}
+                  {% assign purchasePricePerSQM = product.price | divided_by: packSizePerSQM %}
+                  {% comment %} {% assign percentSaved = priceSquareMetre | minus: purchasePricePerSQM | divided_by: priceSquareMetre | times: 100 | ceil %}
+                                                    {% if priceSquareMetre != product.price %}
+                                                        (Save {{percentSaved}}%)
+                                                {% endif %} {% endcomment %}
+                {% endif %}
+              </span>
+            {% endif %}
+          {% endif %}
+        </span>
+
+
+        {% assign getallSKUs = product.selected_or_first_available_variant.sku %}
+        {% assign getallSKUs = getallSKUs | replace: "0", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "1", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "2", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "3", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "4", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "5", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "6", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "7", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "8", "" %}
+        {% assign getallSKUs = getallSKUs | replace: "9", "" %}
+        {% if ShoppingID != "" %}
+          {% assign getallSKUs = ShoppingID %}
+        {% else %}
+          {% assign getallSKUs = getallSKUs | append: '*' %}
+        {% endif %}
+
+
+        <div class="swatch-colours swatch-colours__collection">
+          {% if value_colors.size > 1 %}
+            <ul class="list">
+              {% for value_color in value_colors %}
+                {% comment %}<!-- only show the first 12 swatches visually: /-->{% endcomment %}
+                {% if forloop.index < 13 %}
+                  {% assign outerLoopIndex = forloop.index %}
+                  {% assign current_color = value_color | strip %}
+                  {% for variant in product.variants %}
+                    {% liquid
+                      assign isMatch = false
+                      for _option in variant.options
+                        if _option == current_color
+                          assign isMatch = true
+                          break
+                        endif
+                      endfor
+                      if isMatch == false
+                        continue
+                      endif
+                    %}
+                    <li>
+                      <span data-image-url="{{ variant.image.src | img_url: '500x' }}">
+                        <a href="{{ product.url }}?color={{ current_color | replace: " ", "%20" }}">
+                          <img
+                            width="30"
+                            height="30"
+                            src="{{ variant.image.src | img_url: '80x80', crop: 'center' }}"
+                            alt="{{ current_color }}"
+                            loading="lazy" /></a>
+                      </span>
+                    </li>
+                    {% break %}
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </ul>
+            <span class="length">{{ value_colors.size }} {{ value_colors.size | pluralize: ' colour', ' colours' | append: ' available' }}</span>
+          {% endif %}
+          <div class="buttons-set">
+            <a class="button" href="{{ product.url }}">View Product</a>
+
+            {% assign numberOfSamplesInCart = 0 %}
+            <script>
+              sampleVariantsAlreadyInCart = [];
+                          {% if cart.item_count > 0 %}
+              {% for item in cart.items %}
+                {% if item.product.type == "Sample" %}
+                  {% assign numberOfSamplesInCart = numberOfSamplesInCart | plus: item.quantity %}
+                  sampleVariantsAlreadyInCart.push("{{item.variant_id}}");
+                {% endif %}
+              {% endfor %}
+                          {% endif %}
+            </script>
+            {% if numberOfSamplesInCart < 6 %}
+              {% assign sampleProduct = product.handle | append: '-sample' %}
+              {% assign freeSampleProduct = all_products[sampleProduct] %}
+              {% if freeSampleProduct != blank %}
+                {% if freeSampleProduct.type == "Sample" %}
+                  <a class="button button-second" href="{{ product.url }}">Free Sample</a>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+    <!-- .prod-caption -->
+    </div>
+  {% endunless %}
+{% endif %}

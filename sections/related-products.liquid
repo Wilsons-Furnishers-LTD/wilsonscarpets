@@ -1,0 +1,184 @@
+{% if section.settings.show_related_products == true %}
+			{% comment %}
+			Number of related items per row,
+			and number of rows.
+			{% endcomment %}
+
+			{% assign number_of_related_products_per_row = section.settings.related_grid_num %}
+			{% assign number_of_rows = section.settings.related_grid_row %}
+
+			{% comment %}
+			Heading.
+			Leave blank if you don't need one.
+			{% endcomment %}
+
+			{% assign heading = section.settings.related_title %}
+
+			{% comment %}
+			Set either or both to true, if you want
+			to limit yourself to items with same vendor, and/or type.
+			{% endcomment %}
+
+			{% assign same_vendor = false %}
+			{% assign same_type = false %}
+
+			{% comment %}
+			Collections to ignore.
+			Never pick related items from those.
+			{% endcomment %}
+
+			{% assign exclusions = 'frontpage,all' | split: ',' %}
+
+			{% comment %}
+			Looking for a relevant collection.
+			{% endcomment %}
+
+			{% if product.metafields.Juno.related_products %}
+			{% assign collection = collections[product.metafields.Juno.related_products] %}
+			{% endif %}
+
+			{% assign found_a_collection = false %}
+			{% if collection and collection.all_products_count > 1 %}
+			{% unless exclusions contains collection.handle %}
+			{% assign found_a_collection = true %}
+			{% endunless %}
+			{% endif %}
+			{% unless found_a_collection %}
+			{% for c in product.collections %}
+			{% unless exclusions contains c.handle or c.all_products_count < 2 %}
+			{% assign found_a_collection = true %}
+			{% assign collection = c %}
+			{% break %}
+			{% endunless %}
+			{% endfor %}
+			{% endunless %}
+
+			{% comment %}
+			If we have a relevant collection.
+			{% endcomment %}
+
+			{% if found_a_collection %}
+
+			{% assign counter = 0 %}
+			{% assign break_at = number_of_rows | times: number_of_related_products_per_row %}
+			{% assign current_product = product %}
+
+			{% case number_of_related_products_per_row %}
+			{% when '1' %}`
+			{% assign col_per_row = '' %}
+			{% when '2' %}
+			{% assign col_per_row = 'col-wide-6 col-medium-6 col-small-6 col-smallest-6' %}
+			{% when '3' %}
+			{% assign col_per_row = 'col-wide-4 col-medium-4 col-small-6 col-smallest-6' %}
+			{% when '4' %}
+			{% assign col_per_row = 'col-wide-3 col-medium-3 col-small-6 col-smallest-6' %}
+			{% when '5' %}
+			{% assign col_per_row = 'col-wide-2 col-medium-2 col-small-4 col-smallest-6' %}
+			{% when '6' %}
+			{% assign col_per_row = 'large--one-sixth medium--one-third small--one-half' %}
+			{% else %}
+			{% assign col_per_row = 'large--one-quarter medium--one-third small--one-half' %}
+			{% endcase %}
+
+			{% capture related_items %}
+			{% for product in collection.products %}
+			{% unless product.handle == current_product.handle %}
+			{% unless same_vendor and current_product.vendor != product.vendor %}
+			{% unless same_type and current_product.type != product.type %}
+
+			{% include 'product-grid-item-related' %}
+
+			{% assign counter = counter | plus: 1 %}
+			{% if counter == break_at %}
+			{% break %}
+			{% endif %}
+			{% endunless %}
+			{% endunless %}
+			{% endunless %}
+			{% endfor %}
+			{% endcapture %}
+
+			{% assign related_items = related_items | trim %}
+
+			{% unless related_items == blank %}
+	<div class="featured-collections related-products" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
+			{% unless heading == blank %}
+			<h2 class="title-section">{{ heading }}</h2>
+			{% endunless %}
+
+			<div class="product-grid owl-carousel carousel">
+				{{ related_items }}
+			</div>
+	</div>
+			{% endunless %}
+
+			{% endif %}
+
+
+
+
+{% endif %}
+
+{% schema %}
+{
+"name": "Related products",
+"settings": [
+{
+"type": "checkbox",
+"id": "show_related_products",
+"label": "Show related products",
+"default": true
+},
+{
+"id": "related_title",
+"type": "text",
+"label": "Section title",
+"default": "You may also like"
+},
+{
+"type": "select",
+"id": "related_grid_num",
+"label": "Products per row (Desktop)",
+"default": "3",
+"options": [
+{
+"value": "2",
+"label": "2"
+},
+{
+"value": "3",
+"label": "3"
+},
+{
+"value": "4",
+"label": "4"
+},
+{
+"value": "5",
+"label": "5"
+}
+]
+},
+{
+"type": "select",
+"id": "related_grid_row",
+"label": "Number of rows (Desktop)",
+"default": "3",
+"options": [
+{
+"value": "1",
+"label": "1"
+},
+{
+"value": "2",
+"label": "2"
+},
+{
+"value": "3",
+"label": "3"
+}
+]
+}
+]
+}
+{% endschema %}

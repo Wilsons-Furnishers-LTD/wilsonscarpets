@@ -8,6 +8,28 @@
 
   If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
 {%- endcomment -%}
+{% assign packSizePerSQM = 1 %}
+{% assign add_to_cart = 'Add to Basket' %}
+{% assign adding_to_cart = 'Adding' %}
+{% assign added_to_cart = 'Added' %}
+{% assign go_to_checkout = 'Go to Checkout' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}
+
+{% for tag in product.tags %}
+    {% if tag contains 'parent_' %}
+        {% assign parentHandle = tag | replace: 'parent_', '' %}
+        <script>
+            window.location = "/products/{{ parentHandle }}";
+        </script>
+    {% endif %}
+    {% if tag contains 'RRP_' %}
+        {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Pack Size (M²)_' %}
+        {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
+    {% endif %}
+{% endfor %}
 
 <script>
     // activeVariant = -1;

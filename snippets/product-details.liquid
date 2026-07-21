@@ -8,6 +8,50 @@
 
   If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
 {%- endcomment -%}
+{% assign add_to_cart = 'Add to Basket' %}
+{% assign adding_to_cart = 'Adding' %}
+{% assign added_to_cart = 'Added' %}
+{% assign go_to_checkout = 'Go to Checkout' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}
+
+{% for product_option in product.options_with_values %}
+    {% assign product_option_name = product_option.name | downcase %}
+    {% assign position = product_option.position | minus: 1 %}
+    {% if product_option_name == 'color' or product_option_name == 'colour' %}
+        {% assign value_colors = '' %}
+        {% assign position_option_colors = position %}
+        {% for variant in product.variants %}
+            {% assign value = variant.title | split: ' / ' %}
+            {% assign value = value[position] | lstrip %}
+            {% assign value_colors = value_colors | append: value %}
+            {% if forloop.last == false %}
+                {% assign value_colors = value_colors | append: ' / ' %}
+            {% endif %}
+        {% endfor %}
+        {% assign value_colors = value_colors | split: ' / ' | uniq %}
+    {% endif %}
+    {% if product_option_name == 'width' or product_option_name == 'rug size' %}
+        {% assign value_sizes = '' %}
+        {% assign length_value_sizes = '' %}
+        {% assign position_option_size = position %}
+        {% for variant in product.variants %}
+            {% assign value = variant.title | split: ' / ' %}
+            {% assign value = value[position] | lstrip %}
+            {% assign value_sizes = value_sizes | append: value %}
+            {% if variant.metafields.juno.is_in_stock == "1" %}
+                {% assign length_value_sizes = length_value_sizes | append: value %}
+            {% endif %}
+            {% if forloop.last == false %}
+                {% if variant.metafields.juno.is_in_stock == "1" %}
+                    {% assign length_value_sizes = length_value_sizes | append: ' / ' %}
+                {% endif %}
+                {% assign value_sizes = value_sizes | append: ' / ' %}
+            {% endif %}
+        {% endfor %}
+        {% assign value_sizes = value_sizes | split: ' / ' | uniq %}
+    {% endif %}
+{% endfor %}
 
 <div class="product-details">
     <div class="actions">
@@ -749,7 +793,7 @@
                         {{ '%s is back-ordered. We will ship it separately in 10 to 15 days.' | replace: '%s', '<span id="selected-variant"></span>' }}
                     </p>
                 </div>
-                {% section 'product-features' %}
+                {% render 'product-features' %}
             </div>
         <!-- #product-add -->
     </div>

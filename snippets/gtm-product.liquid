@@ -1,0 +1,45 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+  analytics.track('Viewed Product', {
+    id: "{{ product.id }}",
+    name: "{{ product.title }}",
+    type: "{{ product.type }}",
+    url: "{{ product.url }}",
+    price: "{{ product.price | money_without_currency }}",
+    priceMin: "{{ product.price_min | money_without_currency }}",
+    priceMax: "{{ product.price_max | money_without_currency }}",
+    priceVaries: "{{ product.price_varies | money_without_currency }}",
+    variantsCount: "{{ product.variants.size }}",
+    firstAvailVariant: "{{ product.first_available_variant.title }}",
+    variantId: "{{ product.selected_variant.id }}",
+    variantAvailable: "{{ variant.available }}",
+    variantCompareAtPrice: "{{ variant.compare_at_price | money_without_currency }}",
+    variantQuantity: "{{ variant.inventory_quantity }}",
+    variantPrice: "{{ variant.price | money_without_currency }}",
+    variantSelected: "{{ variant.selected }}",
+    sku: "{{ variant.sku }}",
+    variantTitle: "{{ variant.title }}",
+    variantUrl: "{{ variant.url }}",
+    variantWeight: "{{ variant.weight }}",
+    vendor: "{{ product.vendor }}",
+    collections: [{% for collection in product.collections %}"{{ collection.title }}",{% endfor %}],
+    available: "{{ product.available }}",
+    options: ["{{ product.options | join: '", "' }}"],
+    optionsCount: "{{ product.options.size }}",
+    tag: ["{{ product.tags | join: '", "' }}"]
+  });
+
+  // track Product Added event
+
+  var form = document.getElementById('AddToCartForm');
+  // or your form's ID
+
+  analytics.trackForm(form, 'Added Product', {
+    id: "{{ product.id }}",
+    name: "{{ product.title }}",
+    price: "{{ product.price | money_without_currency }}",
+    quantity: "{{ product.quantity }}",
+    value: "{{ product.quantity }}*{{ product.price | money_without_currency }}"
+  });
+</script>
+{% endunless %}

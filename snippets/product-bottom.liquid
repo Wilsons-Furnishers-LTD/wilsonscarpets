@@ -1,0 +1,1102 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+<script>
+    // activeVariant = -1;
+    variantsAndPrices = [];
+    variantsAndStock = [];
+    var variantsAndImages = [];
+    var preLoadImages = [];
+    var productJSON = {{ product | json }}
+    {% for variant in product.variants %}
+        variantsAndPrices[{{ variant.id }}] = {'price': {{ variant.price }},{% if variant.compare_at_price %} 'compare_at_price' : {{ variant.compare_at_price }}{% else %}'compare_at_price' : {{ variant.price }}{% endif %}};
+        variantsAndStock[{{ variant.id }}] = {% if variant.metafields.juno.is_in_stock == 0 or variant.metafields.juno.is_in_stock == "0" %}'false'{% else %}'true'{% endif %};
+
+        {% assign temp_thumb = product.featured_image | img_url: '80x80', crop: 'center' | append: '|'  %}
+        {% assign temp_large = product.featured_image | img_url: '860x860' | append: '|'%}
+        {% for i in (1..11) %}
+            {% assign variant_photo = 'photo_' | append: forloop.index %}
+            {% if variant.metafields.juno[variant_photo] != blank %}
+            {% assign thumb_image = variant.metafields.juno[variant_photo] | split: "/" | last | file_img_url: '80x80', crop: 'center' %}
+            {% assign large_image = variant.metafields.juno[variant_photo] | split: "/" | last | file_img_url: '860x860' %}
+            {% assign temp_thumb = temp_thumb | append: thumb_image | append: '|' %}
+            {% assign temp_large = temp_large | append: large_image | append: '|' %}
+            {% endif %}
+        {% endfor %}
+        variantsAndImages[{{ variant.id }}] = {'thumbs': {{ temp_thumb | split: "|" | json }}, 'large': {{temp_large | split: "|" | json}} }
+
+    {% endfor %}
+
+    try{
+        if(productJSON.variants.length){
+            productJSON.variants.forEach(variant => {
+                if(variantsAndImages[variant.id]['thumbs'][1]){
+                    preLoadImages.push(variantsAndImages[variant.id]['thumbs'][1].replace('_80x80_crop_center', '_600x600'));
+                    preLoadImages.push(variantsAndImages[variant.id]['thumbs'][1].replace('_80x80_crop_center', '_860x860'));
+                }
+            })
+        }
+        Shopify.Image.preload(preLoadImages);
+    }catch(err){
+        console.log(err);
+    }
+
+
+    function updateSampleAvailability() {
+        // check if this active variant has a sample available or not:
+        // ## john
+        var activeVariant = jQuery('#product-select option:selected').val().trim();
+
+        if (freeSampleVariantsAvailability[activeVariant] == 'no') {
+            jQuery('#orderFreeSample').addClass('disabled');
+        } else {
+            jQuery('#orderFreeSample').removeClass('disabled');
+        }
+    }
+
+    function updateSampleVariant() {
+        {% if product.options.size > 1 %}
+            if (jQuery('#selectWrapperColour .single-option-selector').length > 0) {
+                var colour = jQuery('#selectWrapperColour .single-option-selector option:selected').text().trim();
+            } else {
+                var colour = jQuery('#product-select option:selected').text().split(" / ")[0].trim();
+            }
+
+            if (freeSampleVariants.hasOwnProperty(colour)) {
+                jQuery("#orderFreeSample").attr("data-variant", freeSampleVariants[colour]);
+            } else {
+                jQuery("#orderFreeSample").attr("data-variant", jQuery("#orderFreeSample").data("defaultvariant"));
+            }
+            // update image as well:
+            var activeVariant = jQuery('#product-select option:selected').text().trim();
+
+            if (allImageVariants.hasOwnProperty(activeVariant)) {
+                variantImagePath = allImageVariants[activeVariant];
+            } else {
+                variantImagePath = defaultImagePath;
+            }
+        {% endif %}
+    }
+
+    function updateMetres() { // convert this to metres:
+        var thisFeetQuantity = jQuery('#userLengthFeet').val();
+        if (isNaN(thisFeetQuantity)) {
+            thisFeetQuantity = 0;
+        }
+        var thisInchesQuantity = jQuery('#userLengthInches').val();
+        if (isNaN(thisInchesQuantity)) {
+            thisInchesQuantity = 0;
+        }
+        // convert feet to inches, and sum
+        thisFeetQuantity = parseInt(thisFeetQuantity) * 12;
+        thisInchesQuantity = parseInt(thisInchesQuantity);
+        thisInchesQuantity += thisFeetQuantity;
+        var convertedMetres = thisInchesQuantity / 39.370;
+        jQuery('#userLength').val(convertedMetres);
+        updatePrice();
+    }
+
+    function updatePrice() {
+        var length = 1;
+        var minQuantity = null;
+        {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
+            // round up 'quantity':
+            var thisQuantity = jQuery('#userLength').val();
+            minQuantity = jQuery('#userLength').data('min');
+
+            if (isNaN(thisQuantity) || thisQuantity == "") {
+                thisQuantity = minQuantity;
+            }
+            // round to 2 decimal places:
+            var t = thisQuantity.toString();
+            thisQuantity = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
+            length = Number(thisQuantity);
+        {% else %}
+            var thisQuantity = jQuery('#quantity').val();
+        {% endif %}
+
+        // Whether the variant is in stock or not, we can update the price and compare at price.
+        var activeVariant = jQuery('#product-select').val();
+        var option_size = jQuery('.option-size');
+        if (option_size.length) {
+            var select_option_size = jQuery(option_size.data('select-option'));
+            if (select_option_size.val()) {
+                var width = parseFloat(select_option_size.val());
+            } else { // in case no colour is selected yet:
+                var width = parseFloat(jQuery('.option-size select').val());
+            }
+        }
+
+        if (jQuery('#product-variants').hasClass('standardProduct')) { // standard product:
+            width = 1;
+        }
+        var totalSquareMetres = length * width;
+        if (isNaN(totalSquareMetres)) {
+          totalSquareMetres = 0;
+        }
+        jQuery('#totalAreaM2').html("<p itemprop='price'>Total Area <span>" + totalSquareMetres.toFixed(2) + "m<sup>2</sup></span></p>");
+        var basePrice = variantsAndPrices[activeVariant].price;
+        var thisPrice = basePrice * width;
+        var thisFinalPrice = thisPrice * length;
+        var thisCompareAtPrice = variantsAndPrices[activeVariant].compare_at_price * width;
+        var totalLabel = "Total";
+        {% if needsToShowStandardVariant %}
+            var totalLabel = "Price";
+        {% endif %}
+
+        if (thisCompareAtPrice > thisPrice) {
+            jQuery('#product-price').html(totalLabel + ' <span class="product-price on-sale" itemprop="price" data-price="' + Math.round(thisPrice * length) + '">' + Shopify.formatMoney(thisPrice * length, "{{ shop.money_format }}") + '</span>' + '&nbsp;<s class="product-compare-price">' + Shopify.formatMoney(thisCompareAtPrice * length, "{{ shop.money_format }}") + '</s>');
+        } else {
+            jQuery('#product-price').html(totalLabel + ' <span class="product-price" itemprop="price" data-price="' + Math.round(thisPrice * length) + '">' + Shopify.formatMoney(thisPrice * length, "{{ shop.money_format }}") + '</span>');
+        }
+
+        jQuery('#totalAreaM2').html("<p itemprop='price'>Total Area <span>" + totalSquareMetres + "m<sup>2</sup></span></p>");
+        if (minQuantity != null) {
+            if (thisQuantity == minQuantity) {
+                if (isTyping) {
+                    if (isZero) {
+                        jQuery('#userLength').val("");
+                    } else {
+                        jQuery('#userLength').val(minQuantity);
+                    }
+                } else {
+                    jQuery('#userLength').val("");
+                }
+            } else {
+                jQuery('#userLength').val(thisQuantity);
+            }
+        }
+        // update the variant for the Free sample:
+        updateSampleVariant();
+        window.KlarnaThemeGlobals.data_purchase_amount = thisFinalPrice;
+    }
+
+    var selectCallback = function (variant, selector) {
+        if (variant) {
+        // Selected a valid variant that is available.
+            if (variant.available) { // Enabling add to cart button.
+
+                // If item is backordered yet can still be ordered, we'll show special message.
+                if (variant.inventory_management && variant.inventory_quantity <= 0) {
+                    jQuery('#selected-variant').html(
+                        {{ product.title | json }}{% unless hide_default_title %} + ' - ' + variant.title{% endunless %}
+                    );
+                    jQuery('#backorder').removeClass("hidden");
+                } else {
+                    jQuery('#backorder').addClass("hidden");
+                }
+            } else { // Variant is sold out.
+                jQuery('#backorder').addClass('hidden');
+                jQuery('#AddToCart').val({{ sold_out | json }}).addClass('disabled').prop('disabled', true);
+            }
+            updatePrice();
+
+            {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
+                updateSampleAvailability();
+            {% endif %}
+
+            if(jQuery('#first_load').val() != 'false' || !jQuery('.option-colour #select-option-colour').length) {
+                var selectedOption = jQuery('#product-select').find('option:selected'),
+                    stock_level = selectedOption.data('stocklevel'),
+                    deliveryestimate = selectedOption.data('deliveryestimate'),
+                    variant_qty = selectedOption.data('quantity'),
+                    is_in_stock = selectedOption.data('instock'),
+                    variantid = selectedOption.attr('value');
+
+                if(is_in_stock > 0 ) {
+                    if(stock_level == 'Yes') {
+                        jQuery('#stockLevel').removeClass().addClass('limitedStock').html('<i class="icon-instock"></i> Order Now');
+                        jQuery('#properties_stockLevel').val('Order Now');
+                    }
+                    else {
+                        jQuery('#stockLevel').removeClass().addClass('inStock').html('<i class="icon-instock"></i> In stock');
+                        jQuery('#properties_stockLevel').val('In stock');
+                    }
+                    jQuery('#carpetAddToCart').removeClass('disabled').removeAttr('disabled').html('Add to Basket');
+                    jQuery('#AddToCart').removeClass('disabled').removeAttr('disabled').html('Add to Basket');
+                    jQuery('#fake-add-card-btn').removeClass('disabled').removeAttr('disabled').html('Add to Basket');
+                }
+                else {
+                    jQuery('#stockLevel').removeClass().addClass('outOfStock').html('<i class="icon-outofstock"></i> Out of stock');
+                    jQuery('#properties_stockLevel').val('Out of stock');
+                    jQuery('#carpetAddToCart').addClass('disabled').attr('disabled', true).html('Out of Stock');
+                    jQuery('#AddToCart').addClass('disabled').attr('disabled', true).html('Out of Stock');
+                    jQuery('#fake-add-card-btn').addClass('disabled').attr('disabled', true).html('Out of Stock');
+                }
+
+                if (deliveryestimate) {
+                    jQuery('#deliveryEstimate').html('<span class="location__icon icon icon"><img src="{{ 'icon-location.svg' | asset_url }}" alt="location"></span> ' + deliveryestimate);
+                    jQuery('#properties_deliveryEstimate').val(deliveryestimate);
+                }
+
+                jQuery('#properties_variantID').val(variantid);
+            }
+            jQuery('#first_load').val(true);
+        } else {
+            // variant doesn't exist.
+            jQuery('#backorder').addClass('hidden');
+            jQuery('#AddToCart').val({{ unavailable | json }}).addClass('disabled').prop('disabled', true);
+        }
+    };
+
+    jQuery(function ($) {
+        new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
+    });
+
+    function colour_select(value) {
+        var option_colour = jQuery('.option-colour');
+        if (option_colour.length) {
+            var select_option = jQuery(option_colour.data('select-option'));
+            select_option.val(value).change();
+        }
+    }
+
+    function size_select(value) {
+        value = value || null;
+        var option_size = jQuery('.option-size');
+        if (option_size.length) {
+            var select_option = jQuery(option_size.data('select-option'));
+            if (value == null) {
+                var value = option_size.find('select').val();
+            }
+            select_option.val(value).change();
+        }
+    }
+
+    function check_submit_button() {
+        var hasGotDimensions = true;
+        var hasGotAColour = true;
+        var option_colour = jQuery('.option-colour');
+        if (option_colour.length) {
+            var select_option_colour = jQuery(option_colour.data('select-option'));
+            if (select_option_colour.val() == '') {
+                hasGotAColour = false;
+            } else {
+                hasGotAColour = true;
+            }
+        }
+
+        var option_size = jQuery('.option-size');
+        if (option_size.length) {
+            var select_option_size = jQuery(option_size.data('select-option'));
+            var variantWidth = parseFloat(select_option_size.val());
+            if (select_option_size.val() == '') {
+                hasGotDimensions = false;
+            } else {
+                hasGotDimensions = true;
+            }
+        }
+
+        if (jQuery('#userLength').val() <= 0) {
+            hasGotDimensions = false;
+        } else {
+            hasGotDimensions = true;
+        }
+    }
+
+    function carouselInit(loop){
+        const is_loop = loop ?? true;
+        jQuery(".product-photo-container .owl-carousel").owlCarousel({
+            items: 1,
+            loop: is_loop,
+            margin: 0,
+            nav: true,
+            dots: true,
+            animateOut: '',
+            mouseDrag: false,
+            touchDrag: true,
+            lazyLoad: true,
+            responsive: {
+                0: {
+                    loop: true,
+                    mouseDrag: true,
+                    margin: 15,
+                },
+                480: {
+                    loop: true,
+                    mouseDrag: true,
+                    margin: 20,
+                },
+                1024: {
+                    mouseDrag: true
+                }
+            },
+            onInitialized: function(){
+
+
+                jQuery('.product-photo-container .featherlight-gallery').zoom({
+                    magnify: 1.35,
+                    callback: function(){
+
+                    }
+                });
+
+                /* mobile swipe initial on top zoom element */
+                var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
+                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
+                pz.enable(); // Enables all gesture capturing (is enabled by default)
+
+                var hammertime = new Hammer(zoomElement, {});
+                hammertime.on('swipeleft swiperight', function(ev) {
+
+                    if(ev.type === 'swipeleft'){
+                        //jQuery('.option-colour .swatch-colours li:first-child').trigger('click');
+                        //jQuery('.option-colour .swatch-colours li.selected').next().trigger('click')
+                        jQuery('.product-photo-thumb').eq(currentItem - 1).trigger('click');
+                    }
+
+                    if(ev.type === 'swiperight'){
+                        //jQuery('.product-photo-container .owl-dot.active').next().trigger('click');
+                        jQuery('.product-photo-thumb').eq(currentItem + 1).trigger('click');
+
+                    }
+                });
+            }
+        });
+        jQuery(".product-photo-container .owl-carousel").on('changed.owl.carousel', function(event) {
+            //var currentItem = event.item.index;
+            const currentItem = jQuery('.product-photo-container .owl-dot.active').index();
+
+            setTimeout(function() {
+                jQuery('.product-photo-container .owl-stage .owl-item').removeClass('animated owl-animated-out fadeOut').css('left', '');
+                var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
+                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
+                pz.enable(); // Enables all gesture capturing (is enabled by default)
+            }, 100);
+
+            //jQuery('.product-photo-thumbs a').removeClass('active');
+            //jQuery('.product-photo-thumb').eq(currentItem).find('a').addClass('active');
+            jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
+
+            var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
+
+            if(colour_variant != '') {
+              jQuery('#select-option-colour ul').each(function () {
+                    jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
+                });
+            }
+        })
+
+        jQuery('.product-photo-thumbs li').click(function (e) {
+            e.preventDefault();
+            var index = jQuery(this).index(),
+                value = jQuery(this).data('value'),
+                swatch = jQuery('.swatch-colours'),
+                ul = swatch.find('ul');
+                colour = swatch.find('.select li[data-value="' + value + '"]').html();
+
+            if (value && value != '') {
+                swatch.find('label').html(colour);
+                swatch.find('li').removeClass('selected');
+                swatch.find('.select ul').slideUp(200);
+                jQuery(ul).each(function () {
+                    jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
+                });
+
+                //swatchClick(value);
+            }
+
+
+            jQuery('.product-photo-thumbs a').removeClass('active');
+            jQuery(this).find('a').addClass('active');
+            jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+        });
+
+        if(is_loop){
+            jQuery('.product-photo-container .featherlight-gallery').featherlightGallery({
+                variant: "featherlight-product-photo-image",
+                afterContent: function(){
+                    var caption = this.$currentTarget.find('img').attr('alt');
+                    this.$instance.find('.caption').remove();
+                    this.$instance.addClass('loaded');
+                    if(caption !== ''){
+                        $('<div class="caption">').html('<span>' + caption + '</span>').appendTo(this.$instance.find('.featherlight-content'));
+                    }
+                }
+            });
+        }else{
+            jQuery('.product-photo-container .featherlight-gallery').featherlight({
+                variant: "featherlight-product-photo-image",
+                afterContent: function(){
+                    var caption = this.$currentTarget.find('img').attr('alt');
+                    this.$instance.find('.caption').remove();
+                    this.$instance.addClass('loaded');
+                    if(caption !== ''){
+                        $('<div class="caption">').html('<span>' + caption + '</span>').appendTo(this.$instance.find('.featherlight-content'));
+                    }
+                }
+            });
+        }
+
+
+
+    }
+
+    function swatchClick(value, variant_id, index){
+        /* change image */
+        const $productPhotoContainer = jQuery('.product-photo-container');
+        const $mainImage = $productPhotoContainer.find('img');
+        const $mainImageSource = $productPhotoContainer.find('source');
+        const $photoThumbHolder = jQuery('.product-photo-thumbs-holder');
+
+
+        if(
+            $productPhotoContainer.data('photoui') &&
+            ($productPhotoContainer.data('photoui') === 'true' || $productPhotoContainer.data('photoui') === true)
+        ){
+            //to catch undefined
+            try{
+                if(typeof variantsAndImages[variant_id] !== "undefined"){
+                    const currentValue = jQuery('.swatch-colours .grid li.selected').data('value');
+
+
+                    const thumbs = variantsAndImages[variant_id].thumbs;
+                    const large = variantsAndImages[variant_id].large;
+
+
+                    let photoThumbs = '';
+                    let photoLarges = '';
+                    let i = 0;
+                    let load = jQuery('.swatch-colours').data('load'); //second click will be true;
+                    let imageIndex = 0;
+
+                    if(index === 0){
+                        //first swatch, show the life style image
+                        i = 0;
+                    }else{
+                        //not first swatch, start with index 1
+                        i = 1;
+                    }
+
+                    for(i; i < thumbs.length; i++){
+                        const largePhoto = thumbs[i];
+                        var cssClass = '';
+
+                        if(index === 0){
+                            if(i === 0){
+                                cssClass = 'active';
+                            }
+                        }else{
+                            if(i === 1){
+                                cssClass = 'active';
+                            }
+                        }
+
+                        photoThumbs += '<li class="product-photo-thumb two-per-row"><a href="#" class="data '+cssClass+'"><img src="'+thumbs[i]+'" alt=""></a></li>';
+
+                        photoLarges += '<div class="item" data-index="'+ i +'">'+
+                            '<a class="featherlight-gallery" href="'+largePhoto.replace('_80x80_crop_center', '_1600x1600')+'">' +
+                                '<picture class="product-photo-container__frame">'+
+                                    '<source media="(min-width: 1024px)" srcset="'+ largePhoto.replace('_80x80_crop_center', '_600x600') +'">'+
+                                    '<source srcset="'+ largePhoto.replace('_80x80_crop_center', '_860x860') +'">'+
+                                    '<img class="product-photo-container__img" src="'+ largePhoto.replace('_80x80_crop_center', '_600x600') +'" alt="'+currentValue+'" />'+
+                                '</picture>'+
+                            '</a>'+
+                            '<span class="zoom-mobile"><img src="'+ largePhoto.replace('_80x80_crop_center', '_860x860') +'" alt="" /></span>'+
+                        '</div>';
+                    }
+                    photoThumbs = '<ul class="product-photo-thumbs">' + photoThumbs + '</ul>';
+                    photoLarges = '<div class="owl-carousel">' + photoLarges + '</div>';
+
+
+                    if( variantsAndImages[variant_id].thumbs.length > 1 ){
+                        $photoThumbHolder.empty().append(photoThumbs);
+                        $productPhotoContainer.empty().append(photoLarges);
+                        carouselInit();
+                    }else{
+                        $photoThumbHolder.empty();
+                        $productPhotoContainer.empty().append(photoLarges);
+                        carouselInit(false);
+                    }
+                }
+            }catch(err){
+                console.log(err);
+            }
+
+        }
+
+        jQuery('.option-size select option').attr('disabled','disabled');
+        jQuery('#product-select').find('option').each(function(){
+            var thisOption = jQuery(this).text().trim();
+            if(thisOption.includes(value)){
+                jQuery('.option-size select option').each(function(){
+                    if(thisOption.includes($(this).val())) {
+                        jQuery(this).removeAttr('disabled');
+                    }
+                });
+            }
+        });
+        jQuery('.option-size select option').filter(":selected").each(function(){
+            if (jQuery(this).attr('disabled')) {
+                jQuery(this).parent().find('option').first().attr('selected','selected');
+            }
+        });
+        colour_select(value);
+
+        size_select();
+        updatePrice();
+        {% if product.type == 'Laminate' or product.type == 'LVT' %}
+            updateLinworkAttribute();
+        {% endif %}
+        check_submit_button();
+
+        jQuery('.js-product-photo-thumb').each(function () {
+            if (jQuery(this).attr('data-value') == value) {
+                jQuery(this).click();
+            }
+        });
+
+    }
+
+    jQuery(document).ready(function () {
+        if(jQuery('.js-product-photo-thumb').length){
+            carouselInit(true);
+        }else{
+            carouselInit(false);
+        }
+
+        if(jQuery('.swatch-colours').hasClass('swatch-colours-new')) {
+            jQuery('.option-colour .swatch-colours-new label').click(function () {
+                jQuery(this).next().slideToggle(200);
+            });
+        }
+        else {
+            jQuery('.option-colour .swatch-colours label').click(function () {
+                jQuery(this).next().slideToggle(200);
+            });
+        }
+
+        jQuery('.option-colour .swatch-colours li').click(function () { // jQuery('#freeSampleAddedMessage').hide();
+            jQuery('#addASampleColourError').hide();
+            jQuery('#duplicateSampleError').hide();
+
+            var parent = jQuery(this).parents('.swatch-colours'),
+                ul = parent.find('ul');
+            value = jQuery(this).data('value'),
+            colour = parent.find('.select li[data-value="' + value + '"]').html();
+
+            jQuery('#freeSampleAddedVariantMessage').html(" - " + value);
+            if (value == '') {
+                parent.find('label').html('Please select a Colour');
+            } else {
+                parent.find('label').html(colour);
+            } parent.find('li').removeClass('selected');
+            parent.find('.select ul').slideUp(200);
+
+            jQuery(ul).each(function () {
+                jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
+            });
+
+            jQuery('.product-photo-thumb').each(function () {
+                if (jQuery(this).data('value') == value) {
+                    jQuery(this).trigger('click');
+                }
+            });
+            if(jQuery('.swatch-colours').hasClass('swatch-colours-new')) {
+
+            }else {
+                swatchClick(value, jQuery(this).find('span.data').data('id'), value);
+            }
+            initSelectedSize();
+        });
+
+        jQuery('.option-size select').change(function () {
+            size_select(jQuery(this).val());
+        });
+
+
+        if (location.search.indexOf('color')>0) {
+
+
+            //var color1 = JSON.parse('{"' + decodeURI(location.search.substring(1).replace(/&/g, "\",\"").replace(/=/g, "\":\"")) + '"}');
+            var color = JSON.parse('{"color":"'+ /color=([^&]+)/.exec(location.search)[1].replace(/%20/g, ' ') + '"}');
+            if (color) {
+                jQuery('.swatch-colours li').each(function () {
+                    if(jQuery(this).attr('data-value') != null ){
+
+                        if( jQuery(this).attr('data-value').toLowerCase() == color.color.toLowerCase() ){
+                            jQuery('.swatch-colours .grid li[data-value="' + jQuery(this).attr('data-value') + '"]').trigger('click');
+                        }
+                    }
+                });
+            }
+        }else{
+            jQuery('.product-photo-thumbs li:first-child').trigger('click');
+        }
+    });
+
+    jQuery(document).click(function (e) {
+        if(jQuery('.swatch-colours').hasClass('swatch-colours-new')) {
+
+        }
+        else {
+            if (!hasParent(e.target, 'select-option-colour')) {
+                jQuery('.option-colour .select ul').slideUp(200);
+            }
+        }
+    });
+
+    //Shopify.Image.preload({{ product.images | json }}, Math.ceil($('.product-photo-container').width()) + "x");
+    //Shopify.Image.preload({{ product.images | json }}, '1600x1600');
+
+    // https://help.shopify.com/themes/customization/products/variants/how-to-add-a-pick-an-option-to-drop-downs
+    var productOptions = [];
+    {% for option in product.options %}
+        var optionObj = {};
+        optionObj[{{ forloop.index0 }}] = "{{ product.options[forloop.index0] }}";
+        productOptions.push(optionObj);
+    {% endfor %}
+
+    var isTyping = false, isZero = false;
+
+    {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
+
+        $('#lengthMetres').find('input').removeAttr('disabled');
+        $('#lengthInches').find('input').attr('disabled', 'disabled');
+
+        jQuery(document).ready(function () {
+
+            jQuery('#lengthMetres').find('input').removeAttr('disabled');
+            jQuery('#lengthInches').find('input').attr('disabled', 'disabled');
+
+            updatePrice();
+            jQuery('#userLength').keyup(function () {
+                isTyping = true;
+                if (jQuery('#userLength').val() == "") {
+                    isZero = true;
+                } else {
+                    isZero = false;
+                }
+
+                updatePrice();
+                check_submit_button();
+            });
+            setTimeout(() => jQuery('#userLength').trigger("keyup") );
+            window.addEventListener("load", () => { jQuery('#userLength').trigger("keyup") }, {once:true});
+            jQuery('#userLengthFeet').keyup(function () {
+                updateMetres();
+                check_submit_button();
+            });
+            jQuery('#userLengthInches').keyup(function () {
+                updateMetres();
+                check_submit_button();
+            });{% if product.options.size == 1 %}
+                jQuery('#product-select').on('change', function () {
+                    updatePrice();
+                });
+            {% else %}
+                jQuery('body').on('change', '#product-select-option-1', function () {
+                    updatePrice();
+                });{% endif %}
+
+            jQuery(".size .selectWrapper select").on('change', function () { // change the sibling as well:
+                jQuery(this).parents('.measurementSelect').siblings().find('select').val(jQuery(this).val());
+                setSelectedSize(jQuery(this).val());
+            });
+            jQuery("#metreInchesSwitcher input").on('change', function () {
+                if (jQuery(this).attr("id") == "measurementToggleMetres") {
+                    jQuery('#product-add .length-qty').removeClass("inches").addClass("metres");
+
+                    jQuery('#lengthMetres').find('input').removeAttr('disabled');
+                    jQuery('#lengthInches').find('input').attr('disabled', 'disabled');
+                } else {
+
+                    jQuery('#lengthInches').find('input').removeAttr('disabled');
+                    jQuery('#lengthMetres').find('input').attr('disabled', 'disabled');
+                    // convert values and populate the other inputs:
+                    // john ###
+                    var currentMetres = jQuery('#userLength').val();
+                    var currentFeet = Math.floor(currentMetres * 3.2808);
+                    var currentInches = Math.floor((currentMetres * 39.370) - (currentFeet * 12));
+                    jQuery('#userLengthFeet').val(currentFeet);
+                    jQuery('#userLengthInches').val(currentInches);
+                    jQuery('#product-add .length-qty').removeClass("metres").addClass("inches");
+                }
+            });
+        });
+
+        var variantImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
+        var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
+
+        jQuery(function ($) {
+            function responseTimeoutAction(whichStep) {
+                jQuery('#carpetAddToCart').removeClass('adding');
+                jQuery('#responseFailure').show();
+                jQuery('#failedFormStep').val(whichStep);
+
+                let $form = jQuery('#timeOutForm form');
+                let url = $form.attr('action');
+                jQuery.ajax({
+                    type: "POST",
+                    url: url,
+                    data: $form.serialize(), // serializes the form's elements.
+                    success: function(data){}
+                });
+            }
+
+            async function httpRequest(url, data, type) {
+                return new Promise(function (resolve, reject) {
+                    let http_request = typeof XMLHttpRequest != 'undefined' ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+
+                    http_request.onreadystatechange = function () {
+                        let status;
+                        if (http_request.readyState == 4) {
+                            status = http_request.status;
+                            if (status == 200) {
+                                try {
+                                    resolve(http_request.responseText);
+                                } catch (e) {
+                                    reject(xhr.status)
+                                }
+                            }
+                        }
+                    };
+                    http_request.ontimeout = function () {
+                        reject('timeout');
+                    };
+                    http_request.open(type, url, true);
+                    http_request.withCredentials = true;
+                    http_request.setRequestHeader('Content-Type', 'application/json');
+                    http_request.send(JSON.stringify(data));
+                });
+            }
+
+            let clonedProducts = [];
+
+            async function makeNewProduct(dataObject, properties) {
+              addProductToCart(dataObject, properties);
+            }
+
+
+            function addProductToCart(dataObject, properties) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/cart/add.js',
+                    data: {
+                      quantity: 1,
+                      id: dataObject.variant_id,
+                      properties: properties
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        ajaxCart.load();
+                        document.getElementById('basketToggle').click();
+                        jQuery('#carpetAddToCart').html('{{ add_to_cart }}').removeClass('adding');
+                    },
+                    error: function () {}
+                });
+            }
+
+            jQuery('#carpetAddToCart').click(function (e) {
+                if (e) {
+                    e.preventDefault();
+                }
+                var hasGotDimensions = true;
+                var hasGotAColour = true;
+
+                var inputDeliveryEstimate = jQuery('#properties_deliveryEstimate').val();
+                var inputstockLevel = jQuery('#properties_stockLevel').val();
+                var inputProductHandle = jQuery('#properties_productHandle').val();
+                var inputVariantID = jQuery('#properties_variantID').val();
+                var productSelect = document.querySelector('#product-select');
+                var inputProductPrice = parseFloat(productSelect.options[productSelect.selectedIndex].dataset.price);
+
+                var option_colour = jQuery('.option-colour');
+
+                if(option_colour.find('#select-option-colour').length) {
+                    if (!option_colour.find('.selected').length > 0) {
+                        hasGotAColour = false;
+                    }
+                }
+
+
+                var option_size = jQuery('.option-size');
+                if (option_size.length) {
+                    var select_option_size = jQuery(option_size.data('select-option'));
+                    var variantWidth = parseFloat(select_option_size.val());
+                    if (select_option_size.val() == '') {
+                        hasGotDimensions = false;
+                    } else {
+                        hasGotDimensions = true;
+                    }
+                }
+                let dimension = parseFloat(jQuery('#userLength').val());
+                if (dimension.toString() == "NaN") {
+                    dimension = parseFloat(jQuery('#userLength').attr('data-min'));
+                }
+
+                if (dimension <= 0) {
+                    hasGotDimensions = false;
+                } else {
+                    hasGotDimensions = true;
+                }
+
+                var minimumLengthNumericCheck = parseFloat(jQuery('#userLength').attr('data-min'));
+
+                if (dimension < minimumLengthNumericCheck) {
+                    hasGotMinimumDimensions = false;
+                } else {
+                    hasGotMinimumDimensions = true;
+                }
+
+                if (hasGotDimensions) {
+                    jQuery('#addAWidthError').hide();
+                } else {
+                    jQuery('#addAWidthError').show();
+                }
+                if (hasGotMinimumDimensions) {
+                    jQuery('#minimumLengthError').hide();
+                } else {
+                    jQuery('#minimumLengthError').show();
+                }
+
+                if (hasGotAColour) {
+                    jQuery('#addAColourError').hide();
+
+                    if (hasGotDimensions && hasGotMinimumDimensions) {
+                        jQuery('#addAWidthError').hide();
+                        jQuery('#responseFailure').hide();
+                        jQuery('#minimumLengthError').hide();
+                        jQuery('#carpetAddToCart').addClass('adding');
+
+                        const newProductPrice = jQuery('#product-price .product-price').data('price');
+                        const itemCartQuantity = Math.ceil(parseFloat(dimension) * parseFloat(variantWidth));
+                        const itemDiscount = inputProductPrice * itemCartQuantity - newProductPrice;
+
+                        var dataObject = {
+                            "product_id": "{{ product.id }}",
+                            "variant_id": jQuery('#product-select').val(),
+                            "length": jQuery('#userLength').val(),
+                            "width": variantWidth,
+                            "variant_image_path": variantImagePath,
+                            "stock_level": inputstockLevel,
+                            "delivery_estimate": inputDeliveryEstimate,
+                            "product_price": inputProductPrice,
+                            "cartQuantity": itemCartQuantity,
+                        };
+                        // linworks attributes:
+
+                        var newProductLength = parseFloat(dimension) + 'M';
+                        var newProductWidth = parseFloat(variantWidth) + 'M';
+
+                        jQuery('#failedFormDetails').val("Variant required: " + newProductWidth + " width by " + newProductLength + " length");
+
+                        var lineItemProperties= {
+                          "_DeliveryEstimate": inputDeliveryEstimate,
+                          "_StockLevel": inputstockLevel,
+                          "_Width": newProductWidth,
+                          "_Length": newProductLength,
+                          "_timestamp": Date.now().toString(),
+                      };
+
+                        makeNewProduct(dataObject, lineItemProperties);
+                    }
+                } else { // end has got colour
+                    jQuery('#addAColourError').show();
+                }
+            });
+        });
+    {% endif %}
+
+    {% if product.type == 'Laminate' or product.type == 'LVT' %}
+        function updateLinworkAttribute() {
+            var thisPackQuantity = parseInt(  jQuery('#priceCalculator #quantity').val() );
+            // update the price as well:
+            var length = {{ packSizePerSQM }},
+                width = jQuery('#quantity').val();
+
+            var totalSquareMetres = (length * width).toFixed(2);
+
+            jQuery('#laminateLinnWork').val(totalSquareMetres + "M² For " + thisPackQuantity + " Packs");
+
+            if (isNaN(totalSquareMetres)) {
+                totalSquareMetres = '0.00';
+            }
+
+            jQuery('#totalAreaM2').html("<p itemprop='price'>Total Area <span>" + totalSquareMetres + "m<sup>2</sup></span></p>");
+            var thisPrice = thisPackQuantity * {{ product.price }};
+            var activeVariant = jQuery('#product-select').val();
+
+            if ((thisPrice == 0) || (isNaN(thisPrice)) || (jQuery('.swatch-colours .grid li.selected').length < 1) || (variantsAndStock[activeVariant] == 'false')) { // jQuery('#AddToCart').addClass('disabled').prop('disabled', true);
+            } else { // jQuery('#AddToCart').removeClass('disabled').prop('disabled', false);
+            }
+            jQuery('#product-price .product-price').html(Shopify.formatMoney(thisPackQuantity * {{ product.price }}, "{{ shop.money_format }}"));
+        }
+
+        function determineSQMRequired() {
+            var sqmArea = parseFloat(jQuery('#lengthWidthCalculator #calculatorLength').val()) * parseFloat(jQuery('#lengthWidthCalculator #calculatorWidth').val());
+
+            if (parseFloat(sqmArea) > 0) {
+                jQuery('#priceCalculator #sqmRequired').val(sqmArea);
+                jQuery('#priceCalculator #quantity').val((Math.ceil(sqmArea / {{ packSizePerSQM }})));
+                updateLinworkAttribute();
+            }
+        }
+
+        function updatePacksRequired() {
+            var thisSQMRequired = parseFloat(jQuery('#priceCalculator #sqmRequired').val());
+            if ((isNaN(thisSQMRequired)) || (thisSQMRequired < 0)) {
+                thisSQMRequired = {{ packSizePerSQM }};
+            }
+            jQuery('#priceCalculator #quantity').val(Math.ceil(thisSQMRequired / {{ packSizePerSQM }}));
+            jQuery('#lengthWidthCalculator').slideUp(140);
+            updateLinworkAttribute();
+        }
+
+        function updateSQMRequired() {
+            var thisPackQuantity = parseInt(jQuery('#priceCalculator #quantity').val());
+            if ((isNaN(thisPackQuantity)) || (thisPackQuantity < 0)) {
+                thisPackQuantity = 1;
+            }
+
+            jQuery('#priceCalculator #sqmRequired').val((thisPackQuantity * {{ packSizePerSQM }}).toFixed(2));
+            jQuery('#lengthWidthCalculator').slideUp(140);
+            updateLinworkAttribute();
+        }
+
+        jQuery(function ($) {
+            jQuery('body').on('keyup', '#priceCalculator #sqmRequired', function () {
+                updatePacksRequired();
+            });
+            jQuery('body').on('keyup', '#priceCalculator #quantity', function () {
+                updateSQMRequired();
+            });
+
+            jQuery('body').on('keyup', '#lengthWidthCalculator input', function () {
+                determineSQMRequired();
+            });
+        });
+    {% endif %}
+
+    jQuery(function ($) {
+
+        jQuery('.option-single #quantity').keyup(function () {
+            if( isNaN( jQuery(this).val( ) ) ){
+                jQuery(this).val( 0 )
+            }
+        });
+    });
+</script>
+
+<script>
+    jQuery(document).ready(function () {
+
+        if (location.search.indexOf('color') < 0 ) {
+            if (jQuery('.product-photo-thumbs-holder').length) {
+                setTimeout(function () {
+                    jQuery('.swatch-colours li').first().trigger('click');
+                    jQuery('.swatch-colours').attr('data-load', 'true');
+                });
+            }else{
+                if (jQuery('.option-colour .swatch-colours .grid li').length === 1) {
+                    setTimeout(function () {
+                        jQuery('.swatch-colours li').first().trigger('click');
+                    });
+                }
+            }
+        }
+
+        jQuery("body").on("change", ".numberOfOptions2 .option-single #product-select-option-0", function () {
+
+            var whichColourToShow = jQuery(this).val();
+            jQuery('.product-photo-thumbs li').each(function () {
+                if (jQuery(this).attr('data-value') == whichColourToShow) {
+                    jQuery(this).click();
+                }
+            });
+        });
+
+
+        // Handle add to cart for laminate and LVT same with each other
+        jQuery('#fake-add-card-btn').click(function (e) {
+            e.preventDefault();
+            var mess = [
+                { // For colour [0]
+                    txt: 'Please choose a colour',
+                    show: false
+                }, { // For Price Calculator [1]
+                    txt: 'Please enter a Square Metres or Number of Packs',
+                    show: false
+                }
+            ];
+
+            // Price Calculator
+            if (!jQuery('#sqmRequired').val() || !jQuery('.packs.size #quantity').val()) {
+                mess[1].show = true;
+            }
+
+            // Colour
+            if (!jQuery('.swatch-colours .grid li.selected').length) {
+                mess[0].show = true;
+            }
+
+            var htmlMess = '';
+            mess.forEach(function (e) {
+                if (e.show) {
+                    htmlMess += '<p class="productErrorMessage">' + e.txt + '</p>';
+                }
+            });
+            if (! htmlMess) {
+                jQuery('#AddToCart').trigger('click');
+            }
+            jQuery('#add-card-output-mess').html(htmlMess);
+        });
+
+
+        var userLengthFirstClick = false;
+        jQuery('#userLength').click(function () {
+            if (! userLengthFirstClick) {
+                jQuery(this).val('');
+                userLengthFirstClick = true;
+            }
+        });
+
+        function featherlightGalleryInitial(){
+
+            if (jQuery('.featherlight-gallery').length) {
+                jQuery('.featherlight-gallery').featherlightGallery({
+                    variant: "featherlight-product-photo-image",
+                    afterContent: function(){
+                        var caption = this.$currentTarget.find('img').attr('alt');
+                        this.$instance.find('.caption').remove();
+                        this.$instance.addClass('loaded');
+                        if(caption !== ''){
+                            $('<div class="caption">').html('<span>' + caption + '</span>').appendTo(this.$instance.find('.featherlight-content'));
+                        }
+                    }
+                });
+            }
+        }
+        featherlightGalleryInitial();
+    });
+
+  function setSelectedSize(value) {
+    sessionStorage.setItem('selectedSize', value);
+  }
+
+  function initSelectedSize() {
+    const selectedSize = sessionStorage.getItem('selectedSize');
+
+    const sizeSelectors = document.querySelectorAll('.size .measurementSelect .selectWrapper select');
+
+    if (selectedSize && sizeSelectors.length > 0) {
+      sizeSelectors.forEach((select) => {
+        const optionExists = Array.from(select.options).some((option) => option.value === selectedSize);
+
+        if (optionExists) {
+          select.value = selectedSize;
+          select.dispatchEvent(new Event('change'));
+        }
+      });
+    }
+  }
+
+</script>

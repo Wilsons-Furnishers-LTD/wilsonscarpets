@@ -1,0 +1,24 @@
+<div class="product-page">
+    <div class="product-description">
+        <div class="row">
+            <div class="description">
+                <h2 class="title">Description</h2>
+                <div class="content" itemprop="description">
+                    {{ product.description }}
+                </div>
+            </div>
+
+            {% section 'product-specifications' %}
+
+            <div class="delivery">
+                <h2 class="title">Delivery</h2>
+                {% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
+                <div class="content">
+                    {% if pages[delivery_type] %}
+                        {{ pages[delivery_type].content }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

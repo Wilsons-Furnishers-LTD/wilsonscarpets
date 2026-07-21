@@ -1,0 +1,123 @@
+{% assign beforeText = "Only " %}
+{% assign afterText = "" %}
+{% comment %}
+    check to see if it's a cloned product:
+{% endcomment %}
+{% assign productTag = '' %}
+{% assign productPromo = '' %}
+{% assign onSaleClass = '' %}
+{% assign RRPPrice = '' %}
+{% assign packSizePerSQM = 1 %}
+{% assign defaultLength = '' %}
+{% assign defaultLength = '' %}
+
+
+{% assign minimumLength = '' %}
+
+{% assign GTINexist = '' %}
+{% assign GTINvalue = '' %}
+{% assign ShoppingID = '' %}
+
+{% for tag in product.tags %}
+    {% if tag contains 'parent_' %}
+        {% assign parentHandle = tag | replace: 'parent_', '' %}
+        <script>
+            window.location = "/products/{{ parentHandle }}";
+        </script>
+    {% endif %}
+    {% if tag contains 'RRP_' %}
+        {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Pack Size (M²)_' %}
+        {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Before Label_' %}
+        {% assign beforeText = tag | replace: 'Before Label_', '' | prepend: "<small>" | append: "</small> " %}
+    {% endif %}
+    {% if tag contains 'After Label_' %}
+        {% assign afterText = tag | replace: 'After Label_', '' | prepend: " " %}
+    {% endif %}
+    {% if tag contains 'promo_' %}
+        {% assign productPromo = tag | replace: 'promo_' %}
+    {% endif %}
+    {% if tag contains 'minLength_' %}
+        {% assign minimumLength = tag | replace: 'minLength_' %}
+    {% endif %}
+
+    {% if tag contains 'default-length_' %}
+        {% assign defaultLength = tag | replace: 'default-length_', '' %}
+    {% endif %}
+
+    {% if tag contains 'identifier_exists_' %}
+        {% assign GTINexist = tag | replace: 'identifier_exists_', '' %}
+    {% endif %}
+
+    {% if tag contains 'GTIN_' %}
+        {% assign GTINvalue = tag | replace: 'GTIN_', '' %}
+    {% endif %}
+
+
+    {% if tag contains 'ShoppingID_' %}
+        {% assign ShoppingID = tag | replace: 'ShoppingID_', '' %}
+    {% endif %}
+
+{% endfor %}
+
+{% for product_option in product.options_with_values %}
+    {% assign product_option_name = product_option.name | downcase %}
+    {% assign position = product_option.position | minus: 1 %}
+    {% if product_option_name == 'color' or product_option_name == 'colour' %}
+        {% assign value_colors = '' %}
+        {% assign position_option_colors = position %}
+        {% for variant in product.variants %}
+            {% assign value = variant.title | split: ' / ' %}
+            {% assign value = value[position] | lstrip %}
+            {% assign value_colors = value_colors | append: value %}
+            {% if forloop.last == false %}
+                {% assign value_colors = value_colors | append: ' / ' %}
+            {% endif %}
+        {% endfor %}
+        {% assign value_colors = value_colors | split: ' / ' | uniq %}
+    {% endif %}
+    {% if product_option_name == 'width' or product_option_name == 'rug size' %}
+        {% assign value_sizes = '' %}
+        {% assign length_value_sizes = '' %}
+        {% assign position_option_size = position %}
+        {% for variant in product.variants %}
+            {% assign value = variant.title | split: ' / ' %}
+            {% assign value = value[position] | lstrip %}
+            {% assign value_sizes = value_sizes | append: value %}
+            {% if variant.metafields.juno.is_in_stock == "1" %}
+                {% assign length_value_sizes = length_value_sizes | append: value %}
+            {% endif %}
+            {% if forloop.last == false %}
+                {% if variant.metafields.juno.is_in_stock == "1" %}
+                    {% assign length_value_sizes = length_value_sizes | append: ' / ' %}
+                {% endif %}
+                {% assign value_sizes = value_sizes | append: ' / ' %}
+            {% endif %}
+        {% endfor %}
+        {% assign value_sizes = value_sizes | split: ' / ' | uniq %}
+    {% endif %}
+{% endfor %}
+
+{% if RRPPrice != '' %}
+    {% assign priceSquareMetre = RRPPrice | times: 100 %}
+    {% assign purchasePricePerSQM = product.price | divided_by: packSizePerSQM %}
+{% endif %}
+
+{% if product.compare_at_price > product.price %}
+    {% assign onSaleClass = ' sale' %}
+    {% assign beforeText = '<small>Now</small> ' %}
+    {% comment %}
+    {% assign productTag = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | append: '%<br>OFF' | prepend: '<span>Up to</span>' %}
+    {% endcomment %}
+    {% assign productTag = 'Sale<br>Price' %}
+{% endif %}
+
+{% assign add_to_cart = 'Add to Basket' %}
+{% assign adding_to_cart = 'Adding' %}
+{% assign added_to_cart = 'Added' %}
+{% assign go_to_checkout = 'Go to Checkout' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}

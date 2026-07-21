@@ -33,11 +33,10 @@
       },
       "block_order": [
         "image_fKTgai",
-        "image_i4cHPb",
-        "image_m9aNzX"
+        "image_i4cHPb"
       ],
       "settings": {
-        "banner_per_page": "3"
+        "banner_per_page": "2"
       }
     }
   },

@@ -1,0 +1,46 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "collection-storecarpets",
+      "blocks": {
+        "image_i4cHPb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/wilsons_carpets_Sheffield_stores_map_desktop_a3cfbb70-dc07-4654-8ff7-9895ae6bf45f.jpg",
+            "mobileimage": "shopify://shop_images/wilsons_carpets_Sheffield_stores_map_mobile_c6a509c1-db71-43a3-b0d0-70814e504def.jpg",
+            "link": "shopify://pages/sheffield-stores",
+            "position": "5"
+          }
+        },
+        "image_m9aNzX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/wilsons_carpets_Sheffield_stores_image_desktop.jpg",
+            "mobileimage": "shopify://shop_images/wilsons_carpets_Sheffield_stores_image_mobile_8c6c41f6-eebd-4962-8571-c69a56039001.jpg",
+            "link": "shopify://pages/sheffield-stores",
+            "position": "1"
+          }
+        }
+      },
+      "block_order": [
+        "image_i4cHPb",
+        "image_m9aNzX"
+      ],
+      "settings": {
+        "banner_per_page": "2"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

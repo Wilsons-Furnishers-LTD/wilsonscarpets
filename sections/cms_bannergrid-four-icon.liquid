@@ -1,0 +1,259 @@
+{% case section.settings.add_border_top %}
+	{% when 'add_border_top_yes' %}
+		{%- assign border_top = 'border-top' -%}
+	{% when 'add_border_top_no' %}
+		{%- assign border_top = '' -%}
+{% endcase %} 
+
+{% case section.settings.add_border_bottom %}
+	{% when 'add_border_bottom_yes' %}
+		{%- assign border_bottom = 'border-bottom' -%}
+	{% when 'add_border_bottom_no' %}
+		{%- assign border_bottom = '' -%}
+{% endcase %}  
+
+<div class="shopping-bag">
+    <div data-section-id="{{ section.id }}" data-section-type="banner" class="bannergrid four icon txt-section">
+        <div class="wrapper">
+            <div class="container {{ border_bottom }} {{ border_top }}">
+                {% if section.settings.title != blank %}
+                    <h2 class="title-section">{{ section.settings.title | escape }}</h2>
+                {% endif %}
+                <div class="row">
+                    <div class="col-wide-3">
+                        <div class="icon">
+                        {% if section.settings.icon_1 %}
+                            {{ section.settings.icon_1 }}
+                        {% else %}
+                            {% if section.settings.image_1 %}
+                                <picture>
+                                    <img src="{{ section.settings.image_1 | img_url: '1920x' }}" alt="" />
+                                </picture>
+                            {% else %}
+                                <span class="placeholder-background">
+                                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                </span>
+                            {% endif %}
+                        {% endif %}   
+                        </div> 
+                        <div class="text-content">
+                            {% unless section.settings.title_1 == blank %}
+                            <h2 class="title">{{ section.settings.title_1 }}</h2>
+                            {% endunless %}
+                            {% unless section.settings.subheading_1 == blank %}
+                            <div class="subtitle">{{ section.settings.subheading_1 }}</div>
+                            {% endunless %}
+                        </div>
+                            
+                    </div>
+                    <div class="col-wide-3">
+                        <div class="icon">
+                        {% if section.settings.icon_2 %}
+                            {{ section.settings.icon_2 }}
+                        {% else %}
+                            {% if section.settings.image_2 %}
+                                <picture>
+                                    <img src="{{ section.settings.image_2 | img_url: '1920x' }}" alt="" />
+                                </picture>
+                            {% else %}
+                                <span class="placeholder-background">
+                                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                </span>
+                            {% endif %}
+                        {% endif %}   
+                        </div> 
+                        <div class="text-content">
+                            {% unless section.settings.title_2 == blank %}
+                            <h2 class="title">{{ section.settings.title_2 }}</h2>
+                            {% endunless %}
+                            {% unless section.settings.subheading_2 == blank %}
+                            <div class="subtitle">{{ section.settings.subheading_2 }}</div>
+                            {% endunless %}
+                        </div>
+                            
+                    </div>
+                    <div class="col-wide-3">
+                        <div class="icon">
+                        {% if section.settings.icon_3 %}
+                            {{ section.settings.icon_3 }}
+                        {% else %}
+                            {% if section.settings.image_3 %}
+                                <picture>
+                                    <img src="{{ section.settings.image_3 | img_url: '1920x' }}" alt="" />
+                                </picture>
+                            {% else %}
+                                <span class="placeholder-background">
+                                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                </span>
+                            {% endif %}
+                        {% endif %}   
+                        </div>                
+                        <div class="text-content">
+                            {% unless section.settings.title_3 == blank %}
+                            <h2 class="title">{{ section.settings.title_3 }}</h2>
+                            {% endunless %}
+                            {% unless section.settings.subheading_3 == blank %}
+                            <div class="subtitle">{{ section.settings.subheading_3 }}</div>
+                            {% endunless %}
+                        </div>
+                        
+                    </div>
+                    <div class="col-wide-3">
+                        <div class="icon">
+                        {% if section.settings.icon_4 %}
+                            {{ section.settings.icon_4 }}
+                        {% else %}
+                            {% if section.settings.image_4 %}
+                                <picture>
+                                    <img src="{{ section.settings.image_4 | img_url: '1920x' }}" alt="" />
+                                </picture>
+                            {% else %}
+                                <span class="placeholder-background">
+                                    {% capture current %}{% cycle 1, 2 %}{% endcapture %}
+                                    {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                </span>
+                            {% endif %}
+                        {% endif %}  
+                        </div> 
+                        <div class="text-content">
+                            {% unless section.settings.title_4 == blank %}
+                            <h2 class="title">{{ section.settings.title_4 }}</h2>
+                            {% endunless %}
+                            {% unless section.settings.subheading_4 == blank %}
+                            <div class="subtitle">{{ section.settings.subheading_4 }}</div>
+                            {% endunless %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Banner Grid - Icon",
+        "presets": [{
+            "name": "Banner Grid - Icon"
+        }],
+        "settings": [
+				{
+					"type": "text",
+					"id": "title",
+					"label": "Heading Section",
+					"default": "Why choose us"
+				},
+			 	{
+					"type": "image_picker",
+					"id": "image_1",
+					"label": "Image"
+				},
+				{
+					"type": "text",
+					"id": "icon_1",
+					"label": "Icon text"
+				},
+				{
+					"type": "text",
+					"id": "title_1",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_1",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_2",
+					"label": "Image"
+				},
+				{
+					"type": "text",
+					"id": "icon_2",
+					"label": "Icon text"
+				},
+				{
+					"type": "text",
+					"id": "title_2",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_2",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_3",
+					"label": "Image"
+				},
+				{
+					"type": "text",
+					"id": "icon_3",
+					"label": "Icon text"
+				},
+				{
+					"type": "text",
+					"id": "title_3",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_3",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "image_picker",
+					"id": "image_4",
+					"label": "Image"
+				},
+				{
+					"type": "text",
+					"id": "icon_4",
+					"label": "Icon text"
+				},
+				{
+					"type": "text",
+					"id": "title_4",
+					"label": "Heading",
+					"default": "Image slide"
+				},
+				{
+					"type": "textarea",
+					"id": "subheading_4",
+					"label": "Subheading",
+					"default": "Lorem ipsum dolor sit amet"
+				},
+				{
+					"type": "select",
+					"id": "add_border_top",
+					"label": "Add border top?",
+					"options": [
+					{ "value": "add_border_top_yes", "label": "Yes" },
+					{ "value": "add_border_top_no", "label": "No" }
+					],
+					"default": "add_border_top_no"
+				},
+				{
+					"type": "select",
+					"id": "add_border_bottom",
+					"label": "Add border bottom?",
+					"options": [
+					{ "value": "add_border_bottom_yes", "label": "Yes" },
+					{ "value": "add_border_bottom_no", "label": "No" }
+					],
+					"default": "add_border_bottom_no"
+				}				
+			]
+    }
+{% endschema %}

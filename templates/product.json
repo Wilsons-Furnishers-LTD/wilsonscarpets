@@ -3,6 +3,264 @@
     "main": {
       "type": "product",
       "blocks": {
+          "1592925647972": {
+            "type": "tags",
+            "settings": {
+              "tag": "Thickness"
+            }
+          },
+          "1594310045198": {
+            "type": "tags",
+            "settings": {
+              "tag": "Wear Layer"
+            }
+          },
+          "1585832129019": {
+            "type": "tags",
+            "settings": {
+              "tag": "Pile Height"
+            }
+          },
+          "1585832141898": {
+            "type": "tags",
+            "settings": {
+              "tag": "Material"
+            }
+          },
+          "eb149e96-ec67-4a4e-87ce-4a2f1308102c": {
+            "type": "tags",
+            "settings": {
+              "tag": "Pile Content"
+            }
+          },
+          "1585832123201": {
+            "type": "tags",
+            "settings": {
+              "tag": "TOG Rating"
+            }
+          },
+          "1585832161729": {
+            "type": "tags",
+            "settings": {
+              "tag": "Backing"
+            }
+          },
+          "1593160938413": {
+            "type": "tags",
+            "settings": {
+              "tag": "Manufacturer"
+            }
+          },
+          "1594310024664": {
+            "type": "tags",
+            "settings": {
+              "tag": "Slip Resistant?"
+            }
+          },
+          "1593092171313": {
+            "type": "tags",
+            "settings": {
+              "tag": "Available Widths"
+            }
+          },
+          "1593099719771": {
+            "type": "tags",
+            "settings": {
+              "tag": "Pattern Repeat"
+            }
+          },
+          "1586356434849": {
+            "type": "tags",
+            "settings": {
+              "tag": "Brand"
+            }
+          },
+          "1586356394457": {
+            "type": "tags",
+            "settings": {
+              "tag": "Pack Size (M²)"
+            }
+          },
+          "1586356446042": {
+            "type": "tags",
+            "settings": {
+              "tag": "Planks Per Pack"
+            }
+          },
+          "1586356481879": {
+            "type": "tags",
+            "settings": {
+              "tag": "Plank Size"
+            }
+          },
+          "1586356418476": {
+            "type": "tags",
+            "settings": {
+              "tag": "Edges"
+            }
+          },
+          "1586356399117": {
+            "type": "tags",
+            "settings": {
+              "tag": "Installation System"
+            }
+          },
+          "1596811869234": {
+            "type": "tags",
+            "settings": {
+              "tag": "Pile Weight"
+            }
+          },
+          "1596811880230": {
+            "type": "tags",
+            "settings": {
+              "tag": "Total Weight"
+            }
+          },
+          "1597147090699": {
+            "type": "tags",
+            "settings": {
+              "tag": "Density"
+            }
+          },
+          "1597147103035": {
+            "type": "tags",
+            "settings": {
+              "tag": "Impact sound reduction"
+            }
+          },
+          "1597142176678": {
+            "type": "tags",
+            "settings": {
+              "tag": "Shipping"
+            }
+          },
+          "1597226835218": {
+            "type": "tags",
+            "settings": {
+              "tag": "Dimensions"
+            }
+          },
+          "1591966797018": {
+            "type": "tags",
+            "settings": {
+              "tag": "Testing"
+            }
+          },
+          "1589200564508": {
+            "type": "tags",
+            "settings": {
+              "tag": "Juno Test"
+            }
+          },
+          "1597227219394": {
+            "type": "tags",
+            "settings": {
+              "tag": "Pack Size"
+            }
+          },
+          "4e48c7a1-484b-43c8-9deb-f09a7e3b0210": {
+            "type": "tags",
+            "settings": {
+              "tag": "Plank / Tile Size"
+            }
+          },
+          "8182abeb-94a0-4348-948d-af4e0af817de": {
+            "type": "tags",
+            "settings": {
+              "tag": "Tape Length"
+            }
+          },
+          "5deb96a9-a3a7-4a21-be0f-4618f944a8f1": {
+            "type": "tags",
+            "settings": {
+              "tag": "Tape Width"
+            }
+          },
+          "e9ee4257-db4b-411e-baba-3d553d893822": {
+            "type": "tags",
+            "settings": {
+              "tag": "Underfloor Heating Resistant"
+            }
+          },
+          "907a4658-d668-4217-b65e-c05ca690c5ce": {
+            "type": "tags",
+            "settings": {
+              "tag": "Castor Wheel Resistant"
+            }
+          },
+          "4a5e03bf-949b-4ec3-a5f1-6c4ffb297941": {
+            "type": "tags",
+            "settings": {
+              "tag": "Heel Resistant"
+            }
+          },
+          "0d875bb6-3af4-421d-b0f1-4d9931081481": {
+            "type": "tags",
+            "settings": {
+              "tag": "Coverage"
+            }
+          },
+          "60a45f3d-8519-4864-bb16-80bec875f2ab": {
+            "type": "tags",
+            "settings": {
+              "tag": "Door Bar Length"
+            }
+          },
+          "f9042522-02da-42e0-97d2-c319313db7be": {
+            "type": "tags",
+            "settings": {
+              "tag": "Beading Length"
+            }
+          },
+          "4eac8104-cfc5-467a-b9ea-cda3b5cd79ec": {
+            "type": "tags",
+            "settings": {
+              "tag": "Remnant Size"
+            }
+          },
+          "419b47b4-68cb-419e-b68a-dd0453e5d2d2": {
+            "type": "tags",
+            "settings": {
+              "tag": "Suitability"
+            }
+          },
+          "ce047d82-6f8f-4849-8e88-f69dc612205a": {
+            "type": "tags",
+            "settings": {
+              "tag": "Acoustic Insulation"
+            }
+          },
+          "tags_XeNVc8": {
+            "type": "tags",
+            "settings": {
+              "tag": "Oak Layer"
+            }
+          },
+          "tags_nt6BDg": {
+            "type": "tags",
+            "settings": {
+              "tag": "Finish"
+            }
+          },
+          "tags_6KcEQd": {
+            "type": "tags",
+            "settings": {
+              "tag": "Style"
+            }
+          },
+          "tags_PUzRkw": {
+            "type": "tags",
+            "settings": {
+              "tag": "Drainage Holes"
+            }
+          },
+          "tags_kJqakc": {
+            "type": "tags",
+            "settings": {
+              "tag": "Usage Class"
+            }
+          },
           "3c47aef4-d34d-4261-a79a-6c5137770ea5": {
             "type": "feature",
             "settings": {
@@ -1175,6 +1433,49 @@
           }
     },
 "block_order": [
+    "1592925647972",
+          "1594310045198",
+          "1585832129019",
+          "1585832141898",
+          "eb149e96-ec67-4a4e-87ce-4a2f1308102c",
+          "1585832123201",
+          "1585832161729",
+          "1593160938413",
+          "1594310024664",
+          "1593092171313",
+          "1593099719771",
+          "1586356434849",
+          "1586356394457",
+          "1586356446042",
+          "1586356481879",
+          "1586356418476",
+          "1586356399117",
+          "1596811869234",
+          "1596811880230",
+          "1597147090699",
+          "1597147103035",
+          "1597142176678",
+          "1597226835218",
+          "1591966797018",
+          "1589200564508",
+          "1597227219394",
+          "4e48c7a1-484b-43c8-9deb-f09a7e3b0210",
+          "8182abeb-94a0-4348-948d-af4e0af817de",
+          "5deb96a9-a3a7-4a21-be0f-4618f944a8f1",
+          "e9ee4257-db4b-411e-baba-3d553d893822",
+          "907a4658-d668-4217-b65e-c05ca690c5ce",
+          "4a5e03bf-949b-4ec3-a5f1-6c4ffb297941",
+          "0d875bb6-3af4-421d-b0f1-4d9931081481",
+          "60a45f3d-8519-4864-bb16-80bec875f2ab",
+          "f9042522-02da-42e0-97d2-c319313db7be",
+          "4eac8104-cfc5-467a-b9ea-cda3b5cd79ec",
+          "419b47b4-68cb-419e-b68a-dd0453e5d2d2",
+          "ce047d82-6f8f-4849-8e88-f69dc612205a",
+          "tags_XeNVc8",
+          "tags_nt6BDg",
+          "tags_6KcEQd",
+          "tags_PUzRkw",
+          "tags_kJqakc",
           "3c47aef4-d34d-4261-a79a-6c5137770ea5",
           "1581504489464",
           "51f547d8-e7e0-4f91-ac96-c98d0668a4e3",

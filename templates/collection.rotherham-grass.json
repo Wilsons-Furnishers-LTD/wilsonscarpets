@@ -24,16 +24,16 @@
         "image_m9aNzX": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wilsons-carpets-beds-store-rotherham-desktop.jpg",
-            "mobileimage": "shopify://shop_images/wilsons-carpets-store-rotherham-mobile.jpg",
+            "image": "shopify://shop_images/wilsons-carpets-artificial-grass-STORE-rotherham_31b54f06-33e5-41d6-b808-138a0cc548e7.jpg",
+            "mobileimage": "shopify://shop_images/wilsons-carpets-beds-store-rotherham-mobile.jpg",
             "link": "shopify://pages/rotherham-parkgate",
             "position": "1"
           }
         }
       },
       "block_order": [
-        "image_fKTgai",
-        "image_i4cHPb"
+        "image_i4cHPb",
+        "image_m9aNzX"
       ],
       "settings": {
         "banner_per_page": "2"

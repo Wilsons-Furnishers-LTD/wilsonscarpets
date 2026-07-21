@@ -1,0 +1,374 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+<div class="shopping-bag {% if cart.item_count == 0 %}empty{% endif %}">
+  <div class="wrapper">
+    {% render 'breadcrumbs' %}
+    {% render 'cart-freedelivery-banner' %}
+    {% if cart.item_count > 0 %}
+      <div class="page-title">
+        {%- liquid
+          assign item_quantity = 0
+          for item in cart.items
+            assign quantity_prop = item.properties | where: 0, 'Quantity' | first
+            if quantity_prop
+              assign item_quantity = item_quantity | plus: quantity_prop.last
+              continue
+            endif
+            assign item_quantity = item_quantity | plus: item.quantity
+          endfor
+        -%}
+        <h1>
+          Your Basket ({{ item_quantity }}
+          {% if item_quantity > 1 %}items{% else %}item{% endif %})
+        </h1>
+      </div>
+      <form
+        id="cartForm"
+        class=""
+        action="/cart"
+        method="post">
+        <input
+          type="hidden"
+          name="attributes[New Checkout]"
+          value="1">
+
+        <div class="cart-btn-checkout-top">
+          <input
+            class="button button-primary"
+            type="submit"
+            name="checkout"
+            value="Checkout" />
+        </div>
+        <div class="row">
+          <div class="bag-table" id="cart-table-js">
+            {% render 'cart-table' %}
+          </div>
+          <div class="bag-summary">
+            {% render 'delivery-date-cart-section' %}
+            <textarea name="note" id="CartNote"></textarea>
+            <input
+              type="hidden"
+              name="attributes[DELDATE]"
+              value="">
+            <input
+              type="hidden"
+              name="attributes[Preferred Delivery Day]"
+              value="">
+            <div class="summary">
+
+              {% if settings.free_delivery_enabled %}
+                <label class="delivery-progress  js-cart-freeshipping-progress">
+
+                  {%- liquid
+                    assign remaining = settings.free_delivery_threshold | minus: cart.total_price
+                    if cart.total_price == 0
+                      assign label = 'general.free_delivery.free_sample_html' | t
+                      assign progress_value = settings.free_delivery_threshold
+                    elsif remaining > 0
+                      assign remaining_money = remaining | money
+                      assign label = 'general.free_delivery.in_progress_html' | t: money: remaining_money
+                      assign progress_value = cart.total_price
+                    else
+                      assign label = 'general.free_delivery.completed' | t
+                      assign progress_value = cart.total_price
+                    endif
+                  -%}
+
+                  <span class="delivery-progress__label   js-cart-freeshipping-label">{{ label }}</span>
+                  <progress max="{{ settings.free_delivery_threshold }}" value="{{ progress_value }}"></progress>
+                </label>
+              {% endif %}
+
+              <h3 class="total">Total (inc VAT)
+                <span id="cart-total-price-js">{{ cart.total_price | money }}</span>
+              </h3>
+              <input
+                id="checkoutButton"
+                class="button button-primary"
+                type="submit"
+                name="checkout"
+                value="Checkout" />
+                {% comment %}<div class="identixweb-order-delivery">
+                                                                                                    <div class="checkout-btn"><input id="checkoutButtonFake" class="button button-primary" type="button" name="checkout" value="Checkout" /></div>
+                                                                                                    <span class="linear-background"></span>
+                                                                                        </div>{% endcomment %}
+              <input
+                class="button"
+                type="submit"
+                name="update"
+                value="Update cart"
+                id="updateCartButton" />
+              <a class="button button-second js-history-back" href="{{ continue_shopping_url }}">Continue shopping</a>
+              {% comment %}Paypal and Google checkout buttons{% endcomment %}
+
+
+              <div class="payments">
+                <a href="/checkout">
+                <img src="{{ 'payments.png' | asset_url }}" alt="">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    {% else %}
+      <div class="page-title">
+        <h1>Your basket is currently empty!</h1>
+        <p>You can continue browsing
+          <a href="/collections/carpets">here</a>.</p>
+      </div>
+    {% endif %}
+  </div>
+  {% render 'cms-sections-cart' %}
+</div>
+{{ 'date_fns.min.js' | asset_url | script_tag }}
+<script type="text/javascript">
+    jQuery('#cartForm').on('submit', function(e) {
+    	if(jQuery('.uiDeliveryDateVal').val() != ''){
+    		jQuery('#CartNote').val('DELDATE:' + jQuery('.uiDeliveryCalendar').val());
+    	}
+        if(jQuery('.uiDeliveryDateVal').val() == undefined){
+            jQuery('#CartNote').val('');
+        }
+    });
+    jQuery(document).ready(function() {
+        jQuery('.js-history-back').click(function(e) {
+            e.preventDefault();
+            history.back();
+        });
+
+        jQuery('body').on('click', 'button.js-qty__adjust', function (e) {
+          if (!window._cartWillReload) {
+            jQuery('input[name="update"]').trigger('click');
+          }
+        });
+
+        var $checkoutButton = jQuery('#checkoutButton');
+        jQuery(document).on('change', '.deliveryTime', function(e) {
+            if (jQuery(this).val()) {
+                $checkoutButton.removeClass('disabled');
+            } else {
+                $checkoutButton.addClass('disabled');
+            }
+        });
+
+        jQuery('#checkoutButtonFake').click(function(e) {
+            e.preventDefault();
+            jQuery(this).addClass('is-loading');
+            if (jQuery('.uiDeliveryCalendar').val()) {
+                $checkoutButton.trigger('click');
+            } else {
+                var target = "https://app.identixweb.com/order-delivery-date/order-delivery-date_v1.php";
+                var i = {};
+                    i.shop = location.host;
+                    i.method_name = "oddt_front_calendar_settings";
+                $.get(target, i, function(e) {
+                    if (e) {
+                        var data = JSON.parse(e);
+                        var setDate = data.timezonecurrenttime ? new Date(data.timezonecurrenttime) : new Date();
+                        var classClickable = '.ui-datepicker tbody [data-event="click"]:not(.ui-datepicker-week-end)';
+                        $('.uiDeliveryCalendar').datepicker('setDate', setDate);
+                        var checkHasAvailableDay = function() {
+                            if (jQuery(classClickable).length) {
+                                jQuery(classClickable).first().trigger('click');
+                                jQuery('.uiDeliveryCalendar').val('');
+                                setTimeout(function() {
+                                    $checkoutButton.trigger('click');
+                                }, 500);
+                            } else {
+                                setDate = dateFns.addMonths(dateFns.setDate(setDate, 1), 1);
+                                $('.uiDeliveryCalendar').datepicker('setDate', setDate);
+                                checkHasAvailableDay();
+                            }
+                        };
+                        checkHasAvailableDay();
+                    }
+                });
+            }
+        });
+    });
+
+    {% if settings.free_delivery_enabled %}
+        const freeShippingProgress = document.querySelector(".js-cart-freeshipping-progress");
+        if (freeShippingProgress) {
+          const freeShippingThreshold = parseInt(freeShippingProgress.querySelector('progress').getAttribute('max'));
+          let freeshippingLabel = '{{ 'general.free_delivery.in_progress_html' | t }}';
+
+          if(clone_total_price == 0) {
+            freeshippingLabel = '{{ 'general.free_delivery.free_sample_html' | t }}';
+            freeShippingProgress.querySelector('progress').value = freeShippingThreshold;
+          }
+          else if(clone_total_price < freeShippingThreshold ) {
+            freeshippingLabel = freeshippingLabel.replace('{% raw %}{{ money }}{% endraw %}', Shopify.formatMoney(freeShippingThreshold - clone_total_price, settings.moneyFormat));
+            freeShippingProgress.querySelector('progress').value = clone_total_price;
+          }
+          else {
+            freeshippingLabel = '{{ 'general.free_delivery.completed' | t }}';
+            freeShippingProgress.querySelector('progress').value = clone_total_price;
+          }
+          freeShippingProgress.querySelector('.js-cart-freeshipping-label').innerHTML = freeshippingLabel;
+
+        }
+    {% endif %}
+
+</script>
+{% render 'gtm-cart' %}
+
+
+{% schema %}
+{
+  "name": "Cart Free Delivery",
+  "class": "index-section",
+  "max_blocks": 200,
+  "settings": [
+    {
+      "type": "number",
+      "id": "price",
+      "label": "Over Price"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_over",
+      "label": "Background Over"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_over",
+      "label": "Icon Over"
+    },
+    {
+      "type": "text",
+      "id": "title_over",
+      "label": "Title Over"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_over",
+      "label": "Subtitle Over"
+    },
+    {
+      "type": "text",
+      "id": "title_under",
+      "label": "Title Under",
+      "default": "Spend [amount] more for Free fast delivery*"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_under",
+      "label": "Subtitle Under"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "label": "Show related products",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "related_title",
+      "label": "Related products title",
+      "default": "You may also like"
+    },
+    {
+      "type": "select",
+      "id": "related_grid_num",
+      "label": "Products per row (Desktop)",
+      "default": "3",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        },
+        {
+          "value": "5",
+          "label": "5"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "related_grid_row",
+      "label": "Number of rows (Desktop)",
+      "default": "3",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "specifications_title",
+      "label": "Specifications title",
+      "default": "Specifications"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tags",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Tag"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Product Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Image slide"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Lorem ipsum dolor sit amet, consectetur"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

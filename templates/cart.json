@@ -1,0 +1,49 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "cart",
+      "custom_css": [
+        ".title {color: #414b52;}",
+        ".subtitle {color: #414b52;}",
+        ".freedelivery-banner {border-top: 1px solid #fff;}"
+      ],
+      "settings": {
+        "price": 199,
+        "background_over": "shopify://shop_images/safsf.png",
+        "title_over": "Visit one of our 19 stores today!",
+        "subtitle_over": "Click here to find your local store. Amazing prices for over 57 years.",
+        "title_under": "Visit one of our 19 stores today!",
+        "subtitle_under": "Click here to find your local store. Amazing prices for over 57 years.",
+        "show_related_products": true,
+        "related_title": "You may also like",
+        "related_grid_num": "3",
+        "related_grid_row": "3",
+        "specifications_title": "Specifications"
+      }
+    },
+    "featured_collection_wQiERn": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "You may also like",
+        "collection": "accessories",
+        "grid": "4",
+        "add_border_top": "add_border_top_no",
+        "add_border_bottom": "add_border_bottom_no"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured_collection_wQiERn"
+  ]
+}

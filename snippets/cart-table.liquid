@@ -1,0 +1,235 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>&nbsp;</th>
+      <th>Unit Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in cart.items %}
+      {% comment %}
+        Determining the handle of the collection that was last seen for the 'continue shopping' link.
+      {% endcomment %}
+      {% assign collection_url = item.product.collections.last.url %}
+      {% if collection_url == '/collections/frontpage' or collection_url == blank %}
+        {% assign collection_url = '/collections/all' %}
+      {% endif %}
+      {% if forloop.first %}
+        {% assign continue_shopping_url = collection_url | append: item.url %}
+      {% endif %}
+      <tr>
+        <td class="bag-image">
+          <a class="item-image" href="{{ collection_url }}{{ item.url }}">
+            {% comment %}<!--  generated products may not have the image yet, so use the parent's image /-->{% endcomment %}
+            {% assign thisItemImageURL = item | img_url: '100x100' %}
+            {% if item.product.metafields.global.image %}
+              {% if item.product.metafields.global.image != blank %}
+                {% assign thisItemImageURL = item.product.metafields.global.image | replace: '_1280x1280', '_100x100' %}
+              {% endif %}
+            {% endif %}
+            <img src="{{ thisItemImageURL }}" alt="{{ item.title | escape }}" />
+          </a>
+        </td>
+        <td class="bag-description">
+          <h2 class="item-name">
+            <a href="{{ collection_url }}{{ item.url }}">
+              {{ item.product.title | replace: "-sample", " - Sample" }}
+            </a>
+          </h2>
+          {% liquid
+            assign thisProductWidth = ''
+            assign thisProductLength = ''
+            for p in item.properties
+              if p.first == '_Width'
+                assign thisProductWidth = p.last | downcase
+              endif
+              if p.first == '_Length'
+                assign thisProductLength = p.last | downcase
+              endif
+            endfor
+          %}
+          {% unless item.product.has_only_default_variant %}
+            <ul class="item-options">
+              {% for option in item.options_with_values %}
+                {% if option.name == 'Colour' %}
+                  <li>
+                    <strong>{{ option.name | append: ':' }}</strong>
+                    {{ option.value }}
+                  </li>
+                {% endif %}
+              {% endfor %}
+              {% if item.product.type == 'Laminate' or item.product.type == 'LVT' %}
+                {% for tag in item.product.tags %}
+                  {% if tag contains 'Pack Size (M²)_' %}
+                    {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
+                  {% endif %}
+                {% endfor %}
+                <li>
+                  <strong>Size:</strong>
+                  {{ packSizePerSQM | times: item.quantity | times: 100 | floor | times: 0.01 }}M² For
+                  {{ item.quantity }} Packs
+                </li>
+              {% endif %}
+            </ul>
+        {% endunless %}
+          {% comment %}
+            Line Item Properties
+          {% endcomment %}
+          {% assign properties_amount = item.properties | size %}
+          {% if properties_amount > 0 %}
+            <ul class="item-options">
+              {% for p in item.properties %}
+                {% liquid
+                  if p.first.first == '_' or p.last == blank
+                    continue
+                  endif
+                  if p.first == '_sampleSuggestion'
+                    assign giftMessage = 'Customers also like this'
+                    continue
+                  endif
+                %}
+
+                {% unless p.first == 'Size' or p.first == 'ProductImage' %}
+                  <li class="{{ p.first | downcase | replace: ' ', '' | replace: '&', '' | replace: ':', ''    }}">
+                    <strong>{{ p.first }}:</strong>
+                    {% if p.last contains '/uploads/' %}
+                      <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                    {% else %}
+                      {{ p.last }}
+                    {% endif %}
+                  </li>
+                {% endunless %}
+              {% endfor %}
+
+              {% if thisProductWidth != '' %}
+                {% if thisProductLength != '' %}
+                  <li>
+                    <strong>Size:</strong>
+                    {{ thisProductLength | downcase }} x {{ thisProductWidth | downcase }}
+                  </li>
+                {% else %}
+                  <li>
+                    <strong>Width:</strong>
+                    {{ thisProductWidth | downcase }}
+                  </li>
+                {% endif %}
+              {% elsif thisProductLength != '' %}
+                <li>
+                  <strong>Length:</strong>
+                  {{ thisProductLength | downcase }}
+                </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        </td>
+        <td class="bag-price" data-title="Unit Price:">
+          {% assign showM2Price = false %}
+          {% if item.product.type == 'Carpet' or item.product.type == 'Carpets' or item.product.type == 'Vinyl' or item.product.type == 'Artificial Grass' %}
+            {% assign showM2Price = true %}
+          {% endif %}
+          {% if showM2Price %}
+            {% assign thisProductWidthNumeric = thisProductWidth | replace: 'm', '' | times: 1.0 %}
+            {% assign thisProductLengthNumeric = thisProductLength | replace: 'm', '' | times: 1.0 %}
+            {% assign thisArea = thisProductWidthNumeric | times: thisProductLengthNumeric %}
+            {% assign thisSQMCost = item.line_price | divided_by: thisArea | divided_by: item.quantity %}
+
+            {{ thisSQMCost | money }}
+          {% else %}
+            {% if item.price == 0 %}
+              Free
+            {% else %}
+              {{ item.price | money }}
+            {% endif %}
+          {% endif %}
+        </td>
+        <td class="bag-edit {% if item.product.type == 'Sample' %}sample{% endif %}" data-title="Qty:">
+          <div class="bag-qty">
+            {% liquid
+              assign duplicate_line = false
+              for p in item.properties
+                if p.first == '_timestamp'
+                  assign duplicate_line = true
+                  break
+                endif
+              endfor
+            %}
+
+            <div
+              class="js-qty"
+              {% if item.product.type == 'Laminate' or item.product.type == 'LVT' %}
+              {% for tag in item.product.tags %}
+              {% if tag contains 'Pack Size (M²)_' %}
+              {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
+              data-pack-size="{{ packSizePerSQM }}"
+              data-properties="{{ item.properties | json | escape }}"
+              {% break %}
+              {% endif %}
+              {% endfor %}
+              {% endif %}>
+              <button
+                type="button"
+                class="js-qty__adjust js-qty__adjust--minus icon-fallback-text"
+                data-id="{{ item.key }}"
+                data-qty="{{ item.quantity | minus: 1}}">
+                <i class="icon-minus"></i>
+              </button>
+              <input
+                type="number"
+                class="js-qty__num"
+                value="{{ item.quantity }}"
+                min="0"
+                data-id="{{ item.key }}"
+                aria-label="quantity"
+                {% if duplicate_line %}
+                data-duplicate="{{ item | json | escape }}"
+                {% else %}
+                id="updates_{{ item.key }}"
+                name="updates[]"
+                {% endif %}
+                pattern="[0-9]*">
+
+              <button
+                type="button"
+                class="js-qty__adjust js-qty__adjust--plus icon-fallback-text"
+                data-id="{{ item.key }}"
+                data-qty="{{ item.quantity | plus: 1 }}">
+                <i class="icon-plus"></i>
+              </button>
+            </div>
+
+            <a class="remove" href="/cart/change?line={{ forloop.index }}&quantity=0">Remove</a>
+          </div>
+
+          {% if duplicate_line %}
+            <input
+              type="hidden"
+              id="updates_{{ item.key }}"
+              name="updates[]"
+              value="{{ item.quantity }}">
+          {% endif %}
+        </td>
+        <td class="total-price" data-title="Subtotal:">
+          {% if item.line_price == 0 %}
+            Free
+          {% else %}
+            {{ item.line_price | money }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

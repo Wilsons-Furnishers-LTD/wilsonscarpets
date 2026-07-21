@@ -1,0 +1,56 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+<script>
+  const freedeliveryData = {
+    title_over: '{{ section.settings.title_over }}',
+    title_under: '{{ section.settings.title_under }}',
+    over_price: '{{ section.settings.price }}'
+  };
+</script>
+<div
+  data-section-id="{{ section.id }}"
+  data-section-type="banner"
+  class="freedelivery-banner">
+  <div class="row">
+    {% assign total_price = cart.total_price | money_without_currency | plus: 0 %}
+    {% assign over_price = section.settings.price | strip | plus: 0 %}
+
+    {% assign overAmount = over_price | minus: total_price %}
+    {% assign amount = overAmount | times: 100 | money_without_trailing_zeros %}
+
+    {% assign background_over = section.settings.background_over | img_url: 'master' %}
+    {% assign icon_over = section.settings.icon_over | img_url: 'master' %}
+    <div class="col-wide-12" style="background-image: url({{ background_over }});">
+      {% if icon_over != blank %}
+        <div class="icon">
+          <picture>
+            <img
+              src="{{ icon_over }}"
+              alt=""
+              loading="lazy"
+              importance="low" />
+          </picture>
+        </div>
+      {% endif %}
+      <div class="text-content">
+        {% if overAmount < 0 %}
+          <h2 class="title  js-freedelivery-title">{{ section.settings.title_over }}</h2>
+          <p class="subtitle">{{ section.settings.subtitle_over }}</p>
+        {% else %}
+          <h2 class="title  js-freedelivery-title">{{ section.settings.title_under | replace: '[amount]', amount }}</h2>
+          <p class="subtitle">{{ section.settings.subtitle_under }}</p>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>

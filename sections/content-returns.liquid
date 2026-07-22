@@ -1,0 +1,26 @@
+<div data-section-id="{{ section.id }}" data-section-type="content-returns-section" class="wrapper">
+	{% if section.settings.content != blank %}
+		{{ section.settings.content }}
+	{% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Content - Returns",
+    "class": "index-section",
+    "settings": [
+          {
+            "type": "html",
+            "id": "content",
+            "label": "Content",
+            "default": "<p>Default <em>richtext</em> <a href=\"https://example.com/\">content</a></p>"
+          }
+    ],
+    "presets": [
+      {
+        "name": "Content - Returns",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %}

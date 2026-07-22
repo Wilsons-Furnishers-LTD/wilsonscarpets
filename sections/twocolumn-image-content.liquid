@@ -1,0 +1,128 @@
+<div data-section-id="{{ section.id }}" data-section-type="twocolumn-imagecontent-section" class="wrapper">
+
+  {% case section.settings.image_width %}
+    {% when 'image-half' %}
+      {%- assign image_col_width = 'col-wide-6 col-medium-6 col-small-12 col-smallest-12' -%}
+      {%- assign content_col_width = 'col-wide-6 col-medium-6 col-small-12 col-smallest-12' -%}
+    {% when 'image-third' %}
+      {%- assign image_col_width = 'col-wide-4 col-medium-4 col-small-12 col-smallest-12' -%}
+      {%- assign content_col_width = 'col-wide-8 col-medium-8 col-small-12 col-smallest-12' -%}
+    {% when 'image-quarter' %}
+      {%- assign image_col_width = 'col-wide-3 col-medium-3 col-small-12 col-smallest-12' -%}
+      {%- assign content_col_width = 'col-wide-9 col-medium-9 col-small-12 col-smallest-12' -%}
+  {% endcase %}
+
+        <div class="row" id="contentgrid-{{ section.id }}">
+
+
+{% if section.settings.column_order == 'image-left' %}
+
+                <div class="{{ image_col_width }}">
+                    {% if section.settings.image %}
+                      <img src="{{ section.settings.image | img_url: '2048x' }}" alt="{% if section.settings.alttext %}{{ section.settings.alttext | escape }}{% endif %}" />
+                    {% endif %}
+                    {% if section.settings.image == blank %}
+                      <div class="placeholder-background">
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {% endif %}
+                </div>
+
+{%endif%}
+
+
+
+                <div class="{{ content_col_width }}">
+                  {% if section.settings.title != blank %}
+                    <h2>
+                      {{ section.settings.title | escape }}
+                    </h2>
+                  {% endif %}
+                  {% if section.settings.content != blank %}
+                    <span>
+                      {{ section.settings.content | escape }}
+                    </span>
+                  {% endif %}
+                </div>
+
+                {% if section.settings.column_order == 'image-right' %}
+
+                <div class="{{ image_col_width }}">
+                    {% if section.settings.image %}
+                      <img src="{{ section.settings.image | img_url: '2048x' }}" alt="{% if section.settings.alttext %}{{ section.settings.alttext | escape }}{% endif %}" />
+                    {% endif %}
+                    {% if section.settings.image == blank %}
+                      <div class="placeholder-background">
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {% endif %}
+                </div>
+
+{%endif%}
+        </div>
+
+</div>
+
+{% schema %}
+  {
+    "name": "2 Col - Image / Content",
+    "class": "index-section",
+    "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image"
+          },
+          {
+            "type": "text",
+            "id": "alttext",
+            "label": "Alt Text",
+            "default": "Banner"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Content Title",
+            "default": "Content Title"
+          },
+          {
+            "type": "textarea",
+            "id": "content",
+            "label": "Content",
+            "default": "Lorem ipsum dolor sit amet"
+          },
+          {
+            "type": "select",
+            "id": "image_width",
+            "label": "Image Column Width",
+            "options": [
+              { "value": "image-half", "label": "Half" },
+              { "value": "image-third", "label": "Third" },
+              { "value": "image-quarter", "label": "Quarter" }
+            ],
+            "default": "image-half"
+          },
+          {
+            "type": "select",
+            "id": "column_order",
+            "label": "Column Order",
+            "options": [
+              { "value": "image-left", "label": "Image Left - Content Right" },
+              { "value": "image-right", "label": "Image Right - Content Left" }
+            ],
+            "default": "image-left"
+          }
+    ],
+    "presets": [
+      {
+        "name": "2 Col - Image / Content",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %}

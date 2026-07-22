@@ -1,0 +1,164 @@
+<div data-section-id="{{ section.id }}" data-section-type="bannergrid-video-section" class="bannergrid-video-section">
+
+    {% if section.blocks.size > 0 %}
+        <div class="row" id="bannergrid-{{ section.id }}">
+            {% for block in section.blocks %}
+                <div class="col-wide-12 col-medium-12 col-small-12 col-smallest-12 {{ block.settings.text_color | escape }}">
+
+
+
+
+
+                  {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="link_full">
+          {% endif %}  
+
+
+
+
+
+                    {% if block.settings.video-src %}
+                       
+
+{% assign fullScreenVideo = false %}
+{% assign aspectRatio = 56.25 %}
+
+ {% if block.settings.aspectRatio == "fullscreen" %}
+ {% assign fullScreenVideo = true %}
+ {%else%}
+
+{% if block.settings.aspectRatio contains ":" %}
+  {% assign aspectSplit = block.settings.aspectRatio | split: ':' %}
+
+{%comment%} convert to a Float so the divided_by doesn't round down: {%endcomment%}
+{% assign secondValue =  aspectSplit[1] %}
+{% assign secondValue = secondValue | plus: 0.0 %}
+
+  {% assign aspectRatio = secondValue | times: 100 | divided_by: aspectSplit[0]  %}
+{% endif %}
+
+
+{% endif %} 
+
+
+<div class="videoWrapper{% if fullScreenVideo%} fullScreen{%endif%}" style="background-image: url({{ block.settings.video-src | append: '.jpg' | file_url  }});{% unless fullScreenVideo %}padding-bottom: {{aspectRatio}}%{%endunless%}">
+  <video preload="auto" autoplay="autoplay" muted="muted" {% if block.settings.shouldLoop == "yes" %}loop="loop" {%endif%}poster="{{ 'video-poster-transp.png' | file_url  }}" playsinline>
+     <source src="{{ block.settings.video-src | append: '.mp4' | file_url  }}" type="video/mp4"></source>
+     <source src="{{ block.settings.video-src | append: '.webm' | file_url  }}" type="video/webm"></source>
+    <source src="{{ block.settings.video-src | append: '.ogv' | file_url  }}" type="video/ogg"></source>
+  </video>
+</div>
+
+
+                    {% endif %}
+
+
+
+                
+                   
+                  
+                    
+                    
+                          {% unless block.settings.title == blank %}
+                    <div class="text-wrap overlay">
+                      <div class="text-content">
+        
+              <h2 class="mega-title title"> {{ block.settings.title }} </h2>
+            
+              {% unless block.settings.subheading == blank %}
+              <p class="mega-subtitle subtitle"> {{ block.settings.subheading | escape }} </p>
+              {% endunless %}
+            </div>
+                    </div>
+  {% endunless %}
+
+                        {% if block.settings.link != blank %}
+            </a> 
+          {% endif %}  
+                  
+                    
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</div>
+
+{% schema %}
+  {
+    "name": "Banner Grid - Video",
+    "class": "index-section index-section--flush",
+    "max_blocks": 1,
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Video",
+        "settings": [
+          {
+            "type": "text",
+            "id": "video-src",
+            "label": "Video filename",
+            "info": "Upload a .mp4, .webm, .ogv and .jpg into the Files folder (Settings > Files) all with this name. So if one of your assets is 'my-video.mp4', then just enter 'my-video' here."
+          },
+
+
+
+{
+   "type": "select",
+   "id": "shouldLoop",
+   "options": [
+      { "value": "no", "label": "No"},
+      { "value": "yes", "label": "Yes"}
+   ],
+   "label": "Loop video?",
+   "default": "yes"
+},
+   {
+            "type": "text",
+            "id": "aspectRatio",
+            "label": "Aspect Ratio",
+            "info": "Eg. '16:9' or '4:3' - or enter 'fullscreen' to fill the screen",
+            "default": "16:9"
+          },
+
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Banner"
+          },
+          {
+            "type": "text",
+            "id": "subheading",
+            "label": "Subheading",
+            "default": "Lorem ipsum dolor sit amet"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Video link"
+          },
+          {
+            "type": "select",
+            "id": "text_color",
+            "label": "Text color",
+            "options": [
+              { "value": "text-light", "label": "Light" },
+              { "value": "text-dark", "label": "Dark" }
+            ],
+            "default": "text-light"
+          }
+        ]
+      }
+    ],
+    "presets": [{
+      "name": "Banner Grid - Video",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "text"
+        }
+      ]
+    }]
+  }
+{% endschema %}

@@ -1,0 +1,17 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+  analytics.track('Viewed Product Category', {
+    category: "{{ collection.title }}",
+    categoryUrl: "{{ collection.url }}",
+    categoryProductCount: "{{ collection.all_products_count }}",
+    {% if collection.current_type %} filteredType: "{{ collection.current_type }}", {% endif %}
+    {% if collection.current_vendor %} filteredVendor: "{{ collection.current_vendor }}", {% endif %}
+    defaultSortBy: "{{ collection.default_sort_by }}",
+    referrerUrl: document.referrer,
+    referrerPath: new URL(document.referrer).pathname,
+    urlHref: window.location.href,
+    urlPath: window.location.pathname,
+    urlHash: window.location.hash
+  });
+</script>
+{% endunless %}

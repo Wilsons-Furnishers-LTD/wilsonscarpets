@@ -1,0 +1,16 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+  window.analytics.track('Viewed Blog', {
+    pageType: 'Front Page',
+    pageTitle: document.title,
+    blogArticleCount: "{{ blog.articles_count }}",
+    blogTitle: "{{ blog.title }}",
+    blogUrl: "{{ blog.url }}",
+    referrerUrl: document.referrer,
+    referrerPath: new URL(document.referrer).pathname,
+    urlHref: window.location.href,
+    urlPath: window.location.pathname,
+    urlHash: window.location.hash
+    });
+  </script>
+  {% endunless %}

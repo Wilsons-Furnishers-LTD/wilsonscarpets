@@ -1,0 +1,39 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+// https://community.segment.com/t/k98abg/shopify-store-event-tracking-deprecated
+!function(){var analytics=window.analytics=window.analytics||[];
+
+
+    /*
+    if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+
+
+  window.analytics.load("YOUR_WRITE_KEY");
+*/
+  // identify the customer if they have an account
+  {% if customer.id %}
+  window.analytics.identify("{{customer.id}}", {
+    name: "{{ customer.name }}",
+    firstName: "{{ customer.first_name }}",
+    lastName: "{{ customer.last_name }}",
+    email: "{{ customer.email }}",
+    phone: "{{ customer.default_address.phone }}",
+    address: {  // uses the default address
+      street: "{{ customer.default_address.street }}",
+      city: "{{ customer.default_address.city }}",
+      state: "{{ customer.default_address.province }}",
+      stateCode: "{{ billing_address.province_code }}",
+      postalCode: "{{ customer.default_address.zip }}",
+      country: "{{ customer.default_address.country }}",
+      countryCode: "{{ customer.default_address.country_code }}"
+    },
+    totalSpent: "{{ customer.total_spent }}",
+    allOrdersCount: "{{ customer.orders_count }}",
+    allOrderIds: [{% for order in customer.orders %}"{{ order.id }}",{% endfor %}],
+    tags: [{% for tag in customer.tags %} "{{ tag }}", {% endfor %}]
+  });
+  {% endif %}
+  //window.analytics.page();
+  }();
+</script>
+{% endunless %}

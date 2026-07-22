@@ -18,26 +18,6 @@
 	{% endif %}
 </div>
 
-{% schema %}
-{
-    "name": "Header",
-    "blocks": [],
-    "settings": [
-        {
-            "type": "text",
-            "id": "title",
-            "label": "Title",
-            "default": "Blog"
-        },
-        {
-            "type": "text",
-            "id": "description",
-            "label": "description",
-            "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
-        }
-    ]
-}
-{% endschema %}
 
 
 
@@ -136,3 +116,24 @@
 
 
  {% include 'gtm-blog' %}
+
+{% schema %}
+{
+    "name": "Header",
+    "blocks": [],
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Blog"
+        },
+        {
+            "type": "text",
+            "id": "description",
+            "label": "description",
+            "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+        }
+    ]
+}
+{% endschema %}

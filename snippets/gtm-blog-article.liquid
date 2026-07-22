@@ -1,0 +1,22 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+
+window.analytics.track('Viewed Blog', {
+    pageType: 'Article',
+    pageTitle: document.title,
+    articleTitle: "{{ article.title }}",
+    articleAuthor: "{{ article.author }}",
+    articleCreatedAt: "{{ article.created_at | date: "%F" }}",
+    articlePublishedAt: "{{ article.published_at | date: "%F" }}",
+    articleCommentCount: "{{article.comments_count }}",
+    articleTags: ["{{ article.tags | join: '", "'}}"],
+    articleUrl: "{{ article.url }}",
+    referrerUrl: document.referrer,
+    referrerPath: new URL(document.referrer).pathname,
+    urlHref: window.location.href,
+    urlPath: window.location.pathname,
+    urlHash: window.location.hash
+});
+
+</script>
+{% endunless %}

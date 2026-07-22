@@ -48,7 +48,7 @@
             "image": "shopify://shop_images/banner-4.jpg",
             "text_color": "text-dark",
             "title": "Shop Laminate",
-            "subheading": "Lorem ipsum dolor sit amet, consectetur",
+            "subheading": "",
             "link": "shopify://collections/laminate-flooring",
             "button_text": "Shop Now"
           }

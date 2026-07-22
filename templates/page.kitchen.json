@@ -1,7 +1,146 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "builder-section",
+      "blocks": {
+        "banner_yic8hi": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/kitchens-1920-x-721.jpg",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_RDjrUi": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "#E2E2E2",
+            "title": "Glam up your kitchen flooring for less at Wilsons",
+            "content": "<p>Kitchens need a hard wearing flooring that’s moisture resistant, slip resistant and of course, beautiful to look at. Our extensive range of laminates and vinyls allow you to create every possible look to suit your individual style and décor.</p>\n\n<p class=\"text6\">Products illustrated are subject to availability in selected stores, please call for details.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "onecol_txt_4mPQWr": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "rgba(0,0,0,0)",
+            "title": "Vinyl flooring for kitchens",
+            "content": "<p>As one of the largest areas in the room, your choice of floor will have a massive impact on the look and feel of your kitchen. We offer everything from the lightest shades of stone and tile effect vinyl, through to warm and rustic looking wood finishes, in dark and light tones, together with striking geometric tile effects to contrast or compliment your units and other décor.</p>\n<p>Cushioned backing adds extra warmth and comfort and of course, all vinyl is water resistant, easy to clean and it’s affordable too. Most of our vinyls are also compatible with underfloor heating systems and can be fitted with additional foam underlay for an even softer feel underfoot. Sweep it, mop it, clean up spills with ease. Vinyl is undoubtedly one of most practical choices for any kitchen area.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_tDEp9Q": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "vinyl-flooring",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_CbkRQd": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our vinyl range",
+            "link_url": "shopify://collections/vinyl-flooring",
+            "link_txt": "Our Vinyl Range"
+          }
+        },
+        "banner_Wmdigc": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/kitchen-laminate.webp",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_fLGfYd": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "rgba(0,0,0,0)",
+            "title": "Laminate flooring for kitchens",
+            "content": "<p>For a luxurious feel, take a look at our extensive range of laminate flooring. It’s a practical alternative to vinyl and with the latest modern styles and designs it can replicate the look of stone or wooden planks to make it almost impossible to tell apart from the real thing.</p>\n<p>Three dimensional, embossed finishes, V-Groove and high definition will make your floor look amazing. Lay with underlay to dampen sound and add insulation and you’ll have a floor that’s comfortable, quiet and infinitely practical.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_LeCM9G": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "laminate-flooring",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_nxXgAP": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our laminate range",
+            "link_url": "shopify://collections/laminate-flooring",
+            "link_txt": "Our Laminate Range"
+          }
+        }
+      },
+      "block_order": [
+        "banner_yic8hi",
+        "onecol_txt_RDjrUi",
+        "onecol_txt_4mPQWr",
+        "featured_collection_tDEp9Q",
+        "bedroom_button_findout_CbkRQd",
+        "banner_Wmdigc",
+        "onecol_txt_fLGfYd",
+        "featured_collection_LeCM9G",
+        "bedroom_button_findout_nxXgAP"
+      ],
       "settings": {}
     }
   },

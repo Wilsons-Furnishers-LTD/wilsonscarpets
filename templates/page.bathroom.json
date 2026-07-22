@@ -1,7 +1,124 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "builder-section",
+      "blocks": {
+        "banner_AU4MwY": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/bathrooms-1920-x-721.jpg",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_n6GBXz": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "A huge choice of flooring designed for bathrooms",
+            "content": "<p>Give your bathroom or en-suite a make over with our range of vinyl and laminate flooring. We have a huge range of options available to ensure get a long lasting, great looking floor that’s warm, comfortable and ideal for wet environments.</p>\n<p class=\"text6\">For our latest pricing, please enquire in-store, or <a href=\"/pages/stores\">contact us</a> for a quotation. ALL products carry our <a href=\"/pages/price-promise\">lowest price guarantee</a>. Products illustrated are subject to availability in selected stores, please call for details.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "onecol_txt_iCFJqj": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Vinyl flooring for bathrooms",
+            "content": "<p>Vinyl flooring is ideally suited to bathrooms and wet areas. It’s also a great option when you’re on a budget with prices starting from around £10 per square metre. It’s cushioned, so it’s warm and soft underfoot and it’s impervious to splashes and spills. Our vinyl flooring comes in all kinds of geometric tile and wood effects, so you get the look of the real thing without the cost and it’ so easy to fit too!</p>\n<p>Choose from a wide range of wood, stone and ceramic tile effect finishes, as well as modern geometric designs. Most vinyl we offer, also comes with a textured finish to emulate the look of wood or tile grouting, and provides a slip resistant surface for added safety.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_8GVbjQ": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "vinyl-flooring",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_NT9eJK": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our vinyl range",
+            "link_url": "shopify://collections/vinyl-flooring",
+            "link_txt": "Our Vinyl Range"
+          }
+        },
+        "onecol_txt_E7H3bm": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Laminate flooring for bathrooms",
+            "content": "<p>Not all laminate flooring is suitable for bathrooms, but we offer a range of Balterio laminate which not only looks good, but the planks are also waterproof. Thanks to the HydroShield protection, no water can seep into the click joints for up to one hour. Grande can even be wetmopped and easily stands up to water spills. This makes Grande the ideal laminate floor for installing in bathrooms as well as living areas and kitchens.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_6tnGkb": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "laminate-flooring-for-bathrooms",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_mUnHBV": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our laminate range",
+            "link_url": "shopify://collections/laminate-flooring",
+            "link_txt": "Our Laminate Range"
+          }
+        }
+      },
+      "block_order": [
+        "banner_AU4MwY",
+        "onecol_txt_n6GBXz",
+        "onecol_txt_iCFJqj",
+        "featured_collection_8GVbjQ",
+        "bedroom_button_findout_NT9eJK",
+        "onecol_txt_E7H3bm",
+        "featured_collection_6tnGkb",
+        "bedroom_button_findout_mUnHBV"
+      ],
       "settings": {}
     }
   },

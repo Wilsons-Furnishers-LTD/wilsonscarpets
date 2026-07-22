@@ -1,5 +1,14 @@
 {% assign productPromo = '' %}
+{% assign productTag = '' %}
 
+{% if product.compare_at_price > product.price %}
+    {% assign onSaleClass = ' sale' %}
+    {% assign beforeText = '<small>Now</small> ' %}
+    {% comment %}
+    {% assign productTag = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | append: '%<br>OFF' | prepend: '<span>Up to</span>' %}
+    {% endcomment %}
+    {% assign productTag = 'Sale<br>Price' %}
+{% endif %}
 
 {% for tag in product.tags %}
     {% if tag contains 'promo_' %}

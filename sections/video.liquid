@@ -37,7 +37,7 @@
               data-controls="Video-{{ section.id }}">
         <span class="video-control video-control__close">
           {% render 'icon-close' %}
-          <span class="icon__fallback-text">{{ 'sections.video.close' | t }}</span>
+          <span class="icon__fallback-text">Close</span>
         </span>
       </button>
       {%- if section.settings.video_link != blank -%}
@@ -91,7 +91,7 @@
               {%- endif -%}
               <button type="button" class="btn video-control video-control__play" data-controls="Video-{{ section.id }}">
                 {% render 'icon-play' %}
-                <span class="icon__fallback-text">{{ 'sections.video.play' | t }}</span>
+                <span class="icon__fallback-text">Play</span>
               </button>
             </div>
           {%- endunless -%}
@@ -104,18 +104,18 @@
         {%- endif -%}
         <button type="button" class="btn video-control video-control__play" data-controls="Video-{{ section.id }}">
           {%- render 'icon-play' -%}
-          <span class="icon__fallback-text">{{ 'sections.video.play' | t }}</span>
+          <span class="icon__fallback-text">Play</span>
         </button>
       </div>
 
       <button type="button" class="video__pause{% unless section.settings.style == 'background' %} visually-hidden" tabindex="-1{% endunless %}" data-id="{{ section.id }}" aria-live="polite" aria-pressed="false" data-controls="Video-{{ section.id }}">
         <span class="video__pause-stop">
           {% render 'icon-pause' %}
-          <span class="icon__fallback-text">{{ 'sections.video.pause' | t }}</span>
+          <span class="icon__fallback-text">Pause</span>
         </span>
         <span class="video__pause-resume">
           {% render 'icon-play' %}
-          <span class="icon__fallback-text">{{ 'sections.video.resume' | t }}</span>
+          <span class="icon__fallback-text">Resume</span>
         </span>
       </button>
     </div>

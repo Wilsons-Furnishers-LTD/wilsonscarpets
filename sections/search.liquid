@@ -1,0 +1,174 @@
+<div class="search-page collection-product">
+	<div class="wrapper">
+	{% comment %} {% include 'breadcrumbs' %} {% endcomment %}
+	{% if search.performed == false %}
+		<div class="row">
+			<div class="page-title">
+				<h1>Search our store&hellip;</h1>
+			</div>
+			<form action="/search" method="get" class="search-form" role="search">
+				<input name="q" type="search" id="search-field" placeholder="Search store..." value="{{ search.terms | escape }}" />
+				<input type="submit" id="search-submit" value="Search" />
+			</form>
+		</div>
+	{% endif %}
+
+	{% if search.performed  or request.design_mode %}
+		{% if search.results_count == 0  or request.design_mode %}
+            <div class="wrapper">
+                <div class="content-noresult centered">
+                    <div class="page-title">
+                <h1>Search results for &quot;{{ search.terms | replace: ' -tag:Sample', '' | replace: '-product_type:Discontinued+Flooring', '' | escape }}&quot; did not return any results 😥</h1>
+                <p>{{ section.settings.description }}</p>
+                    </div>
+                <div class="buttons-set">
+                <a class="button button-primary" href="{{ section.settings.btn_link }}">{{ section.settings.btn_text }}</a>
+                <!-- <a class="button button-primary" href="/account">Go to account page</a>
+                <a class="button button-primary" href="/pages/contact">Contact us</a> -->
+                </div>
+                </div>
+            </div>
+		{% else %}
+			{% for product in search.results %}
+				{% assign search_type = product.object_type %}
+				{% break %}
+			{% endfor %}
+            {% if search_type == 'product' %}
+                {% assign paginate_number = 16 %}
+            {% endif %}
+            {% if search_type == 'article' %}
+                {% assign paginate_number = 12 %}
+            {% endif %}
+            
+                {% paginate search.results by paginate_number %}
+                    <div class="page-title">
+                        <h1>Search results for &quot;{{ search.terms | replace: ' -tag:Sample', '' | replace: '-product_type:Discontinued+Flooring', '' | replace: '-tag:clone+product', '' | escape }}&quot;</h1>
+                    </div>
+                    {% comment %} <div class="toolbar toolbar-product">
+                        <div class="row">
+                            {% if paginate.pages > 1 %}
+                            <div class="wrap-pagi">
+                                <div class="collection-pagination">
+                                    {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div> {% endcomment %}
+                {% comment %} <div class="product-grid">
+                    {% for product in search.results %}
+                        {% include 'product-grid-item' with products_per_row %}
+                    {% endfor %}
+                    {% if search.results_count == 0 %}
+                        <p id="noProducts">There are no products in this view.</p>
+                    {% endif %}
+                </div> {% endcomment %}
+                <div id="product-grid" class="product-grid loading"></div>
+                <div class="toolbar bottom toolbar-product">
+                    <div class="row">
+                        {% if paginate.pages > 1 %}
+                            <div class="collection-pagination">
+                                {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endpaginate %}
+           
+        {% endif %}
+	{% endif %}
+	</div>
+</div>
+
+<script type="text/javascript">
+    function renderProducts(filter){
+        var shopUrl = {{ shop.url | json }},
+            ajaxUrl = shopUrl,
+			$products = jQuery('#product-grid');
+            $pagination = jQuery('.collection-pagination');
+
+        if(filter){
+            if(filter.split('?page=').length > 1 ){
+                url = shopUrl + filter;
+            }
+            ajaxUrl = url;
+            if(url.split('?').length > 1){
+                ajaxUrl += '&view=ajax';
+            }else{
+                ajaxUrl += '?view=ajax';
+            }
+            window.history.pushState('', '', url);
+        }else{
+            if (location.search.length) {
+                ajaxUrl += location.search;
+                ajaxUrl += '+-tag%3aclone%2bproduct+-tag%3ASample+-product_type%3ADiscontinued%2BFlooring&type=product&view=ajax';
+                /* ajaxUrl += '&type=product&view=ajax'; */
+                if(ajaxUrl.split('?q=').length > 1){
+                    ajaxUrl = ajaxUrl.replace('?q=', '/search?q=');
+                }
+                if(ajaxUrl.split('?page=').length > 1){
+                    ajaxUrl = ajaxUrl.replace('?page=', '/search?page=');
+                }
+            }
+        }
+        jQuery.ajax({
+            type: 'GET',
+            url: ajaxUrl,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                $products_html = jQuery(data).filter('.product-grid').html();
+               	if($products_html != undefined){
+              		$products.empty().html($products_html).removeClass('loading');
+                }
+              	
+              	$pagination_html = jQuery(data).filter('.collection-pagination').html();
+                if($pagination_html != undefined){
+                  	$pagination_html = $pagination_html.replace(/&amp;view=ajax/g, '');
+                    $pagination.empty().html($pagination_html);
+                }
+                jQuery('title').html(jQuery(data).filter('.search-result').html());
+            }
+        });
+    }
+    jQuery(document).ready(function() {
+        renderProducts();
+    });
+    jQuery(document).on('click', '.collection-pagination a', function(e) {
+        var value = jQuery(this).attr('href');
+       /* var url = window.location.href, replaced_url = '+-tag%3ASample+-product_type%3ADiscontinued%2BFlooring&type=product';
+                if (url.indexOf('/search?') == -1 && !url.indexOf(replaced_url) == -1 ) {
+                    window.location = url + replaced_url;
+                }
+                console.log(url);*/
+        jQuery('#product-grid').addClass('loading');
+        renderProducts(value);
+        e.preventDefault();
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Search noresult",
+    "blocks": [],
+    "settings": [
+        {
+            "type": "html",
+            "id": "description",
+            "label": "description",
+            "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus a purus a tincidunt. Suspendisse eget dui erat."
+        },
+        {
+            "type": "url",
+            "id": "btn_link",
+            "label": "Button Link"
+        },
+        {
+            "type": "text",
+            "id": "btn_text",
+            "label": "Button Text",
+            "default": "Go to homepage"
+        }
+    ]
+}
+{% endschema %}

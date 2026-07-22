@@ -1,0 +1,94 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "search",
+      "settings": {
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris cursus a purus a tincidunt. Suspendisse eget dui erat.",
+        "btn_link": "",
+        "btn_text": "Go to homepage"
+      }
+    },
+    "featured_collection_rDccya": {
+      "type": "featured-collection",
+      "name": "Featured collection",
+      "settings": {
+        "title": "Browse our best selling products",
+        "collection": "carpets",
+        "grid": "4",
+        "add_border_top": "add_border_top_no",
+        "add_border_bottom": "add_border_bottom_no"
+      }
+    },
+    "bannergrid_two_G9p63z": {
+      "type": "bannergrid-two",
+      "blocks": {
+        "image_U7Nab3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner-2.jpg",
+            "text_color": "text-dark",
+            "title": "Shop Carpets",
+            "subheading": "",
+            "link": "shopify://collections/carpets",
+            "button_text": "Shop Now"
+          }
+        },
+        "image_hYnC6V": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner-4.jpg",
+            "text_color": "text-dark",
+            "title": "Shop Laminate",
+            "subheading": "",
+            "link": "shopify://collections/laminate-flooring",
+            "button_text": "Shop Now"
+          }
+        },
+        "image_38YAyP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner-4.jpg",
+            "text_color": "text-dark",
+            "title": "Need help? Visit our advice centre",
+            "subheading": "",
+            "link": "shopify://pages/contact",
+            "button_text": "Read more"
+          }
+        },
+        "image_c74tUN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Wilsons-Carpets-locations-half-page-banner-new_1489658b-71d0-4d13-a153-997e7044444e.jpg",
+            "text_color": "text-dark",
+            "title": "",
+            "subheading": "",
+            "link": "shopify://pages/stores",
+            "button_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_U7Nab3",
+        "image_hYnC6V",
+        "image_38YAyP",
+        "image_c74tUN"
+      ],
+      "name": "Banner Grid - Two",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "featured_collection_rDccya",
+    "bannergrid_two_G9p63z"
+  ]
+}

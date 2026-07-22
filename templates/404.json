@@ -83,24 +83,11 @@
         "image_pP7pt6"
       ],
       "settings": {}
-    },
-    "feature_collection_alt_UMV7bM": {
-      "type": "feature-collection-alt",
-      "name": "Featured collection",
-      "settings": {
-        "title": "Featured collection",
-        "collection": "artificial-grass",
-        "grid": "3",
-        "rows": "2",
-        "show_vendor": false,
-        "show_view_all": false
-      }
     }
   },
   "order": [
     "404",
     "featured-collection",
-    "bannergrid-two",
-    "feature_collection_alt_UMV7bM"
+    "bannergrid-two"
   ]
 }

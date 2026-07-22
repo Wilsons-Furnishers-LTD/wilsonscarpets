@@ -241,12 +241,12 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 
 
 <main class="main-content {% if request.page_type == 'cart' %} shopping-bag  {% endif %}" id="MainContent">
-    {% if request.page_type == 'index' or request.page_type == '404' %}
+    {% if request.page_type == 'index' or request.page_type == '404' or request.page_type == 'search' %}
         <div class="cms-homepage">
     {% endif %}
 
     {{ content_for_layout }}
-    {% if request.page_type == 'index' or request.page_type == '404' %}
+    {% if request.page_type == 'index' or request.page_type == '404' or request.page_type == 'search' %}
         </div>
     {% endif %}
 </main>

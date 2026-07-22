@@ -1,7 +1,56 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "builder-section",
+      "blocks": {
+        "banner_x9UMQa": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/kids-bedroom-top.webp",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_GFAGwd": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "#E7E7E7",
+            "title": "Get the perfect inspiration for your child's bedroom",
+            "content": "Here at Wilsons Carpets we have a great choice of flooring for kids bedrooms, playrooms and nurseries, from budget carpets in a choice of both neutral colours, as well as more vibrant shades. We offer affordable laminate, vinyl and rugs too, plus a range of kids beds, including storage beds, bunk beds and themed beds to help you create any look you want... here are just a few ideas...",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        }
+      },
+      "block_order": [
+        "banner_x9UMQa",
+        "onecol_txt_GFAGwd"
+      ],
       "settings": {}
     }
   },

@@ -1,7 +1,56 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "builder-section",
+      "blocks": {
+        "banner_aPkdYL": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/greytheme-top.webp",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_F7hjq3": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Going for a grey theme? We’ve got you covered",
+            "content": "<p>Grey is undoubtably the latest contemporary colour favoured by designers and fashionistas to give a cool modern look to interiors.</p>\n\n<p>Get on trend and combine our huge range of vinyls, laminate and carpets, available in neutral, warm and cool greys with grey paint, accessories and furniture to create a whole new look. White woodwork looks great with grey and creates a classic, yet modern look. Combine different light and dark shades for contrast and accent with bold striking colours for some extra wow. Yellow and purple work particularly well. Keep the clutter at bay and the accent colours a minimum for a really contemporary look that wows!</p>\n\n<p>Try out a tester pot of Farrow and Ball's Elephant's Breath or Lamp Room Grey emulsion, combine with white woodwork and lay some of our Oak look laminate flooring or a sumptuous grey Saxony carpet to soften the look and add a feeling of warmth and luxury.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        }
+      },
+      "block_order": [
+        "banner_aPkdYL",
+        "onecol_txt_F7hjq3"
+      ],
       "settings": {}
     }
   },

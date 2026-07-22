@@ -1,0 +1,71 @@
+{% comment %}
+It may be a good idea to provide a theme setting that lets a merchant decide how many products to show per row
+on collection pages. Or, it may be a good idea to provide a control on the store front which lets a shopper decide
+whether items be presented in a grid or in a list.
+That information about the presentation can be passed on to the product-grid-item.liquid snippet via the 'with' argument.
+Use of the 'with' argument is explained here: https://docs.shopify.com/themes/theme-templates/snippets.
+The information can then be referred to by accessing the variable which goes by the same name as the snippet,
+in this case product-grid-item. If the 'with' argument is not used, the snippet variable is set to an empty string.
+Here, for the sake of teaching, we will use 2 presentation options:
+- 3 products per row, when passing the value 'three-per-row' to the snippet
+- 4 products per row, when passing the value 'four-per-row' to the snippet
+{% endcomment %}
+
+{% comment %}If no value is passed to the snippet, we will set the snippet variable to a sensible default.{% endcomment %}
+
+
+<div class="item centered" itemscope itemtype="https://schema.org/Product">
+
+  <div class="product-image-wrap">
+    <a href="{{ product.url }}">
+    <picture>
+      <source media="(min-width: 740px)" srcset="{{ product | img_url: '600x' }} 1x, {{ product | img_url: '1200x' }} 2x">
+      <source srcset="{{ product | img_url: '300x' }} 1x, {{ product | img_url: '600x' }} 2x">
+      <img src="{{ product | img_url: 'master' }}" alt="{{ product.featured_image.alt | escape }}" />
+    </picture>
+    </a>
+  </div><!-- .prod-image-wrap -->
+
+  <div class="product-caption">
+      <h2 class="product-name" itemprop="name">
+      <a href="{{ product.url }}">
+        {{ product.title }}
+      </a>
+      </h2>
+          <span class="product-price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+               <meta itemprop="priceCurrency" content="{{ shop.currency }}" />
+          {% if product.available %}
+          <link itemprop="availability" href="https://schema.org/InStock" />
+          {% else %}
+          <link itemprop="availability" href="https://schema.org/OutOfStock" />
+          {% endif %}
+        {% if product.price_varies %}From{% endif %}
+        {{ product.price | money }}
+      {% if on_sale %}
+        <s class="compare-at-price">{{ product.compare_at_price | money }}</s>
+        <meta itemprop="price" content="{{ product.compare_at_price | money_without_currency }}" />
+        {%else%}
+        <meta itemprop="price" content="{{ product.price | money_without_currency }}" />
+        {% endif %}
+      </span>
+      {% comment %}
+        All themes by Shopify should support the Product Reviews app out of the box.
+        https://apps.shopify.com/product-reviews
+      {% endcomment %}
+
+
+
+
+  </div><!-- .prod-caption -->
+
+</div>
+
+{% comment %}
+You don't need to use a clearing div. Use whatever it is you use to clear
+floated elements. The code that follows just just shows you how to use a cycle element.
+Notice that we named it ( 'clear' ). We need to name it because there's another cycle
+element in this file ( we called that other one 'last' ). If you have more than one
+cycle element in a rendered view, you'll need to name all of them.
+The cycle element is documented here: https://docs.shopify.com/themes/liquid-basics/logic#cycle
+{% endcomment %}
+

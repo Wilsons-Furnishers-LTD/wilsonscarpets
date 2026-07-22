@@ -64,8 +64,8 @@ JUNO - Product Highlight Tab Carousels
 	<div id="highlightTab{{option_index}}" class="productHighlightContent tab-content {%if option_index==0%}visible{%endif%}">
 		<div class="product-grid grid--uniform grid--view-items owl-carousel">
 			{% for product in collection.products limit: product_limit %}
-{%- include 'bold-product' with product, hide_action: 'skip' -%}
-			{% include 'product-grid-item-featured' %}
+{%- render 'bold-product' with product, hide_action: 'skip' -%}
+			{% render 'product-grid-item-featured' %}
 		
 			
 			{% endfor %}

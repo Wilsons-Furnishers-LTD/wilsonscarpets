@@ -1,7 +1,180 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "builder-section",
+      "blocks": {
+        "banner_c8m6Gx": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/kids-flooring-1920-x-721.jpg",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_THGGmb": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "#E2E2E2",
+            "title": "Flooring and carpets that's perfect for kids rooms",
+            "content": "<p>There are many considerations when it comes to kids rooms. You need flooring that’s easy to clean, keeps noise levels down, that’s soft, yet hard wearing and looks great too. The good news is, we’ve got a huge range for you choose from!...</p>\n<br>\n<p class=\"text6\">For our latest pricing, please enquire in-store, or <a href=\"/pages/stores\">contact us</a> for a quotation. ALL products carry our <a href=\"/pages/price-promise\">lowest price guarantee</a>. Products illustrated are subject to availability in selected stores, please call for details.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "bannerthree_dy34wV": {
+          "type": "bannerthree",
+          "settings": {
+            "image_1": "shopify://shop_images/kids-bedroom-grid-5.jpg",
+            "link_1": "",
+            "title_1": "Kids Carpets",
+            "subheading_1": "We offer a range of carpets that are ideal for kids, with themed designs, and vibrant and practical colours that look great no matter what get's thrown at them. Choose from our budget ranges, most of which can be cleaned with a bleach solution and combine with underlay to create a colourful, soft and warm environment for play and rest.",
+            "link_1_1": "",
+            "button_text_1_1": "Shop Now",
+            "link_1_2": "",
+            "button_text_1_2": "Shop Now",
+            "image_2": "shopify://shop_images/kids-grid-2.webp",
+            "link_2": "",
+            "title_2": "Kids themed vinyl",
+            "subheading_2": "We have a small choice of kids vinyl flooring, which is great for play rooms and bedrooms, especially when combined with foam underlay. It’s so easy to clean, extremely hard wearing and will stand up to any level of rough and tumble.",
+            "link_2_1": "",
+            "button_text_2_1": "Shop Now",
+            "link_2_2": "",
+            "button_text_2_2": "Shop Now",
+            "image_3": "shopify://shop_images/kids-grid-3.webp",
+            "link_3": "",
+            "title_3": "Rugs",
+            "subheading_3": "You can combine any of our flooring with a great range of rugs. We have some very vibrant shades which kids just love. Soften your space with pinks, reds, blues and oranges.",
+            "link_3_1": "",
+            "button_text_3_1": "Shop Now",
+            "link_3_2": "",
+            "button_text_3_2": "Shop Now",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "twocol_1_img_txt_WmprYp": {
+          "type": "twocol-1-img-txt",
+          "settings": {
+            "background_color": "",
+            "image": "shopify://shop_images/kids-grid-7.webp",
+            "alttext": "Banner",
+            "title": "Carpet your kid's rooms for less at Wilsons",
+            "content": "",
+            "image_width": "image-twothirds",
+            "column_order": "image-left",
+            "row_width": "wrapper-full",
+            "row_align": "wrapper-center",
+            "vertical_align": "content-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "featured_collection_EC9tgj": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "cheap-carpet",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "twocol_1_img_txt_f4mqCH": {
+          "type": "twocol-1-img-txt",
+          "settings": {
+            "background_color": "",
+            "image": "shopify://shop_images/kids-bedroom-grid-20.webp",
+            "alttext": "Banner",
+            "title": "Laminate for kids rooms",
+            "content": "Laminate can be great for kids rooms. It's easy to keep clean, helps dust levels down and you can add laminate underlay to soften the sounds of boisterous play.",
+            "image_width": "image-twothirds",
+            "column_order": "image-right",
+            "row_width": "wrapper-full",
+            "row_align": "wrapper-center",
+            "vertical_align": "content-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "featured_collection_Fhm4ae": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "laminate-flooring",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bannerthree_TjpVC3": {
+          "type": "bannerthree",
+          "settings": {
+            "image_1": "shopify://shop_images/kids-grid-4.webp",
+            "link_1": "",
+            "title_1": "Glitter carpets",
+            "subheading_1": "Yes. Glitter carpets! Kids just love them and they come in a choice of three statement shades; purple, pink and black. A glitter fibre throughout catches the light and creates a real Wilsons Wow factor : ) They are practical, with a short, yet very soft pile. And they are easy to clean too... even with a bleach solution for the toughest stains.",
+            "link_1_1": "",
+            "button_text_1_1": "Shop Now",
+            "link_1_2": "",
+            "button_text_1_2": "Shop Now",
+            "image_2": "shopify://shop_images/kids-grid-5.webp",
+            "link_2": "",
+            "title_2": "Artificial grass",
+            "subheading_2": "For a really off-the-wall look, you might wish to consider artificial grass. It’s not only great for outside play areas, but can make a great themed bedroom indoors too... Especially, if you’ve got a football mad kid!... Add some themed wallpaper and create an outdoor space.. indoors!",
+            "link_2_1": "",
+            "button_text_2_1": "Shop Now",
+            "link_2_2": "",
+            "button_text_2_2": "Shop Now",
+            "image_3": "shopify://shop_images/kids-grid-6.webp",
+            "link_3": "",
+            "title_3": "Kids beds & bunk beds",
+            "subheading_3": "We stock a wide range of themed kids beds and bunk beds, all at incredible prices too. Racing car beds, London bus beds, Trundle beds (which provide storage and an extra sleeping surface) and lots more besides. Visit our <a href=\"/pages/beds\">beds page</a> for more info.",
+            "link_3_1": "",
+            "button_text_3_1": "Shop Now",
+            "link_3_2": "",
+            "button_text_3_2": "Shop Now",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        }
+      },
+      "block_order": [
+        "banner_c8m6Gx",
+        "onecol_txt_THGGmb",
+        "bannerthree_dy34wV",
+        "twocol_1_img_txt_WmprYp",
+        "featured_collection_EC9tgj",
+        "twocol_1_img_txt_f4mqCH",
+        "featured_collection_Fhm4ae",
+        "bannerthree_TjpVC3"
+      ],
       "settings": {}
     }
   },

@@ -12,15 +12,209 @@
     "main": {
       "type": "customer-gallery-section",
       "blocks": {
-        "image_dnfcmq": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/bill-wilson-about-us-page_1.png"
+        "image_Jbx8Xh": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-2.jpg"
+            }
+          },
+          "image_6zFQhR": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-1.jpg"
+            }
+          },
+          "image_pxaDYf": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-3.jpg"
+            }
+          },
+          "image_FxKeme": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-7.webp"
+            }
+          },
+          "image_bRi9Bh": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-4.jpg"
+            }
+          },
+          "image_aabCKG": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-6.webp"
+            }
+          },
+          "image_wAq3er": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-020.jpg"
+            }
+          },
+          "image_xJwHiX": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-011.gif"
+            }
+          },
+          "image_BiBiEb": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-014.gif"
+            }
+          },
+          "image_ewe37t": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-018.gif"
+            }
+          },
+          "image_f73jnn": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-03.gif"
+            }
+          },
+          "image_FrJtyq": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-05.gif"
+            }
+          },
+          "image_qbD37e": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-08.gif"
+            }
+          },
+          "image_LHPhDd": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-06.gif"
+            }
+          },
+          "image_YjDBHN": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-017.gif"
+            }
+          },
+          "image_HLD6ip": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-021.jpg"
+            }
+          },
+          "image_p8dXFe": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-016.gif"
+            }
+          },
+          "image_yYqT7i": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-019.jpg"
+            }
+          },
+          "image_YKPAa7": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-01.gif"
+            }
+          },
+          "image_bD8C4K": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-019.gif"
+            }
+          },
+          "image_NNrBp7": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-012.gif"
+            }
+          },
+          "image_BMQ8cX": {
+            "type": "image",
+            "settings": {}
+          },
+          "image_jq9bw4": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-02.gif"
+            }
+          },
+          "image_kbgWkd": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-013.gif"
+            }
+          },
+          "image_xN7AmJ": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-09.gif"
+            }
+          },
+          "image_jV9Jyh": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-010.gif"
+            }
+          },
+          "image_H4e8RF": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-04.gif"
+            }
+          },
+          "image_EJ98FL": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-015.gif"
+            }
+          },
+          "image_BYNRaQ": {
+            "type": "image",
+            "settings": {
+              "image": "shopify://shop_images/customer-gallery-07.gif"
+            }
           }
-        }
       },
       "block_order": [
-        "image_dnfcmq"
+          "image_Jbx8Xh",
+          "image_6zFQhR",
+          "image_pxaDYf",
+          "image_FxKeme",
+          "image_bRi9Bh",
+          "image_aabCKG",
+          "image_wAq3er",
+          "image_xJwHiX",
+          "image_BiBiEb",
+          "image_ewe37t",
+          "image_f73jnn",
+          "image_FrJtyq",
+          "image_qbD37e",
+          "image_LHPhDd",
+          "image_YjDBHN",
+          "image_HLD6ip",
+          "image_p8dXFe",
+          "image_yYqT7i",
+          "image_YKPAa7",
+          "image_bD8C4K",
+          "image_NNrBp7",
+          "image_BMQ8cX",
+          "image_jq9bw4",
+          "image_kbgWkd",
+          "image_xN7AmJ",
+          "image_jV9Jyh",
+          "image_H4e8RF",
+          "image_EJ98FL",
+          "image_BYNRaQ"
       ],
       "settings": {
         "gap": 10
@@ -29,40 +223,69 @@
     "inspiration": {
       "type": "static-inspiration-section",
       "blocks": {
-        "inspiration_iKkHC9": {
-          "type": "inspiration",
-          "settings": {
-            "image": "shopify://shop_images/insp-living-room_9aa432b1-7cb6-423b-a5b4-3ba02a1b87b9.jpg",
-            "title": "kITCHEN",
-            "link": ""
+        "room_rC69MY": {
+            "type": "room",
+            "settings": {
+              "image": "shopify://shop_images/insp-living-room.jpg",
+              "title": "Living Room",
+              "link": "shopify://pages/living-room"
+            }
+          },
+          "room_gRy6nV": {
+            "type": "room",
+            "settings": {
+              "image": "shopify://shop_images/insp-bedroom.jpg",
+              "title": "Bedroom",
+              "link": "shopify://pages/bedroom"
+            }
+          },
+          "room_cjjUeN": {
+            "type": "room",
+            "settings": {
+              "image": "shopify://shop_images/insp-kitchen.jpg",
+              "title": "Kitchen",
+              "link": "shopify://pages/kitchen"
+            }
+          },
+          "room_c9RzKB": {
+            "type": "room",
+            "settings": {
+              "image": "shopify://shop_images/insp-bathroom.jpg",
+              "title": "Bathroom",
+              "link": "shopify://pages/bathroom"
+            }
+          },
+          "room_qdedtg": {
+            "type": "room",
+            "settings": {
+              "image": "shopify://shop_images/insp-kids.jpg",
+              "title": "Kids Room",
+              "link": "shopify://pages/kids"
+            }
+          },
+          "room_aKEPhC": {
+            "type": "room",
+            "settings": {
+              "image": "shopify://shop_images/insp-hallway.jpg",
+              "title": "Hallway",
+              "link": "shopify://pages/hallway"
+            }
           }
-        },
-        "inspiration_zxyCMW": {
-          "type": "inspiration",
-          "settings": {
-            "image": "shopify://shop_images/insp-living-room_9aa432b1-7cb6-423b-a5b4-3ba02a1b87b9.jpg",
-            "title": "kITCHEN",
-            "link": ""
-          }
-        },
-        "inspiration_mzUkAQ": {
-          "type": "inspiration",
-          "settings": {
-            "image": "shopify://shop_images/insp-living-room_9aa432b1-7cb6-423b-a5b4-3ba02a1b87b9.jpg",
-            "title": "kITCHEN",
-            "link": ""
-          }
-        }
       },
       "block_order": [
-        "inspiration_iKkHC9",
-        "inspiration_zxyCMW",
-        "inspiration_mzUkAQ"
+          "room_rC69MY",
+          "room_gRy6nV",
+          "room_cjjUeN",
+          "room_c9RzKB",
+          "room_qdedtg",
+          "room_aKEPhC"
       ],
-      "settings": {
-        "banner_link": "",
-        "inspiration_link": ""
-      }
+        "settings": {
+            "banner_link": "shopify://pages/stores",
+            "banner_desktop": "shopify://shop_images/beds-full-range-desktop.jpg",
+            "banner_mobile": "shopify://shop_images/beds-full-range-mobile.jpg",
+            "inspiration_link": "shopify://pages/inspiration"
+        }
     }
   },
   "order": [

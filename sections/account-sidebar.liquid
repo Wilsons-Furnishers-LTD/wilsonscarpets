@@ -1,0 +1,23 @@
+<div class="sidebar-menu">
+    <h6 class="customer-detail">
+        <span class="avt">{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}</span>
+        <span class="name">{{ customer.name | prepend: 'Hello ' }}</span>
+        <span class="email">{{ customer.email }}</span>
+    </h6>
+    <span class="toggle-sidebar-menu">Account Menu</span>
+    <ul>
+        <li><a href="{{shop.url}}/pages/my-orders"><i class="far fa-book"></i>My Orders</a></li>
+        <li><a href="{{shop.url}}/account/addresses"><i class="far fa-home"></i>Address Book</a></li>
+        <li><a href="{{shop.url}}/pages/support"><i class="far fa-question-circle"></i>Need Help?</a></li>
+        <!-- <li><a href="{{shop.url}}/pages/returns"><i class="far fa-reply"></i>How do I make a return?</a></li> -->
+        <li><a href="{{shop.url}}/apps/store-locator"><i class="far fa-map-marker-alt"></i>Find your nearest store</a></li>
+        <li>{{ '<i class="far fa-arrow-alt-to-left"></i>Sign out' | customer_logout_link }}</li>
+    </ul>
+</div>
+
+<script>
+	jQuery(document).ready(function() {
+		var location = window.location.href;
+		jQuery('.sidebar-menu li a[href="'+location+'"]').addClass('active');
+	});
+</script>

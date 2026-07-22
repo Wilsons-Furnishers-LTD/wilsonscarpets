@@ -1,0 +1,15 @@
+
+{{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+
+<div class="page-2-columns my-account dashboard">
+	<div class="wrapper">
+        <div class="row">
+            <div class="col-left">
+                {% section 'account-sidebar' %}
+            </div>
+            <div class="col-main">
+                {% section 'account-section' %}          
+            </div>
+        </div>
+    </div>
+</div>

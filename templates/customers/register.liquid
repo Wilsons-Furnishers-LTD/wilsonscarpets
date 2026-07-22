@@ -1,0 +1,37 @@
+{% if customer %}
+    <script type="text/javascript">
+        window.location.href= "/account/"
+    </script>
+{% else %}
+    <div class="account-form register wrapper">
+        <div class="row">
+            <div class="col-main">
+                <div class="section">
+                {% form 'create_customer' %}
+                <div class="page-titles">
+                    <h1>{{ 'customer.register.title' | t }}</h1>
+                    <p>You can create an account when you checkout and pay or set one up here</p>
+                </div>
+                <div id="CustomerRegisterForm" class="form-box-shadow">
+                        {{ form.errors | default_errors }}
+                        <input type="text" placeholder="{{ 'customer.register.first_name' | t }}" name="customer[first_name]" id="FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autofocus>
+                        <input type="text" placeholder="{{ 'customer.register.last_name' | t }}" name="customer[last_name]" id="LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %}>
+                        <input type="email" placeholder="{{ 'customer.register.email' | t }}" name="customer[email]" id="Email" class="{% if form.errors contains 'email' %} input--error{% endif %}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+          	            <input type="password" placeholder="{{ 'customer.register.password' | t }}" name="customer[password]" id="CreatePassword" class="{% if form.errors contains 'password' %} input--error{% endif %}">
+                        <div class="text-center buttons-set">
+                            <input type="submit" value="{{ 'customer.register.submit' | t }}" class="button">
+                        </div>
+                </div>
+                {% endform %}
+			</div>
+        </div>
+		<div class="col-right">
+			<h2>Already have an account?</h2>
+			<p>Login in to your account to view your order history and manage your account preferences</p>
+			<a class="button" href="/account/login">Login</a>
+		</div>
+    </div>
+{% endif %}
+
+
+{% include 'gtm-register' %}

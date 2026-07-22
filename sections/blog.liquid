@@ -1,0 +1,138 @@
+<div class="wrapper">
+{% paginate blog.articles by 7 %}
+
+{% comment %}
+{% if current_tags %}
+<h1>{{ blog.title | link_to: blog.url }} <span class="quiet">&raquo;</span> {{ current_tags.first }}</h1>
+{% else %}
+<h1>{{ blog.title }}</h1>
+{% endif %}
+{% endcomment %}
+
+<div class="blog-header">
+	{% if section.settings.title != blank %}
+	<h1>{{ section.settings.title }}</h1>
+	{% endif %}
+	{% if section.settings.description != blank %}
+	<p>{{ section.settings.description }}</p>
+	{% endif %}
+</div>
+
+{% schema %}
+{
+    "name": "Header",
+    "blocks": [],
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Blog"
+        },
+        {
+            "type": "text",
+            "id": "description",
+            "label": "description",
+            "default": "Lorem ipsum dolor sit amet consectetur adipisicing elit."
+        }
+    ]
+}
+{% endschema %}
+
+
+
+<ul id="blogFilters">
+    <li class="filter-title"><span>Categories:</span></li>
+    {% assign count = 0 %}
+    {% assign numberOfTags = current_tags | size %}
+    <li{%if numberOfTags == 0%} class="active"{%endif%}><a href="{{ blog.url }}">All</a></li>
+    {% for tag in blog.all_tags %}
+        {% assign isActiveTag = 'false' %}
+        {% if current_tags contains tag %}
+            {% assign isActiveTag = 'true' %}
+        {% endif %}
+    <li{%if isActiveTag == 'true'%} class="active"{%endif%}><a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a></li>
+    {% endfor %}
+</ul>
+
+<div class="articles">
+
+  {% for article in blog.articles %}
+
+  {% comment %}
+    Let's extract a blog image.
+    We will look for an image in the excerpt first, and in the blog post itself second.
+    We will remove the image suffix to grab as big an image as we can.
+  {% endcomment %}
+
+
+
+{% assign article_has_image = false %}
+
+
+{% if article.image %}
+{% assign article_has_image = true %}
+{% assign image_src = article.image.src  | img_url: '869x368', crop: 'center'  %}
+
+{% else %}
+{% assign img_tag = '<' | append: 'img' %}
+{% if article.content contains img_tag %}
+
+  {% assign src = article.content | split: 'src="' %}
+
+
+  {% assign src = src[1] | split: '"' | first %}
+
+
+
+
+  {% if src %}
+    {% assign article_has_image = true %}
+     {% assign fileImageSrc = src | replace: '_small', '' | replace: '_compact', '' | replace: '_medium', '' | replace: '_large', '' | replace: '_grande', '' %}
+                            {% assign fileImageSrcSplit = fileImageSrc | split: "/" %}
+
+
+{% assign image_src = fileImageSrcSplit.last | file_img_url: '869x368', crop: 'center' %}
+{%else%}
+{% assign image_src = 'blogFallBackImage.jpg' | asset_img_url: '869x368'  %}
+
+  {% endif %}
+{% endif %}
+{% endif %}
+
+  <div class="article{% if forloop.first %} first{% endif %}{% if forloop.last %} last{% endif %} clear">
+      <a class="thumbnail" href="{{ article.url }}">
+             {% if article_has_image %}
+              <!-- <img src="{{image_src}}"> -->
+              <span class="img-bg" style="background-image: url({{image_src}});"></span>
+              {% else %}
+              <span class="img-bg" style="background-image: url({{'blogFallBackImage.jpg' | asset_img_url: '899x466'}});"></span>
+              <!-- <img src="{{'blogFallBackImage.jpg' | asset_img_url: '899x466', crop: 'center'}}"> -->
+              {% endif %}
+         </a>
+    <h2 class="title">
+      <a href="{{ article.url }}">{{ article.title }}</a>
+    </h2>
+    <p>{{ article.excerpt_or_content | strip_html | truncatewords: 20 }}</p>
+    <time class="date" pubdate datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%b %d, %Y' }}</time>
+    </div>
+
+
+{% endfor %}
+</div>
+
+{% if paginate.pages > 1 %}
+<div class="wrap-pagination">
+    <div class="collection-pagination">
+        <div class="toolbar-container">
+            {{ paginate | default_pagination }}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endpaginate %}
+ </div>
+
+
+ {% include 'gtm-blog' %}

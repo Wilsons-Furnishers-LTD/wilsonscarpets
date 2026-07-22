@@ -1,0 +1,24 @@
+{% unless settings.gtm_code == blank %}
+<script type="text/javascript">
+
+// Viewed Registration Event
+
+  analytics.track('Viewed Registration');
+
+// Creates a "Signed Up" event on registration
+
+  var form = document.querySelector('form[id="create_customer"]');
+
+  analytics.trackForm(form, "Signed Up", function(form){
+      var firstName = document.querySelector('input[name="customer[first_name]"]').value;
+      var lastName = document.querySelector('input[name="customer[last_name]"]').value;
+      var email = document.querySelector('input[name="customer[email]"]').value;
+
+      return {
+        firstName: firstName,
+        lastName: lastName,
+        email: email
+      }
+   });
+</script>
+{% endunless %}

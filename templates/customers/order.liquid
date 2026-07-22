@@ -1,0 +1,276 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+<div class="page-2-columns my-account">
+  <div class="wrapper">
+    <div class="row">
+      <div class="col-left">
+        {% section 'account-sidebar' %}
+      </div>
+      <div class="col-main order-single">
+        <h1>{{ 'customer.order.title' | t: name: order.name }}</h1>
+        {%- assign order_date = order.created_at | date: '%B %d, %Y %I:%M%p' -%}
+        <p>{{ 'customer.order.date' | t: date: order_date }}</p>
+        <div class="order-detail">
+          <div class="row">
+            <div class="col-smallest-6">
+              <span class="title">{{ 'customer.orders.order_number' | t }}</span>
+              <a class="order-number" href="{{ order.customer_url }}">{{ order.name }}</a>
+            </div>
+            <div class="col-smallest-6">
+              <span class="title">{{ 'customer.orders.date' | t }}</span>
+              {{ order.created_at | date: format: 'month_day_year' }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-smallest-6">
+              <span class="title">{{ 'customer.orders.fulfillment_status' | t }}</span>
+              {{ order.fulfillment_status | capitalize }}
+            </div>
+            <div class="col-smallest-6">
+              <span class="title">Tracking No.</span>
+              <span>{{ line_item.fulfillment.tracking_number }}</span>
+            </div>
+          </div>
+          {% for line_item in order.line_items %}
+            {% if line_item.fulfillment.tracking_number %}
+              <div class="row">
+                <div class="col-medium-6">
+                  <div class="actions">
+                    <a class="button" href="{{ line_item.fulfillment.tracking_url }}">Track Order</a>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="wrap-order-summary-table">
+          <h3 class="summary-number">
+            {% if order.line_items.size == 1 %}
+              {{ order.line_items.size | append: ' Item' }}
+            {% else %}
+              {{ order.line_items.size | append: ' Items' }}
+            {% endif %}
+          </h3>
+          <div class="wrap-box-order">
+            <h3 class="order-title">Order Summary</h3>
+            <table class="order-single-table">
+              <tbody>
+                {% for line_item in order.line_items %}
+                  {% comment %}
+                    {% if line_item.properties.ProductHandle != '' %}
+                        {% assign parent_handle = line_item.properties.ProductHandle %}
+                    {% else %}
+                        {%- assign parent = line_item.product.tags | where: 'parent_' -%}
+                        {%- assign parent_handle = parent[0] | split: 'parent_' | last -%}
+                    {% endif %}
+                  {% endcomment %}
+                  {% assign parent_handle = line_item.properties.ProductHandle %}
+                  {% assign variant_id = line_item.properties.VariantID | plus: 0 %}
+
+                  {% if line_item.properties.ProductHandle %}
+                    {% assign product = all_products[parent_handle] %}
+                  {% else %}
+                    {% assign product = line_item.product %}
+                  {% endif %}
+
+                  {% assign variant = product.variants | where: 'id', variant_id | first %}
+
+                  <tr id="{{ variant.id }} | {{line_item.properties.ProductHandle}}">
+                    <td class="order-image">
+                      <a class="image" href="{{ product.url }}">
+                        {% comment %}
+                          {%- assign parent = line_item.product.tags | where: 'parent_' -%}
+                          {%- assign parent_handle = parent[0] | split: 'parent_' | last -%}
+                        {% endcomment %}
+
+                        {% comment %}
+                          {%- if parent_handle != null and line_item.image == null-%}
+                              {%- assign parent_image = all_products[parent_handle].images[0] -%}
+                              {{ parent_image | img_url: '160x' | img_tag }}
+                          {%- else -%}
+                              {{ line_item.image | img_url: '160x' | img_tag }}
+                          {%- endif -%}
+                        {% endcomment %}
+
+                        {%- if parent_handle != null -%}
+                          {{ variant.image | img_url: '160x' | img_tag }}
+                        {%- else -%}
+                          {{ line_item.image | img_url: '160x' | img_tag }}
+                        {%- endif -%}
+                      </a>
+                    </td>
+                    <td class="order-description">
+                      <div class="row">
+                        <div class="col-detail">
+                          <a class="item-name" href="{{ product.url }}">
+                            {{ product.title | replace: '-sample', ' - Sample' -}}
+                          </a>
+                          {% assign thisProductWidth = '' %}
+                          {% assign thisProductLength = '' %}
+                          <div class="item-property">
+                            {% unless product.has_only_default_variant %}
+                              <ul class="item-options">
+                                {% for option in line_item.options_with_values %}
+                                  {% if option.name == 'Colour' %}
+                                    <li>
+                                      <strong>{{ option.name | append: ':' }}</strong> {{ option.value }}
+                                    </li>
+                                  {% endif %}
+                                  {% if product.type == 'Laminate' or product.type == 'LVT' %}
+                                    {% for tag in product.tags %}
+                                      {% if tag contains 'Pack Size (M²)_' %}
+                                        {% assign packSizePerSQM = tag
+                                          | replace: 'Pack Size (M²)_', ''
+                                          | split: 'm'
+                                          | first
+                                          | plus: 0
+                                        %}
+                                      {% endif %}
+                                    {% endfor %}
+                                    <li>
+                                      <strong>Size:</strong>
+                                      {{
+                                        packSizePerSQM
+                                        | times: line_item.quantity
+                                        | times: 100
+                                        | floor
+                                        | times: 0.01
+                                      -}}
+                                      M² For {{ line_item.quantity }} Packs
+                                    </li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% assign properties_amount = line_item.properties | size %}
+                                {% if properties_amount > 0 %}
+                                  {% for p in line_item.properties %}
+                                    {% liquid
+                                      if p.first == '_Length'
+                                        assign thisProductLength = p.last
+                                        continue
+                                      endif
+                                      if p.first == '_Width'
+                                        assign thisProductWidth = p.last
+                                        continue
+                                      endif
+                                      if p.first.first == '_' or p.last == blank
+                                        continue
+                                      endif
+                                    %}
+
+                                    {% unless p.first == 'Custom Size:' %}
+                                      <li>
+                                        <strong>{{ p.first }}:</strong>
+                                        {% if p.last contains '/uploads/' %}
+                                          <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+                                        {% else %}
+                                          {{ p.last }}
+                                        {% endif %}
+                                      </li>
+                                    {% endunless %}
+                                  {% endfor %}
+
+                                  {% if thisProductWidth != '' %}
+                                    {% unless product.type == 'Sample' %}
+                                      {% if thisProductLength != '' %}
+                                        <li>
+                                          <strong>Size:</strong> {{ thisProductLength | downcase }} x
+                                          {{ thisProductWidth | downcase }}
+                                        </li>
+                                      {% else %}
+                                        <li><strong>Width:</strong> {{ thisProductWidth | downcase }}</li>
+                                      {% endif %}
+                                    {% endunless %}
+                                  {% elsif thisProductLength != '' %}
+                                    <li><strong>Length:</strong> {{ thisProductLength | downcase }}</li>
+                                  {% endif %}
+                                  {% if giftMessage %}
+                                    <li class="item-options__giftmessage">{{ giftMessage }}</li>
+                                  {% endif %}
+                                {% endif %}
+                              </ul>
+                            {% endunless %}
+                          </div>
+                        </div>
+                        <div class="col-price">
+                          <span class="item-qty"
+                            >Qty:
+                            {{ line_item.quantity -}}
+                          </span>
+                          <span class="item-price">{{ line_item.quantity | times: line_item.price | money }}</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <table class="order-single-total-table">
+          <tfoot>
+            <tr>
+              <td>{{ 'customer.order.subtotal' | t }}</td>
+              <td data-label="{{ 'customer.order.subtotal' | t }}">{{ order.subtotal_price | money }}</td>
+            </tr>
+            {% for discount in order.discounts %}
+              <tr class="order_summary discount">
+                <td>
+                  {{ discount.code }}
+                  {{ 'customer.order.discount' | t }}
+                </td>
+                <td data-label="{{ 'customer.order.discount' | t }}">{{ discount.savings | money }}</td>
+              </tr>
+            {% endfor %}
+            {% for shipping_method in order.shipping_methods %}
+              <tr>
+                <td>{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</td>
+                <td data-label="{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})">
+                  {{ shipping_method.price | money }}
+                </td>
+              </tr>
+            {% endfor %}
+            {% for tax_line in order.tax_lines %}
+              <tr>
+                <td>
+                  {{ 'customer.order.tax' | t }} ({{ tax_line.title }}
+                  {{ tax_line.rate | times: 100 }}%)
+                </td>
+                <td data-label="{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)">
+                  {{ tax_line.price | money }}
+                </td>
+              </tr>
+            {% endfor %}
+            <tr>
+              <td>{{ 'customer.order.total' | t }}</td>
+              <td data-label="{{ 'customer.order.total' | t }}">
+                {{ order.total_price | money }}
+                {{ order.currency }}
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="order-detail customer-detail">
+          <div class="row">
+            <div class="col-smallest-6">
+              <h4>{{ 'customer.order.billing_address' | t }}</h4>
+              {{ order.billing_address | format_address }}
+            </div>
+            <div class="col-smallest-6">
+              <h4>{{ 'customer.order.shipping_address' | t }}</h4>
+              {{ order.shipping_address | format_address }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

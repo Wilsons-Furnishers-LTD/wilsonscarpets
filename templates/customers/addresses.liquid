@@ -1,0 +1,117 @@
+<div class="page-2-columns my-account">
+	<div class="wrapper">
+		<div class="row">
+			<div class="col-left">
+				{% section 'account-sidebar' %}
+            </div>
+			<div class="col-main address-book">
+				{% paginate customer.addresses by 5 %}
+                <h1>
+                    {{ 'customer.addresses.title' | t }}
+                    <div class="actions"><a href="#" class="button" data-featherlight="#AddressNewBox" data-featherlight-variant="address-popup">{{ 'customer.addresses.add' | t }}</a></div>
+                </h1>
+                <div id="AddressNewBox" class="hide">
+                    <div id="AddressNewForm" class="form-container">
+                        <div class="form-vertical">
+                            <h4>Add a new address</h4>
+                            {% form 'customer_address', customer.new_address %}
+                            <input type="text" placeholder="{{ 'customer.addresses.first_name' | t }}" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}">
+                            <input type="text" placeholder="{{ 'customer.addresses.last_name' | t }}" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}">
+                            <input type="text" placeholder="{{ 'customer.addresses.company' | t }}" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}">
+                            <input type="text" placeholder="{{ 'customer.addresses.address1' | t }}" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}">
+                            <input type="text" placeholder="{{ 'customer.addresses.address2' | t }}" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}">
+                            <input type="text" placeholder="{{ 'customer.addresses.city' | t }}" id="AddressCityNew" name="address[city]" value="{{ form.city }}">
+                            <div class="selectWrapper">
+                                <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+                                <select id="AddressCountryNew" name="address[country]" data-default="{{ form.country }}">{{ country_option_tags }}</select>
+                            </div>
+                            <div id="AddressProvinceContainerNew" style="display:none">
+                                <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+                                <select id="AddressProvinceNew" name="address[province]" data-default="{{ form.province }}"></select>
+                            </div>
+                            <input type="text" placeholder="{{ 'customer.addresses.zip' | t }}" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+                            <input type="tel" placeholder="{{ 'customer.addresses.phone' | t }}" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}">
+                            <div class="checkbox">
+								<label class="checkbox-ct">
+									{{ form.set_as_default_checkbox }}
+									<span>{{ 'customer.addresses.set_default' | t }}</span>
+								</label>
+							</div>
+                    
+                            <div class="buttons-set text-center">
+                                <input type="submit" class="button btn-add-address" value="{{ 'customer.addresses.add' | t }}">
+                                <a href="#" class="button-text button-cancel-popup">{{ 'customer.addresses.cancel' | t }}</a>
+                                <script type="text/javascript">
+                                    jQuery('.button-cancel-popup').on('click', function(){
+                                        jQuery('.featherlight.addresses-popup .featherlight-close').click();
+                                    });
+                                </script>
+                            </div>
+                            {% endform %}
+                        </div>
+                    </div>
+                </div>
+                <div class="address-list">
+                    {% for address in customer.addresses %}
+                    <div class="row">
+                        <div id="wrapEdit_{{ address.id }}"> 
+                            <div class="content">       
+                                <h4>{{ address.street }}, {{address.country}}
+                                    {% if address == customer.default_address %}
+                                    <span>({{ 'customer.addresses.default' | t }})</span>
+                                    {% endif %}
+                                </h4>
+                                {{ address | format_address }}         
+                                <p class="actions">
+                                    <a href="#wrapEdit_{{ address.id }}" class="button button-second" data-form-id="{{ address.id }}" data-featherlight="#EditAddress_{{ address.id }}" data-featherlight-variant="address-popup" data-featherlight-persist="true">{{ 'customer.addresses.edit' | t }}</a>
+                                    <a href="#wrapEdit_{{ address.id }}" class="button-text address-delete" data-form-id="{{ address.id }}" data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}">{{ 'customer.addresses.delete' | t }}</a>
+                                </p>        
+                            </div>
+                        </div>
+                        <div id="EditAddress_{{ address.id }}" class="form-container form-edit-address hide">
+                            <div class="form-vertical">
+                            <h4 class="text-center">Edit Address</h4>
+                            {% form 'customer_address', address %}
+                                <input type="text" placeholder="{{ 'customer.addresses.first_name' | t }}" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}">
+                                <input type="text" placeholder="{{ 'customer.addresses.last_name' | t }}" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}">    
+                                <input type="text" placeholder="{{ 'customer.addresses.company' | t }}" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{ form.company }}">
+                                <input type="text" placeholder="{{ 'customer.addresses.address1' | t }}" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}">
+                                <input type="text" placeholder="{{ 'customer.addresses.address2' | t }}" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}">
+                                <input type="text" placeholder="{{ 'customer.addresses.city' | t }}" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}">
+                                <div class="selectWrapper">
+                                    <label for="AddressCountry_{{ form.id }}">{{ 'customer.addresses.country' | t }}</label>
+                                    <select id="AddressCountry_{{ form.id }}" class="address-country-option" data-form-id="{{ form.id }}" name="address[country]" data-default="{{ form.country }}">{{ country_option_tags }}</select>
+                                </div>
+                                <div id="AddressProvinceContainer_{{ form.id }}" style="display:none" class="select-box">
+                                    <label for="AddressProvince_{{ form.id }}">{{ 'customer.addresses.province' | t }}</label>
+                                    <select id="AddressProvince_{{ form.id }}" name="address[province]" data-default="{{ form.province }}"></select>
+                                </div>
+                                <input type="text" placeholder="{{ 'customer.addresses.zip' | t }}" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+                                <input type="tel" placeholder="{{ 'customer.addresses.phone' | t }}" id="AddressPhone_{{ form.id }}" name="address[phone]" value="{{ form.phone }}">
+                                <div class="checkbox">
+                                {{ form.set_as_default_checkbox }}
+                                <label for="address_default_address_{{ form.id }}">{{ 'customer.addresses.set_default' | t }}</label>
+                                </div>
+                                <div class="buttons-set text-center">
+                                    <input type="submit" class="button" value="{{ 'customer.addresses.update' | t }}">
+                                    <a href="#" class="button-text button-cancel-popup" data-form-id="{{ form.id }}">{{ 'customer.addresses.cancel' | t }}</a>
+                                    <script type="text/javascript">
+                                        jQuery('.button-cancel-popup').on('click', function(){
+                                            jQuery('.featherlight-close').click();
+                                        });
+                                    </script>
+                                </div>
+                            {% endform %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} 
+                </div>
+                {% if paginate.pages > 1 %}
+                    {% include 'pagination' %}
+                {% endif %}
+                {% endpaginate %}
+			</div>
+		</div>
+	</div>
+</div>

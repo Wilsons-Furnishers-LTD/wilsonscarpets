@@ -1,7 +1,223 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "builder-section",
+      "blocks": {
+        "banner_K68nRP": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/hallways-1920-x-721.jpg",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_L9KjWR": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Amazing offers on hallway carpets and flooring",
+            "content": "<p>A hallway and stairs are a great place to make a style statement, no matter how small the space. You can combine different flooring to create interest. For your floor, try laying laminate in a ceramic, wood or stone look. For your stairs, we have a never ending choice of colours and styles of comfortable, hard wearing carpet. Set the whole thing off with a stylish rug.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "bannerthree_9f9iHQ": {
+          "type": "bannerthree",
+          "settings": {
+            "image_1": "shopify://shop_images/hallway-grid-1.jpg",
+            "link_1": "",
+            "title_1": "Stripe themed carpets",
+            "subheading_1": "Stripes are always a popular choice for stairs as they will add depth and style to anyone's hallway. They work well combined with plain carpets for the bottom of the stairs or on their own going all the way through the hallway.",
+            "link_1_1": "",
+            "button_text_1_1": "Shop Now",
+            "link_1_2": "",
+            "button_text_1_2": "Shop Now",
+            "image_2": "shopify://shop_images/hallway-grid-2.webp",
+            "link_2": "",
+            "title_2": "Pattern themed carpets",
+            "subheading_2": "If you want to add some extra flair to your hallway mixing pattern carpets on the stairs with plain for the bottom gives it a unique look no matter what style you’re going for. We stock a variety of pattern carpets so there will be a look to suit anyone.",
+            "link_2_1": "",
+            "button_text_2_1": "Shop Now",
+            "link_2_2": "",
+            "button_text_2_2": "Shop Now",
+            "image_3": "shopify://shop_images/hallway-grid-3.webp",
+            "link_3": "",
+            "title_3": "Laminate combinations",
+            "subheading_3": "Laminate is a great choice for the bottom of the stairs. With it's three dimensional embossed finishes, V-Groove and high definition look it will make your floor look amazing. Lay with underlay to add insulation and you’ll have a floor that’s comfortable and infinitely practical.",
+            "link_3_1": "",
+            "button_text_3_1": "Shop Now",
+            "link_3_2": "",
+            "button_text_3_2": "Shop Now",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_ipRGb7": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Carpets for hallways and stairs",
+            "content": "<p>Carpet on your stairs can be combined with laminate flooring in your hallway to create contrast. You get the best of both worlds, with a quieter, warmer feel on your stairs and an incredibly hard wearing surface in the busier walkway area. Alternatively, you can combine different styles of carpet in your hallway. Striped carpets have been trending in recent years for staircases and we have a great range in stock for you to choose from. They draw the eye into the upstairs space and create the illusion of greater depth.</p>\n<p>You needn’t compromise on colour either. If you prefer a lighter shade of carpet to create a roomier feel, you will find the majority of our carpets can be cleaned with a dilute bleach solution, so they are easy to keep clean, even in high traffic areas. Here are just a few suggestions for your hallway...</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_weVxPe": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "carpets-for-hallways-and-stairs",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_Uac88q": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our carpets range",
+            "link_url": "shopify://collections/carpets",
+            "link_txt": "Our Carpets Range"
+          }
+        },
+        "banner_MHQePM": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/hallway-laminate.webp",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_ei97qT": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Combine laminate flooring in your hallway to create impact",
+            "content": "<p>Hallways need to create an instant impact. They are usually the first space visitors to your home will see. As a area that also receives a lot of use, you’ll need a hard wearing finish and laminate flooring is a great option. With the Wilsons laminate range, you have a wealth of choice to make a style statement. You can create a period look with geometric pattered ceramic tiles, or go for the timeless elegance of a real wood finish.</p>\n<p>Use light colours to create space and darker tones create a more intimate feel. Choose one of our textured wood finishes for the best slip-resistance and get the look of a real wood floor in a choice of over fifty finishes!</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_C3VhB8": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "laminate-flooring",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_p4Kek3": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our laminate range",
+            "link_url": "shopify://collections/laminate-flooring",
+            "link_txt": "Our Laminate Range"
+          }
+        },
+        "banner_Q3GNYm": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/hallway-rugs.jpg",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_KDWqEk": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Rugs for hallways",
+            "content": "<p>Rugs for hallways\nThere are only a few places you can’t use a rug to add a bit of chic, and your stairway is one of them! However, hallways are great for a rugs! A rug in the hallway will help protect your carpet from wear and tear, as well as trapping and stopping dirt being carried into the rest of the house. Plus, all our rugs are easy to clean and can even be cleansed with a dilute bleach solution to remove tough stains.</p>\n<p>Typically, our rugs come in three main sizes; 80cm x 150cm, 120cm x 170cm and 160cm x 230cm. Here are few examples. See more on our rugs page.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "bedroom_button_findout_6bkLdc": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our rugs range",
+            "link_url": "shopify://pages/rugs",
+            "link_txt": "Our Rugs Range"
+          }
+        }
+      },
+      "block_order": [
+        "banner_K68nRP",
+        "onecol_txt_L9KjWR",
+        "bannerthree_9f9iHQ",
+        "onecol_txt_ipRGb7",
+        "featured_collection_weVxPe",
+        "bedroom_button_findout_Uac88q",
+        "banner_MHQePM",
+        "onecol_txt_ei97qT",
+        "featured_collection_C3VhB8",
+        "bedroom_button_findout_p4Kek3",
+        "banner_Q3GNYm",
+        "onecol_txt_KDWqEk",
+        "bedroom_button_findout_6bkLdc"
+      ],
       "settings": {}
     }
   },

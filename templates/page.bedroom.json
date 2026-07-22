@@ -1,7 +1,216 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
       "type": "builder-section",
+      "blocks": {
+        "banner_pWK4Gz": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/bedrooms-1920-x-721.jpg",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_rY9aVL": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "#CFCFCF",
+            "title": "The finest quality flooring for bedrooms",
+            "content": "<p>Reserve the deepest, softest carpet for the bedroom. It’s the one area of the house that receives very little footfall, so you can afford to treat yourself to one of our soft, deep pile saxony carpets. If you have a large room, or an en-suite, you can create zones with a wood look vinyl or laminate to create interest... or go for a complete laminate wood-look floor.</p><br>\n<p class=\"text6\">For our latest pricing, please enquire in-store, or <a href=\"/pages/stores\">contact us</a> for a quotation. ALL products carry our <a href=\"/pages/price-promise\">lowest price guarantee</a>. Products illustrated are subject to availability in selected stores, please call for details.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "bannerthree_HQxJk3": {
+          "type": "bannerthree",
+          "settings": {
+            "image_1": "shopify://shop_images/bedroom-grid1-carpets.jpg",
+            "link_1": "",
+            "title_1": "Carpets for bedrooms",
+            "subheading_1": "Bedroom carpets should be super soft. You don’t need the densely packed, short pile required in heavier traffic areas, so bedroom carpets suit a deeper pile for added comfort and warmth and with the likelihood of much less wear and tear, they can be lighter in colour and tone than many other areas of the home.",
+            "link_1_1": "",
+            "button_text_1_1": "Shop Now",
+            "link_1_2": "",
+            "button_text_1_2": "Shop Now",
+            "image_2": "shopify://shop_images/bedroom-grid1-laminate.webp",
+            "link_2": "",
+            "title_2": "Laminate for bedrooms",
+            "subheading_2": "The look of a real wood floor in a bedroom can be a real style statement. Go for rich dark tones to create an intimate feel, or lighter ashes and oaks for an airy look. Our laminate ranges are very affordable and comparable in price to a budget or mid range carpet.",
+            "link_2_1": "",
+            "button_text_2_1": "Shop Now",
+            "link_2_2": "",
+            "button_text_2_2": "Shop Now",
+            "image_3": "shopify://shop_images/bedroom-grid1-beds.webp",
+            "link_3": "",
+            "title_3": "Quality beds",
+            "subheading_3": "Choose from a wide range of great value, handcrafted divan sets, with package deals that combine a mattress, headboard, and a choice of storage bases that will save you £££s off the normal price. See our full divan range in store, or take a look at a few of our offers on our <a href=\"https://www.wilsonscarpets.com/pages/wilsons-beds-and-mattresses\">listing page</a>.",
+            "link_3_1": "",
+            "button_text_3_1": "Shop Now",
+            "link_3_2": "",
+            "button_text_3_2": "Shop Now",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "banner_xAFBg4": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/bedroom-2-1920-x-721.jpg",
+            "full_width": true,
+            "link": "",
+            "text_color": "text-light",
+            "title": "",
+            "is_title_h1": "is_title_h1_no",
+            "subheading": "",
+            "vertical_align": "middle",
+            "horizontal_align": "center",
+            "link_1": "",
+            "button_text_1": "Shop Now",
+            "link_2": "",
+            "button_text_2": "Shop Now",
+            "button_position": "button-below-content",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "onecol_txt_c6LGpq": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "rgba(0,0,0,0)",
+            "title": "Carpets for bedrooms",
+            "content": "<p>With the bedroom being a place we escape and recharge after a long day, nothing says relaxation better than the feel of a soft, luxurious carpet on your underfoot.</p>\n<p>Unlike other busy parts of the home you don’t need a short pile carpet required for heavier traffic in the bedroom. This means you can choose a more plush and oversized loop-pile carpet carpet, perhaps in a lighter heathered colour to add extra warmth to your bedroom.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_CCBzNY": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "saxony-carpets",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "twocol_1_img_txt_gV9cNx": {
+          "type": "twocol-1-img-txt",
+          "settings": {
+            "background_color": "#C7C7C7",
+            "image": "shopify://shop_images/bedroom-grid-2.webp",
+            "alttext": "Banner",
+            "title": "Carpets for Bedrooms",
+            "content": "<p align=\"left\">For the ultimate in softness, consider one of our polyamide saxony carpets; a soft, yet still hard wearing material available in a wide range of pastels and greys.</p>",
+            "image_width": "image-half",
+            "column_order": "image-left",
+            "row_width": "wrapper-full",
+            "row_align": "wrapper-center",
+            "vertical_align": "content-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_K9pngU": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our carpets range",
+            "link_url": "shopify://collections/carpets",
+            "link_txt": "Our Carpets Range"
+          }
+        },
+        "onecol_txt_HTQ7gU": {
+          "type": "onecol-txt",
+          "settings": {
+            "background_color": "",
+            "title": "Laminate Flooring",
+            "content": "<p>Laminate flooring has come on leaps and bounds over the years with it’s ultra realistic look and feel, thanks to registered emboss that offers a natural groove finish.</p>\n<p>We have a huge selection of laminate that would suit any bedrooms décor. With bedrooms being low traffic areas there’s no need to worry about durability, choose from light or dark colours to add that extra flare.</p>",
+            "text_align": "text-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no",
+            "class": ""
+          }
+        },
+        "featured_collection_3yRBaN": {
+          "type": "featured-collection",
+          "settings": {
+            "title": "",
+            "collection": "laminate-flooring",
+            "grid": "4",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "twocol_1_img_txt_6dCffa": {
+          "type": "twocol-1-img-txt",
+          "settings": {
+            "background_color": "#C7C7C7",
+            "image": "shopify://shop_images/bedroom-grid-3.webp",
+            "alttext": "Laminate for bedrooms",
+            "title": "Laminate for bedrooms",
+            "content": "Our premium ranges are the most realistic laminates of all, with embossed wood grain finishes, V-Groove detailing for added authenticity and the choice of narrow, wide and extra long planks.",
+            "image_width": "image-half",
+            "column_order": "image-left",
+            "row_width": "wrapper-full",
+            "row_align": "wrapper-center",
+            "vertical_align": "content-center",
+            "is_title_h1": "is_title_h1_no",
+            "add_border_top": "add_border_top_no",
+            "add_border_bottom": "add_border_bottom_no"
+          }
+        },
+        "bedroom_button_findout_AkeC37": {
+          "type": "bedroom-button-findout",
+          "settings": {
+            "title": "Find out more about our laminate range",
+            "link_url": "shopify://collections/laminate-flooring",
+            "link_txt": "Our Laminate Range"
+          }
+        }
+      },
+      "block_order": [
+        "banner_pWK4Gz",
+        "onecol_txt_rY9aVL",
+        "bannerthree_HQxJk3",
+        "banner_xAFBg4",
+        "onecol_txt_c6LGpq",
+        "featured_collection_CCBzNY",
+        "twocol_1_img_txt_gV9cNx",
+        "bedroom_button_findout_K9pngU",
+        "onecol_txt_HTQ7gU",
+        "featured_collection_3yRBaN",
+        "twocol_1_img_txt_6dCffa",
+        "bedroom_button_findout_AkeC37"
+      ],
       "settings": {}
     }
   },

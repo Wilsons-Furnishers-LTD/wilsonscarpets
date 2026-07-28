@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-content-page",
+      "type": "main-content-store-page",
       "blocks": {
         "cms_page_left_kkmBJi": {
           "type": "cms_page_left",

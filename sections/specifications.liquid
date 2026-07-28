@@ -1,154 +1,156 @@
-{% comment %}
-JUNO - Product Highlight Tab Carousels
-{% endcomment %}
+  {% comment %} {% for tag in product.tags %}
+    {% if tag contains 'Style_' %}
+      {% assign s_style = tag | replace: 'Style_', '' %}
+    {% endif %}
+    {% if tag contains 'Thickness_' %}
+      {% assign s_thickness = tag | replace: 'Thickness_', '' %}
+    {% endif %}
+    {% if tag contains 'Pile-Height_' %}
+      {% assign s_pile_height = tag | replace: 'Pile-Height_', '' %}
+    {% endif %}
+    {% if tag contains 'Pile Height_' %}
+      {% assign s_pile_height = tag | replace: 'Pile Height_', '' %}
+    {% endif %}
+    {% if tag contains 'Material_' %}
+      {% assign s_material = tag | replace: 'Material_', '' %}
+    {% endif %}
+    {% if tag contains 'Backing_' %}
+      {% assign s_backing = tag | replace: 'Backing_', '' %}
+    {% endif %}
+    {% if tag contains 'Pack Size (M²)_' %}
+      {% assign s_pack_size = tag | replace: 'Pack Size (M²)_', '' %}
+    {% endif %}
+    {% if tag contains 'Planks Per Pack_' %}
+      {% assign s_planks_per_pack = tag | replace: 'Planks Per Pack_', '' %}
+    {% endif %}
+    {% if tag contains 'Plank Size_' %}
+      {% assign s_plank_size = tag | replace: 'Plank Size_', '' %}
+    {% endif %}
+    {% if tag contains 'Edges_' %}
+      {% assign s_edges = tag | replace: 'Edges_', '' %}
+    {% endif %}
+    {% if tag contains 'Installation System_' %}
+      {% assign s_installation = tag | replace: 'Installation System_', '' %}
+    {% endif %}
+  {% endfor %}
+  {% if s_thickness != blank or s_pile_height != blank or s_material != blank or s_backing != blank or s_style != blank or s_pack_size != blank or s_planks_per_pack != blank or s_plank_size != blank or s_edges != blank or s_installation != blank %}
+  <div class="specifications">
+    <h2 class="title">Specifications</h2>
+    <div class="content">
+      <ul>
+      {% if s_style != blank %}
+        <li><strong>Style</strong> {{s_style}}</li>
+      {% endif %}
+      {% if s_thickness != blank %}
+        <li><strong>Thickness</strong> {{s_thickness}}</li>
+      {% endif %}
+      {% if s_pile_height != blank %}
+        <li><strong>Pile Height</strong> {{s_pile_height}}</li>
+      {% endif %}
+      {% if s_material != blank %}
+        <li><strong>Material</strong> {{s_material}}</li>
+      {% endif %}
+      {% if s_backing != blank %}
+        <li><strong>Backing</strong> {{s_backing}}</li>
+      {% endif %}
+      {% if s_pack_size != blank %}
+        <li><strong>Pack Size (M<sup>2</sup>)</strong> {{s_pack_size}}</li>
+      {% endif %}
+      {% if s_planks_per_pack != blank %}
+        <li><strong>Planks Per Pack</strong> {{s_planks_per_pack}}</li>
+      {% endif %}
+      {% if s_plank_size != blank %}
+        <li><strong>Plank Size</strong> {{s_plank_size}}</li>
+      {% endif %}
+      {% if s_edges != blank %}
+        <li><strong>Edges</strong> {{s_edges}}</li>
+      {% endif %}
+      {% if s_installation != blank %}
+        <li><strong>Installation System</strong> {{s_installation}}</li>
+      {% endif %}
+      </ul>
+    </div>
+  </div>
+  {% endif %} {% endcomment %}
 
-<div class="wrapper" id="productHighlightCollection">
-	{% if section.settings.title != blank %}
-	<!--div class="row">
-		<div class="section-header text-center col-full-width">
-			<h2>{{ section.settings.title | escape }}</h2>
-		</div>
-	</div-->
-	{% endif %}
+{% assign specifications = product.metafields.custom.specifications.value %}
 
-	{% assign navigationStructure = '' %}
-	{% assign collectionContent = '' %}
+<div class="product-page">
+    <div class="product-description">
+        <div class="row">
+            <div class="description">
+                <h2 class="title">Description</h2>
+                <div class="content" itemprop="description">
+                    {{ product.description }}
+                </div>
+            </div>
 
-	{% for link in linklists.homepage-product-highlight-collection.links %}
+                        
+            {% if section.blocks.size > 0 %}
+                <div class="specifications">
+                    {% if section.settings.title != blank %} 
+                        <h2 class="title">{{ section.settings.title }}</h2>
+                    {% endif %} 
+                    
+                    {% if specifications %}
+                        <ul>
+                            {% for specification in specifications %}
+                                <li><strong>{{ specification | replace: ':', '</strong>' }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %} 
+                        <div class="content">
+                            <ul>
+                                {% for block in section.blocks %}
+                                    {% assign spec_tag = block.settings.tag | append: '_' %}
+                                    {% for tag in product.tags %}
+                                        {% if tag contains spec_tag %} 
+                                            <li><strong>{{ block.settings.tag }}</strong> {{ tag | replace: spec_tag, '' }}</li>
+                                        {% endif %} 
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %} 
+                </div>
+            {% endif %}
 
-	{% assign option_index = forloop.index0 %}
-	{% assign activeClass='' %}
-	{% if option_index == 0 %}
-	{% assign activeClass=' active' %}
-	{% endif %}
-
-	{% capture navigationStructure %}{{ navigationStructure}}
-	<li>
-		<a class="product-highlight-link{{activeClass}}" href="#highlightTab{{option_index}}">{{ link.title }}</a>
-	</li>{% endcapture %}
-
-	{% assign thisCollectionTitle = link.url %}
-
-	{% comment %}
-	convert eg '/collections/sale-now-on' to 'sale now on'
-	{% endcomment %}
-	{% assign thisCollectionTitleSplit = thisCollectionTitle | split: '/' %}
-	{% capture thisCollection %}{{ thisCollectionTitleSplit[2] | replace: '-', ' ' }}{% endcapture %}
-
-	{% assign thisCollection = thisCollection | handleize %}
-	{%- assign collection = collections[thisCollection] -%}
-
-	{% case section.settings.grid %}
-	{% when '2' %}
-	{%- assign grid_count = 'product-grid-2' -%}
-	{%- assign grid_item_width = 'col-wide-6 col-medium-6 col-small-6 col-smallest-6' -%}
-	{%- assign image_size = '530x530' -%}
-	{% when '3' %}
-	{%- assign grid_count = 'product-grid-3' -%}
-	{%- assign grid_item_width = 'col-wide-4 col-medium-4 col-small-6 col-smallest-6' -%}
-	{%- assign image_size = '345x345' -%}
-	{% when '4' %}
-	{%- assign grid_count = 'product-grid-4' -%}
-	{%- assign grid_item_width = 'col-wide-3 col-medium-3 col-small-6 col-smallest-6' -%}
-	{%- assign image_size = '250x250' -%}
-	{% when '6' %}
-	{%- assign grid_count = 'product-grid-6' -%}
-	{%- assign grid_item_width = 'col-wide-2 col-medium-2 col-small-4 col-smallest-6' -%}
-	{%- assign image_size = '250x250' -%}
-	{% endcase %}
-
-	{%- assign product_limit = section.settings.grid -%}
-
-	{% capture collectionContent %}
-	{{collectionContent}}
-	<div id="highlightTab{{option_index}}" class="productHighlightContent tab-content {%if option_index==0%}visible{%endif%}">
-		<div class="product-grid grid--uniform grid--view-items owl-carousel">
-			{% for product in collection.products limit: product_limit %}
-{%- render 'bold-product' with product, hide_action: 'skip' -%}
-			{% render 'product-grid-item-featured' %}
-		
-			
-			{% endfor %}
-			
-		</div>
-	</div>
-	{% endcapture %}
-	{% endfor %}
-
-	<ul id="productHightlightTabs">
-		{{ navigationStructure }}
-
-	</ul>
-	<div id="productHighlightWrapper">
-		<div class="row">
-		{{ collectionContent }}
-				
-		</div>
-	</div>
+            <div class="delivery">
+                <h2 class="title">Delivery</h2>
+                {% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
+                <div class="content">
+                    {% if pages[delivery_type] %}
+                        {{ pages[delivery_type].content }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-
 {% schema %}
-  {
-     "name": "Specifications",
-     "class": "index-section index-section--flush",
+{
+	"name": "Specifications",
     "settings": [
-          {
-        "type": "text",
-        "id": "title",
-        "label": "Heading",
-        "default": "Product highlight"
-      },      {
-        "type": "select",
-        "id": "grid",
-        "label": "Number of Products",
-        "default": "16",
-        "options": [
-          {
-            "value": "4",
-            "label": "4"
-          },
-          {
-            "value": "8",
-            "label": "8"
-          },
-           {
-            "value": "12",
-            "label": "12"
-          },
-           {
-            "value": "16",
-            "label": "16"
-          },
-                   {
-            "value": "20",
-            "label": "20"
-          },
-          {
-            "value": "40",
-            "label": "40"
-          }
-         
-        ]
-      }
-	],
-	"presets": [
-      {
-        "name": "Specifications",
-        "category": "Product"
-      }
-	]
-  }
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Specifications"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "tags",
+            "name": "Tag Specifications",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "tag",
+                    "label": "Tag"
+                }
+            ]
+        }
+    ]
+}
 {% endschema %}
-
-{% javascript %}
-$('.product-highlight-link').click(function(e) {
-  if(e) {
-    e.preventDefault();
-  }
-  $('.product-highlight-link').removeClass('active');
-  $(this).addClass('active');
-  $('.productHighlightContent').removeClass('visible');
-  $($(this).attr('href')).addClass('visible');
-});
-{% endjavascript %}

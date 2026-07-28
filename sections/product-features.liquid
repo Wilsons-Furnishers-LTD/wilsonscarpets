@@ -1,6 +1,10 @@
-{% comment %}
-JUNO - Product Highlight Tab Carousels
-{% endcomment %}
+<form id="AddToCartForm" action="/cart/add" method="post" enctype="multipart/form-data">
+    <div class="row">
+        {%- render 'product-details-top' -%}
+        {%- render 'product-photos' -%}
+        {%- render 'product-details' -%}
+    </div>
+</form>
 
 <div class="wrapper" id="productHighlightCollection">
 	{% if section.settings.title != blank %}
@@ -90,51 +94,42 @@ JUNO - Product Highlight Tab Carousels
 
 {% schema %}
   {
-     "name": "Product features",
+     "name": "Product Features",
      "class": "index-section index-section--flush",
-    "settings": [
-          {
-        "type": "text",
-        "id": "title",
-        "label": "Heading",
-        "default": "Product highlight"
-      },      {
-        "type": "select",
-        "id": "grid",
-        "label": "Number of Products",
-        "default": "16",
-        "options": [
-          {
-            "value": "4",
-            "label": "4"
-          },
-          {
-            "value": "8",
-            "label": "8"
-          },
-           {
-            "value": "12",
-            "label": "12"
-          },
-           {
-            "value": "16",
-            "label": "16"
-          },
-                   {
-            "value": "20",
-            "label": "20"
-          },
-          {
-            "value": "40",
-            "label": "40"
-          }
-         
-        ]
-      }
-	],
+   "max_blocks": 200,
+        "blocks": [
+            {
+                "type": "image",
+                "name": "Feature",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Icon"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Heading",
+                        "default": "Image slide"
+                    },
+                    {
+                        "type": "text",
+                        "id": "subheading",
+                        "label": "Subheading",
+                        "default": "Lorem ipsum dolor sit amet, consectetur"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Link"
+                    }
+                ]
+            }
+        ],
 	"presets": [
       {
-        "name": "Product features",
+        "name": "Product Features",
         "category": "Product"
       }
 	]

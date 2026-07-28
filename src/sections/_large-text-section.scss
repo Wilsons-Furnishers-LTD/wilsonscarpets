@@ -1,0 +1,24 @@
+.large-text-section {
+    text-align: center;
+    color: #000;
+    padding-top: 40px;
+    img {
+        max-width: 250px;
+        height: auto;
+        margin: 0 auto;
+        @media only screen and (min-width: 768px) {
+            max-width: 300px;
+        }
+    }
+    p.cw-large {
+        font-weight: 900;
+        
+        @media only screen and (min-width: 768px) {
+            font-size: 24px;
+        }
+    }
+    p {
+        padding-bottom: 20px;
+    }
+}
+

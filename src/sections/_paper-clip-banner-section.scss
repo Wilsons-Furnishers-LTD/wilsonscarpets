@@ -1,0 +1,45 @@
+@use './../styles/variables' as v; 
+
+.paper-clip-banner {
+    padding-bottom: 0;
+    margin-top: 70px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    &__content {
+        background-color: v.$wilson-light-grey;
+        padding: 65px 30px 40px 30px !important;
+        text-align: center;
+        margin: 0 -30px;
+        width: calc(100% + 60px);
+        p {
+            padding-bottom: 15px;
+        }
+    }
+    &__image {
+        order: -1;
+        margin-top: -100px;
+        margin-bottom: -70px;
+        position: relative;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .paper-clip-banner {
+        margin-top: 100px;
+        margin-bottom: 80px;
+        display: flex;
+        background-color: v.$wilson-light-grey;
+        flex-direction: row;
+        &__content {
+            width: 50%;
+            margin: initial;
+            padding: 65px 50px !important;
+        }
+        &__image {
+            order: 2;
+            margin-bottom: -150px;
+        }
+    }
+}

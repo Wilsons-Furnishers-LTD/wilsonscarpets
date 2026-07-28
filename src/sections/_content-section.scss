@@ -1,0 +1,49 @@
+@use './../styles/variables' as v;
+
+.content-section {
+    padding-bottom: 0;
+    &__introduction {
+        padding: 35px 40px 60px 40px;
+        background-color: v.$wilson-light-grey;
+        text-align: center;
+        @media only screen and (min-width: 768px) {
+            padding: 35px 40px 140px 40px;
+        }
+    }
+    &__image {
+        width: 300px;
+        margin: -70px auto -100px auto;
+        @media only screen and (min-width: 768px) {
+            margin: -170px auto -105px auto;
+            width: 60%;
+            width: 500px;
+        }
+    }
+    &__content-wrapper {
+        background-color: v.$wilson-light-grey;
+        padding: 80px 30px 30px 30px !important;
+        text-align: center;
+        
+        @media only screen and (min-width: 768px) {
+            padding: 130px 40px 60px 40px !important;
+            display: flex;
+        }
+    }
+    &__content {
+        
+        
+        @media only screen and (min-width: 768px) {
+            width: 65%;
+            padding-right: 40px;
+        }
+    }
+    &__image-two {
+        flex: 1;
+        img {
+            max-height: 200px;
+            @media only screen and (min-width: 768px) {
+                max-height: 315px;
+            }
+        }
+    }
+}

@@ -1,7 +1,11 @@
-<div class="{% if page.id == 113656103219 %}search-page{% else %}cms-two-columns{% endif %}">
+{% assign show_col = true %}
+{% if request.path == '/pages/search-results' %}
+    {% assign show_col = false %}
+{% endif %}
+<div class="{% if request.path == '/pages/search-results' %}search-page{% endif %} {% if show_col %}cms-two-columns{% endif %}">
   <div class="wrapper">
     <div class="row">
-      {% unless page.id == 113656103219 %}
+      {% if show_col %}
         <div class="col-left">
             
             {% for block in section.blocks %}
@@ -12,7 +16,7 @@
                 {% endcase %}
             {% endfor %}
         </div>
-      {% endunless %}
+      {% endif %}
 
       <div class="col-main">
         <div class="container">

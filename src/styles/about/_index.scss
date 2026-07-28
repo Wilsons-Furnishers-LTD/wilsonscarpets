@@ -1,0 +1,18 @@
+@use './../../sections/hero-banner';
+@use './../../sections/heading';
+@use './../../sections/paragraph';
+@use './../../sections/quote-banner';
+@use './../../sections/content-section';
+@use './../../sections/content-image-section';
+@use './../../sections/paper-clip-banner-section';
+@use './../../sections/large-text-section';
+@use './../../sections/torn-paper-section';
+@use './../../sections/store-carousel';
+
+.cw-about-page {
+    @media only screen and (min-width: 64em) {
+        &.cms-two-columns .col-main {
+            width: 80.8%;
+        }
+    }
+}

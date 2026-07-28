@@ -1,0 +1,66 @@
+@use './../styles/variables' as v;
+
+.quote-banner {
+    background-color: v.$wilson-grey;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+    position: relative;
+    width: calc(100% + 30px);
+    margin: 0 -15px;
+    @media only screen and (min-width: 476px) {
+        width: calc(100% + 60px);
+        margin: 0 -30px;
+    }
+    @media only screen and (min-width: 768px) {
+        flex-direction: row;
+    }
+    @media only screen and (min-width: 1024px) {
+        margin: 0;
+        width: 100%;
+    }
+    &__icon {
+        position: absolute;
+        width: 90px;
+        top: -25px;
+        left: 35px;
+        padding-bottom: 0;
+        @media only screen and (min-width: 768px) {
+            width: 115px;
+        }
+    }
+    &__content {
+        flex: 1;
+        text-align: center;
+        padding: 70px 30px 40px 30px;
+        font-weight: 700;
+        @media only screen and (min-width: 768px) {
+            padding: 70px 40px 55px 40px;
+        }
+        @media only screen and (min-width: 900px) {
+            padding: 100px 60px 55px 60px;
+        }
+        strong {
+            color: v.$wilson-yellow;
+            font-size: 22px;
+        }
+    }
+    &__image {
+        padding-top: 72%;
+        height: 0;
+        position: relative;
+        @media only screen and (min-width: 768px) {
+            width: 45%;
+            height: initial;
+            padding-top: 0;
+        }
+        img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            inset: 0;
+        }
+    }
+}

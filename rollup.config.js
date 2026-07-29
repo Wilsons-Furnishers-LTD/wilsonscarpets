@@ -58,4 +58,17 @@ export default [
       }),
     ],
   },
+  {
+    input: 'src/search.js',
+    output: {
+      file: 'assets/search.js',
+      format: 'es',
+    },
+    plugins: [
+      postcss({
+        extract: 'search.css',
+        use: ['sass'],
+      }),
+    ],
+  },
 ];

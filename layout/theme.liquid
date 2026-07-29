@@ -180,6 +180,7 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 <script src="{{ 'main.js' | asset_url }}" type="module"></script>
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
+{{ 'search.css' | asset_url | stylesheet_tag }}
 
 
 </head>
@@ -187,7 +188,7 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 
 <body
 id="{{ page_title | handle }}"
-class="
+class=" klevu-container 
 {% if customer %}customer-logged-in{% endif %}
 template-{{ template.name }}
 {% if request.host == 'wilsons-beds.myshopify.com'
@@ -276,7 +277,7 @@ document.documentElement.classList.add('js');
 
 
 
-{{ 'https://js.klevu.com/klevu-js-v1/customizations/klevu-user-customization-178281792953914734.js' | script_tag }}
+{{ 'https://js.klevu.com/klevu-js-v1/customizations/klevu-user-customization-167888826575414734.js' | script_tag }}
 
 
 </body>

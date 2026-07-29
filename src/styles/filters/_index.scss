@@ -281,7 +281,7 @@
     .kuContainer {
         .ku-search-filter-tag {
             display: inline-flex;
-            padding: 5px 5px 5px 10px;
+            padding: 5px 10px 5px 10px;
             font-size: 12px;
             background-color: #f2bf00;
             border-radius: 3px;
@@ -290,12 +290,12 @@
             transition: all .3s ease;
         }
     }
-    .klevu-filter-header-mobile {
-        display: block !important;
-        border-bottom: 1px solid #e8eaee;
-        padding-bottom: 20px;
-        font-size: 20px;
-    }
+    // .klevu-filter-header-mobile {
+    //     display: block !important;
+    //     border-bottom: 1px solid #e8eaee;
+    //     padding-bottom: 20px;
+    //     font-size: 20px;
+    // }
     &.template-page.klevu-container .kuContainer .kuProListing .kuFilterNames ul li.kuSelected a span.kuFilterLabel {
         font-weight: 900 !important;
     }

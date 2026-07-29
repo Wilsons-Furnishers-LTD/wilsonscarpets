@@ -131,9 +131,14 @@ class Filters {
         }
     }
     createFilterButton(checkbox) {
+        let value = checkbox.value;
+        
+        if(checkbox.dataset.buttonValue) {
+            value = checkbox.dataset.buttonValue;
+        } 
         return `<div class="filters-wrapper__selected__list-item" data-name="${checkbox.name}" data-value="${checkbox.value}">
                 <div class="filters-wrapper__selected__list-item-key">${checkbox.title}:</div>
-                <div class="filters-wrapper__selected__list-item-value">${checkbox.value}</div>
+                <div class="filters-wrapper__selected__list-item-value">${value}</div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                     <path d="M18 6L6 18M6 6l12 12"></path>
                 </svg>

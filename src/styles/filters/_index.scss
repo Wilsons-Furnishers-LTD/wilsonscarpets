@@ -281,13 +281,161 @@
     .kuContainer {
         .ku-search-filter-tag {
             display: inline-flex;
-    padding: 5px 5px 5px 10px;
-    font-size: 12px;
-    background-color: #f2bf00;
-    border-radius: 3px;
-    line-height: 20px;
-    align-items: center;
-    transition: all .3s ease;
+            padding: 5px 5px 5px 10px;
+            font-size: 12px;
+            background-color: #f2bf00;
+            border-radius: 3px;
+            line-height: 20px;
+            align-items: center;
+            transition: all .3s ease;
+        }
+    }
+    .klevu-filter-header-mobile {
+        display: block !important;
+        border-bottom: 1px solid #e8eaee;
+        padding-bottom: 20px;
+        font-size: 20px;
+    }
+    &.template-page.klevu-container .kuContainer .kuProListing .kuFilterNames ul li.kuSelected a span.kuFilterLabel {
+        font-weight: 900 !important;
+    }
+    &.template-page.klevu-container .kuContainer .kuFilterHead {
+        font-size: 16px;
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+    }
+    &.template-page.klevu-container .kuContainer .kuProListing .kuFilterNames ul li a span.kuFilterLabel:before {
+        width: 18px;
+        height: 18px;
+    }
+    &.template-page.klevu-container .kuContainer .kuProListing #kuFilters .kuFilterBox {
+        border-top: none;
+    }
+    .kuContainer .kuProListing .kuFilterNames ul li.kuSelected a span.kuFilterLabel::after {
+        top: 13px;
+    }
+    .kuContainer .kuResultInfo, .kuContainer .kuFilterHead {
+        color: #414b52;
+    }
+    .kuContainer .kuFilterHead {
+        padding: 25px 20px 25px 0;
+        line-height: 18.4px
+    }
+
+    .kuFilterHead {
+        &:after, &:before {
+            top: 0;
+            bottom: 0;
+            right: 3px;
+            position: absolute;
+            margin: auto;
+            content: '';
+            display: block;
+            height: 2px;
+            width: 10px;
+            background: v.$wilson-grey;
+        }
+        &:after {
+            transform: rotate(90deg);
+        }
+        &.kuCollapse {
+            &:after {
+                display: none;
+            }
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    &.template-page.klevu-container #klevuSortLbl {
+        border-right: none;
+    }
+    &.template-page.klevu-container .kuContainer  {
+        .filters-close {
+            align-items: start;
+            padding-top: 17px;
+        }
+        .icon-times {
+            font-family: icomoon !important;
+        }
+    }
+    .kuContainer {
+        .wrap-filter-sorter {
+            position: initial;
+            width: 100%;
+            #kuSortby {
+                font-weight: 400 !important;
+                padding: .4375rem 1.625rem .4375rem 1rem;
+                font-size: .9375rem;
+            }
+            #klevuSortLbl {
+                padding: 0;
+            }
+            padding-bottom: 0;
+            .kuSortHeader {
+                display: flex !important;
+            }
+            .filter-by {
+                box-shadow: none;
+            }
+            .kuSortingOpt {
+                padding-bottom: 0;
+                flex: 1;
+                padding-left: 1.25rem;
+                display: flex;
+            }
+            .kuSortby:after {
+                top: 20px !important;
+            }
+            .kuSortby {
+                box-shadow: none;
+                height: initial;
+            }
+        }
+        .kuSortHeader {
+            padding-bottom: 0;
+        }
+        @media screen and (max-width: 1023px) {
+            .kuBottomPagi {
+                display: none;
+            }
+            #kuLandingProductsListUl li {
+                width: 100% !important;
+            }
+            .kuGridView {
+                padding-top: 30px;
+                margin-top: 21px;
+                border-top: 1px solid #e9ebee;
+            }
+
+            #klevuSortLbl {
+                
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            #kuFilterRefineMobile + .kuSortHeader {
+                .kuSortby {
+                   overflow: hidden;
+                }
+            }
+            .kuFilterRefineMobile:before {
+                top: 23px;
+                font-size: 14px;
+            }
+            #klevuSortLbl {
+                display: none;
+            }
+            .kuSortingOpt .kuSortby {
+                padding-left: 20px;
+            }
+            .kuSortby:after {
+                font-size: 14px;
+                top: 21px;
+            }
+            #kuSortby {
+                padding: 0 40px 0 0px;
+            }
         }
     }
 }

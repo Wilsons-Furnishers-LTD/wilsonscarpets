@@ -1,6 +1,7 @@
 {% assign show_col = true %}
 {% if request.path == '/pages/search-results' %}
     {% assign show_col = false %}
+    {{ 'filters.css' | asset_url | stylesheet_tag }}
 {% endif %}
 <div class="{% if request.path == '/pages/search-results' %}search-page{% endif %} {% if show_col %}cms-two-columns{% endif %}">
   <div class="wrapper">

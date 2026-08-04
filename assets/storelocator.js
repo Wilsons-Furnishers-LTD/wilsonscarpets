@@ -49,22 +49,38 @@
             }
         }
     }
+    function getFullOpeningTimes(openingTimes) {
+        const today = new Date().toLocaleDateString('en-US', {weekday: 'long'});
+        const temp = document.createElement('div');
+        temp.innerHTML = openingTimes;
+        temp.querySelectorAll('tr').forEach(row => {
+            const dayCell = row.querySelector('td');
+
+            if (dayCell && dayCell.textContent.trim() === today) {
+            row.classList.add('today');
+            }
+        });
+        return temp.innerHTML
+    }
 
     function create_html_list(store, i, search = false) {
         
         let storeProperties = store;
         let thumbnail; 
         let openingTime = '';
+        let fullOpeningTimes = '';
         if(!search && store.properties) {
             storeProperties = store.properties;
             thumbnail = storeProperties.thumbnail;
             if(storeProperties.opening_times) {
                 openingTime = getCurrentDayOpeningTime(storeProperties.opening_times);
+                fullOpeningTimes = getFullOpeningTimes(storeProperties.opening_times);
             }
         } else {
             thumbnail = store.thum;
             if(store.opening_times) {
                 openingTime = getCurrentDayOpeningTime(store.opening_times);
+                fullOpeningTimes = getFullOpeningTimes(store.opening_times);
             }
         }
         if(storeProperties) {
@@ -179,6 +195,10 @@
                                 ${storeProperties.address}
                             </div>
                             <div class="store-details-modal-current-time">
+                                <div class="store-details-modal-subtitle">
+                                    Opening Times
+                                </div>
+                                ${fullOpeningTimes}
                             </div>
                             <div class="store-details-modal-directions">
                                 <a href="https://maps.google.com/?daddr=${storeProperties.name} ${storeProperties.address}" target="_blank" aria-label="This link opens in a new tab.">Directions </a> 
@@ -187,7 +207,7 @@
                             </div>
                         </div>
                     </div>
-                    --->
+                    -->
                 `;
                 return storeHtml
         }

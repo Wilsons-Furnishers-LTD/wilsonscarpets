@@ -31,7 +31,7 @@
         "specifications_title": "Specifications"
       }
     },
-        "cms_bannergrid_four_icon_mR7yqf": {
+    "cms_bannergrid_four_icon_mR7yqf": {
       "type": "cms_bannergrid-four-icon",
       "name": "Banner Grid - Icon",
       "settings": {
@@ -57,7 +57,7 @@
       "name": "Featured collection",
       "settings": {
         "title": "You may also like",
-        "collection": "accessories",
+        "collection": "mattresses",
         "grid": "4",
         "add_border_top": "add_border_top_no",
         "add_border_bottom": "add_border_bottom_no"

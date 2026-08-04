@@ -3507,6 +3507,11 @@ body .cw-storelocator .store-opening-times tr td:first-of-type {
 body .cw-storelocator .phone-no .phone-no-mobile-text {
   display: none;
 }
+body .cw-storelocator .feature-flag {
+  width: 100px;
+  margin-top: 15px;
+  margin-left: 20px;
+}
 
 @media only screen and (max-width: 1200px) {
   body .cw-storelocator #results-slt .item-thumb, body .cw-storelocator #info-window-wrapper .item-thumb {

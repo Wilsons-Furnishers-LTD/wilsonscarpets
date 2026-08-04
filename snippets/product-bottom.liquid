@@ -32,6 +32,7 @@
 {% endfor %}
 
 <script>
+    var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
     // activeVariant = -1;
     variantsAndPrices = [];
     variantsAndStock = [];
@@ -100,7 +101,7 @@
             // update image as well:
             var activeVariant = jQuery('#product-select option:selected').text().trim();
 
-            if (allImageVariants.hasOwnProperty(activeVariant)) {
+            if (typeof allImageVariants !== "undefined" &&allImageVariants.hasOwnProperty(activeVariant)) {
                 variantImagePath = allImageVariants[activeVariant];
             } else {
                 variantImagePath = defaultImagePath;
@@ -746,7 +747,7 @@
         });
 
         var variantImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
-        var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
+        
 
         jQuery(function ($) {
             function responseTimeoutAction(whichStep) {

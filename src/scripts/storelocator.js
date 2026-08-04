@@ -69,10 +69,16 @@
             }
         }
         if(storeProperties) {
-            
+            let featuredClass = '',
+                featuredFlag = ''
+            if(storeProperties.featured_store == '1') {
+                featuredClass = 'featured',
+                featuredFlag = '<img class="feature-flag" src="' + window.themeAssets.bed_flag + '">'
+            }
             let storeHtml = `
-                    <div class="item thumbnail store-item" datamarker="${i}">
+                    <div class="item thumbnail store-item ${featuredClass}" datamarker="${i}">
                         <div class="inner-item" data-lat="${storeProperties.lat}" data-place="${storeProperties.place_id}" data-long="${storeProperties.long}" store-id="${storeProperties.id}" id="store_id_${storeProperties.id}">
+                            ${featuredFlag}
                             <div class="item-header">
                                 <label class="storeify-sl-item-row store-name">
                                     <a target="_blank" href="${storeProperties.url}" rel="nofollow">
@@ -538,7 +544,8 @@
                         schedule_text: data.schedule ? data.schedule_text[index] : '',
                         id: data.store_id ? Number(data.store_id[index]) : '',
                         email: data.email ? data.email[index] : '',
-                        place_id: data.place_id ? data.place_id[index] : ''
+                        place_id: data.place_id ? data.place_id[index] : '',
+                        featured_store: data.featured_store ? data.featured_store[index] : ''
                     }
                 }))
             };
@@ -613,6 +620,7 @@
                         name: properties.name,
                         opening_times: properties.opening_times,
                         place_id: properties.place_id,
+                        featured_store: properties.featured_store,
                         url: properties.url,
                         address: properties.address,
                         schedule: properties.schedule,
@@ -944,13 +952,18 @@
             
             if(window.icon_marker != '') icon_marker_url = window.icon_marker;
             // if (data_maker.icon_marker != null && data_maker.icon_marker != "")  icon_marker_url = data_maker.icon_marker;
-            
             var icon = {
               url: icon_marker_url, // url
               scaledSize: new google.maps.Size(30, 43), // scaled size
               // origin: new google.maps.Point(0,0), // origin
               // anchor: new google.maps.Point(0, 0) // anchor
             };
+
+            if(data_maker.featured_store == '1') {
+                icon.scaledSize = new google.maps.Size(45, 64)
+                icon.url = window.themeAssets.bed_marker
+            }
+
             marker.setIcon(icon);
             
             google.maps.event.addListener(marker, 'click', function(evt) { // the click event function is called with the "event" as an argument

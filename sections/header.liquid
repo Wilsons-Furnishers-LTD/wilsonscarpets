@@ -155,11 +155,14 @@
                             <div class="location__text">{{ section.settings.location_text }}</div>
                           </a>
                         </li>
+
                         {% for link in linklists.wilsons-main-menu.links %}
                             {% assign _tooltip = link.title | handle %}
+                            
                             {% assign _link = link.title | downcase | replace: ' & ', '-' | replace: ' ', '-' %}
                             {% comment %} Tooltip {% endcomment %}
                             {% assign tooltip = '' %}
+                            
                             {% if linklists[_tooltip].links.size > 0 %}
                                 {% for tooltip_el in linklists[_tooltip].links %}
                                     {% assign tooltip = tooltip_el.title %}
@@ -188,6 +191,9 @@
                                 {% endif %}
                             {% endfor %}
                             {% endif %}
+
+
+
 
                             <li class="level0 {{ link.handle }} {% if linklists[_link].links.size > 0 %}parent{% endif %}">
                                 {% if linklists[_link].links.size > 0 %}<div class="level0 wrap">{% endif %}

@@ -91,6 +91,8 @@
                 featuredClass = 'featured',
                 featuredFlag = '<img class="feature-flag" src="' + window.themeAssets.bed_flag + '">'
             }
+            storeProperties.url = storeProperties.url.replace('https://www.wilsonscarpets.com', '');
+            
             let storeHtml = `
                     <div class="item thumbnail store-item ${featuredClass}" datamarker="${i}">
                         <div class="inner-item" data-lat="${storeProperties.lat}" data-place="${storeProperties.place_id}" data-long="${storeProperties.long}" store-id="${storeProperties.id}" id="store_id_${storeProperties.id}">

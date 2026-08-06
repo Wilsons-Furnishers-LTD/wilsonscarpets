@@ -13,10 +13,10 @@
       "type": "main-content",
       "settings": {}
     },
-    "slideshow_j6DDwY": {
+    "slideshow_h4wrhd": {
       "type": "slideshow",
       "blocks": {
-        "image_GdfzEP": {
+        "image_wwM7Fk": {
           "type": "image",
           "disabled": true,
           "settings": {
@@ -32,7 +32,7 @@
             "button_text": "See Offers"
           }
         },
-        "image_i4cgyt": {
+        "image_6pLmn4": {
           "type": "image",
           "disabled": true,
           "settings": {
@@ -47,64 +47,22 @@
             "button_text": "Store Finder"
           }
         },
-        "image_NGUXke": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/image_22_1.png",
-            "mobile_image": "shopify://shop_images/bed-1_68ad6dc1-c287-492b-a539-90c1a06d6a1a.png",
-            "text_color": "text-light",
-            "custom_text_color": "#000000",
-            "title": "Lowest Prices Guaranteed.",
-            "subheading": "The finest quality at the lowest price.",
-            "link": "shopify://collections/beds",
-            "link_icon": "",
-            "button_text": "Shop Beds"
-          }
-        },
-        "image_RxL6QL": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/image_21.png",
-            "mobile_image": "shopify://shop_images/mattress-banner.png",
-            "text_color": "custom",
-            "custom_text_color": "#000000",
-            "title": "Amazing Prices. Every Day.",
-            "subheading": "Our single mattresses start at just £99",
-            "link": "shopify://collections/mattresses",
-            "link_icon": "",
-            "button_text": "Shop Mattresses"
-          }
-        },
-        "image_cNnAbj": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Group_5.png",
-            "mobile_image": "shopify://shop_images/bed-3.png",
-            "text_color": "text-light",
-            "custom_text_color": "#000000",
-            "title": "Unbeatable prices!",
-            "subheading": "Build your perfect bed",
-            "link": "shopify://collections/bed-bundles",
-            "link_icon": "",
-            "button_text": "Shop Bed Bundles"
-          }
-        },
-        "image_7GeVHd": {
+        "image_enqQk4": {
           "type": "image",
           "disabled": true,
           "settings": {
-            "image": "shopify://shop_images/new_sliders_product6.jpg",
-            "mobile_image": "shopify://shop_images/new_slider_mobile_a22f5bcb-96f1-4e1d-b4b2-61471bcc460c.jpg",
+            "image": "shopify://shop_images/desktop_IMAGE_carpet_and_flooring_fitting_slider.jpg",
+            "mobile_image": "shopify://shop_images/mobile_IMAGE_carpet_and_flooring_fitting_slider_1.png",
             "text_color": "text-light",
             "custom_text_color": "#000000",
-            "title": "Lowest Prices Guaranteed.",
-            "subheading": "Amazing Prices. Every Day.",
-            "link": "shopify://collections/beds",
+            "title": "Get your carpet in time for Christmas!",
+            "subheading": "Pre-Xmas delivery still available!",
+            "link": "shopify://pages/stores",
             "link_icon": "",
-            "button_text": "Shop Beds"
+            "button_text": "Find Your Local Store"
           }
         },
-        "image_DPWtQb": {
+        "image_nan6H7": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/new_sliders6.jpg",
@@ -118,7 +76,21 @@
             "button_text": "Store Finder"
           }
         },
-        "image_qXhtP3": {
+        "image_zeVUVE": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/new_sliders_product6.jpg",
+            "mobile_image": "shopify://shop_images/new_slider_mobile_a22f5bcb-96f1-4e1d-b4b2-61471bcc460c.jpg",
+            "text_color": "text-light",
+            "custom_text_color": "#000000",
+            "title": "Lowest Prices Guaranteed.",
+            "subheading": "Amazing Prices. Every Day.",
+            "link": "shopify://collections/carpets",
+            "link_icon": "",
+            "button_text": "Shop Carpets"
+          }
+        },
+        "image_zit9h6": {
           "type": "image",
           "disabled": true,
           "settings": {
@@ -134,7 +106,7 @@
             "button_text": "Delivery Info"
           }
         },
-        "image_8WcBii": {
+        "image_HeKNY9": {
           "type": "image",
           "disabled": true,
           "settings": {
@@ -149,7 +121,7 @@
             "button_text": "Shop with Klarna"
           }
         },
-        "image_iMxnxJ": {
+        "image_KcPVFd": {
           "type": "image",
           "disabled": true,
           "settings": {
@@ -167,87 +139,21 @@
         }
       },
       "block_order": [
-        "image_GdfzEP",
-        "image_i4cgyt",
-        "image_NGUXke",
-        "image_RxL6QL",
-        "image_cNnAbj",
-        "image_7GeVHd",
-        "image_DPWtQb",
-        "image_qXhtP3",
-        "image_8WcBii",
-        "image_iMxnxJ"
+        "image_wwM7Fk",
+        "image_6pLmn4",
+        "image_enqQk4",
+        "image_nan6H7",
+        "image_zeVUVE",
+        "image_zit9h6",
+        "image_HeKNY9",
+        "image_KcPVFd"
       ],
       "settings": {}
     },
-    "bannergrid_two_knWWMy": {
+    "bannergrid_two_HVfJCW": {
       "type": "bannergrid-two",
       "blocks": {
-        "image_kQ4Kcd": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/DENABY-ORTHO-2000-DIVAN-BED-with-two-storage-drawers_wilsons-carpets-and-beds_1.png",
-            "text_color": "text-dark",
-            "title": "Beds",
-            "subheading": "",
-            "link": "shopify://collections/beds",
-            "button_text": "Shop Now"
-          }
-        },
-        "image_iTRBLC": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/mattress-test-3_1.png",
-            "text_color": "text-dark",
-            "title": "Mattresses",
-            "subheading": "",
-            "link": "shopify://collections/mattresses",
-            "button_text": "Shop Now"
-          }
-        }
-      },
-      "block_order": [
-        "image_kQ4Kcd",
-        "image_iTRBLC"
-      ],
-      "settings": {}
-    },
-    "bannergrid_two_YcaXyV": {
-      "type": "bannergrid-two",
-      "blocks": {
-        "image_CTyAQV": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/image_17.png",
-            "text_color": "text-dark",
-            "title": "Headboards",
-            "subheading": "",
-            "link": "shopify://collections/headboards",
-            "button_text": "Shop Now"
-          }
-        },
-        "image_kkmQBN": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/bed-bundle.png",
-            "text_color": "text-dark",
-            "title": "Bed Bundles",
-            "subheading": "",
-            "link": "shopify://collections/bed-bundles",
-            "button_text": "Shop Now"
-          }
-        }
-      },
-      "block_order": [
-        "image_CTyAQV",
-        "image_kkmQBN"
-      ],
-      "settings": {}
-    },
-    "bannergrid_two_3HDiK3": {
-      "type": "bannergrid-two",
-      "blocks": {
-        "image_EUHe96": {
+        "image_YDhUPh": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Wilsons-Carpets-locations-half-page-banner-new.jpg",
@@ -259,7 +165,7 @@
             "button_text": ""
           }
         },
-        "image_PPPTjL": {
+        "image_9RiWir": {
           "type": "image",
           "disabled": true,
           "settings": {
@@ -270,7 +176,7 @@
             "button_text": "Shop Now"
           }
         },
-        "image_DQtbKU": {
+        "image_33DT6W": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Wilsons-Carpets-price-promise-half-page-banner.jpg",
@@ -284,36 +190,139 @@
         }
       },
       "block_order": [
-        "image_EUHe96",
-        "image_PPPTjL",
-        "image_DQtbKU"
+        "image_YDhUPh",
+        "image_9RiWir",
+        "image_33DT6W"
       ],
       "settings": {}
     },
-    "banner_TUnyyf": {
-      "type": "banner",
+    "bannergrid_two_Eqw963": {
+      "type": "bannergrid-two",
       "blocks": {
-        "image_7pdxwc": {
+        "image_m6KM7U": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_11.png",
+            "image": "shopify://shop_images/homepage-quality-carpets-banner-desktop.jpg",
+            "mobile_image": "shopify://shop_images/homepage-quality-carpets-banner-mobile.jpg",
+            "text_color": "text-dark",
+            "title": "Quality Carpets",
+            "subheading": "",
+            "link": "shopify://collections/carpets",
+            "button_text": "Shop Now"
+          }
+        },
+        "image_NGw7cP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/homepage-quality-laminate-banner-desktop.jpg",
+            "mobile_image": "shopify://shop_images/homepage-quality-laminate-banner-mobile.jpg",
+            "text_color": "text-dark",
+            "title": "Laminate Flooring",
+            "subheading": "",
+            "link": "shopify://collections/laminate-flooring",
+            "button_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "image_m6KM7U",
+        "image_NGw7cP"
+      ],
+      "settings": {}
+    },
+    "bannergrid_two_hbRFbj": {
+      "type": "bannergrid-two",
+      "blocks": {
+        "image_kwRjE3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/half_width_banners_and_home_page_images8_2.jpg",
+            "mobile_image": "shopify://shop_images/half_width_banners_and_home_page_images8_2_df42d51e-e0bc-486f-8b77-496cd4bfa035.jpg",
+            "text_color": "text-dark",
+            "title": "Vinyl Flooring",
+            "subheading": "",
+            "link": "shopify://collections/vinyl-flooring",
+            "button_text": "Shop Now"
+          }
+        },
+        "image_ptXUNL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/half_width_banners_and_home_page_images9_3.jpg",
+            "mobile_image": "shopify://shop_images/half_width_banners_and_home_page_images9_3_d76e55ad-d8d2-47a8-ade1-2a6629077a6f.jpg",
+            "text_color": "text-dark",
+            "title": "Artificial Grass",
+            "subheading": "",
+            "link": "shopify://collections/artificial-grass",
+            "button_text": "Shop Now"
+          }
+        }
+      },
+      "block_order": [
+        "image_kwRjE3",
+        "image_ptXUNL"
+      ],
+      "settings": {}
+    },
+    "banner_j3yXTk": {
+      "type": "banner",
+      "blocks": {
+        "image_8jUDLd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/We-buy-big-wilsons-carpets-warehouse-banner.jpg",
+            "mobile_image": "shopify://shop_images/we-just-buy.jpg",
             "text_color": "text-light",
             "title": "We buy big so you pay less.",
-            "subheading": "",
+            "subheading": "Over 2 million square metres  in stock!",
             "link": "shopify://pages/about-us",
             "button_text": "About Us"
           }
         }
       },
       "block_order": [
-        "image_7pdxwc"
+        "image_8jUDLd"
       ],
       "settings": {}
     },
-    "feature_columns_FixbDD": {
+    "bannergrid_two_LNGYdd": {
+      "type": "bannergrid-two",
+      "blocks": {
+        "image_3P3ggK": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/measuring-and-fitting-half-pager-banner-new.jpg",
+            "mobile_image": "shopify://shop_images/measuring-and-fitting-half-pager-banner-new_4a3a4c0d-2f44-4144-9391-64214e43b419.jpg",
+            "text_color": "text-dark",
+            "title": "Measuring & Estimating",
+            "subheading": "Free estimating service available",
+            "link": "shopify://pages/measuring-and-estimating",
+            "button_text": "Read More"
+          }
+        },
+        "image_rd4mkb": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/take-away-witdth-banner.jpg",
+            "mobile_image": "shopify://shop_images/half-width-banners-store-mobile.jpg",
+            "text_color": "text-dark",
+            "title": "Carpets & Flooring",
+            "subheading": "Available to take away today",
+            "link": "shopify://pages/stores",
+            "button_text": "Read More"
+          }
+        }
+      },
+      "block_order": [
+        "image_3P3ggK",
+        "image_rd4mkb"
+      ],
+      "settings": {}
+    },
+    "feature_columns_H8a86T": {
       "type": "feature-columns",
       "blocks": {
-        "text_block_qQ968B": {
+        "text_block_ewnCAL": {
           "type": "text_block",
           "settings": {
             "enable_image": false,
@@ -326,8 +335,9 @@
         }
       },
       "block_order": [
-        "text_block_qQ968B"
+        "text_block_ewnCAL"
       ],
+      "name": "Text columns with images",
       "settings": {
         "title": "",
         "align_text": "left"
@@ -336,11 +346,12 @@
   },
   "order": [
     "main",
-    "slideshow_j6DDwY",
-    "bannergrid_two_knWWMy",
-    "bannergrid_two_YcaXyV",
-    "bannergrid_two_3HDiK3",
-    "banner_TUnyyf",
-    "feature_columns_FixbDD"
+    "slideshow_h4wrhd",
+    "bannergrid_two_HVfJCW",
+    "bannergrid_two_Eqw963",
+    "bannergrid_two_hbRFbj",
+    "banner_j3yXTk",
+    "bannergrid_two_LNGYdd",
+    "feature_columns_H8a86T"
   ]
 }

@@ -20,7 +20,7 @@
         "show_block": "no",
         "price": 199,
         "background_over": "shopify://shop_images/safsf.png",
-        "title_over": "Visit one of our 19 stores today!",
+        "title_over": "<a href=\"/pages/stores\">Visit one of our 19 stores today!</a>",
         "subtitle_over": "Click here to find your local store. Amazing prices for over 57 years.",
         "title_under": "Visit one of our 19 stores today!",
         "subtitle_under": "Click here to find your local store. Amazing prices for over 57 years.",
@@ -57,7 +57,7 @@
       "name": "Featured collection",
       "settings": {
         "title": "You may also like",
-        "collection": "mattresses",
+        "collection": "accessories",
         "grid": "4",
         "add_border_top": "add_border_top_no",
         "add_border_bottom": "add_border_bottom_no"

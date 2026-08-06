@@ -8,6 +8,7 @@
 
   If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
 {%- endcomment -%}
+
 <style>
     .numberOfOptions3.standardProduct .selector-wrapper:first-child {
         display: none;
@@ -128,13 +129,11 @@
         {% if product.type == 'Rugs' or product.type == 'Mattress' or product.type == 'Headboard' %}
             {% assign needsToShowStandardVariant = false %}
         {% endif %}
-
         {% unless product.type == 'Rugs' or product.type == 'Mattress' or product.type == 'Headboard' %}
             <div id="product-variants" class="numberOfOptions{{ product.options.size }} {% if hide_default_title %}hidden{% endif %} {{ show_variants }}{% if needsToShowStandardVariant %} standardProduct{% endif %}">
                 {% if needsToShowStandardVariant %}
                     <div class="option option-single">
                 {% endif %}
-                
                     {% if product.options.size == 1 and product.options.first != 'Title' %}
                         {% if needsToShowStandardVariant %}
                             <h2>{{ product.options.first }}</h2>
@@ -244,7 +243,6 @@
                 {% endif %}
                 {% if product.type == 'Rugs' or product.type == 'Mattress' or product.type == 'Headboard' %}
                     <h2>Options</h2>
-                    
                     <div id="product-variants" class="numberOfOptions{{ product.options.size }} {% if hide_default_title %}hidden{% endif %} {{ show_variants }} standardProduct option-single">
                         <div class="content">
                             <select id="product-select" name="id">

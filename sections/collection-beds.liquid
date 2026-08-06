@@ -190,6 +190,6 @@
 
 {% render 'quick-view-ajaxify-cart' %}
 
-{% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
+{% comment %} {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
 {{ 'filters.js' | asset_url | script_tag }}
-{% endif %}
+{% endif %} {% endcomment %}

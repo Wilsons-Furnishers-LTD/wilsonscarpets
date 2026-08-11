@@ -23,6 +23,10 @@
     .product-details .option-colour #product-variants {
         order: -1
     }
+
+    .numberOfOptions2.standardProduct .selector-wrapper:first-child {
+        display: block;
+    }
 </style>
 {% assign add_to_cart = 'Add to Basket' %}
 {% assign adding_to_cart = 'Adding' %}
@@ -197,7 +201,7 @@
                 
                 {% if value_colors.size > 0 %}
                     {% unless product.title contains " - " and value_colors.size == 1 %}
-                        {% if product.type == 'Rugs' or product.type == 'Mattress' or product.type == 'Bed' or product.type == 'Headboard' %}
+                        {% if product.type == 'Rugs' %}
                             <h2>Options</h2>
                         {% else %}
                             <h2>Colour</h2>

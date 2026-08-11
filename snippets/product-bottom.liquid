@@ -272,7 +272,7 @@
     };
 
     jQuery(function ($) {
-        new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
+       // new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
         let product = {{ product | json }};
         
         let variantOrder = 0;
@@ -294,6 +294,8 @@
                 $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content"/>');
             }
         });
+
+
     });
 
     function colour_select(value) {

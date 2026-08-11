@@ -270,16 +270,72 @@
                             </select>
                         
                             
-                                                    {% comment %} {% for option in product.options_with_values %}
+                            {% for option in product.options_with_values %}
+                                {% assign order = option.position | minus: 1  %}
+                                
                                 <div class="selector-wrapper">
-                                    <label for="product-select-option-{{ option.position }}">{{ option.name }}</label>
-                                    <select class="single-option-selector" id="product-select-option-{{ option.position }}" name="option-{{ option.position }}">
+                                    <label for="product-select-option-{{ order }}">{{ option.name }}</label>
+                                    <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
                                         {% for value in option.values %}
                                             <option value="{{ value | escape }}">{{ value }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
-                            {% endfor %}  {% endcomment %}
+                            {% endfor %}  
+
+                            <script type="application/json" id="ProductVariants-{{ section.id }}">
+  {{ product.variants | json }}
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+            const variantData = document.getElementById(
+                'ProductVariants-{{ section.id }}'
+            );
+
+            if (!variantData) return;
+
+            const variants = JSON.parse(variantData.textContent);
+            const selects = document.querySelectorAll('.single-option-selector');
+
+            const priceElement = document.querySelector(
+                '[data-product-price]'
+            );
+
+            function updateVariant() {
+                const selectedOptions = Array.from(selects).map(select => select.value);
+                
+                const variant = variants.find(variant =>
+                    variant.options.every(
+                        (option, index) => option === selectedOptions[index]
+                    )
+                );
+                            
+                if (!variant) return;
+
+                // Update hidden variant ID
+                const variantInput = document.querySelector(
+                'form[action="/cart/add"] select[name="id"]'
+                );
+
+                if (variantInput) {
+                variantInput.value = variant.id;
+                }
+
+                // Update price
+                if (priceElement) {
+                priceElement.textContent =
+                    Shopify.formatMoney(variant.price);
+                }
+            }
+            
+            selects.forEach(select => {
+                
+                select.addEventListener('change', updateVariant);
+            });
+
+            updateVariant();
+        });
+</script>
                     </div>
                 {% endif %}
                 {% assign product_colour = product.title | split: " - " | first | strip %}

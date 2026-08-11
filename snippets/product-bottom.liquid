@@ -38,6 +38,8 @@
     var variantsAndImages = [];
     var preLoadImages = [];
     var productJSON = {{ product | json }}
+    var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
+    
     {% for variant in product.variants %}
         variantsAndPrices[{{ variant.id }}] = {'price': {{ variant.price }},{% if variant.compare_at_price %} 'compare_at_price' : {{ variant.compare_at_price }}{% else %}'compare_at_price' : {{ variant.price }}{% endif %}};
         variantsAndStock[{{ variant.id }}] = {% if variant.metafields.juno.is_in_stock == 0 or variant.metafields.juno.is_in_stock == "0" %}'false'{% else %}'true'{% endif %};
@@ -100,7 +102,7 @@
             // update image as well:
             var activeVariant = jQuery('#product-select option:selected').text().trim();
 
-            if (allImageVariants.hasOwnProperty(activeVariant)) {
+            if (typeof allImageVariants !== 'undefined' && allImageVariants.hasOwnProperty(activeVariant)) {
                 variantImagePath = allImageVariants[activeVariant];
             } else {
                 variantImagePath = defaultImagePath;
@@ -271,17 +273,19 @@
 
     jQuery(function ($) {
         new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
-        var product = {{ product | json }};
-        console.log(product.options);
+        let product = {{ product | json }};
+        
         let variantOrder = 0;
         $('.selector-wrapper').each(function () {
+            
             variantOrder++;
+            
             let label = (this).querySelector('label');
             let select = (this).querySelector('select');
             
-            
+            let title = $(label).text() ? $(label).text() : product.options[variantOrder - 1];
             if($(label).text() != 'Colour') {
-                $("<h2 style='order:" + variantOrder + "' data-order='" + variantOrder + "'>" + $(label).text() + "</h2>").insertBefore($(this));
+                $("<h2 style='order:" + variantOrder + "' data-order='" + variantOrder + "'>" + title + "</h2>").insertBefore($(this));
             } 
 
             if($(label).text() == 'Colour') {
@@ -765,7 +769,7 @@
         });
 
         var variantImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
-        var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
+        
 
         jQuery(function ($) {
             function responseTimeoutAction(whichStep) {

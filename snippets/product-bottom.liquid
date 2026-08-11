@@ -32,7 +32,6 @@
 {% endfor %}
 
 <script>
-    var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
     // activeVariant = -1;
     variantsAndPrices = [];
     variantsAndStock = [];
@@ -101,7 +100,7 @@
             // update image as well:
             var activeVariant = jQuery('#product-select option:selected').text().trim();
 
-            if (typeof allImageVariants !== "undefined" &&allImageVariants.hasOwnProperty(activeVariant)) {
+            if (allImageVariants.hasOwnProperty(activeVariant)) {
                 variantImagePath = allImageVariants[activeVariant];
             } else {
                 variantImagePath = defaultImagePath;
@@ -272,6 +271,25 @@
 
     jQuery(function ($) {
         new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
+        var product = {{ product | json }};
+        console.log(product.options);
+        let variantOrder = 0;
+        $('.selector-wrapper').each(function () {
+            variantOrder++;
+            let label = (this).querySelector('label');
+            let select = (this).querySelector('select');
+            
+            
+            if($(label).text() != 'Colour') {
+                $("<h2 style='order:" + variantOrder + "' data-order='" + variantOrder + "'>" + $(label).text() + "</h2>").insertBefore($(this));
+            } 
+
+            if($(label).text() == 'Colour') {
+                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content colour-dropdown"/>');
+            } else {
+                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content"/>');
+            }
+        });
     });
 
     function colour_select(value) {
@@ -747,7 +765,7 @@
         });
 
         var variantImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
-        
+        var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
 
         jQuery(function ($) {
             function responseTimeoutAction(whichStep) {

@@ -150,6 +150,7 @@
         // Whether the variant is in stock or not, we can update the price and compare at price.
         var activeVariant = jQuery('#product-select').val();
         var option_size = jQuery('.option-size');
+        
         if (option_size.length) {
             var select_option_size = jQuery(option_size.data('select-option'));
             if (select_option_size.val()) {
@@ -226,7 +227,7 @@
             {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
                 updateSampleAvailability();
             {% endif %}
-
+            
             if(jQuery('#first_load').val() != 'false' || !jQuery('.option-colour #select-option-colour').length) {
                 var selectedOption = jQuery('#product-select').find('option:selected'),
                     stock_level = selectedOption.data('stocklevel'),
@@ -303,6 +304,7 @@
         if (option_colour.length) {
             var select_option = jQuery(option_colour.data('select-option'));
             select_option.val(value).change();
+            document.dispatchEvent(new CustomEvent('colour:changed'));
         }
     }
 
@@ -424,7 +426,7 @@
             jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
 
             var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
-
+            
             if(colour_variant != '') {
               jQuery('#select-option-colour ul').each(function () {
                     jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
@@ -586,6 +588,7 @@
                 jQuery(this).parent().find('option').first().attr('selected','selected');
             }
         });
+        
         colour_select(value);
 
         size_select();
@@ -635,8 +638,9 @@
                 parent.find('label').html('Please select a Colour');
             } else {
                 parent.find('label').html(colour);
-            } parent.find('li').removeClass('selected');
-            parent.find('.select ul').slideUp(200);
+            } 
+            parent.find('li').removeClass('selected');
+           parent.find('.select ul').slideUp(200);
 
             jQuery(ul).each(function () {
                 jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
@@ -652,6 +656,7 @@
             }else {
                 swatchClick(value, jQuery(this).find('span.data').data('id'), value);
             }
+            
             initSelectedSize();
         });
 

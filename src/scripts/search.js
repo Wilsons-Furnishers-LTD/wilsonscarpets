@@ -3,7 +3,7 @@ class Search {
                 
         window.addEventListener("scroll", () => {
             const hoverBox = document.getElementById('klevu-pt-rs-hover')
-            if(hoverBox.style.display === 'block') {
+            if(hoverBox && hoverBox.style.display === 'block') {
                 hoverBox.style.display = 'none'
             }
         });

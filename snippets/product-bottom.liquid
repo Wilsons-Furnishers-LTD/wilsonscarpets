@@ -32,13 +32,14 @@
 {% endfor %}
 
 <script>
-    var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
     // activeVariant = -1;
     variantsAndPrices = [];
     variantsAndStock = [];
     var variantsAndImages = [];
     var preLoadImages = [];
     var productJSON = {{ product | json }}
+    var defaultImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";
+    
     {% for variant in product.variants %}
         variantsAndPrices[{{ variant.id }}] = {'price': {{ variant.price }},{% if variant.compare_at_price %} 'compare_at_price' : {{ variant.compare_at_price }}{% else %}'compare_at_price' : {{ variant.price }}{% endif %}};
         variantsAndStock[{{ variant.id }}] = {% if variant.metafields.juno.is_in_stock == 0 or variant.metafields.juno.is_in_stock == "0" %}'false'{% else %}'true'{% endif %};
@@ -101,7 +102,7 @@
             // update image as well:
             var activeVariant = jQuery('#product-select option:selected').text().trim();
 
-            if (typeof allImageVariants !== "undefined" &&allImageVariants.hasOwnProperty(activeVariant)) {
+            if (typeof allImageVariants !== 'undefined' && allImageVariants.hasOwnProperty(activeVariant)) {
                 variantImagePath = allImageVariants[activeVariant];
             } else {
                 variantImagePath = defaultImagePath;
@@ -149,6 +150,7 @@
         // Whether the variant is in stock or not, we can update the price and compare at price.
         var activeVariant = jQuery('#product-select').val();
         var option_size = jQuery('.option-size');
+        
         if (option_size.length) {
             var select_option_size = jQuery(option_size.data('select-option'));
             if (select_option_size.val()) {
@@ -225,7 +227,7 @@
             {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
                 updateSampleAvailability();
             {% endif %}
-
+            
             if(jQuery('#first_load').val() != 'false' || !jQuery('.option-colour #select-option-colour').length) {
                 var selectedOption = jQuery('#product-select').find('option:selected'),
                     stock_level = selectedOption.data('stocklevel'),
@@ -271,7 +273,30 @@
     };
 
     jQuery(function ($) {
-        new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
+       // new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
+        let product = {{ product | json }};
+        
+        let variantOrder = 0;
+        $('.selector-wrapper').each(function () {
+            
+            variantOrder++;
+            
+            let label = (this).querySelector('label');
+            let select = (this).querySelector('select');
+            
+            let title = $(label).text() ? $(label).text() : product.options[variantOrder - 1];
+            if($(label).text() != 'Colour') {
+                $("<h2 style='order:" + variantOrder + "' data-order='" + variantOrder + "'>" + title + "</h2>").insertBefore($(this));
+            } 
+
+            if($(label).text() == 'Colour') {
+                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content colour-dropdown"/>');
+            } else {
+                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content"/>');
+            }
+        });
+
+
     });
 
     function colour_select(value) {
@@ -279,6 +304,7 @@
         if (option_colour.length) {
             var select_option = jQuery(option_colour.data('select-option'));
             select_option.val(value).change();
+            document.dispatchEvent(new CustomEvent('colour:changed'));
         }
     }
 
@@ -400,7 +426,7 @@
             jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
 
             var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
-
+            
             if(colour_variant != '') {
               jQuery('#select-option-colour ul').each(function () {
                     jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
@@ -562,6 +588,7 @@
                 jQuery(this).parent().find('option').first().attr('selected','selected');
             }
         });
+        
         colour_select(value);
 
         size_select();
@@ -611,8 +638,9 @@
                 parent.find('label').html('Please select a Colour');
             } else {
                 parent.find('label').html(colour);
-            } parent.find('li').removeClass('selected');
-            parent.find('.select ul').slideUp(200);
+            } 
+            parent.find('li').removeClass('selected');
+           parent.find('.select ul').slideUp(200);
 
             jQuery(ul).each(function () {
                 jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
@@ -628,6 +656,7 @@
             }else {
                 swatchClick(value, jQuery(this).find('span.data').data('id'), value);
             }
+            
             initSelectedSize();
         });
 
@@ -635,7 +664,7 @@
             size_select(jQuery(this).val());
         });
 
-
+        
         if (location.search.indexOf('color')>0) {
 
 

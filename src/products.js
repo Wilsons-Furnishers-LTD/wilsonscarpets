@@ -1,1 +1,1 @@
-import './styles/products/_index.scss';
+import './scripts/products.js';

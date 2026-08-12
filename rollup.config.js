@@ -1,74 +1,38 @@
-// import scss from 'rollup-plugin-scss'
-// import postcss from 'rollup-plugin-postcss'
-// import terser from '@rollup/plugin-terser'
-
-// export default {
-//   input: 'src/storelocator.js',
-//   output: {
-//     format: 'esm',
-//     file: 'assets/storelocator.js'
-//   },
-//   plugins: [
-//     terser(),
-//     scss({
-//       fileName: 'storelocator.css'
-//     })
-//   ]
-// }
-
+import fs from 'fs';
 import postcss from 'rollup-plugin-postcss';
 
-export default [
-  {
-    input: 'src/storelocator.js',
-    output: {
-      file: 'assets/storelocator.js',
-      format: 'es',
-    },
-    plugins: [
-      postcss({
-        extract: 'storelocator.css',
-        use: ['sass'],
-      }),
-    ],
-  },
-  {
-    input: 'src/about.js',
-    output: {
-      file: 'assets/about.js',
-      format: 'es',
-    },
-    plugins: [
-      postcss({
-        extract: 'about.css',
-        use: ['sass'],
-      }),
-    ],
-  },
-{
-    input: 'src/filters.js',
-    output: {
-      file: 'assets/filters.js',
-      format: 'es',
-    },
-    plugins: [
-      postcss({
-        extract: 'filters.css',
-        use: ['sass'],
-      }),
-    ],
-  },
-  {
-    input: 'src/search.js',
-    output: {
-      file: 'assets/search.js',
-      format: 'es',
-    },
-    plugins: [
-      postcss({
-        extract: 'search.css',
-        use: ['sass'],
-      }),
-    ],
-  },
+const entries = [
+  'storelocator',
+  'about',
+  'filters',
+  'search',
+  'products',
 ];
+
+const configs = [];
+
+for (const name of entries) {
+  const jsFile = `src/${name}.js`;
+  const scssFile = `src/${name}.scss`;
+
+  const hasJs = fs.existsSync(jsFile);
+  const hasScss = fs.existsSync(scssFile);
+
+  if (hasJs) {
+    configs.push({
+      input: jsFile,
+      output: {
+        file: `assets/${name}.js`,
+        format: 'es',
+      },
+      plugins: [
+        postcss({
+          extract: `${name}.css`,
+          use: ['sass'],
+        }),
+      ],
+    });
+  }
+}
+
+export default configs;

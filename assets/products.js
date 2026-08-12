@@ -102,7 +102,7 @@ class Products {
                 selectedOption.data('quantity');
                 var is_in_stock = selectedOption.data('instock'),
                 variantid = selectedOption.attr('value');
-            console.log(selectedOption);
+            
             if(is_in_stock > 0 ) {
                 if(stock_level == 'Yes') {
                     jQuery('#stockLevel').removeClass().addClass('limitedStock').html('<i class="icon-instock"></i> Order Now');

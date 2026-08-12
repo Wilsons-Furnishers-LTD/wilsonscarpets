@@ -269,9 +269,7 @@
                                 {% endfor %}
                             </select>
                         
-                            <code>
-                                {{product.variants | json}}
-                            </code>
+
                             {% for option in product.options_with_values %}
                                 {% assign order = option.position | minus: 1  %}
                                 

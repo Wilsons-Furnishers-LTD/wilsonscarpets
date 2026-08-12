@@ -261,7 +261,7 @@
                     
                     <div id="product-variants" class="numberOfOptions{{ product.options.size }} {% if hide_default_title %}hidden{% endif %} {{ show_variants }} standardProduct option-single">
                         
-                            <select id="product-select" name="id" >
+                            <select id="product-select" name="id" style="display: none;">
                                 {% for variant in product.variants %}
                                     <option {% if variant == product.selected_or_first_available_variant %} selected {% endif %} value="{{ variant.id }}" data-colour="{{ variant.option1 }}" data-size="{{variant.option2}}" data-quantity="{{ variant.inventory_quantity }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"  data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-inStock="{{variant.metafields.juno.is_in_stock}}" data-price="{{ variant.price }}">
                                         {{ variant.title }}
@@ -283,7 +283,7 @@
                                 </div>
                             {% endfor %}  
                             
-                            <script data-product-type="{{ product.type }}" data-sold-out="{{ sold_out }}" data-hide-default-title="{{hide_default_title}}" data-product-title="{{ product.title }}" data-money-format="{{ shop.money_format }}" type="application/json" id="ProductVariants">
+                            <script data-unavailable="{{ unavailable }}" data-product-type="{{ product.type }}" data-sold-out="{{ sold_out }}" data-hide-default-title="{{hide_default_title}}" data-product-title="{{ product.title }}" data-money-format="{{ shop.money_format }}" type="application/json" id="ProductVariants">
                                 {{ product.variants | json }}
                             </script>
                             

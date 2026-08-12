@@ -77,6 +77,7 @@ function select_colour_filtered(colour_filter){
 }
 
 jQuery(function($){
+    
     if(colour_filter !== null && colour_filter !== ''){
         if($('.product-grid .swatch-colours').length){
             select_colour_filtered(colour_filter)

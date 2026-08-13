@@ -166,6 +166,22 @@
                                 </option>
                             {% endfor %}
                         </select>
+                        {% for option in product.options_with_values %}
+                            {% assign order = option.position | minus: 1  %}
+                            
+                            <div class="selector-wrapper">
+                                <label for="product-select-option-{{ order }}">{{ option.name }}</label>
+                                <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
+                                    {% for value in option.values %}
+                                        <option value="{{ value | escape }}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endfor %}  
+                            
+                            <script data-unavailable="{{ unavailable }}" data-product-type="{{ product.type }}" data-sold-out="{{ sold_out }}" data-hide-default-title="{{hide_default_title}}" data-product-title="{{ product.title }}" data-money-format="{{ shop.money_format }}" type="application/json" id="ProductVariants">
+                                {{ product.variants | json }}
+                            </script>
                         
                         {% if product.metafields.custom.colours %}
                             <div class="selector-wrapper" id="custom-product-colours" style="margin-top: 15px;"></div>

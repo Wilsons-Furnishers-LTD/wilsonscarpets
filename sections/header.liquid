@@ -20,8 +20,8 @@
             <div class="row">
                 <a href="#" id="menuToggle" class="hide-for-desktop"><i class="ico-menu"></i></a>
                 <a href="{{ shop.url }}" id="logo" itemprop="url" class="logo">
-                    {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
-                        <img width="{{section.settings.logo_width}}" height="{{section.settings.logo_height}}" src="{{ 'wilsonsbeds-logo.svg' |  asset_url }}"  alt="{{ shop.name }}">
+                    {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' or request.host == 'www.wilsonsbeds.com' %}
+                        <img width="{{section.settings.logo_width}}" height="{{section.settings.logo_height}}" src="{{ 'wilsons-beds-logo.svg' |  asset_url }}"  alt="{{ shop.name }}">
                     {% else %}
                         {% if section.settings.logo_svg != blank %}
                         <img width="{{section.settings.logo_width}}" height="{{section.settings.logo_height}}" src="{{ section.settings.logo_svg }}"  alt="{{ shop.name }}">

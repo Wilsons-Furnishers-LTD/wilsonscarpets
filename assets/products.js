@@ -13,8 +13,7 @@ class Products {
         this.productType = variantData.getAttribute('data-product-type'),
         this.hideDefaultTitle = false,
         this.soldOut = variantData.getAttribute('data-sold-out'),
-        this.unavailable = variantData.getAttribute('data-unavailable'),
-        this.priceElement = document.querySelector('#product-price .product-price');
+        this.unavailable = variantData.getAttribute('data-unavailable');
 
         if(variantData.getAttribute('data-hide-default-title') == 'true') {
             this.hideDefaultTitle = true;
@@ -57,11 +56,11 @@ class Products {
         if (variantInput) {
             variantInput.value = variant.id;
         }
-
+        
         // Update price
-        if (this.priceElement) {
-            this.priceElement.textContent =
-            Shopify.formatMoney(variant.price, this.moneyFormat);
+        let productPrice = document.querySelector('#product-price .product-price');
+        if (productPrice) {
+            productPrice.textContent = Shopify.formatMoney(variant.price, this.moneyFormat);
         }
     }
 
@@ -84,10 +83,15 @@ class Products {
             } else { // Variant is sold out.
                 document.querySelector('#backorder').classList.add("hidden");
 
-                const cartButton = document.querySelector('#AddToCart');
-                cartButton.value = this.soldOut;
-                cartButton.classList.add('disabled');
-                cartButton.disabled = true;
+                let cartButton = document.querySelector('#AddToCart');
+                if(this.productType == 'Carpets' || this.productType == 'Vinyl' || this.productType == 'Artificial Grass') {
+                    cartButton = document.querySelector('#carpetAddToCart');
+                }
+                if(cartButton) {
+                    cartButton.value = this.soldOut;
+                    cartButton.classList.add('disabled');
+                    cartButton.disabled = true;
+                }
             }
             updatePrice();
             
@@ -95,7 +99,6 @@ class Products {
                 updateSampleAvailability();    
             }
 
-            
             if(jQuery('#first_load').val() != 'false' || !jQuery('.option-colour #select-option-colour').length) {
                 var selectedOption = jQuery('#product-select').find('option:selected'),
                     stock_level = selectedOption.data('stocklevel'),

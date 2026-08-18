@@ -16,7 +16,7 @@
 {% assign products_per_row = numbers[products_per_row] | strip | append: '-per-row' %}
 
 
-{% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
+{% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' or request.host == 'www.wilsonsbeds.com' %}
 {{ 'filters.css' | asset_url | stylesheet_tag }}
 {% endif %}
 

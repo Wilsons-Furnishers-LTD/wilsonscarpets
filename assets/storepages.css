@@ -1,3 +1,13 @@
+.two-col-wb {
+    background-color: #fff !important;
+}
+.two-col-wb .col-main {
+    width: 100%;
+}
+.cms-two-columns.two-col-wb  .col-main .container {
+    max-width: 100%;
+    width: 100%;
+}
 .pagecontents {
 width: 100%;
 box-sizing: border-box;

@@ -192,7 +192,7 @@ class=" klevu-container
 {% if customer %}customer-logged-in{% endif %}
 template-{{ template.name }}
 {% if request.host == 'wilsons-beds.myshopify.com'
-or request.host == 'wilsonsbeds.com' %}
+or request.host == 'wilsonsbeds.com' or request.host == 'www.wilsonsbeds.com' %}
 wilsons-beds-body
 {% endif %}
 ">

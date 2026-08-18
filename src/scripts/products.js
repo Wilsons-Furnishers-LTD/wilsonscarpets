@@ -99,6 +99,7 @@ class Products {
                 updateSampleAvailability();    
             }
 
+
             if(jQuery('#first_load').val() != 'false' || !jQuery('.option-colour #select-option-colour').length) {
                 var selectedOption = jQuery('#product-select').find('option:selected'),
                     stock_level = selectedOption.data('stocklevel'),

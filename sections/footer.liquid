@@ -127,8 +127,8 @@
 				<div class="col-wide-3">
 					<p class="logo">
                         <a href="{{ shop.url }}">
-                            {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
-                                <img style="width: 100px;" width="100" height="{{section.settings.logo_height}}" src="{{ 'wilsons-beds-logo.svg' |  asset_url }}"  alt="{{ shop.name }}">
+                            {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' or request.host == 'www.wilsonsbeds.com' %}
+                                <img style="width: 100px;" width="100" height="{{section.settings.logo_height}}" src="{{ 'wilsonsbeds-logo.svg' |  asset_url }}"  alt="{{ shop.name }}">
                             {% else %}
                                 <img width="180" height="35" src="{{ 'logo.png' | asset_url }}"  alt="{{ shop.name }}"/>
                             {% endif %}

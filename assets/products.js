@@ -83,10 +83,15 @@ class Products {
             } else { // Variant is sold out.
                 document.querySelector('#backorder').classList.add("hidden");
 
-                const cartButton = document.querySelector('#AddToCart');
-                cartButton.value = this.soldOut;
-                cartButton.classList.add('disabled');
-                cartButton.disabled = true;
+                let cartButton = document.querySelector('#AddToCart');
+                if(this.productType == 'Carpets' || this.productType == 'Vinyl' || this.productType == 'Artificial Grass') {
+                    cartButton = document.querySelector('#carpetAddToCart');
+                }
+                if(cartButton) {
+                    cartButton.value = this.soldOut;
+                    cartButton.classList.add('disabled');
+                    cartButton.disabled = true;
+                }
             }
             updatePrice();
             
@@ -94,7 +99,7 @@ class Products {
                 updateSampleAvailability();    
             }
 
-            
+
             if(jQuery('#first_load').val() != 'false' || !jQuery('.option-colour #select-option-colour').length) {
                 var selectedOption = jQuery('#product-select').find('option:selected'),
                     stock_level = selectedOption.data('stocklevel'),

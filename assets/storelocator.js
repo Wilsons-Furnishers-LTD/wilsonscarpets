@@ -1048,7 +1048,10 @@
                         $container.find('.inner-item').removeClass('inner-item-active');
                         $target.addClass('inner-item-active');
                         console.log($(window).width() > 767);
-                        if($(window).width() > 767) ;
+                        if($(window).width() > 767) {
+                            var scrollTop = $target.offset().top - $container.offset().top + $container.scrollTop() - 20;
+                            $container.stop().animate({ scrollTop: scrollTop }, 300);
+                        }
                     }
                 }
             });
@@ -1455,7 +1458,10 @@
                     let infoWindowWrapper = document.getElementById('info-window-wrapper');
                     $(infoWindowWrapper).html('');
 
-                    if($(window).width() < 768) ;
+                    if($(window).width() < 768) {
+                        $(infoWindowWrapper).offset().top - 400;
+                        // $('html,body').animate({scrollTop: top}, 1000);
+                    }
                     
                     let storeInfo = $('.store-closest')[0].outerHTML;
                     
@@ -3549,7 +3555,7 @@
                     dataType: "html",
                 }).done(function(results) {
                   //storeify-alert
-                //   jQuery( "div.content-store-products" ).scrollTop( 0 );
+                  jQuery( "div.content-store-products" ).scrollTop( 0 );
                 //   jQuery([document.documentElement, document.body]).animate({
                 //     scrollTop: jQuery("div.storeify-list-product").offset().top
                 //   }, 500);

@@ -2349,7 +2349,7 @@
             if (openButton) {
                 let id = openButton.getAttribute('data-id');
                 $('#' + id).addClass('active');
-                $('body').addClass('store-modal-open');
+
 
                 scrollPositionY = window.scrollY;
 
@@ -2357,17 +2357,17 @@
                 document.body.style.position = 'fixed';
                 document.body.style.top = `-${scrollPositionY}px`;
                 document.body.style.width = '100%';
+                document.body.classList.add('store-modal-open');
             }
 
             if (closeButton) {
                 let id = closeButton.getAttribute('data-id');
                 $('#' + id).removeClass('active');
-                $('body').removeClass('store-modal-open');
 
                 document.body.style.position = '';
                 document.body.style.top = '';
                 document.body.style.width = '';
-
+                document.body.classList.remove('store-modal-open');
                 window.scrollTo(0, scrollPositionY);
             }
         });

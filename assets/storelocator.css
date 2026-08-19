@@ -3151,6 +3151,13 @@ body .cw-storelocator .store-details-modal {
   transition: all 0.3s ease;
   overflow-y: scroll;
 }
+@media only screen and (min-width: 768px) {
+  body .cw-storelocator .store-details-modal {
+    position: fixed;
+    width: calc(50% - 40px);
+    min-width: 500px;
+  }
+}
 @media only screen and (max-width: 767px) {
   body .cw-storelocator .store-details-modal {
     height: 100dvh;

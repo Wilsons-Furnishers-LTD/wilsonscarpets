@@ -13,6 +13,15 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
+        "image_QRURqf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/strutted_icon2.svg",
+            "title": "Strutted",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_wypTGN": {
           "type": "image",
           "settings": {
@@ -1203,6 +1212,7 @@
         }
       },
       "block_order": [
+        "image_QRURqf",
         "image_wypTGN",
         "image_xMLGUX",
         "3c47aef4-d34d-4261-a79a-6c5137770ea5",

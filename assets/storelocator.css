@@ -3194,6 +3194,12 @@ body .cw-storelocator .store-details-modal .store-details-modal-header .store-de
   color: #ba3c3d;
   padding: 0 35px;
 }
+@media only screen and (max-width: 767px) {
+  body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-title {
+    padding-left: 0;
+    text-align: left;
+  }
+}
 body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close {
   position: absolute;
   top: 1px;
@@ -3582,7 +3588,7 @@ body .cw-storelocator .store-details-modal-opening-times tr.today td {
     transform: none !important;
   }
   .store-details-modal .store-details-modal-inner {
-    border-top: none;
+    border-top: none !important;
   }
 }
 @media only screen and (max-width: 1200px) {

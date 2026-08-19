@@ -978,7 +978,7 @@
                 
 
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
-                $(infoWindowWrapper).html('');
+                // $(infoWindowWrapper).html('');
 
 
                 // sort this
@@ -987,9 +987,9 @@
                 //     $('html,body').animate({scrollTop: top}, 1000);
                 // }
                 
-                let storeInfo = create_html_list(data_maker, 0, true);
+                create_html_list(data_maker, 0, true);
                 
-                $(infoWindowWrapper).html(storeInfo);
+                // $(infoWindowWrapper).html(storeInfo);
                 
                 $(infoWindowWrapper).find('.store-item')[0].removeAttribute('datamarker');
                 // add store time

@@ -2347,21 +2347,19 @@
             const closeButton = e.target.closest('.store-details-modal-close');
 
             if (openButton) {
-                let id = openButton.getAttribute('data-id');
-                $('#' + id).addClass('active');
+                let parent = $(openButton).closest('.item');
+                let modal = $(parent).find('.store-details-modal');
 
-
-                scrollPositionY = window.scrollY;
-
-                console.log(scrollPositionY);
-                document.body.style.top = `-${scrollPositionY}px`;
-                document.body.classList.add('store-modal-open');
+                if(modal) {
+                    $(modal).addClass('active');
+                    scrollPositionY = window.scrollY;
+                    document.body.style.top = `-${scrollPositionY}px`;
+                    document.body.classList.add('store-modal-open');
+                }
             }
 
             if (closeButton) {
-                let id = closeButton.getAttribute('data-id');
-                $('#' + id).removeClass('active');
-
+                $('.store-details-modal').removeClass('active');
                 document.body.style.position = '';
                 document.body.style.top = '';
                 document.body.classList.remove('store-modal-open');

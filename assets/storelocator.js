@@ -975,7 +975,7 @@
                 }
                 // load info window here 
                 
-                console.log(evt);
+                console.log(event);
 
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
                 $(infoWindowWrapper).html('');

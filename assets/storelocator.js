@@ -2347,7 +2347,7 @@
             const closeButton = e.target.closest('.store-details-modal-close');
 
             if (openButton) {
-                let id = target.getAttribute('data-id');
+                let id = openButton.getAttribute('data-id');
                 $('#' + id).addClass('active');
                 $('body').addClass('store-modal-open');
 
@@ -2359,7 +2359,7 @@
             }
 
             if (closeButton) {
-                let id = target.getAttribute('data-id');
+                let id = closeButton.getAttribute('data-id');
                 $('#' + id).removeClass('active');
                 $('body').removeClass('store-modal-open');
 

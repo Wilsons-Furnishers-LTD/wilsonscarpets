@@ -975,7 +975,7 @@
                 }
                 // load info window here 
                 
-                console.log(event.target);
+                console.log(event.target == '.store-details-modal-button');
 
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
                 $(infoWindowWrapper).html('');

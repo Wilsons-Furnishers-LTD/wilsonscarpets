@@ -975,21 +975,24 @@
                 }
                 // load info window here 
                 
-                console.log(event.target);
 
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
-                $(infoWindowWrapper).html('');
+                if(!event.target.classList.contains('store-details-modal-button')) {
+                    $(infoWindowWrapper).html('');
+                }
 
 
                 // sort this
-                // if($(window).width() < 768) {
-                //     var top = $(infoWindowWrapper).offset().top - 400;
-                //     $('html,body').animate({scrollTop: top}, 1000);
-                // }
+                if($(window).width() < 768 && !event.target.classList.contains('store-details-modal-button')) {
+                    var top = $(infoWindowWrapper).offset().top - 400;
+                    $('html,body').animate({scrollTop: top}, 1000);
+                }
                 
                 let storeInfo = create_html_list(data_maker, 0, true);
                 
-                $(infoWindowWrapper).html(storeInfo);
+                if(!event.target.classList.contains('store-details-modal-button')) {
+                    $(infoWindowWrapper).html(storeInfo);
+                }
                 
                 $(infoWindowWrapper).find('.store-item')[0].removeAttribute('datamarker');
                 // add store time

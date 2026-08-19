@@ -3209,7 +3209,7 @@ body .cw-storelocator .store-details-modal .store-details-modal-header .store-de
 }
 @media only screen and (max-width: 767px) {
   body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close {
-    top: 4px;
+    top: 7px;
   }
 }
 body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close svg {

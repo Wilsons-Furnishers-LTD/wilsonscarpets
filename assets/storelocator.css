@@ -3574,8 +3574,8 @@ body .cw-storelocator .store-details-modal-opening-times tr.today td {
 
 @media only screen and (max-width: 767px) {
   body.store-modal-open {
+    position: fixed;
     width: 100%;
-    height: 100vh;
     overflow: hidden;
   }
   body.store-modal-open .storelocator-search {

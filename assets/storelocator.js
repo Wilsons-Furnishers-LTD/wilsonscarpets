@@ -3556,9 +3556,9 @@
                 }).done(function(results) {
                   //storeify-alert
                   jQuery( "div.content-store-products" ).scrollTop( 0 );
-                  jQuery([document.documentElement, document.body]).animate({
-                    scrollTop: jQuery("div.storeify-list-product").offset().top
-                  }, 500);
+                //   jQuery([document.documentElement, document.body]).animate({
+                //     scrollTop: jQuery("div.storeify-list-product").offset().top
+                //   }, 500);
                   jQuery('.storeify-list-product').removeClass('load-ajax');
                   if(jQuery('.content-store-products .storeify-flex').length)
                     jQuery('.content-store-products .storeify-flex').html(results);

@@ -1464,7 +1464,7 @@
                     }
                     
                     let storeInfo = $('.store-closest')[0].outerHTML;
-                    
+                    console.log(storeInfo);
                     $(infoWindowWrapper).html(storeInfo);
                     
                     

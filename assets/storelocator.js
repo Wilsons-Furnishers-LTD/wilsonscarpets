@@ -2342,12 +2342,12 @@
         document.addEventListener('click', function(e){
             const target = e.target.closest(".store-details-modal-button"); 
             if(target){
-                const scrollY = window.scrollY;
-                console.log(scrollY);
+                
+                
                 let id = target.getAttribute('data-id');
                 $('#' + id).addClass('active');
                 $('body').addClass('store-modal-open');
-                window.scrollTo(0, 2000);
+                
 
             }
         });

@@ -3581,6 +3581,9 @@ body .cw-storelocator .store-details-modal-opening-times tr.today td {
   body.store-modal-open .storelocator-search {
     transform: none !important;
   }
+  .store-details-modal .store-details-modal-inner {
+    border-top: none;
+  }
 }
 @media only screen and (max-width: 1200px) {
   body .cw-storelocator #results-slt .item-thumb, body .cw-storelocator #info-window-wrapper .item-thumb {

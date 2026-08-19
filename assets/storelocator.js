@@ -975,10 +975,10 @@
                 }
                 // load info window here 
                 
-                
+                console.log(evt.target);
 
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
-                // $(infoWindowWrapper).html('');
+                $(infoWindowWrapper).html('');
 
 
                 // sort this
@@ -987,9 +987,9 @@
                 //     $('html,body').animate({scrollTop: top}, 1000);
                 // }
                 
-                create_html_list(data_maker, 0, true);
+                let storeInfo = create_html_list(data_maker, 0, true);
                 
-                // $(infoWindowWrapper).html(storeInfo);
+                $(infoWindowWrapper).html(storeInfo);
                 
                 $(infoWindowWrapper).find('.store-item')[0].removeAttribute('datamarker');
                 // add store time

@@ -128,8 +128,10 @@
                                     <div class="store-opening-times">
                                         ${openingTime}
                                     </div>
-                                    <div class="store-details-modal-button" data-id="store-details-modal-${i}">
-                                    Opening hours
+                                    <div class="store-details-modal-button-container">
+                                        <div class="store-details-modal-button" data-id="store-details-modal-${i}">
+                                        Opening hours
+                                        </div>
                                     </div>
                                     <!--- 
                                     <div class="storeify-sl-item-row item-link">

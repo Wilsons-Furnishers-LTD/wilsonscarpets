@@ -1047,8 +1047,11 @@
                     if ($target.length) {
                         $container.find('.inner-item').removeClass('inner-item-active');
                         $target.addClass('inner-item-active');
-                        var scrollTop = $target.offset().top - $container.offset().top + $container.scrollTop() - 20;
-                        $container.stop().animate({ scrollTop: scrollTop }, 300);
+                        
+                        if($(window).width() > 767) {
+                            var scrollTop = $target.offset().top - $container.offset().top + $container.scrollTop() - 20;
+                            $container.stop().animate({ scrollTop: scrollTop }, 300);
+                        }
                     }
                 }
             });

@@ -3553,7 +3553,7 @@
                     dataType: "html",
                 }).done(function(results) {
                   //storeify-alert
-                  jQuery( "div.content-store-products" ).scrollTop( 0 );
+                //   jQuery( "div.content-store-products" ).scrollTop( 0 );
                   jQuery([document.documentElement, document.body]).animate({
                     scrollTop: jQuery("div.storeify-list-product").offset().top
                   }, 500);

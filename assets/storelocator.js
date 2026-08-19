@@ -1459,8 +1459,8 @@
                     $(infoWindowWrapper).html('');
 
                     if($(window).width() < 768) {
-                        var top = $(infoWindowWrapper).offset().top - 400;
-                        $('html,body').animate({scrollTop: top}, 1000);
+                        $(infoWindowWrapper).offset().top - 400;
+                        // $('html,body').animate({scrollTop: top}, 1000);
                     }
                     
                     let storeInfo = $('.store-closest')[0].outerHTML;

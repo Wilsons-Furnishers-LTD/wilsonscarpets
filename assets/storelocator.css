@@ -3137,6 +3137,7 @@ body .cw-storelocator .store-details-modal-button {
   color: #ba3c3d;
   font-weight: 900;
   padding-top: 10px;
+  display: inline-block;
 }
 body .cw-storelocator .store-details-modal {
   position: absolute;

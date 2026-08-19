@@ -2353,6 +2353,7 @@
 
                 scrollPositionY = window.scrollY;
 
+                console.log(scrollPositionY);
                 document.body.style.position = 'fixed';
                 document.body.style.top = `-${scrollPositionY}px`;
                 document.body.style.width = '100%';

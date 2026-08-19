@@ -978,10 +978,10 @@
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
                 $(infoWindowWrapper).html('');
 
-                if($(window).width() < 768) {
-                    var top = $(infoWindowWrapper).offset().top - 400;
-                    $('html,body').animate({scrollTop: top}, 1000);
-                }
+                // if($(window).width() < 768) {
+                //     var top = $(infoWindowWrapper).offset().top - 400;
+                //     $('html,body').animate({scrollTop: top}, 1000);
+                // }
                 
                 let storeInfo = create_html_list(data_maker, 0, true);
                 

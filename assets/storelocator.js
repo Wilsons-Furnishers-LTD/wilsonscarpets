@@ -177,9 +177,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="store-details-modal" id="store-details-modal-${i}">
+                        <div class="store-details-modal" id="store-details-modal-${i}">
                         <div class="store-details-modal-inner">
                             <div class="store-details-modal-header">
                                 <div class="store-details-modal-title">
@@ -212,6 +210,8 @@
                                 ${fullOpeningTimes}
                             </div>
                         </div>
+                    </div>
+                    
                     </div>
                     
                 `;
@@ -1464,7 +1464,7 @@
                     }
                     
                     let storeInfo = $('.store-closest')[0].outerHTML;
-                    console.log(storeInfo);
+                    
                     $(infoWindowWrapper).html(storeInfo);
                     
                     

@@ -978,6 +978,8 @@
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
                 $(infoWindowWrapper).html('');
 
+
+                // sort this
                 // if($(window).width() < 768) {
                 //     var top = $(infoWindowWrapper).offset().top - 400;
                 //     $('html,body').animate({scrollTop: top}, 1000);
@@ -2339,27 +2341,33 @@
                }, 2000);
             }
 
+        let scrollPositionY = 0;
+        document.addEventListener('click', function (e) {
+            const openButton = e.target.closest('.store-details-modal-button');
+            const closeButton = e.target.closest('.store-details-modal-close');
 
-        document.addEventListener('click', function(e){
-            const target = e.target.closest(".store-details-modal-button"); 
-            if(target){
-                
-                
+            if (openButton) {
                 let id = target.getAttribute('data-id');
                 $('#' + id).addClass('active');
                 $('body').addClass('store-modal-open');
-                
 
+                scrollPositionY = window.scrollY;
+
+                document.body.style.position = 'fixed';
+                document.body.style.top = `-${scrollPositionY}px`;
+                document.body.style.width = '100%';
             }
-        });
 
-
-        document.addEventListener('click', function(e){
-            const target = e.target.closest(".store-details-modal-close"); 
-            if(target){
+            if (closeButton) {
                 let id = target.getAttribute('data-id');
                 $('#' + id).removeClass('active');
                 $('body').removeClass('store-modal-open');
+
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.style.width = '';
+
+                window.scrollTo(0, scrollPositionY);
             }
         });
 

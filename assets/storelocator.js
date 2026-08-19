@@ -979,8 +979,8 @@
                 $(infoWindowWrapper).html('');
 
                 if($(window).width() < 768) {
-                    $(infoWindowWrapper).offset().top - 400;
-                    // $('html,body').animate({scrollTop: top}, 1000);
+                    var top = $(infoWindowWrapper).offset().top - 400;
+                    $('html,body').animate({scrollTop: top}, 1000);
                 }
                 
                 let storeInfo = create_html_list(data_maker, 0, true);
@@ -1047,11 +1047,9 @@
                     if ($target.length) {
                         $container.find('.inner-item').removeClass('inner-item-active');
                         $target.addClass('inner-item-active');
-                        console.log($(window).width() > 767);
-                        if($(window).width() > 767) {
-                            var scrollTop = $target.offset().top - $container.offset().top + $container.scrollTop() - 20;
-                            $container.stop().animate({ scrollTop: scrollTop }, 300);
-                        }
+                        
+                        var scrollTop = $target.offset().top - $container.offset().top + $container.scrollTop() - 20;
+                        $container.stop().animate({ scrollTop: scrollTop }, 300);
                     }
                 }
             });
@@ -3556,9 +3554,9 @@
                 }).done(function(results) {
                   //storeify-alert
                   jQuery( "div.content-store-products" ).scrollTop( 0 );
-                //   jQuery([document.documentElement, document.body]).animate({
-                //     scrollTop: jQuery("div.storeify-list-product").offset().top
-                //   }, 500);
+                  jQuery([document.documentElement, document.body]).animate({
+                    scrollTop: jQuery("div.storeify-list-product").offset().top
+                  }, 500);
                   jQuery('.storeify-list-product').removeClass('load-ajax');
                   if(jQuery('.content-store-products .storeify-flex').length)
                     jQuery('.content-store-products .storeify-flex').html(results);

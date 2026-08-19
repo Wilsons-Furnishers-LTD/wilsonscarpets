@@ -2354,9 +2354,7 @@
                 scrollPositionY = window.scrollY;
 
                 console.log(scrollPositionY);
-                document.body.style.position = 'fixed';
                 document.body.style.top = `-${scrollPositionY}px`;
-                document.body.style.width = '100%';
                 document.body.classList.add('store-modal-open');
             }
 
@@ -2366,7 +2364,6 @@
 
                 document.body.style.position = '';
                 document.body.style.top = '';
-                document.body.style.width = '';
                 document.body.classList.remove('store-modal-open');
                 window.scrollTo(0, scrollPositionY);
             }

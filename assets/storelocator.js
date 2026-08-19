@@ -1456,10 +1456,7 @@
                     let infoWindowWrapper = document.getElementById('info-window-wrapper');
                     $(infoWindowWrapper).html('');
 
-                    if($(window).width() < 768) {
-                        $(infoWindowWrapper).offset().top - 400;
-                        // $('html,body').animate({scrollTop: top}, 1000);
-                    }
+                    if($(window).width() < 768) ;
                     
                     let storeInfo = $('.store-closest')[0].outerHTML;
                     

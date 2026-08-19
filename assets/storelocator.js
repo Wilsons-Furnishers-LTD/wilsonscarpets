@@ -2754,6 +2754,8 @@
             setTimeout(() => {
                 map.fitBounds(bounds);
             }, 10);
+            $('.store-details-modal').removeClass('active');
+            document.body.classList.remove('store-modal-open');
         });
         jQuery(document).on("submit","#frm-storelocator-short-search",function(e) {
           e.preventDefault();

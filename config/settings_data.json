@@ -1,0 +1,253 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "background_color": "#FFFFFF",
+    "text_color": "#898989",
+    "link_color": "#898989",
+    "type_body_font": "source_sans_pro_n4",
+    "type_header_font": "source_sans_pro_n4",
+    "head_scripts": "<!-- Ahrefs -->\n<script src=\"https://analytics.ahrefs.com/analytics.js\" data-key=\"dyJ8DERD/ZtX7rlBfJ4U+Q\" async></script>\n\n\n\n\n<!-- Google Tag Manager -->\n<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':\nnew Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],\nj=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=\n'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);\n})(window,document,'script','dataLayer','GTM-5RM85MSP');</script>\n<!-- End Google Tag Manager -->",
+    "body_scripts": "<!-- Google Tag Manager (noscript) -->\n<noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-5BZXZVQ\"\nheight=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript>\n<!-- End Google Tag Manager (noscript) -->\n<!-- By using this audio pixel code, the Customer hereby instructs AdsWizz toProcess Personal Data in its quality as a sub-processor.The ownership and control of Personal Data remains with Customer, and Customer will always remain the Data Controller. Customer is responsible for compliance with its obligations as Data Controller under the Data Protection Laws, in particular for justification of any transmission of Personal Data to AdsWizz (including but not limited providing any required notices and obtaining any required consents from the data subjects), and for its decisions concerning the Processing and use of the Personal Data. --><img src=https://audioxi-22-adswizz.attribution.adswizz.com/fire?pixelId=d4347e5c-d8f2-4176-b6bb-be6244d629ef&type=sitevisit&subtype=HomePage&aw_0_req.gdpr=true&redirectURL=aHR0cHM6Ly9waXhlbC50YXBhZC5jb20vaWRzeW5jL2V4L3JlY2VpdmU_cGFydG5lcl9pZD0yOTk0JjwjaWYgcmVxdWVzdC5saXN0ZW5lcklkP21hdGNoZXMoJ1swLTlhLWZdezh9LVswLTlhLWZdezR9LVswLTlhLWZdezR9LVswLTlhLWZdezR9LVswLTlhLWZdezEyfScpPnBhcnRuZXJfdHlwZWRfZGlkPSU3QiUyMkhBUkRXQVJFX0FORFJPSURfQURfSUQlMjIlM0ElMjIke3JlcXVlc3QubGlzdGVuZXJJZH0lMjIlN0Q8I2Vsc2VpZiByZXF1ZXN0Lmxpc3RlbmVySWQ_bWF0Y2hlcygnWzAtOUEtRl17OH0tWzAtOUEtRl17NH0tWzAtOUEtRl17NH0tWzAtOUEtRl17NH0tWzAtOUEtRl17MTJ9Jyk-cGFydG5lcl90eXBlZF9kaWQ9JTdCJTIySEFSRFdBUkVfSURGQSUyMiUzQSUyMiR7cmVxdWVzdC5saXN0ZW5lcklkfSUyMiU3RDwjZWxzZT5wYXJ0bmVyX2RldmljZV9pZD0ke3JlcXVlc3QubGlzdGVuZXJJZCF9PC8jaWY-/>",
+    "products_per_row": "3",
+    "number_of_rows": "5",
+    "ajax_cart_method": "drawer",
+    "sections": {
+      "top-links": {
+        "type": "top-links",
+        "blocks": {
+          "1574421377886": {
+            "type": "image",
+            "settings": {
+              "title": "Lowest Prices Guaranteed",
+              "subheading": "",
+              "link": "shopify://pages/price-promise",
+              "show_mobile": false,
+              "svg_icon": "price",
+              "fa_icon": "",
+              "sign_icon": ""
+            }
+          },
+          "1574421383578": {
+            "type": "image",
+            "settings": {
+              "title": "Family Business Since 1968",
+              "subheading": "",
+              "link": "shopify://pages/about-us",
+              "show_mobile": true,
+              "svg_icon": "55-years",
+              "fa_icon": "",
+              "sign_icon": ""
+            }
+          },
+          "1574421384455": {
+            "type": "image",
+            "settings": {
+              "title": "Free Fast Delivery*",
+              "subheading": "",
+              "link": "shopify://pages/delivery",
+              "show_mobile": false,
+              "svg_icon": "free-delivery",
+              "fa_icon": "",
+              "sign_icon": ""
+            }
+          },
+          "1574421385615": {
+            "type": "image",
+            "settings": {
+              "title": "Find Your Local Store",
+              "subheading": "",
+              "link": "shopify://pages/stores",
+              "show_mobile": false,
+              "svg_icon": "location",
+              "fa_icon": "",
+              "sign_icon": ""
+            }
+          }
+        },
+        "block_order": [
+          "1574421377886",
+          "1574421383578",
+          "1574421384455",
+          "1574421385615"
+        ],
+        "settings": {}
+      },
+      "header": {
+        "type": "header",
+        "blocks": {
+          "69df0798-3e64-4584-be18-e2c7776dd305": {
+            "type": "text",
+            "settings": {
+              "title": "23 December 2022",
+              "call_today": "11:58pm - 11:59pm",
+              "call_today_text": "Call Tuesday: 8am - 5:30pm"
+            }
+          },
+          "41130711-8d03-4432-adf6-73c1319470da": {
+            "type": "text",
+            "settings": {
+              "title": "24 December 2022",
+              "call_today": "11:58pm - 11:59pm",
+              "call_today_text": "Call Tuesday: 8am - 5:30pm"
+            }
+          },
+          "092059ee-8ee2-43ce-aadb-128aa7fb9733": {
+            "type": "text",
+            "settings": {
+              "title": "25 December 2022",
+              "call_today": "11:58pm - 11:59pm",
+              "call_today_text": "Call Tuesday: 8am - 5:30pm"
+            }
+          },
+          "acc839dc-fb3c-416e-ac8b-4dd907c119db": {
+            "type": "text",
+            "settings": {
+              "title": "26 December 2022",
+              "call_today": "11:58pm - 11:59pm",
+              "call_today_text": "Call Tuesday: 8am - 5:30pm"
+            }
+          },
+          "6f1b30e4-7765-4bcf-a4bb-2241b4458033": {
+            "type": "text",
+            "settings": {
+              "title": "30 December 2022",
+              "call_today": "11:58pm - 11:59pm",
+              "call_today_text": "Call Monday: 8am - 5:30pm"
+            }
+          },
+          "57d5743c-f69d-4a65-9574-aeb134d7d46e": {
+            "type": "text",
+            "settings": {
+              "title": "31 December 2022",
+              "call_today": "11:58pm - 11:59pm",
+              "call_today_text": "Call Monday: 8am - 5:30pm"
+            }
+          },
+          "301fb2d0-ff01-438b-abcd-fe9092e33ac4": {
+            "type": "text",
+            "settings": {
+              "title": "1 January 2023",
+              "call_today": "11:58pm - 11:59pm",
+              "call_today_text": "Call Tomorrow: 8am - 5:30pm"
+            }
+          }
+        },
+        "block_order": [
+          "69df0798-3e64-4584-be18-e2c7776dd305",
+          "41130711-8d03-4432-adf6-73c1319470da",
+          "092059ee-8ee2-43ce-aadb-128aa7fb9733",
+          "acc839dc-fb3c-416e-ac8b-4dd907c119db",
+          "6f1b30e4-7765-4bcf-a4bb-2241b4458033",
+          "57d5743c-f69d-4a65-9574-aeb134d7d46e",
+          "301fb2d0-ff01-438b-abcd-fe9092e33ac4"
+        ],
+        "custom_css": [],
+        "settings": {
+          "call_time_weekday": "8am - 8pm",
+          "call_time_saturday": "9am - 5:30pm",
+          "call_time_sunday": "9am - 5:30pm",
+          "phone": "0800 9705 705",
+          "location_text": "<span>Find your</span><span>local store</span>",
+          "location_url": "shopify://pages/stores",
+          "email": "info@onlinecarpets.co.uk",
+          "email_subject": "Hello",
+          "show_announcement": false,
+          "text_color": "custom",
+          "custom_text_color": "#fafafa",
+          "background_color": "#e11f1f",
+          "message_1": "<p>Not Yet Live :)</p>",
+          "show_message_1": false,
+          "message_2": "<p>We are expecting this to be back working very shortly </p>",
+          "show_message_2": false,
+          "message_3": "<p><a href=\"tel:08009705705\" title=\"tel:08009705705\">You can still place your order by calling 0800 9705 705</a></p>",
+          "show_message_3": false,
+          "message_4": "<p>Lorem ipsum dolor sit amet</p>",
+          "show_message_4": false,
+          "message_5": "<p>Lorem ipsum dolor sit amet</p>",
+          "show_message_5": false,
+          "logo_svg": "https://cdn.shopify.com/s/files/1/0735/5947/4483/files/Wilsons-Logo.svg?v=1749033193",
+          "logo": "shopify://shop_images/wilsons-carpets-logo_b9b977ed-e47d-4d95-adfe-6d774c0f7778.png",
+          "logo_width": "100",
+          "logo_height": "82"
+        }
+      },
+      "promo-bar": {
+        "type": "promo-bar",
+        "settings": {
+          "background_colour": "#e11f1f",
+          "border_colour": "#ffca51",
+          "add_border": "",
+          "title": "Order Now For Pre Xmas Delivery",
+          "title_border_colour": "#ffffff",
+          "title_colour": "#ffffff",
+          "add_title_border": "",
+          "heading_title_tag": "h1",
+          "sub_title": "",
+          "subtitle_colour": "#ffffff",
+          "subtitle_border_colour": "#ffca51",
+          "add_subtitle_border": "",
+          "link": "shopify://collections/clearance-offers",
+          "button_text": "See Offers",
+          "button_text_colour": "#1f325d",
+          "button_colour": "#ffca51",
+          "show_promo": false
+        }
+      },
+      "section-cookie-popup": {
+        "type": "section-cookie-popup",
+        "settings": {
+          "enable_cookies": false,
+          "bg_color": "#f2bf00",
+          "title": "We care about your privacy",
+          "title_color": "#414b52",
+          "content": "<p>By using our website you agree to our use of cookies. <a href=\"/pages/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\">Privacy policy</a></p>",
+          "content_color": "#414b52",
+          "button_link": "",
+          "button_text": "Okay",
+          "button_bg_color": "#ffffff"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_linklist": "footer",
+          "footer_linklist_two": "online-carpets",
+          "footer_linklist_three": "advice-centre",
+          "footer_linklist_four": "",
+          "footer_linklist_five": "contact-us",
+          "payment_logos": "shopify://shop_images/payments.png",
+          "copyright": "All Rights Reserved. Company Registration Number: 04651763"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "image": "shopify://shop_images/Screen_Shot_2020-02-19_at_21.11.05.png",
+          "title": "Sign up to our newsletter",
+          "subtitle": "Receive the latest news, special offers, and updates",
+          "show_background": true
+        }
+      },
+      "footer-scripts": {
+        "type": "footer-scripts",
+        "settings": {}
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "15351435345818755577": {
+        "type": "shopify://apps/pandectes-gdpr/blocks/banner/58c0baa2-6cc1-480c-9ea6-38d6d559556a",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  }
+}

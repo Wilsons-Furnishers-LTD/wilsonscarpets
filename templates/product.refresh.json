@@ -8,7 +8,7 @@
  * ------------------------------------------------------------
  */
 {
-  "layout": "product",
+  "layout": "product-refresh",
   "sections": {
     "product_features_ytAMcG": {
       "type": "product-features",

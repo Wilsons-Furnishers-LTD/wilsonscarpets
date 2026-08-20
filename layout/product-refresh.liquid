@@ -245,6 +245,7 @@ window.KlarnaThemeGlobals.data_purchase_amount =
     {% render 'breadcrumbs' %}
     {%- include 'product-top' -%}
     {%- include 'product-meta' -%}
+    {%- include 'product-top' -%}
     </div>
 </main>
 
@@ -255,12 +256,6 @@ window.KlarnaThemeGlobals.data_purchase_amount =
         <div class="cms-homepage">
     {% endif %}
 
-    {% assign GTINexist = '' %}
-    {% for tag in product.tags %}
-        {% if tag contains 'identifier_exists_' %}
-            {% assign GTINexist = tag | replace: 'identifier_exists_', '' %}
-        {% endif %}
-    {% endfor %}
 
     {%- include 'product-top' -%}
     <div class="wrapper">

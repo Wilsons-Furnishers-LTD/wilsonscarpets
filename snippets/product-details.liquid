@@ -288,14 +288,23 @@
 
                             {% for option in product.options_with_values %}
                                 {% assign order = option.position | minus: 1  %}
+                                {% assign isColour = false  %}
+                                {% if option.name contains 'Colour' %}
+                                    {% assign isColour = true  %}
+                                {% endif %}
                                 
-                                <div class="selector-wrapper">
-                                    <label for="product-select-option-{{ order }}">{{ option.name }}</label>
-                                    <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
-                                        {% for value in option.values %}
-                                            <option value="{{ value | escape }}">{{ value }}</option>
-                                        {% endfor %}
-                                    </select>
+                                {% if isColour == false %}
+                                    <h2 style="order: {{ order }}">{{option.name}}</h2>
+                                {% endif %}
+                                <div style="order: {{ order }}" data-order="{{ order }}" class="content {% if isColour %} colour-dropdown {% endif %}">
+                                    <div class="selector-wrapper">
+                                        <label for="product-select-option-{{ order }}">{{ option.name }}</label>
+                                        <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
+                                            {% for value in option.values %}
+                                                <option value="{{ value | escape }}">{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
                             {% endfor %}  
                             

@@ -13,6 +13,14 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
+        "image_xiDfqH": {
+          "type": "image",
+          "settings": {
+            "title": "2000 Pocket Springs",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_8CLLDy": {
           "type": "image",
           "settings": {
@@ -644,6 +652,7 @@
         }
       },
       "block_order": [
+        "image_xiDfqH",
         "image_8CLLDy",
         "image_W6QPD4",
         "image_xMLGUX",

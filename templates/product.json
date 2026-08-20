@@ -31,15 +31,6 @@
             "link": ""
           }
         },
-        "image_A9BHCc": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Hand_made_in_the_uk_icon2.svg",
-            "title": "UK Hand Made",
-            "subheading": "",
-            "link": ""
-          }
-        },
         "image_aLwTeB": {
           "type": "image",
           "settings": {
@@ -772,7 +763,6 @@
       "block_order": [
         "image_QRURqf",
         "image_aGpQky",
-        "image_A9BHCc",
         "image_aLwTeB",
         "image_wypTGN",
         "image_xMLGUX",

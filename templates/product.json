@@ -363,114 +363,6 @@
             "link": "shopify://pages/delivery-info"
           }
         },
-        "1583503114418": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/wood_effect_laminate.png",
-            "title": "Wood Style LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1597233275757": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/stone_effect.png",
-            "title": "Stone Style LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1583503456096": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/r10-slip-resistance_9bc5d5e5-5331-423f-89fc-664b51f9f78b.png",
-            "title": "R10 Slip Resistant LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1583503820584": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/R11_slip_resistant.png",
-            "title": "R11 Slip Resistant LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1581521592213": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/5G_click_fit.png",
-            "title": "5G Click LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1581521748994": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/lvt-heel-resistant.png",
-            "title": "Heel Resistant",
-            "subheading": "",
-            "link": "shopify://collections/laminate-flooring"
-          }
-        },
-        "1597160570576": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/lvt-glue-down.png",
-            "title": "Glue Down LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1581521690141": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/lvt-castor-wheel.png",
-            "title": "Castor Wheel Resistant",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1581521723819": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/lvt-heat-resist.png",
-            "title": "Under Floor Heating Resistant",
-            "subheading": "",
-            "link": "shopify://collections/laminate-flooring"
-          }
-        },
-        "1597230472565": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/heavy-domestic.png",
-            "title": "Domestic Rated LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1597230526470": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/contract-use.png",
-            "title": "Contract Rated LVT",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "1581503018710": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/heavy-domestic.png",
-            "title": "Domestic Rating",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
         "69ff94b9-497e-4d07-bd1a-a8e628999530": {
           "type": "image",
           "settings": {
@@ -487,24 +379,6 @@
             "title": "Water Resistant",
             "subheading": "",
             "link": "https://www.wilsonscarpets.com/pages/search-results?q=water+resistant"
-          }
-        },
-        "684548e6-f0d8-4a75-9b55-e86ddbba6333": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/1.52_metres_long.png",
-            "title": "1.52m Long Grippers",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/pages/search-results?q=grippers"
-          }
-        },
-        "a140798f-281a-4a88-b2ac-b679af7324ce": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/8_10mm-thick.png",
-            "title": "8mm - 10mm Thick Underlay",
-            "subheading": "",
-            "link": "shopify://collections/carpet-underlay"
           }
         },
         "096b37b6-cc7b-4e26-a1a1-dd0cb856bc58": {
@@ -588,15 +462,6 @@
             "link": "https://www.wilsonscarpets.com/"
           }
         },
-        "1c743614-f6b0-48b7-9c07-4944713416f2": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Roll_vinyl.png",
-            "title": "Vinyl Roll",
-            "subheading": "",
-            "link": "shopify://collections/vinyl-flooring"
-          }
-        },
         "77ebb992-3cc4-4f17-8233-ea4c47a8f44f": {
           "type": "image",
           "settings": {
@@ -604,33 +469,6 @@
             "title": "Suitable for Artificial Grass",
             "subheading": "",
             "link": "shopify://collections/artificial-grass-accessories"
-          }
-        },
-        "3da9e361-7232-4ea3-8cc9-6ccdf401c842": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Suitable_for_carpet.png",
-            "title": "Suitable for Carpet",
-            "subheading": "",
-            "link": "shopify://collections/carpet-accessories"
-          }
-        },
-        "8da3b032-28c4-48b6-b3c0-2a8e1e470901": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/suitable_for_laminate.png",
-            "title": "Suitable for Laminate",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
-          }
-        },
-        "0336ec24-82a7-4785-a85e-2ce9bb4ed989": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Suitable_for_vinyl.png",
-            "title": "Suitable for Vinyl",
-            "subheading": "",
-            "link": "https://www.wilsonscarpets.com/"
           }
         },
         "4146c645-02ae-4e92-920c-84e1e7f057ae": {
@@ -750,15 +588,6 @@
             "link": ""
           }
         },
-        "image_XVAFGX": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/built_in_underlay.png",
-            "title": "Built In Underlay",
-            "subheading": "",
-            "link": ""
-          }
-        },
         "1582728347394": {
           "type": "image",
           "settings": {
@@ -809,22 +638,8 @@
         "1581522322659",
         "image_xUBHGQ",
         "1581504605071",
-        "1583503114418",
-        "1597233275757",
-        "1583503456096",
-        "1583503820584",
-        "1581521592213",
-        "1581521748994",
-        "1597160570576",
-        "1581521690141",
-        "1581521723819",
-        "1597230472565",
-        "1597230526470",
-        "1581503018710",
         "69ff94b9-497e-4d07-bd1a-a8e628999530",
         "1591958586663",
-        "684548e6-f0d8-4a75-9b55-e86ddbba6333",
-        "a140798f-281a-4a88-b2ac-b679af7324ce",
         "096b37b6-cc7b-4e26-a1a1-dd0cb856bc58",
         "2e1600c6-6e68-4392-80d7-212ef14dcde0",
         "1bc1c102-311a-4afd-9270-4c725c41388a",
@@ -834,11 +649,7 @@
         "3cce2733-825b-45d3-be67-2e96efb7896a",
         "c95da147-6670-4254-a8c2-a832c1f22120",
         "51b93746-d15c-41df-bf92-1ed264fe21c6",
-        "1c743614-f6b0-48b7-9c07-4944713416f2",
         "77ebb992-3cc4-4f17-8233-ea4c47a8f44f",
-        "3da9e361-7232-4ea3-8cc9-6ccdf401c842",
-        "8da3b032-28c4-48b6-b3c0-2a8e1e470901",
-        "0336ec24-82a7-4785-a85e-2ce9bb4ed989",
         "4146c645-02ae-4e92-920c-84e1e7f057ae",
         "71e7e5b4-a45d-4beb-a91a-08980119daa3",
         "image_WGLTzL",
@@ -852,7 +663,6 @@
         "image_7DxyDa",
         "image_VJD6Vq",
         "image_NDbzxT",
-        "image_XVAFGX",
         "1582728347394"
       ],
       "name": "Product Features",

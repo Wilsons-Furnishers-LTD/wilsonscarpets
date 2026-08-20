@@ -57,6 +57,7 @@
 		<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ page_title | replace: ' -tag:Sample', '' }}</span><meta itemprop="position" content="{{crumbPosition}}" />{% assign crumbPosition = crumbPosition | plus: 1 %}</span>
 		{% endif %}
 	</nav>
+    {{template contains 'product'}}
 	{% if template contains 'product' %}
 		<script>
 			if (location.pathname.indexOf('collections') === -1) {

@@ -13,15 +13,6 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
-        "image_RHn96y": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Hand_made_in_the_uk_icon2.svg",
-            "title": "UK Hand Made",
-            "subheading": "",
-            "link": ""
-          }
-        },
         "image_QRURqf": {
           "type": "image",
           "settings": {
@@ -47,6 +38,15 @@
             "title": "Fast Delivery",
             "subheading": "",
             "link": "shopify://pages/delivery"
+          }
+        },
+        "image_RHn96y": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Hand_made_in_the_uk_icon2.svg",
+            "title": "UK Hand Made",
+            "subheading": "",
+            "link": ""
           }
         },
         "image_wypTGN": {
@@ -770,10 +770,10 @@
         }
       },
       "block_order": [
-        "image_RHn96y",
         "image_QRURqf",
         "image_aGpQky",
         "image_aLwTeB",
+        "image_RHn96y",
         "image_wypTGN",
         "image_xMLGUX",
         "3c47aef4-d34d-4261-a79a-6c5137770ea5",

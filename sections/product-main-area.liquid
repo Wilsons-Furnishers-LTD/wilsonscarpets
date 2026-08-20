@@ -11,33 +11,40 @@ product main area
       "type": "feature",
       "name": "Feature",
       "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Feature title"
-        },
-        {
-          "type": "richtext",
-          "id": "description",
-          "label": "Feature description"
-        }
-      ]
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Icon"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Image slide"
+            },
+            {
+                "type": "text",
+                "id": "subheading",
+                "label": "Subheading",
+                "default": "Lorem ipsum dolor sit amet, consectetur"
+            },
+            {
+                "type": "url",
+                "id": "link",
+                "label": "Link"
+            }
+        ]
     },
     {
       "type": "specification",
       "name": "Specification",
-      "settings": [
-        {
-          "type": "text",
-          "id": "name",
-          "label": "Specification name"
-        },
-        {
-          "type": "text",
-          "id": "value",
-          "label": "Specification value"
-        }
-      ]
+        "settings": [
+            {
+                "type": "text",
+                "id": "tag",
+                "label": "Tag"
+            }
+        ]
     }
   ],
   "presets": [

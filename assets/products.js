@@ -29,10 +29,10 @@ class Products {
 
     setupCarousel() {
         $('.product-photo-gallery .owl-carousel').owlCarousel({
-            loop:true,
+            loop:false,
             margin:10,
             nav:true,
-            items:1,
+            items:1
         });
     }
 

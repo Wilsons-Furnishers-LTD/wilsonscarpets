@@ -13,15 +13,6 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
-        "image_DRnMV3": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/foam_encapsulation_icon_ae15f328-ac72-4dd3-a3c8-2ac2c6c688dd.svg",
-            "title": "Foam Encapsulation",
-            "subheading": "",
-            "link": ""
-          }
-        },
         "image_W6QPD4": {
           "type": "image",
           "settings": {
@@ -54,6 +45,15 @@
           "settings": {
             "image": "shopify://shop_images/rotate_only_icon_61b78190-01ed-491a-a953-586723a74878.svg",
             "title": "Rotate Only",
+            "subheading": "",
+            "link": ""
+          }
+        },
+        "image_DRnMV3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/foam_encapsulation_icon_ae15f328-ac72-4dd3-a3c8-2ac2c6c688dd.svg",
+            "title": "Foam Encapsulation",
             "subheading": "",
             "link": ""
           }
@@ -635,11 +635,11 @@
         }
       },
       "block_order": [
-        "image_DRnMV3",
         "image_W6QPD4",
         "image_xMLGUX",
         "image_bKJmRL",
         "image_HgGrjy",
+        "image_DRnMV3",
         "image_QRURqf",
         "image_aGpQky",
         "image_wypTGN",

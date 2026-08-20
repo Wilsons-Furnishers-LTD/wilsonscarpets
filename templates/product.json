@@ -13,13 +13,13 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
-        "image_aLwTeB": {
+        "image_QRURqf": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Fast_delivery_icon_78ec7da1-712a-42bf-9bc9-7434463fcb5a.svg",
-            "title": "Fast Delivery",
+            "image": "shopify://shop_images/strutted_icon2.svg",
+            "title": "Strutted",
             "subheading": "",
-            "link": "shopify://pages/delivery"
+            "link": ""
           }
         },
         "image_aGpQky": {
@@ -31,20 +31,20 @@
             "link": ""
           }
         },
-        "image_QRURqf": {
+        "image_aLwTeB": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/strutted_icon2.svg",
-            "title": "Strutted",
+            "image": "shopify://shop_images/Fast_delivery_icon_78ec7da1-712a-42bf-9bc9-7434463fcb5a.svg",
+            "title": "Fast Delivery",
             "subheading": "",
-            "link": ""
+            "link": "shopify://pages/delivery"
           }
         },
         "image_B7UkCK": {
           "type": "image",
           "settings": {
-            "title": "Image slide",
-            "subheading": "Lorem ipsum dolor sit amet, consectetur",
+            "title": "UK Hand Made",
+            "subheading": "",
             "link": ""
           }
         },
@@ -1246,9 +1246,9 @@
         }
       },
       "block_order": [
-        "image_aLwTeB",
-        "image_aGpQky",
         "image_QRURqf",
+        "image_aGpQky",
+        "image_aLwTeB",
         "image_B7UkCK",
         "image_wypTGN",
         "image_xMLGUX",

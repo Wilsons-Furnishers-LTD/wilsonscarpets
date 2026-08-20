@@ -4,3 +4,12 @@
         {% assign GTINexist = tag | replace: 'identifier_exists_', '' %}
     {% endif %}
 {% endfor %}
+
+<meta itemprop="url" content="{{ shop.url }}{{ product.url }}"/>
+<meta itemprop="image" content="https:{{ product | img_url: '1280x1280' }}"/>
+{% if product.available %}
+<meta itemprop="sku" content="{{ product.first_available_variant.sku }}"/>
+{% else %}
+<meta itemprop="sku" content="{{ product.variants.first.sku}}" />
+{% endif %}
+<span itemprop="brand" itemtype="https://schema.org/Brand" itemscope><meta itemprop="name" content="{{ product.vendor }}" /></span>

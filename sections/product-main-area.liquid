@@ -1,0 +1,63 @@
+product main area
+
+
+
+{% schema %}
+{
+  "name": "Product Main Area",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Feature description"
+        }
+      ]
+    },
+    {
+      "type": "specification",
+      "name": "Specification",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Specification name"
+        },
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Specification value"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Main Area",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "specification"
+        },
+        {
+          "type": "specification"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

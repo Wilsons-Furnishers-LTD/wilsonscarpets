@@ -29,3 +29,9 @@
     <link itemprop="availability" href="https://schema.org/OutOfStock"/>
     {% endif %}
 </div>
+
+            {% if GTINexist == 'FALSE' %}
+                <meta itemprop="identifier_exists" content="no"/>
+            {% else %}
+                <meta itemprop="gtin" content="{{ GTINvalue }}"/>
+            {% endif %}

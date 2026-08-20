@@ -31,6 +31,15 @@
             "link": ""
           }
         },
+        "image_wypTGN": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Floor_standing_winged_icon_new.svg",
+            "title": "Winged Floor Standing",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_aLwTeB": {
           "type": "image",
           "settings": {
@@ -43,17 +52,8 @@
         "image_RHn96y": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/hand-made-uk.svg",
+            "image": "shopify://shop_images/Hand_made_in_the_UK_icon_new.svg",
             "title": "UK Hand Made",
-            "subheading": "",
-            "link": ""
-          }
-        },
-        "image_wypTGN": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Floor_standing_winged_icon_new.svg",
-            "title": "Winged Floor Standing",
             "subheading": "",
             "link": ""
           }
@@ -601,9 +601,9 @@
       "block_order": [
         "image_QRURqf",
         "image_aGpQky",
+        "image_wypTGN",
         "image_aLwTeB",
         "image_RHn96y",
-        "image_wypTGN",
         "image_xMLGUX",
         "3c47aef4-d34d-4261-a79a-6c5137770ea5",
         "1581504489464",

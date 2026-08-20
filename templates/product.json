@@ -13,12 +13,29 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
+        "image_aGpQky": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/floor_standing_icon2.svg",
+            "title": "Floor Standing",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_QRURqf": {
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/strutted_icon2.svg",
             "title": "Strutted",
             "subheading": "",
+            "link": ""
+          }
+        },
+        "image_B7UkCK": {
+          "type": "image",
+          "settings": {
+            "title": "Image slide",
+            "subheading": "Lorem ipsum dolor sit amet, consectetur",
             "link": ""
           }
         },
@@ -1220,7 +1237,9 @@
         }
       },
       "block_order": [
+        "image_aGpQky",
         "image_QRURqf",
+        "image_B7UkCK",
         "image_wypTGN",
         "image_xMLGUX",
         "3c47aef4-d34d-4261-a79a-6c5137770ea5",

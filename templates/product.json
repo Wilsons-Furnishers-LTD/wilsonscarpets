@@ -16,6 +16,7 @@
         "image_DRnMV3": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/foam_encapsulation_icon_ae15f328-ac72-4dd3-a3c8-2ac2c6c688dd.svg",
             "title": "Foam Encapsulation",
             "subheading": "",
             "link": ""

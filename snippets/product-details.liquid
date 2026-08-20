@@ -292,7 +292,10 @@
                                 {% if option.name contains 'Colour' %}
                                     {% assign isColour = true  %}
                                 {% endif %}
-                                <h2 style="order: {{ order }}">{{option.name}}</h2>
+                                
+                                {% if isColour == false %}
+                                    <h2 style="order: {{ order }}">{{option.name}}</h2>
+                                {% endif %}
                                 <div style="order: {{ order }}" data-order="{{ order }}" class="content {% if isColour %} colour-dropdown {% endif %}">
                                     <div class="selector-wrapper">
                                         <label for="product-select-option-{{ order }}">{{ option.name }}</label>

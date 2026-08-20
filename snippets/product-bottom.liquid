@@ -278,24 +278,24 @@
         let product = {{ product | json }};
         
         let variantOrder = 0;
-        $('.selector-wrapper').each(function () {
+        // $('.selector-wrapper').each(function () {
             
-            variantOrder++;
+        //     variantOrder++;
             
-            let label = (this).querySelector('label');
-            let select = (this).querySelector('select');
+        //     let label = (this).querySelector('label');
+        //     let select = (this).querySelector('select');
             
-            let title = $(label).text() ? $(label).text() : product.options[variantOrder - 1];
-            if($(label).text() != 'Colour') {
-                $("<h2 style='order:" + variantOrder + "' data-order='" + variantOrder + "'>" + title + "</h2>").insertBefore($(this));
-            } 
+        //     let title = $(label).text() ? $(label).text() : product.options[variantOrder - 1];
+        //     if($(label).text() != 'Colour') {
+        //         $("<h2 style='order:" + variantOrder + "' data-order='" + variantOrder + "'>" + title + "</h2>").insertBefore($(this));
+        //     } 
 
-            if($(label).text() == 'Colour') {
-                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content colour-dropdown"/>');
-            } else {
-                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content"/>');
-            }
-        });
+        //     if($(label).text() == 'Colour') {
+        //         $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content colour-dropdown"/>');
+        //     } else {
+        //         $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content"/>');
+        //     }
+        // });
 
 
     });

@@ -288,15 +288,16 @@
 
                             {% for option in product.options_with_values %}
                                 {% assign order = option.position | minus: 1  %}
-                                <h2>{{option.name}}</h2>
-                                <div class="selector-wrapper">
-                                    
-                                    <label for="product-select-option-{{ order }}">{{ option.name }}</label>
-                                    <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
-                                        {% for value in option.values %}
-                                            <option value="{{ value | escape }}">{{ value }}</option>
-                                        {% endfor %}
-                                    </select>
+                                <h2 style="order: {{ order }}">{{option.name}}</h2>
+                                <div style="order: {{ order }}" data-order="{ order }}" class="content colour-dropdown">
+                                    <div class="selector-wrapper">
+                                        <label for="product-select-option-{{ order }}">{{ option.name }}</label>
+                                        <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
+                                            {% for value in option.values %}
+                                                <option value="{{ value | escape }}">{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
                             {% endfor %}  
                             

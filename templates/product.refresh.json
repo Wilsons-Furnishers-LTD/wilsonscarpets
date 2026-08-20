@@ -13,50 +13,8 @@
     "product_main_area_CM74mW": {
       "type": "product-main-area",
       "blocks": {
-        "feature_D34P8y": {
-          "type": "feature",
-          "settings": {
-            "image": "shopify://shop_images/bed-3.png",
-            "title": "test",
-            "subheading": "Lorem ipsum dolor sit amet, consectetur",
-            "link": ""
-          }
-        },
-        "feature_D33qig": {
-          "type": "feature",
-          "settings": {
-            "title": "",
-            "subheading": "Lorem ipsum dolor sit amet, consectetur",
-            "link": ""
-          }
-        },
-        "specification_QWpCmg": {
-          "type": "specification",
-          "settings": {
-            "tag": "Thickness"
-          }
-        },
-        "specification_EdFJAp": {
-          "type": "specification",
-          "settings": {
-            "tag": ""
-          }
-        }
-      },
-      "block_order": [
-        "feature_D34P8y",
-        "feature_D33qig",
-        "specification_QWpCmg",
-        "specification_EdFJAp"
-      ],
-      "name": "Product Main Area",
-      "settings": {}
-    },
-    "product_features_ytAMcG": {
-      "type": "product-features",
-      "blocks": {
         "3c47aef4-d34d-4261-a79a-6c5137770ea5": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/Ball-and-Young.png",
             "title": "Ball & Young",
@@ -65,7 +23,7 @@
           }
         },
         "1581504489464": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/cloud-9.jpg",
             "title": "Cloud 9 Underlay",
@@ -74,7 +32,7 @@
           }
         },
         "51f547d8-e7e0-4f91-ac96-c98d0668a4e3": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/vitality.png",
             "title": "Vitality",
@@ -83,7 +41,7 @@
           }
         },
         "82b9c867-b3ab-49f3-a5a3-0ecd43ecbfa6": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/Regency.png",
             "title": "Regency",
@@ -92,7 +50,7 @@
           }
         },
         "57faee44-57f1-4afe-bc69-34a792fb8574": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/tredaire_a71299c8-c0b1-4657-983e-a95a76a125c2.png",
             "title": "Tredaire",
@@ -101,7 +59,7 @@
           }
         },
         "cf14b273-79ec-430d-a15a-ab756787b949": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/tarkett.png",
             "title": "Tarkett",
@@ -110,7 +68,7 @@
           }
         },
         "35fc7da8-ebfb-403a-893b-7f14c5939001": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/BALTERIO_07038648-7067-4afe-93a8-e21fa05fd3a5.png",
             "title": "Balterio",
@@ -119,7 +77,7 @@
           }
         },
         "93656ebf-4b13-4b23-94da-c428e3b8b5e0": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/rihnoflooring.png",
             "title": "Rhinoflooring",
@@ -128,7 +86,7 @@
           }
         },
         "a236756e-ca23-45ef-b0de-5221b9d48442": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/Abingdon_flooring.png",
             "title": "Abingdon",
@@ -137,7 +95,7 @@
           }
         },
         "6f8c3c02-962f-4bc2-a09e-3a5e35cdcd7c": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/cormar_carpet.png",
             "title": "Cormar",
@@ -146,7 +104,7 @@
           }
         },
         "3511c9a6-29f3-4b1f-9d7f-7fc1566315a2": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/associated-weavers.png",
             "title": "Associated Weavers",
@@ -155,7 +113,7 @@
           }
         },
         "02bfaf4b-57ef-4f3b-99f5-3e07e2de62af": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/envirostik_2.png",
             "title": "EnviroStik",
@@ -164,7 +122,7 @@
           }
         },
         "fdde2dcd-2d92-4515-a754-49b7329c2880": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/twist-pile.png",
             "title": "Twist Pile",
@@ -173,7 +131,7 @@
           }
         },
         "1581441849101": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/saxony-pile_1.png",
             "title": "Saxony Carpet",
@@ -182,7 +140,7 @@
           }
         },
         "1581501581467": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/loop-pile_a60c9de5-8385-4b8c-aba2-5aab23777270.png",
             "title": "Loop Pile",
@@ -191,7 +149,7 @@
           }
         },
         "1581502858369": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/cut-and-loop-pile_1.png",
             "title": "Cut and Loop",
@@ -200,7 +158,7 @@
           }
         },
         "1581502082011": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/cord-pile_1.png",
             "title": "Cord",
@@ -209,7 +167,7 @@
           }
         },
         "1583504437122": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/saxony-pile_1.png",
             "title": "Saxony Pile Rugs",
@@ -218,7 +176,7 @@
           }
         },
         "1583501640425": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/shaggy_pile.png",
             "title": "Shaggy Pile",
@@ -227,7 +185,7 @@
           }
         },
         "1592325001977": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/shaggy_pile.png",
             "title": "Shaggy Pile Rugs",
@@ -236,7 +194,7 @@
           }
         },
         "1583501855665": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/woven-back.png",
             "title": "Woven Backed Carpets",
@@ -245,7 +203,7 @@
           }
         },
         "1583502038699": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/foam-back_1.png",
             "title": "Foam Backed Carpets",
@@ -254,7 +212,7 @@
           }
         },
         "1577383402357": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/action-back.png",
             "title": "Action Backing",
@@ -263,7 +221,7 @@
           }
         },
         "1581503458611": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/gel-back.png",
             "title": "Gel Backing",
@@ -272,7 +230,7 @@
           }
         },
         "fc912a85-5376-44f2-8eaf-cfd9f0c40506": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/felt-back.png",
             "title": "Felt Backing",
@@ -281,7 +239,7 @@
           }
         },
         "1583508918771": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/fusion-back.png",
             "title": "Fusion Backing",
@@ -290,7 +248,7 @@
           }
         },
         "1581503290808": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/polyamide.png",
             "title": "100% Polyamide",
@@ -299,7 +257,7 @@
           }
         },
         "1583508537012": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/polyester.png",
             "title": "100% Polyester",
@@ -308,7 +266,7 @@
           }
         },
         "1583337422971": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/wool_mix.png",
             "title": "Wool Mix",
@@ -317,7 +275,7 @@
           }
         },
         "1583337035053": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/100-percent-wool.png",
             "title": "100% Wool",
@@ -326,7 +284,7 @@
           }
         },
         "30beb595-392b-48e8-8510-0ec052ff6a38": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/polypropylene.png",
             "title": "100% Polypropylene",
@@ -335,7 +293,7 @@
           }
         },
         "1583504220203": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/twist-pile_8c15b948-231b-4610-93cd-a0c5fc1106b8.png",
             "title": "Twist Pile Rugs",
@@ -344,7 +302,7 @@
           }
         },
         "1581504037170": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/patterned_finish.png",
             "title": "Patterned Carpets",
@@ -353,7 +311,7 @@
           }
         },
         "1583502378591": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/contract-use.png",
             "title": "Contract Rated Carpet",
@@ -362,7 +320,7 @@
           }
         },
         "1581503608206": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/designed_for_kids.png",
             "title": "Kids Carpets",
@@ -371,7 +329,7 @@
           }
         },
         "1581503729470": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/sparkle-effect_1.png",
             "title": "Sparkle Carpets",
@@ -380,7 +338,7 @@
           }
         },
         "1581504165400": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/striped_carpet.png",
             "title": "Striped Carpets",
@@ -389,7 +347,7 @@
           }
         },
         "1592325281705": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/wood_effect_laminate.png",
             "title": "Wood Style",
@@ -398,7 +356,7 @@
           }
         },
         "1581522989429": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/tile_effect.png",
             "title": "Tile Style",
@@ -407,7 +365,7 @@
           }
         },
         "1581522821920": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/plain_finish.png",
             "title": "Plain Style",
@@ -416,7 +374,7 @@
           }
         },
         "1594652309389": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/patterned_finish.png",
             "title": "Patterned Vinyl",
@@ -425,7 +383,7 @@
           }
         },
         "1581523412226": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/striped_carpet.png",
             "title": "Striped Vinyl",
@@ -434,7 +392,7 @@
           }
         },
         "1581522597018": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/designed_for_kids.png",
             "title": "Kids Vinyl",
@@ -443,7 +401,7 @@
           }
         },
         "1583507867825": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/felt-back.png",
             "title": "Felt Backed Vinyl",
@@ -452,7 +410,7 @@
           }
         },
         "1581503151526": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/foam-back_1.png",
             "title": "Foam Backing",
@@ -461,7 +419,7 @@
           }
         },
         "1583508257497": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/sparkle-effect_1.png",
             "title": "Sparkle Vinyl",
@@ -470,7 +428,7 @@
           }
         },
         "1594388869359": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/glossy-vinyl.png",
             "title": "Glossy Vinyl",
@@ -479,7 +437,7 @@
           }
         },
         "1581522918377": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/R11_slip_resistant.png",
             "title": "R11 Slip Resistant",
@@ -488,7 +446,7 @@
           }
         },
         "1581522050613": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/R10_slip_resistant.png",
             "title": "R10 Slip Resistant",
@@ -497,7 +455,7 @@
           }
         },
         "1583507996436": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/contract-use.png",
             "title": "Contract Rated Vinyl",
@@ -506,7 +464,7 @@
           }
         },
         "1583508142168": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/heavy-domestic.png",
             "title": "Domestic Rated Vinyl",
@@ -515,7 +473,7 @@
           }
         },
         "1581521108951": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/wood_effect_laminate.png",
             "title": "Wood Style Laminate",
@@ -524,7 +482,7 @@
           }
         },
         "1596805205884": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/stone_effect.png",
             "title": "Stone Style Laminate",
@@ -533,7 +491,7 @@
           }
         },
         "1581521042109": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/under_8mm_thick.png",
             "title": "Under 8mm Thick",
@@ -542,7 +500,7 @@
           }
         },
         "1583501733562": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/8_10mm_thick.png",
             "title": "8mm - 10mm Thick Laminate",
@@ -551,7 +509,7 @@
           }
         },
         "1581520955412": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/over_10mm_thick.png",
             "title": "Over 10mm Thick",
@@ -560,7 +518,7 @@
           }
         },
         "1581520934200": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/AC4_moderate_commercial.png",
             "title": "AC4 Rating",
@@ -569,7 +527,7 @@
           }
         },
         "1581520675608": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/AC3_heavy_residential.png",
             "title": "AC3 Rating",
@@ -578,7 +536,7 @@
           }
         },
         "image_Kid7KR": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/AC5_general_commercial.png",
             "title": "AC5 Rating",
@@ -587,7 +545,7 @@
           }
         },
         "1596729502100": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/click_fit.png",
             "title": "Click Fit",
@@ -596,7 +554,7 @@
           }
         },
         "1583502704192": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/contract-use.png",
             "title": "Contract Rated Laminate",
@@ -605,7 +563,7 @@
           }
         },
         "1583502961354": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/heavy-domestic.png",
             "title": "Domestic Rated Laminate",
@@ -614,7 +572,7 @@
           }
         },
         "4495f4f7-c8bc-4442-845c-99e264b765a6": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/spine_shaped_yarn.png",
             "title": "Spined Yarn",
@@ -623,7 +581,7 @@
           }
         },
         "03cf0626-a6f9-4563-b640-5994adc3ce24": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/C_shaped_yarn.png",
             "title": "'C' Shaped Fibres",
@@ -632,7 +590,7 @@
           }
         },
         "99b15437-0661-4e7e-9369-c2f2adbf498d": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/w_shaped_yarn.png",
             "title": "'W' Shaped Fibres",
@@ -641,7 +599,7 @@
           }
         },
         "470fee85-581b-4f41-9414-c38de0ddec20": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/non_directional_pile_artificial_grass.png",
             "title": "Non-Directional Pile",
@@ -650,7 +608,7 @@
           }
         },
         "1581522098666": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/realistic_pile.png",
             "title": "Realistic Pile",
@@ -659,7 +617,7 @@
           }
         },
         "1581521454280": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/loop_pile_artificial_grass.png",
             "title": "Loop Pile Grass",
@@ -668,7 +626,7 @@
           }
         },
         "2cc89114-b55c-46b9-ae80-911150bf8521": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/RECYCLABLE_GRASS_31f36cac-fd2c-4ef8-af77-c200993dff17.png",
             "title": "Recyclable Grass",
@@ -677,7 +635,7 @@
           }
         },
         "867d8925-21ab-4737-8b18-d79ee466666f": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/sports_grass.png",
             "title": "Sports Grass",
@@ -686,7 +644,7 @@
           }
         },
         "1581522377724": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/UV_resistant.png",
             "title": "UV Resistant",
@@ -695,7 +653,7 @@
           }
         },
         "1581521192713": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/drainage_holes.png",
             "title": "Drainage Holes",
@@ -704,7 +662,7 @@
           }
         },
         "1596817340002": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/latex_backing.png",
             "title": "Latex Backing",
@@ -713,7 +671,7 @@
           }
         },
         "4ec07bec-6ef0-4a46-ad7f-fa37c5c832d0": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/pu_backing.png",
             "title": "PU Backing",
@@ -722,7 +680,7 @@
           }
         },
         "1581521778351": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/no_mowing.png",
             "title": "No Mowing",
@@ -731,7 +689,7 @@
           }
         },
         "1581521845560": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/no-pollen.png",
             "title": "No Pollen",
@@ -740,7 +698,7 @@
           }
         },
         "1581521873753": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/outdoor_carpet.png",
             "title": "Outdoor Carpet",
@@ -749,7 +707,7 @@
           }
         },
         "1581523355624": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/patterned_finish_18657d20-2019-4d93-84d7-a72d547e836f.png",
             "title": "Patterned Rugs",
@@ -758,7 +716,7 @@
           }
         },
         "1583504023260": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/polypropylene.png",
             "title": "Polypropylene Rugs",
@@ -767,7 +725,7 @@
           }
         },
         "1583508742948": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/polyester.png",
             "title": "Polyester Rugs",
@@ -776,7 +734,7 @@
           }
         },
         "1583507689550": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/stain-resistant.png",
             "title": "Stain Resistant Rugs",
@@ -785,7 +743,7 @@
           }
         },
         "1597076070379": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/contract-use.png",
             "title": "Contract Rated Underlay",
@@ -794,7 +752,7 @@
           }
         },
         "1597076145263": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/heavy-domestic.png",
             "title": "Domestic Rated Underlay",
@@ -803,7 +761,7 @@
           }
         },
         "1581522322659": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/british-made.png",
             "title": "UK Made",
@@ -812,7 +770,7 @@
           }
         },
         "1581504605071": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/free-delivery_37984959-0260-40c5-a94b-241376f1318d.png",
             "title": "Free Delivery",
@@ -821,7 +779,7 @@
           }
         },
         "1583503114418": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/wood_effect_laminate.png",
             "title": "Wood Style LVT",
@@ -830,7 +788,7 @@
           }
         },
         "1597233275757": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/stone_effect.png",
             "title": "Stone Style LVT",
@@ -839,7 +797,7 @@
           }
         },
         "1583503456096": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/r10-slip-resistance_9bc5d5e5-5331-423f-89fc-664b51f9f78b.png",
             "title": "R10 Slip Resistant LVT",
@@ -848,7 +806,7 @@
           }
         },
         "1583503820584": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/R11_slip_resistant.png",
             "title": "R11 Slip Resistant LVT",
@@ -857,7 +815,7 @@
           }
         },
         "1581521592213": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/5G_click_fit.png",
             "title": "5G Click LVT",
@@ -866,7 +824,7 @@
           }
         },
         "1581521748994": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/lvt-heel-resistant.png",
             "title": "Heel Resistant",
@@ -875,7 +833,7 @@
           }
         },
         "1597160570576": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/lvt-glue-down.png",
             "title": "Glue Down LVT",
@@ -884,7 +842,7 @@
           }
         },
         "1581521690141": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/lvt-castor-wheel.png",
             "title": "Castor Wheel Resistant",
@@ -893,7 +851,7 @@
           }
         },
         "1581521723819": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/lvt-heat-resist.png",
             "title": "Under Floor Heating Resistant",
@@ -902,7 +860,7 @@
           }
         },
         "1597230472565": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/heavy-domestic.png",
             "title": "Domestic Rated LVT",
@@ -911,7 +869,7 @@
           }
         },
         "1597230526470": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/contract-use.png",
             "title": "Contract Rated LVT",
@@ -920,7 +878,7 @@
           }
         },
         "1581503018710": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/heavy-domestic.png",
             "title": "Domestic Rating",
@@ -929,7 +887,7 @@
           }
         },
         "69ff94b9-497e-4d07-bd1a-a8e628999530": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/stain-resistant.png",
             "title": "Stain Resistant",
@@ -938,7 +896,7 @@
           }
         },
         "1591958586663": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/water_resistant.png",
             "title": "Water Resistant",
@@ -947,7 +905,7 @@
           }
         },
         "684548e6-f0d8-4a75-9b55-e86ddbba6333": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/1.52_metres_long.png",
             "title": "1.52m Long Grippers",
@@ -956,7 +914,7 @@
           }
         },
         "a140798f-281a-4a88-b2ac-b679af7324ce": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/8_10mm-thick.png",
             "title": "8mm - 10mm Thick Underlay",
@@ -965,7 +923,7 @@
           }
         },
         "096b37b6-cc7b-4e26-a1a1-dd0cb856bc58": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/45cm_wide.png",
             "title": "45cm Wide Head",
@@ -974,7 +932,7 @@
           }
         },
         "2e1600c6-6e68-4392-80d7-212ef14dcde0": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/TELESCOPIC_HANDLE.png",
             "title": "78cm - 130cm Telescopic Handle",
@@ -983,7 +941,7 @@
           }
         },
         "1bc1c102-311a-4afd-9270-4c725c41388a": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/250ml_pack.png",
             "title": "250ml per Pack",
@@ -992,7 +950,7 @@
           }
         },
         "96fe4d3b-1281-4094-968b-98d8969f0f76": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/310ml_pack.png",
             "title": "310ml per Pack",
@@ -1001,7 +959,7 @@
           }
         },
         "3cbbe3fd-2a6b-46b4-a6c2-fa4327cd372e": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/500ml_pack.png",
             "title": "500ml per Pack",
@@ -1010,7 +968,7 @@
           }
         },
         "e164970f-9aa3-4335-8f11-9d4f6e87c065": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/adhesive_and_hardender.png",
             "title": "Adhesive and Hardener",
@@ -1019,7 +977,7 @@
           }
         },
         "3cce2733-825b-45d3-be67-2e96efb7896a": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/metal.png",
             "title": "Metal Construction",
@@ -1028,7 +986,7 @@
           }
         },
         "c95da147-6670-4254-a8c2-a832c1f22120": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/over-10mm-thick.png",
             "title": "Over 10mm Thick Underlay",
@@ -1037,7 +995,7 @@
           }
         },
         "51b93746-d15c-41df-bf92-1ed264fe21c6": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/stone_effect_d6b9b77c-af6f-4850-afef-03a6afd44b34.png",
             "title": "Stone Style",
@@ -1046,7 +1004,7 @@
           }
         },
         "1c743614-f6b0-48b7-9c07-4944713416f2": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/Roll_vinyl.png",
             "title": "Vinyl Roll",
@@ -1055,7 +1013,7 @@
           }
         },
         "77ebb992-3cc4-4f17-8233-ea4c47a8f44f": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/for_artificial_grass.png",
             "title": "Suitable for Artificial Grass",
@@ -1064,7 +1022,7 @@
           }
         },
         "3da9e361-7232-4ea3-8cc9-6ccdf401c842": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/Suitable_for_carpet.png",
             "title": "Suitable for Carpet",
@@ -1073,7 +1031,7 @@
           }
         },
         "8da3b032-28c4-48b6-b3c0-2a8e1e470901": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/suitable_for_laminate.png",
             "title": "Suitable for Laminate",
@@ -1082,7 +1040,7 @@
           }
         },
         "0336ec24-82a7-4785-a85e-2ce9bb4ed989": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/Suitable_for_vinyl.png",
             "title": "Suitable for Vinyl",
@@ -1091,7 +1049,7 @@
           }
         },
         "4146c645-02ae-4e92-920c-84e1e7f057ae": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/non_adhesive_tape.png",
             "title": "Non-Adhesive Tape",
@@ -1100,7 +1058,7 @@
           }
         },
         "71e7e5b4-a45d-4beb-a91a-08980119daa3": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/under-8mm-thick.png",
             "title": "Under 8mm Thick Underlay",
@@ -1109,7 +1067,7 @@
           }
         },
         "image_WGLTzL": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/twist-pile-yellow.jpg",
             "title": "Twist Pile Yellow",
@@ -1118,7 +1076,7 @@
           }
         },
         "image_gzbTxf": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/stain-resist-yellow.jpg",
             "title": "Stain Resist Yellow",
@@ -1127,7 +1085,7 @@
           }
         },
         "image_hYg9LD": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/polyprop-yellow.jpg",
             "title": "Poliprop Yellow",
@@ -1136,7 +1094,7 @@
           }
         },
         "image_y9YeLx": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/felt-back-yellow.jpg",
             "title": "Felt Back Yellow",
@@ -1145,7 +1103,7 @@
           }
         },
         "image_NRYmg7": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/envirostik_2_83ffae84-b405-41ac-b87d-70f4eedfa677.png",
             "title": "Envirostik",
@@ -1154,7 +1112,7 @@
           }
         },
         "image_a9nxNb": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/12mm-thick-engineered-wood.png",
             "title": "12mm Thick Engineered Wood",
@@ -1163,7 +1121,7 @@
           }
         },
         "image_nW9jEN": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/14mm-thick-engineered-wood.png",
             "title": "14mm Thick Engineered Wood",
@@ -1172,7 +1130,7 @@
           }
         },
         "image_ag6gMc": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/2mm-wood-top-layer.png",
             "title": "2mm Thick Wood Top Layer",
@@ -1181,7 +1139,7 @@
           }
         },
         "image_7DxyDa": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/3mm-wood-top-layer.png",
             "title": "3mm Thick Wood Top Layer",
@@ -1190,7 +1148,7 @@
           }
         },
         "image_VJD6Vq": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/heavy-domestic-engineered-wood.png",
             "title": "Heavy Domestic Engineered Wood",
@@ -1199,7 +1157,7 @@
           }
         },
         "image_NDbzxT": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/tongue-and-groove-engineered-wood.png",
             "title": "Tongue and Groove Engineered Wood",
@@ -1208,7 +1166,7 @@
           }
         },
         "image_XVAFGX": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/built_in_underlay.png",
             "title": "Built In Underlay",
@@ -1217,12 +1175,264 @@
           }
         },
         "1582728347394": {
-          "type": "image",
+          "type": "feature",
           "settings": {
             "image": "shopify://shop_images/cloud-9_e5059408-3fdf-4221-8947-efdf7da17bd7.jpg",
             "title": "Test Feature",
             "subheading": "This is a test feature",
             "link": "shopify://collections/beige-carpets"
+          }
+        },
+        "1594310045198": {
+          "type": "specification",
+          "settings": {
+            "tag": "Wear Layer"
+          }
+        },
+        "1585832129019": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pile Height"
+          }
+        },
+        "1585832141898": {
+          "type": "specification",
+          "settings": {
+            "tag": "Material"
+          }
+        },
+        "eb149e96-ec67-4a4e-87ce-4a2f1308102c": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pile Content"
+          }
+        },
+        "1585832123201": {
+          "type": "specification",
+          "settings": {
+            "tag": "TOG Rating"
+          }
+        },
+        "1585832161729": {
+          "type": "specification",
+          "settings": {
+            "tag": "Backing"
+          }
+        },
+        "1593160938413": {
+          "type": "specification",
+          "settings": {
+            "tag": "Manufacturer"
+          }
+        },
+        "1594310024664": {
+          "type": "specification",
+          "settings": {
+            "tag": "Slip Resistant?"
+          }
+        },
+        "1593092171313": {
+          "type": "specification",
+          "settings": {
+            "tag": "Available Widths"
+          }
+        },
+        "1593099719771": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pattern Repeat"
+          }
+        },
+        "1586356434849": {
+          "type": "specification",
+          "settings": {
+            "tag": "Brand"
+          }
+        },
+        "1586356394457": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pack Size (M²)"
+          }
+        },
+        "1586356446042": {
+          "type": "specification",
+          "settings": {
+            "tag": "Planks Per Pack"
+          }
+        },
+        "1586356481879": {
+          "type": "specification",
+          "settings": {
+            "tag": "Plank Size"
+          }
+        },
+        "1586356418476": {
+          "type": "specification",
+          "settings": {
+            "tag": "Edges"
+          }
+        },
+        "1586356399117": {
+          "type": "specification",
+          "settings": {
+            "tag": "Installation System"
+          }
+        },
+        "1596811869234": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pile Weight"
+          }
+        },
+        "1596811880230": {
+          "type": "specification",
+          "settings": {
+            "tag": "Total Weight"
+          }
+        },
+        "1597147090699": {
+          "type": "specification",
+          "settings": {
+            "tag": "Density"
+          }
+        },
+        "1597147103035": {
+          "type": "specification",
+          "settings": {
+            "tag": "Impact sound reduction"
+          }
+        },
+        "1597142176678": {
+          "type": "specification",
+          "settings": {
+            "tag": "Shipping"
+          }
+        },
+        "1597226835218": {
+          "type": "specification",
+          "settings": {
+            "tag": "Dimensions"
+          }
+        },
+        "1591966797018": {
+          "type": "specification",
+          "settings": {
+            "tag": "Testing"
+          }
+        },
+        "1589200564508": {
+          "type": "specification",
+          "settings": {
+            "tag": "Juno Test"
+          }
+        },
+        "1597227219394": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pack Size"
+          }
+        },
+        "4e48c7a1-484b-43c8-9deb-f09a7e3b0210": {
+          "type": "specification",
+          "settings": {
+            "tag": "Plank / Tile Size"
+          }
+        },
+        "8182abeb-94a0-4348-948d-af4e0af817de": {
+          "type": "specification",
+          "settings": {
+            "tag": "Tape Length"
+          }
+        },
+        "5deb96a9-a3a7-4a21-be0f-4618f944a8f1": {
+          "type": "specification",
+          "settings": {
+            "tag": "Tape Width"
+          }
+        },
+        "e9ee4257-db4b-411e-baba-3d553d893822": {
+          "type": "specification",
+          "settings": {
+            "tag": "Underfloor Heating Resistant"
+          }
+        },
+        "907a4658-d668-4217-b65e-c05ca690c5ce": {
+          "type": "specification",
+          "settings": {
+            "tag": "Castor Wheel Resistant"
+          }
+        },
+        "4a5e03bf-949b-4ec3-a5f1-6c4ffb297941": {
+          "type": "specification",
+          "settings": {
+            "tag": "Heel Resistant"
+          }
+        },
+        "0d875bb6-3af4-421d-b0f1-4d9931081481": {
+          "type": "specification",
+          "settings": {
+            "tag": "Coverage"
+          }
+        },
+        "60a45f3d-8519-4864-bb16-80bec875f2ab": {
+          "type": "specification",
+          "settings": {
+            "tag": "Door Bar Length"
+          }
+        },
+        "f9042522-02da-42e0-97d2-c319313db7be": {
+          "type": "specification",
+          "settings": {
+            "tag": "Beading Length"
+          }
+        },
+        "4eac8104-cfc5-467a-b9ea-cda3b5cd79ec": {
+          "type": "specification",
+          "settings": {
+            "tag": "Remnant Size"
+          }
+        },
+        "419b47b4-68cb-419e-b68a-dd0453e5d2d2": {
+          "type": "specification",
+          "settings": {
+            "tag": "Suitability"
+          }
+        },
+        "ce047d82-6f8f-4849-8e88-f69dc612205a": {
+          "type": "specification",
+          "settings": {
+            "tag": "Acoustic Insulation"
+          }
+        },
+        "tags_XeNVc8": {
+          "type": "specification",
+          "settings": {
+            "tag": "Oak Layer"
+          }
+        },
+        "tags_nt6BDg": {
+          "type": "specification",
+          "settings": {
+            "tag": "Finish"
+          }
+        },
+        "tags_6KcEQd": {
+          "type": "specification",
+          "settings": {
+            "tag": "Style"
+          }
+        },
+        "tags_PUzRkw": {
+          "type": "specification",
+          "settings": {
+            "tag": "Drainage Holes"
+          }
+        },
+        "tags_kJqakc": {
+          "type": "specification",
+          "settings": {
+            "tag": "Usage Class"
           }
         }
       },
@@ -1356,268 +1566,7 @@
         "image_VJD6Vq",
         "image_NDbzxT",
         "image_XVAFGX",
-        "1582728347394"
-      ],
-      "name": "Product Features",
-      "settings": {}
-    },
-    "specifications": {
-      "type": "specifications",
-      "blocks": {
-        "1594310045198": {
-          "type": "tags",
-          "settings": {
-            "tag": "Wear Layer"
-          }
-        },
-        "1585832129019": {
-          "type": "tags",
-          "settings": {
-            "tag": "Pile Height"
-          }
-        },
-        "1585832141898": {
-          "type": "tags",
-          "settings": {
-            "tag": "Material"
-          }
-        },
-        "eb149e96-ec67-4a4e-87ce-4a2f1308102c": {
-          "type": "tags",
-          "settings": {
-            "tag": "Pile Content"
-          }
-        },
-        "1585832123201": {
-          "type": "tags",
-          "settings": {
-            "tag": "TOG Rating"
-          }
-        },
-        "1585832161729": {
-          "type": "tags",
-          "settings": {
-            "tag": "Backing"
-          }
-        },
-        "1593160938413": {
-          "type": "tags",
-          "settings": {
-            "tag": "Manufacturer"
-          }
-        },
-        "1594310024664": {
-          "type": "tags",
-          "settings": {
-            "tag": "Slip Resistant?"
-          }
-        },
-        "1593092171313": {
-          "type": "tags",
-          "settings": {
-            "tag": "Available Widths"
-          }
-        },
-        "1593099719771": {
-          "type": "tags",
-          "settings": {
-            "tag": "Pattern Repeat"
-          }
-        },
-        "1586356434849": {
-          "type": "tags",
-          "settings": {
-            "tag": "Brand"
-          }
-        },
-        "1586356394457": {
-          "type": "tags",
-          "settings": {
-            "tag": "Pack Size (M²)"
-          }
-        },
-        "1586356446042": {
-          "type": "tags",
-          "settings": {
-            "tag": "Planks Per Pack"
-          }
-        },
-        "1586356481879": {
-          "type": "tags",
-          "settings": {
-            "tag": "Plank Size"
-          }
-        },
-        "1586356418476": {
-          "type": "tags",
-          "settings": {
-            "tag": "Edges"
-          }
-        },
-        "1586356399117": {
-          "type": "tags",
-          "settings": {
-            "tag": "Installation System"
-          }
-        },
-        "1596811869234": {
-          "type": "tags",
-          "settings": {
-            "tag": "Pile Weight"
-          }
-        },
-        "1596811880230": {
-          "type": "tags",
-          "settings": {
-            "tag": "Total Weight"
-          }
-        },
-        "1597147090699": {
-          "type": "tags",
-          "settings": {
-            "tag": "Density"
-          }
-        },
-        "1597147103035": {
-          "type": "tags",
-          "settings": {
-            "tag": "Impact sound reduction"
-          }
-        },
-        "1597142176678": {
-          "type": "tags",
-          "settings": {
-            "tag": "Shipping"
-          }
-        },
-        "1597226835218": {
-          "type": "tags",
-          "settings": {
-            "tag": "Dimensions"
-          }
-        },
-        "1591966797018": {
-          "type": "tags",
-          "settings": {
-            "tag": "Testing"
-          }
-        },
-        "1589200564508": {
-          "type": "tags",
-          "settings": {
-            "tag": "Juno Test"
-          }
-        },
-        "1597227219394": {
-          "type": "tags",
-          "settings": {
-            "tag": "Pack Size"
-          }
-        },
-        "4e48c7a1-484b-43c8-9deb-f09a7e3b0210": {
-          "type": "tags",
-          "settings": {
-            "tag": "Plank / Tile Size"
-          }
-        },
-        "8182abeb-94a0-4348-948d-af4e0af817de": {
-          "type": "tags",
-          "settings": {
-            "tag": "Tape Length"
-          }
-        },
-        "5deb96a9-a3a7-4a21-be0f-4618f944a8f1": {
-          "type": "tags",
-          "settings": {
-            "tag": "Tape Width"
-          }
-        },
-        "e9ee4257-db4b-411e-baba-3d553d893822": {
-          "type": "tags",
-          "settings": {
-            "tag": "Underfloor Heating Resistant"
-          }
-        },
-        "907a4658-d668-4217-b65e-c05ca690c5ce": {
-          "type": "tags",
-          "settings": {
-            "tag": "Castor Wheel Resistant"
-          }
-        },
-        "4a5e03bf-949b-4ec3-a5f1-6c4ffb297941": {
-          "type": "tags",
-          "settings": {
-            "tag": "Heel Resistant"
-          }
-        },
-        "0d875bb6-3af4-421d-b0f1-4d9931081481": {
-          "type": "tags",
-          "settings": {
-            "tag": "Coverage"
-          }
-        },
-        "60a45f3d-8519-4864-bb16-80bec875f2ab": {
-          "type": "tags",
-          "settings": {
-            "tag": "Door Bar Length"
-          }
-        },
-        "f9042522-02da-42e0-97d2-c319313db7be": {
-          "type": "tags",
-          "settings": {
-            "tag": "Beading Length"
-          }
-        },
-        "4eac8104-cfc5-467a-b9ea-cda3b5cd79ec": {
-          "type": "tags",
-          "settings": {
-            "tag": "Remnant Size"
-          }
-        },
-        "419b47b4-68cb-419e-b68a-dd0453e5d2d2": {
-          "type": "tags",
-          "settings": {
-            "tag": "Suitability"
-          }
-        },
-        "ce047d82-6f8f-4849-8e88-f69dc612205a": {
-          "type": "tags",
-          "settings": {
-            "tag": "Acoustic Insulation"
-          }
-        },
-        "tags_XeNVc8": {
-          "type": "tags",
-          "settings": {
-            "tag": "Oak Layer"
-          }
-        },
-        "tags_nt6BDg": {
-          "type": "tags",
-          "settings": {
-            "tag": "Finish"
-          }
-        },
-        "tags_6KcEQd": {
-          "type": "tags",
-          "settings": {
-            "tag": "Style"
-          }
-        },
-        "tags_PUzRkw": {
-          "type": "tags",
-          "settings": {
-            "tag": "Drainage Holes"
-          }
-        },
-        "tags_kJqakc": {
-          "type": "tags",
-          "settings": {
-            "tag": "Usage Class"
-          }
-        }
-      },
-      "block_order": [
+        "1582728347394",
         "1594310045198",
         "1585832129019",
         "1585832141898",
@@ -1661,6 +1610,16 @@
         "tags_PUzRkw",
         "tags_kJqakc"
       ],
+      "name": "Product Main Area",
+      "settings": {}
+    },
+    "product_features_ytAMcG": {
+      "type": "product-features",
+      "name": "Product Features",
+      "settings": {}
+    },
+    "specifications": {
+      "type": "specifications",
       "settings": {
         "title": "Specifications"
       }

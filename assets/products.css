@@ -1,3 +1,6 @@
 .product-main {
   height: calc(100vh - 217px);
+  grid-template-rows: auto 1fr;
+  display: grid;
+  grid-template-columns: clamp(500px, 50vw, 700px) 1fr;
 }

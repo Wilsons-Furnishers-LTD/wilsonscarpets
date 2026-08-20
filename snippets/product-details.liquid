@@ -288,9 +288,9 @@
 
                             {% for option in product.options_with_values %}
                                 {% assign order = option.position | minus: 1  %}
-                                
+                                <h2>{{option.name}}</h2>
                                 <div class="selector-wrapper">
-                                    <h2>title</h2>
+                                    
                                     <label for="product-select-option-{{ order }}">{{ option.name }}</label>
                                     <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
                                         {% for value in option.values %}

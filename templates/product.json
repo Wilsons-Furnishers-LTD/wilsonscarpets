@@ -58,6 +58,14 @@
             "link": ""
           }
         },
+        "image_VzUBUL": {
+          "type": "image",
+          "settings": {
+            "title": "Turn & Rotate",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_HgGrjy": {
           "type": "image",
           "settings": {
@@ -658,6 +666,7 @@
         "image_W6QPD4",
         "image_xMLGUX",
         "image_bKJmRL",
+        "image_VzUBUL",
         "image_HgGrjy",
         "image_DRnMV3",
         "image_QRURqf",

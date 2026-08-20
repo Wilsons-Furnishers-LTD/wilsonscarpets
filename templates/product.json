@@ -13,6 +13,15 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
+        "image_8CLLDy": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1500_POCKET_SPRINGS.svg",
+            "title": "1500 Pocket Springs",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_W6QPD4": {
           "type": "image",
           "settings": {
@@ -635,6 +644,7 @@
         }
       },
       "block_order": [
+        "image_8CLLDy",
         "image_W6QPD4",
         "image_xMLGUX",
         "image_bKJmRL",

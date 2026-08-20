@@ -61,6 +61,7 @@
         "image_VzUBUL": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/turn_and_rotate_icon_11b794ee-f308-4515-af74-745f2a4df3b5.svg",
             "title": "Turn & Rotate",
             "subheading": "",
             "link": ""

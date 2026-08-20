@@ -13,6 +13,14 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
+        "image_DRnMV3": {
+          "type": "image",
+          "settings": {
+            "title": "Foam Encapsulation",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_W6QPD4": {
           "type": "image",
           "settings": {
@@ -617,6 +625,7 @@
         }
       },
       "block_order": [
+        "image_DRnMV3",
         "image_W6QPD4",
         "image_HgGrjy",
         "image_QRURqf",

@@ -10,6 +10,48 @@
 {
   "layout": "product-refresh",
   "sections": {
+    "product_main_area_CM74mW": {
+      "type": "product-main-area",
+      "blocks": {
+        "feature_D34P8y": {
+          "type": "feature",
+          "settings": {
+            "image": "shopify://shop_images/bed-3.png",
+            "title": "test",
+            "subheading": "Lorem ipsum dolor sit amet, consectetur",
+            "link": ""
+          }
+        },
+        "feature_D33qig": {
+          "type": "feature",
+          "settings": {
+            "title": "",
+            "subheading": "Lorem ipsum dolor sit amet, consectetur",
+            "link": ""
+          }
+        },
+        "specification_QWpCmg": {
+          "type": "specification",
+          "settings": {
+            "tag": "Thickness"
+          }
+        },
+        "specification_EdFJAp": {
+          "type": "specification",
+          "settings": {
+            "tag": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_D34P8y",
+        "feature_D33qig",
+        "specification_QWpCmg",
+        "specification_EdFJAp"
+      ],
+      "name": "Product Main Area",
+      "settings": {}
+    },
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
@@ -1631,39 +1673,6 @@
         "related_grid_num": "3",
         "related_grid_row": "3"
       }
-    },
-    "product_main_area_CM74mW": {
-      "type": "product-main-area",
-      "blocks": {
-        "feature_D34P8y": {
-          "type": "feature",
-          "settings": {
-            "title": ""
-          }
-        },
-        "feature_D33qig": {
-          "type": "feature",
-          "settings": {
-            "title": ""
-          }
-        },
-        "specification_QWpCmg": {
-          "type": "specification",
-          "settings": {}
-        },
-        "specification_EdFJAp": {
-          "type": "specification",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "feature_D34P8y",
-        "feature_D33qig",
-        "specification_QWpCmg",
-        "specification_EdFJAp"
-      ],
-      "name": "Product Main Area",
-      "settings": {}
     }
   },
   "order": [

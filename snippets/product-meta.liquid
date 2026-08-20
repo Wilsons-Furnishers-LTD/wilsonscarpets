@@ -1,14 +1,1 @@
-{% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
-    {% comment %}<!-- error form if a variant product can't be created /-->{% endcomment %}
-    <div id="timeOutForm">
-        <form method="post" action="https://submit.jotformeu.com/submit/212831684870057/" id="contact_form" accept-charset="UTF-8" class="contact-form" name="form_212831684870057"  >
-            <input type="hidden" name="formID" value="212831684870057">
-            <input type="email" id="input_3" name="q3_input3" value="{{ shop.email }}">
-            <input type="text" id="input_4" name="q4_product" value="{{ product.title }}">
-            <input type="text" id="input_5" name="q5_date" value="{{ 'now' | date: '%d/%m/%Y %H:%M' }}">
-            <input type="text" id="input_6" name="q6_message" value="A product couldn't be created for this variant">
-            <input type="text" id="input_7" name="q7_details" id="failedFormDetails" value="">
-            <input type="text" id="input_8" name="q8_stage" id="failedFormStep" value="">
-        </form>
-    </div>
-{% endif %}
+product meta

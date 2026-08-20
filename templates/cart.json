@@ -14,8 +14,7 @@
       "custom_css": [
         ".title {color: #414b52;}",
         ".subtitle {color: #414b52;}",
-        ".freedelivery-banner {border-top: 1px solid #fff;}",
-        "@media (max-width: 767px) {#template--27435481956656__main {display: none; }}"
+        ".freedelivery-banner {border-top: 1px solid #fff;}"
       ],
       "settings": {
         "show_block": "no",

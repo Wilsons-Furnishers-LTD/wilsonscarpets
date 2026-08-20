@@ -31,6 +31,24 @@
             "link": ""
           }
         },
+        "image_xMLGUX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/medium_feel_icon_3ebca0df-bff7-4f4c-b109-c59fed62ae4b.svg",
+            "title": "Medium Feel",
+            "subheading": "",
+            "link": ""
+          }
+        },
+        "image_bKJmRL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/firm_feel_icon_f10cb0ef-9647-4d1d-a28f-8a1252526e46.svg",
+            "title": "Firm Feel",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_HgGrjy": {
           "type": "image",
           "settings": {
@@ -81,15 +99,6 @@
           "settings": {
             "image": "shopify://shop_images/Hand_made_in_the_UK_icon_new.svg",
             "title": "UK Hand Made",
-            "subheading": "",
-            "link": ""
-          }
-        },
-        "image_xMLGUX": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/medium_feel_icon_3ebca0df-bff7-4f4c-b109-c59fed62ae4b.svg",
-            "title": "Medium Feel",
             "subheading": "",
             "link": ""
           }
@@ -628,13 +637,14 @@
       "block_order": [
         "image_DRnMV3",
         "image_W6QPD4",
+        "image_xMLGUX",
+        "image_bKJmRL",
         "image_HgGrjy",
         "image_QRURqf",
         "image_aGpQky",
         "image_wypTGN",
         "image_aLwTeB",
         "image_RHn96y",
-        "image_xMLGUX",
         "3c47aef4-d34d-4261-a79a-6c5137770ea5",
         "1581504489464",
         "51f547d8-e7e0-4f91-ac96-c98d0668a4e3",

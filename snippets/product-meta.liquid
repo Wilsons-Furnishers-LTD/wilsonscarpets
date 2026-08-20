@@ -1,1 +1,7 @@
-product meta
+{% assign GTINexist = '' %}
+{% for tag in product.tags %}
+    {{tag}}
+    {% if tag contains 'identifier_exists_' %}
+        {% assign GTINexist = tag | replace: 'identifier_exists_', '' %}
+    {% endif %}
+{% endfor %}

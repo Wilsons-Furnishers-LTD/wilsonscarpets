@@ -793,7 +793,15 @@
             "image": "shopify://shop_images/british-made.png",
             "title": "UK Made",
             "subheading": "",
-            "link": "shopify://collections/carpets-made-in-the-uk"
+            "link": "#"
+          }
+        },
+        "image_xUBHGQ": {
+          "type": "image",
+          "settings": {
+            "title": "Image slide",
+            "subheading": "Lorem ipsum dolor sit amet, consectetur",
+            "link": ""
           }
         },
         "1581504605071": {
@@ -1299,6 +1307,7 @@
         "1597076070379",
         "1597076145263",
         "1581522322659",
+        "image_xUBHGQ",
         "1581504605071",
         "1583503114418",
         "1597233275757",

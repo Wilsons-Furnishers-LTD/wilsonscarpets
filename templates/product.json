@@ -13,6 +13,15 @@
     "product_features_ytAMcG": {
       "type": "product-features",
       "blocks": {
+        "image_6g4PYc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/1000_pocket_springs_icon_345a73d1-606f-4547-80ea-8a0c8fe42eb0.svg",
+            "title": "1000 Pocket Springs",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_xiDfqH": {
           "type": "image",
           "settings": {
@@ -662,6 +671,7 @@
         }
       },
       "block_order": [
+        "image_6g4PYc",
         "image_xiDfqH",
         "image_8CLLDy",
         "image_W6QPD4",

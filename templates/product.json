@@ -76,6 +76,15 @@
             "link": ""
           }
         },
+        "image_JjYC7J": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/natural_silk_icon_b55bce00-3f3c-47d9-a154-97fcff560632.svg",
+            "title": "Natural Silk",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_VzUBUL": {
           "type": "image",
           "settings": {
@@ -687,6 +696,7 @@
         "image_xMLGUX",
         "image_bKJmRL",
         "image_fcc8ii",
+        "image_JjYC7J",
         "image_VzUBUL",
         "image_HgGrjy",
         "image_DRnMV3",

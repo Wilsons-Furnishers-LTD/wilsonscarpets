@@ -103,6 +103,15 @@
             "link": ""
           }
         },
+        "image_BLrjUx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/synthetic_fillings_icon_24eb24e4-cfd3-463b-ad20-b76e7a0e4cea.svg",
+            "title": "Synthetic Fillings",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_VzUBUL": {
           "type": "image",
           "settings": {
@@ -717,6 +726,7 @@
         "image_JjYC7J",
         "image_EQ88Xi",
         "image_KRTzMn",
+        "image_BLrjUx",
         "image_VzUBUL",
         "image_HgGrjy",
         "image_DRnMV3",

@@ -97,6 +97,7 @@
         "image_KRTzMn": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/wool_icon_148ebfd2-652b-41af-941d-3dc228be1441.svg",
             "title": "Wool",
             "subheading": "",
             "link": ""

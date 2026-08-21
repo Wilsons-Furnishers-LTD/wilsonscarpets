@@ -115,6 +115,7 @@
         "image_jqniaY": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/cashmere_icon_97ad5e72-5f15-4ec8-b642-86398491d0f1.svg",
             "title": "Cashmere",
             "subheading": "",
             "link": ""

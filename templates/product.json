@@ -94,6 +94,14 @@
             "link": ""
           }
         },
+        "image_KRTzMn": {
+          "type": "image",
+          "settings": {
+            "title": "Wool",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_VzUBUL": {
           "type": "image",
           "settings": {
@@ -707,6 +715,7 @@
         "image_fcc8ii",
         "image_JjYC7J",
         "image_EQ88Xi",
+        "image_KRTzMn",
         "image_VzUBUL",
         "image_HgGrjy",
         "image_DRnMV3",

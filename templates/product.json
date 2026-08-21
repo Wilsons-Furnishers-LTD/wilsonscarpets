@@ -85,6 +85,15 @@
             "link": ""
           }
         },
+        "image_EQ88Xi": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/bamboo_fabric_icon_429f6739-bfe5-4830-89bb-95021994f5e7.svg",
+            "title": "Bamboo Fabric",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_VzUBUL": {
           "type": "image",
           "settings": {
@@ -697,6 +706,7 @@
         "image_bKJmRL",
         "image_fcc8ii",
         "image_JjYC7J",
+        "image_EQ88Xi",
         "image_VzUBUL",
         "image_HgGrjy",
         "image_DRnMV3",

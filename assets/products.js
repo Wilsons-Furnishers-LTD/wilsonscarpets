@@ -25,16 +25,18 @@ class Products {
             this.updateVariant();
         });
         
-        
-    }
-
-    setupCarousel() {
-        $('.product-photo-gallery .owl-carousel').owlCarousel({
+        $( document ).ready(function() {
+                    $('.product-photo-gallery .owl-carousel').owlCarousel({
             loop:false,
             margin:10,
             nav:true,
             items:1
         });
+        });
+    }
+
+    setupCarousel() {
+
     }
 
     updateVariantSelection() {        

@@ -26,7 +26,7 @@
     transform: scale3d(1, 1, 1);
   }
 }
-@keyframes fade {
+@keyframes fadeinout {
   0%, 100% {
     opacity: 0;
   }
@@ -52,7 +52,7 @@
   font-size: 26px;
   font-weight: 700;
   opacity: 1;
-  animation: fade 2s linear;
+  animation: fadeinout 4s linear forwards;
 }
 
 .storeify-sl-light-modal .pulse {

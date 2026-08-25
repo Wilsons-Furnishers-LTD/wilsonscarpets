@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="item-content">
                                     <div class="storeify-sl-item-row address">
-                                        <a href="https://www.google.com/maps/place/Wilsons+Carpets,${storeProperties.name}" target="_blank">${storeProperties.address}</a>
+                                        <a href="${storeProperties.place_id}" target="_blank">${storeProperties.address}</a>
                                         <div class="distance-element">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
   <path d="M20 2 L44 2 L52 62 L12 62 Z" fill="#414B52"/>
@@ -561,6 +561,8 @@
 
 
         window.eqfeed_callback = function(results) {
+            $('.storelocator-loading').addClass('hide');
+
             var thum = '';
             var count_marker = 0;
             var params = [];

@@ -35,7 +35,10 @@ class Products {
             nav:true,
             items:1
         });
-        $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
+        setTimeout(function () {
+            $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
+        }, 100);
+
     }
 
     updateVariantSelection() {        

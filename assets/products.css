@@ -1,6 +1,10 @@
 .product-main {
-  height: calc(100vh - 217px);
-  grid-template-rows: 1fr auto;
-  display: grid;
-  grid-template-columns: 1fr clamp(500px, 50vw, 700px);
+  display: flex;
+}
+.product-main_image {
+  min-width: calc(100vh - 500px);
+  max-width: calc(100vh - 700px);
+}
+.product-main_sidebar {
+  flex: 1;
 }

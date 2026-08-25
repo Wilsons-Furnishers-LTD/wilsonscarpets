@@ -43,7 +43,7 @@
         
         if(td && td.nextElementSibling) {
             if(td.nextElementSibling.textContent.trim() !== 'CLOSED') {
-                return 'Open today ' + td.nextElementSibling.innerHTML
+                return 'Open today: ' + td.nextElementSibling.innerHTML
             } else {
                 return 'Closed today'
             }
@@ -128,6 +128,11 @@
                                     <div class="store-opening-times">
                                         ${openingTime}
                                     </div>
+                                    <div class="store-details-modal-button-container">
+                                        <div class="store-details-modal-button" data-id="store-details-modal-${i}">
+                                        Opening hours
+                                        </div>
+                                    </div>
                                     <!--- 
                                     <div class="storeify-sl-item-row item-link">
                                         <a class="storeify-storelocator-web cta" target="_blank" href="${storeProperties.url}" rel="nofollow">
@@ -174,15 +179,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <!--
-                    <div class="store-details-modal">
+                        <div class="store-details-modal" id="store-details-modal-${i}">
                         <div class="store-details-modal-inner">
                             <div class="store-details-modal-header">
                                 <div class="store-details-modal-title">
                                     Store information
                                 </div>
-                                <div class="store-details-modal-close">
+                                <div class="store-details-modal-close" data-id="store-details-modal-${i}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
                                         <path d="M18 6L6 18M6 6l12 12"></path>
                                     </svg>
@@ -197,19 +200,22 @@
                                 ${storeProperties.address}
                             </div>
                             <div class="store-details-modal-current-time">
+                                ${openingTime}
+                            </div>
+                            <div class="store-details-modal-directions">
+                                <a href="https://maps.google.com/?daddr=${storeProperties.name} ${storeProperties.address}" target="_blank" aria-label="This link opens in a new tab.">Get directions </a> 
+                            </div>
+                            <div class="store-details-modal-opening-times">
                                 <div class="store-details-modal-subtitle">
                                     Opening Times
                                 </div>
                                 ${fullOpeningTimes}
                             </div>
-                            <div class="store-details-modal-directions">
-                                <a href="https://maps.google.com/?daddr=${storeProperties.name} ${storeProperties.address}" target="_blank" aria-label="This link opens in a new tab.">Directions </a> 
-                            </div>
-                            <div class="store-details-modal-opening-times">
-                            </div>
                         </div>
                     </div>
-                    -->
+                    
+                    </div>
+                    
                 `;
                 return storeHtml
         }
@@ -971,19 +977,25 @@
                 }
                 // load info window here 
                 
-                
 
                 let infoWindowWrapper = document.getElementById('info-window-wrapper');
-                $(infoWindowWrapper).html('');
+                if(!event.target.classList.contains('store-details-modal-button')) {
+                    $(infoWindowWrapper).html('');
+                }
 
-                if($(window).width() < 768) {
+
+                // sort this
+                if($(window).width() < 768 && !event.target.classList.contains('store-details-modal-button')) {
                     var top = $(infoWindowWrapper).offset().top - 400;
                     $('html,body').animate({scrollTop: top}, 1000);
                 }
                 
                 let storeInfo = create_html_list(data_maker, 0, true);
                 
-                $(infoWindowWrapper).html(storeInfo);
+                if(!event.target.classList.contains('store-details-modal-button')) {
+                    $(infoWindowWrapper).html(storeInfo);
+                }
+                
                 $(infoWindowWrapper).find('.store-item')[0].removeAttribute('datamarker');
                 // add store time
                 
@@ -1044,6 +1056,7 @@
                     if ($target.length) {
                         $container.find('.inner-item').removeClass('inner-item-active');
                         $target.addClass('inner-item-active');
+                        
                         var scrollTop = $target.offset().top - $container.offset().top + $container.scrollTop() - 20;
                         $container.stop().animate({ scrollTop: scrollTop }, 300);
                     }
@@ -2334,6 +2347,33 @@
                     jQuery(".tag-item-"+dataTag).hide();
                }, 2000);
             }
+
+        let scrollPositionY = 0;
+        document.addEventListener('click', function (e) {
+            const openButton = e.target.closest('.store-details-modal-button');
+            const closeButton = e.target.closest('.store-details-modal-close');
+
+            if (openButton) {
+                let parent = $(openButton).closest('.item');
+                let modal = $(parent).find('.store-details-modal');
+
+                if(modal) {
+                    $(modal).addClass('active');
+                    scrollPositionY = window.scrollY;
+                    document.body.style.top = `-${scrollPositionY}px`;
+                    document.body.classList.add('store-modal-open');
+                }
+            }
+
+            if (closeButton) {
+                $('.store-details-modal').removeClass('active');
+                document.body.style.position = '';
+                document.body.style.top = '';
+                document.body.classList.remove('store-modal-open');
+                window.scrollTo(0, scrollPositionY);
+            }
+        });
+
         });
 
         jQuery(document).on("click", ".ify-search-submit-btn", function(e) {
@@ -2719,6 +2759,7 @@
             setTimeout(() => {
                 map.fitBounds(bounds);
             }, 10);
+
         });
         jQuery(document).on("submit","#frm-storelocator-short-search",function(e) {
           e.preventDefault();

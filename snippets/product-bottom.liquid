@@ -16,6 +16,7 @@
 {% assign sold_out = 'Sold Out' %}
 {% assign unavailable = 'Unavailable' %}
 
+
 {% for tag in product.tags %}
     {% if tag contains 'parent_' %}
         {% assign parentHandle = tag | replace: 'parent_', '' %}
@@ -714,14 +715,20 @@
             jQuery('#userLengthInches').keyup(function () {
                 updateMetres();
                 check_submit_button();
-            });{% if product.options.size == 1 %}
-                jQuery('#product-select').on('change', function () {
+            });
+
+            {% if product.options.size == 1 %}
+                // jQuery('#product-select').on('change', function () {
+                //     updatePrice();
+                // });
+                jQuery('body').on('change', '#product-select-option-0', function () {
                     updatePrice();
                 });
             {% else %}
                 jQuery('body').on('change', '#product-select-option-1', function () {
                     updatePrice();
-                });{% endif %}
+                });
+            {% endif %}
 
             jQuery(".size .selectWrapper select").on('change', function () { // change the sibling as well:
                 jQuery(this).parents('.measurementSelect').siblings().find('select').val(jQuery(this).val());

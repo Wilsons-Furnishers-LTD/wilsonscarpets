@@ -243,6 +243,16 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 
 <main>
     <div class="product-page" itemscope itemtype="https://schema.org/Product">
+            <div class="product-photo-gallery">
+            <div class="owl-carousel">
+                <div class="item">Item 1</div>
+                <div class="item">Item 2</div>
+                <div class="item">Item 3</div>
+                <div class="item">Item 4</div>
+                <div class="item">Item 5</div>
+                <div class="item">Item 6</div>
+            </div>
+        </div>
     {% render 'breadcrumbs' %}
     {%- include 'product-top' -%}
     {%- include 'product-meta' -%}
@@ -307,5 +317,7 @@ document.documentElement.classList.add('js');
 
 
 </body>
+
+<script  src="{{ 'products.js' |  asset_url}}"></script>
 
 </html>

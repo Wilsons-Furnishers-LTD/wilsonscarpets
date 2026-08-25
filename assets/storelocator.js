@@ -103,7 +103,7 @@
                                     </a>
                                 </label>   
                                 
-                                <a class="getdirectionstore" href="${storeProperties.place_id}" target="_blank" aria-label="This link opens in a new tab.">Directions &#8594;</a> 
+                                <a class="getdirectionstore" href="${storeProperties.place_id}" target="_blank" aria-label="This link opens in a new tab.">Get directions &#8594;</a> 
                             </div>
                             <div class="inner-item-wrapper">
                                 <div class="item-thumb has-thumb">

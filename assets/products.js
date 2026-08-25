@@ -38,9 +38,9 @@ class Products {
             nav: true
         });
 
-        setTimeout(function () {
-            owl.trigger('refresh.owl.carousel');
-        }, 100);
+        // setTimeout(function () {
+        //     owl.trigger('refresh.owl.carousel');
+        // }, 100);
     }
 
     updateVariantSelection() {        

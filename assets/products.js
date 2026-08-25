@@ -31,7 +31,7 @@ class Products {
     setupCarousel() {
         $('.product-photo-gallery.owl-carousel').owlCarousel({
             items: 1,
-            loop: is_loop,
+            loop: false,
             margin: 0,
             nav: true,
             dots: true,

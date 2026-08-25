@@ -26,6 +26,14 @@
     transform: scale3d(1, 1, 1);
   }
 }
+@keyframes fade {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
 .pagecontents {
   position: relative;
 }
@@ -43,6 +51,8 @@
 .pagecontents .storelocator-loading .storelocator-loading__text {
   font-size: 26px;
   font-weight: 700;
+  opacity: 1;
+  animation: fade 2s linear;
 }
 
 .storeify-sl-light-modal .pulse {

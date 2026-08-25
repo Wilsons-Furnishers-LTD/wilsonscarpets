@@ -19,7 +19,7 @@ class Products {
             this.hideDefaultTitle = true;
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
-        this.setupCarousel();
+        document.addEventListener('DOMContentLoaded', this.setupCarousel.bind(this));
 
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
@@ -35,6 +35,7 @@ class Products {
             nav:true,
             items:1
         });
+        $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
     }
 
     updateVariantSelection() {        

@@ -16,6 +16,7 @@
 {% assign sold_out = 'Sold Out' %}
 {% assign unavailable = 'Unavailable' %}
 
+
 {% for tag in product.tags %}
     {% if tag contains 'parent_' %}
         {% assign parentHandle = tag | replace: 'parent_', '' %}
@@ -272,33 +273,6 @@
         }
     };
 
-    jQuery(function ($) {
-        
-       // new Shopify.OptionSelectors('product-select', {product: {{ product | json }}, onVariantSelected: selectCallback, enableHistoryState: false });
-        let product = {{ product | json }};
-        
-        let variantOrder = 0;
-        $('.selector-wrapper').each(function () {
-            
-            variantOrder++;
-            
-            let label = (this).querySelector('label');
-            let select = (this).querySelector('select');
-            
-            let title = $(label).text() ? $(label).text() : product.options[variantOrder - 1];
-            if($(label).text() != 'Colour') {
-                $("<h2 style='order:" + variantOrder + "' data-order='" + variantOrder + "'>" + title + "</h2>").insertBefore($(this));
-            } 
-
-            if($(label).text() == 'Colour') {
-                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content colour-dropdown"/>');
-            } else {
-                $(this).wrap('<div style="order:' + variantOrder + '" data-order="' + variantOrder + '" class="content"/>');
-            }
-        });
-
-
-    });
 
     function colour_select(value) {
         var option_colour = jQuery('.option-colour');
@@ -741,14 +715,20 @@
             jQuery('#userLengthInches').keyup(function () {
                 updateMetres();
                 check_submit_button();
-            });{% if product.options.size == 1 %}
-                jQuery('#product-select').on('change', function () {
+            });
+
+            {% if product.options.size == 1 %}
+                // jQuery('#product-select').on('change', function () {
+                //     updatePrice();
+                // });
+                jQuery('body').on('change', '#product-select-option-0', function () {
                     updatePrice();
                 });
             {% else %}
                 jQuery('body').on('change', '#product-select-option-1', function () {
                     updatePrice();
-                });{% endif %}
+                });
+            {% endif %}
 
             jQuery(".size .selectWrapper select").on('change', function () { // change the sibling as well:
                 jQuery(this).parents('.measurementSelect').siblings().find('select').val(jQuery(this).val());

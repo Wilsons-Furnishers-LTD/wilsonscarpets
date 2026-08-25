@@ -19,22 +19,12 @@ class Products {
             this.hideDefaultTitle = true;
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
-        document.addEventListener('DOMContentLoaded', this.setupCarousel.bind(this));
 
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
         });
         
         
-    }
-
-    setupCarousel() {
-        $('.product-photo-gallery .owl-carousel').owlCarousel({
-            loop:false,
-            margin:10,
-            nav:true,
-            items:1
-        });
     }
 
     updateVariantSelection() {        

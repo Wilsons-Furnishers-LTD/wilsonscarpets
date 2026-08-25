@@ -29,7 +29,8 @@ class Products {
     }
 
     setupCarousel() {
-        $('.product-photo-gallery.owl-carousel').owlCarousel({
+        setTimeout(() => {
+             $('.product-photo-gallery.owl-carousel').owlCarousel({
             items: 1,
             loop: false,
             margin: 0,
@@ -55,6 +56,8 @@ class Products {
                 }
             },
         });
+        }, 1000);
+       
     }
 
     updateVariantSelection() {        

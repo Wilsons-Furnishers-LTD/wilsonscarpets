@@ -3430,7 +3430,7 @@ body .cw-storelocator {
             .store-details-modal-title {
                 font-weight: 900;
                 font-size: 24px;
-                color: v.$wilson-red;
+                color: v.$wilson-grey;
                 padding: 0 35px;
                 @media only screen and (max-width: 767px) {
                     padding-left: 0;
@@ -3448,11 +3448,18 @@ body .cw-storelocator {
                     top: 6px;
                 }
                 svg {
-                    stroke: v.$wilson-red;
+                    stroke: v.$wilson-grey;
                     stroke-width: 3px;
                 }
                 &:hover {
                     cursor: pointer;
+                }
+            }
+        }
+        table {
+            tr {
+                td:first-of-type:after {
+                    content: ":";
                 }
             }
         }
@@ -3809,7 +3816,7 @@ body .cw-storelocator {
     }
     .store-details-modal-subtitle {
         font-weight: 900;
-        color: v.$wilson-red;
+        color: v.$wilson-grey;
         font-size: 16px;
         padding-top: 20px;
         padding-bottom: 10px;
@@ -3819,7 +3826,7 @@ body .cw-storelocator {
         line-height: 24px;
         .store-details-modal-store-title {
             font-weight: 900;
-            color: v.$wilson-red;
+            color: v.$wilson-grey;
         }
     }
     .store-details-modal-current-time {

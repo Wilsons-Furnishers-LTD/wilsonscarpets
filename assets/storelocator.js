@@ -43,7 +43,7 @@
         
         if(td && td.nextElementSibling) {
             if(td.nextElementSibling.textContent.trim() !== 'CLOSED') {
-                return 'Open today ' + td.nextElementSibling.innerHTML
+                return 'Open today: ' + td.nextElementSibling.innerHTML
             } else {
                 return 'Closed today'
             }
@@ -203,7 +203,7 @@
                                 ${openingTime}
                             </div>
                             <div class="store-details-modal-directions">
-                                <a href="https://maps.google.com/?daddr=${storeProperties.name} ${storeProperties.address}" target="_blank" aria-label="This link opens in a new tab.">Directions </a> 
+                                <a href="https://maps.google.com/?daddr=${storeProperties.name} ${storeProperties.address}" target="_blank" aria-label="This link opens in a new tab.">Get directions </a> 
                             </div>
                             <div class="store-details-modal-opening-times">
                                 <div class="store-details-modal-subtitle">

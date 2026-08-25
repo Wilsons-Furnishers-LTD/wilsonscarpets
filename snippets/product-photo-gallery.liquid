@@ -155,11 +155,9 @@
         {% endfor %}
         {% endcapture %}
 
-        <div class="product-photo-gallery" data-photoui="{{ usedPhotoUI | json }}">
-            <div class="owl-carousel">
-                {{product_images}}
-                {{variant_images}}
-            </div>
+        <div class="product-photo-gallery owl-carousel" data-photoui="{{ usedPhotoUI | json }}">
+            {{product_images}}
+            {{variant_images}}
         </div>
 
 

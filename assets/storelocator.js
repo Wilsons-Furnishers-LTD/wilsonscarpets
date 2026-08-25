@@ -561,6 +561,8 @@
 
 
         window.eqfeed_callback = function(results) {
+            $('.storelocator-loading').addClass('hide');
+
             var thum = '';
             var count_marker = 0;
             var params = [];

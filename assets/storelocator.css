@@ -48,6 +48,9 @@
   font-size: 20px;
   font-weight: 700;
 }
+.pagecontents .storelocator-loading.hide {
+  display: none;
+}
 .pagecontents .storelocator-loading .storelocator-loading__text {
   font-size: 26px;
   font-weight: 700;

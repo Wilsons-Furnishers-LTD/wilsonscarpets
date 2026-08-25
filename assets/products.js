@@ -31,29 +31,7 @@ class Products {
     setupCarousel() {
         $('.product-photo-gallery.owl-carousel').owlCarousel({
             items: 1,
-            loop: false,
-            margin: 0,
-            nav: true,
-            dots: true,
-            animateOut: '',
-            mouseDrag: false,
-            touchDrag: true,
-            lazyLoad: true,
-            responsive: {
-                0: {
-                    loop: true,
-                    mouseDrag: true,
-                    margin: 15,
-                },
-                480: {
-                    loop: true,
-                    mouseDrag: true,
-                    margin: 20,
-                },
-                1024: {
-                    mouseDrag: true
-                }
-            },
+
         });
     }
 

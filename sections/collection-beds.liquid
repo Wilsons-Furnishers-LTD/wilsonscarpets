@@ -9,7 +9,18 @@
   If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
 {%- endcomment -%}
 
-
+<style>
+    .wilsons-beds-body .product-grid .image picture {
+        width: 100%;
+        padding-bottom: 100%;
+    }
+    .wilsons-beds-body .product-grid .image picture img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
 {% assign products_per_page = settings.products_per_row | times: settings.number_of_rows %}
 {% assign numbers = 'zero, one, two, three, four, five, six' | split: ',' %}
 {% assign products_per_row = settings.products_per_row | times: 1 %}

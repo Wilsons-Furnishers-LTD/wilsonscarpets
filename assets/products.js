@@ -24,24 +24,23 @@ class Products {
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
         });
-          $( window ).on( "load", function() {
-                $('.product-photo-gallery .owl-carousel').owlCarousel({
-            loop:false,
-            margin:10,
-            nav:true,
-            items:1
-        });
-    });
+        
         
     }
 
     setupCarousel() {
-        $('.product-photo-gallery .owl-carousel').owlCarousel({
-            loop:false,
-            margin:10,
-            nav:true,
-            items:1
+         var owl = $('.product-photo-gallery .owl-carousel');
+
+        owl.owlCarousel({
+            items: 1,
+            loop: false,
+            margin: 10,
+            nav: true
         });
+
+        setTimeout(function () {
+            owl.trigger('refresh.owl.carousel');
+        }, 100);
     }
 
     updateVariantSelection() {        

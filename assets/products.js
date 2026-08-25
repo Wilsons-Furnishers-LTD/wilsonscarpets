@@ -29,10 +29,12 @@ class Products {
     }
 
     setupCarousel() {
-        $('.product-photo-gallery.owl-carousel').owlCarousel({
+        setTimeout(() => {
+                    $('.product-photo-gallery.owl-carousel').owlCarousel({
             items: 1,
 
         });
+        }, 5000);
     }
 
     updateVariantSelection() {        

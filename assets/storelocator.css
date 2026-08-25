@@ -3278,6 +3278,8 @@ body .cw-storelocator .col-main {
 }
 body .cw-storelocator .col-main .container {
   width: 100%;
+  max-width: 100%;
+  margin-left: 0;
 }
 body .cw-storelocator #main-slider-storelocator {
   padding: 20px 40px;

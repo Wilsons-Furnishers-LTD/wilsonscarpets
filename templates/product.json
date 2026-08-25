@@ -40,6 +40,15 @@
             "link": ""
           }
         },
+        "image_ET89AE": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Ortho_springs_icon_a43ccdd2-9465-4f43-abfc-dc99fdb0f0f2.svg",
+            "title": "Ortho Springs",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_W6QPD4": {
           "type": "image",
           "settings": {
@@ -728,6 +737,7 @@
         "image_6g4PYc",
         "image_xiDfqH",
         "image_8CLLDy",
+        "image_ET89AE",
         "image_W6QPD4",
         "image_xMLGUX",
         "image_bKJmRL",

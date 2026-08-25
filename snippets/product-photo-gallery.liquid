@@ -155,11 +155,12 @@
         {% endfor %}
         {% endcapture %}
 
-        <div class="product-photo-gallery owl-carousel" data-photoui="{{ usedPhotoUI | json }}">
-            {{product_images}}
-            {{variant_images}}
-        </div>
 
+        <div class="owl-carousel">
+    <div class="item">Item 1</div>
+    <div class="item">Item 2</div>
+    <div class="item">Item 3</div>
+</div>
 
         {% if product.images.size > 1 %}
             {% assign image_exclude = "" %}

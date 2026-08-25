@@ -3274,6 +3274,7 @@ body .cw-storelocator .bootstrap-storeifyapps .row {
 }
 body .cw-storelocator .col-main {
   padding-top: 40px;
+  width: 100%;
 }
 body .cw-storelocator #main-slider-storelocator {
   padding: 20px 40px;

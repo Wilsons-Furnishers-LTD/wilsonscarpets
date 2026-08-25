@@ -52,7 +52,7 @@
   font-size: 26px;
   font-weight: 700;
   opacity: 1;
-  animation: fadeInOut 1s ease-in-out infinite;
+  animation: fadeInOut 3s ease-in-out infinite;
 }
 
 .storeify-sl-light-modal .pulse {

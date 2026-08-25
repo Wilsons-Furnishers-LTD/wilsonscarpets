@@ -462,7 +462,7 @@ jQuery(window).load(function() {
                     items: 2
                 },
                 1152: {
-                    8
+                    items: 4
                 }
             },
             onInitialized: match_height,

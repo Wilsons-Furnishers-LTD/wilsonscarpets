@@ -30,7 +30,7 @@ class Products {
 
     setupCarousel() {
         setTimeout(() => {
-                    $('.product-photo-gallery.owl-carousel').owlCarousel({
+        $('.items-carousel').owlCarousel({
             items: 1,
 
         });

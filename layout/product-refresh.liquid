@@ -246,6 +246,16 @@ window.KlarnaThemeGlobals.data_purchase_amount =
     {% render 'breadcrumbs' %}
     {%- include 'product-top' -%}
     {%- include 'product-meta' -%}
+            <div class="product-photo-gallery">
+            <div class="owl-carousel">
+                <div class="item">Item 1</div>
+                <div class="item">Item 2</div>
+                <div class="item">Item 3</div>
+                <div class="item">Item 4</div>
+                <div class="item">Item 5</div>
+                <div class="item">Item 6</div>
+            </div>
+        </div>
     {{ content_for_layout }}
     </div>
 </main>
@@ -306,7 +316,5 @@ document.documentElement.classList.add('js');
 
 
 </body>
-
-<script  src="{{ 'products.js' |  asset_url}}"></script>
 
 </html>

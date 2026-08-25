@@ -3,11 +3,4 @@
   grid-template-rows: 1fr auto;
   display: grid;
   grid-template-columns: 1fr clamp(500px, 50vw, 700px);
-  display: flex;
-}
-.product-main_images {
-  max-width: calc(100vw - 700px);
-}
-.product-main_sidebar {
-  flex: 1;
 }

@@ -29,18 +29,12 @@ class Products {
     }
 
     setupCarousel() {
-         var owl = $('.product-photo-gallery .owl-carousel');
-
-        owl.owlCarousel({
-            items: 1,
-            loop: false,
-            margin: 10,
-            nav: true
+        $('.product-photo-gallery .owl-carousel').owlCarousel({
+            loop:false,
+            margin:10,
+            nav:true,
+            items:1
         });
-
-        // setTimeout(function () {
-        //     owl.trigger('refresh.owl.carousel');
-        // }, 100);
     }
 
     updateVariantSelection() {        

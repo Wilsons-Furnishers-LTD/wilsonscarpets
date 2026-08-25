@@ -1,9 +1,9 @@
 .product-main {
   display: flex;
 }
-.product-main_image {
-  min-width: calc(100vh - 500px);
-  max-width: calc(100vh - 700px);
+.product-main_images {
+  min-width: calc(100vw - 500px);
+  max-width: calc(100vw - 700px);
 }
 .product-main_sidebar {
   flex: 1;

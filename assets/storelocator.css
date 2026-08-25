@@ -40,6 +40,11 @@
   font-size: 20px;
   font-weight: 700;
 }
+.pagecontents .storelocator-loading .storelocator-loading__text {
+  font-size: 26px;
+  font-weight: 700;
+}
+
 .storeify-sl-light-modal .pulse {
   -webkit-animation-name: ify_pulse;
   animation-name: ify_pulse;

@@ -4,3 +4,7 @@
   display: grid;
   grid-template-columns: 1fr clamp(500px, 50vw, 700px);
 }
+
+.product-photo-gallery {
+  width: 30%;
+}

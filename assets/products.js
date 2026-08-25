@@ -37,7 +37,7 @@ class Products {
         });
         setTimeout(function () {
             $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
-        }, 100);
+        }, 1000);
 
     }
 

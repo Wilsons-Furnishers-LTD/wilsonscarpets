@@ -1,6 +1,6 @@
-.product-main {
+/* .product-main {
   height: calc(100vh - 217px);
   grid-template-rows: 1fr auto;
   display: grid;
   grid-template-columns: 1fr clamp(500px, 50vw, 700px);
-}
+} */

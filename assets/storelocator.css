@@ -3260,6 +3260,9 @@ body .cw-storelocator .store-details-modal .store-details-modal-header .store-de
 body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close:hover {
   cursor: pointer;
 }
+body .cw-storelocator .store-details-modal table tr td:first-of-type:after {
+  content: ":";
+}
 body .cw-storelocator .store-opening-times {
   line-height: 20px;
 }

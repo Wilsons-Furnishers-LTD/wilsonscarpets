@@ -111,6 +111,8 @@
 .product-main-details .product-features {
   border-top: none;
   margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 0;
   display: flex;
   justify-content: space-around;
   align-items: flex-start;

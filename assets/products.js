@@ -20,11 +20,13 @@ class Products {
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
         document.addEventListener('DOMContentLoaded', this.setupCarousel.bind(this));
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('shopify:section:load', (event) => {
+            const section = event.target;
 
-        document.addEventListener('shopify:section:load', (event) => {
-        const section = event.target;
-
-        console.log('Shopify section loaded:', section);
+            console.log('Shopify section loaded:', section);
+            });
         });
 
         document.addEventListener('colour:changed', (event) => {

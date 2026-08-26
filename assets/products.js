@@ -21,6 +21,12 @@ class Products {
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
         document.addEventListener('DOMContentLoaded', this.setupCarousel.bind(this));
 
+        document.addEventListener('shopify:section:load', (event) => {
+        const section = event.target;
+
+        console.log('Shopify section loaded:', section);
+        });
+
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
         });

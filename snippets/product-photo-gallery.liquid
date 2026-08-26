@@ -126,7 +126,7 @@
             {% unless image_exclude contains variant_image %}
                 {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
                     {% unless image.attached_to_variant? %}
-                        <div class="item" data-slide="{{ forloop.index }} ">
+                        <div class="item" data-slide="{{ forloop.index }}">
                             <a class="featherlight-gallery" href="{{ image | img_url: '1600x1600' }}">
                                 <picture>
                                     <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">
@@ -138,7 +138,7 @@
                         </div>
                     {% endunless %}
                 {% else %}
-                    <div class="item" data-slide="{{ forloop.index }} ">
+                    <div class="item" data-slide="{{ forloop.index }}">
                         <a class="featherlight-gallery" href="{{ image | img_url: '1600x1600' }}">
                             <picture>
                             <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">

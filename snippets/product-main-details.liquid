@@ -46,6 +46,7 @@
         <div class="product-main-details__item">
             <div class="delivery">
                 {% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
+                {{delivery_type}}
                 <div class="content">
                     {% if pages[delivery_type] %}
                         {{ pages[delivery_type].content }}

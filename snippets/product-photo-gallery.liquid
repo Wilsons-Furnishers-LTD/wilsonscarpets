@@ -176,7 +176,7 @@
                                     {% if option == color %}
                                         {% unless displayedColor contains color %}
                                             {% assign displayedColor = displayedColor | append: '|' | append: color %}
-                                                <li data-slide="{{ forloop.index }} " class="product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
+                                                <li data-slide="{{ forloop.index }}" class="product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
                                                 <a href="#" class="data" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '80x80', crop: 'center' }}" alt="{{ variant.image.alt | escape }}"/></a>
                                                 {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
                                             {% break %}

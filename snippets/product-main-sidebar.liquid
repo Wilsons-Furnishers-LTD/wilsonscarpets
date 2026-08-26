@@ -61,8 +61,8 @@
 {% endfor %}
 
 <div class="product-main-sidebar__inner">
-<h1 itemprop="name">{{ product.title }}</h1>
-<div class="price-only{{ onSaleClass }}">
+    <h1 itemprop="name">{{ product.title }}</h1>
+    <div class="price-only{{ onSaleClass }}">
       {% assign afterText = afterText | strip | downcase %}
       {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
         <h2>{{ beforeText }}{{ product.price | money }}{{ afterText }}</h2>
@@ -100,5 +100,105 @@
           {% endif %}
         </h3>
       {% endif %}
+    </div>
+    {% assign product_vendor_handle = product.vendor | handle %}
+    {% comment %}
+      Do we have a collection that has the same name as our product vendor name?
+      If we do, let's have the vendor link point to it.
+      If not, we will point to the automatic vendor collection.
+    {% endcomment %}
+    {% if collections[product_vendor_handle].handle == product_vendor_handle %}
+      {% assign vendor_url = collections[product_vendor_handle].url %}
+    {% else %}
+      {% assign vendor_url = product.vendor | url_for_vendor %}
+    {% endif %}
+
+    {% assign getallSKUs = product.selected_or_first_available_variant.sku %}
+    {% assign getallSKUs = getallSKUs | replace: "0", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "1", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "2", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "3", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "4", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "5", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "6", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "7", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "8", "" %}
+    {% assign getallSKUs = getallSKUs | replace: "9", "" %}
+
+    {% if ShoppingID != "" %}
+      {% assign getallSKUs = ShoppingID %}
+    {% else %}
+      {% assign getallSKUs = getallSKUs | append: '*' %}
+    {% endif %}
+
+    {% assign stockAvailability = '' %}
+    {% if product.variants.size > 1 %}
+      {% assign stockAvailability = 'Out of stock' %}
+      {% for variant in product.variants %}
+        {% if variant.metafields.Juno.is_in_stock != '0' %}
+          {% assign stockAvailability = 'In stock' %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {% if product.metafields.Juno.is_in_stock != '0' %}
+        {% if product.metafields.Juno.lowstock == 'Yes' %}
+          {% assign stockAvailability = 'Order Now' %}
+        {% else %}
+          {% assign stockAvailability = 'In Stock' %}
+        {% endif %}
+      {% else %}
+        {% assign stockAvailability = 'Out of stock' %}
+      {% endif %}
+    {% endif %}
+
+    <p id="stockLevel" class="{{stockAvailability | handle | replace: '-', ''}} ">
+      <i class="icon-{{stockAvailability | handle | replace: '-', ''}}"></i>
+      {{ stockAvailability }}
+    </p>
+
+    <input
+      type="hidden"
+      value=" {{stockAvailability}}"
+      id="properties_stockLevel"
+      name="properties[_StockLevel]" />
+    <input
+      type="hidden"
+      value="false"
+      id="first_load"
+      name="first_load" />
+    {% assign deliveryTime = '' %}
+
+    {% for variant in product.variants %}
+      {% assign variantDeliveryTime = variant.metafields.Juno.Delivery_time | downcase %}
+      {% if 'fast delivery' == variantDeliveryTime %}
+        {% assign deliveryTime = 'Fast Delivery' %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if deliveryTime == '' %}
+      {% for variant in product.variants %}
+        {% assign variantDeliveryTime = variant.metafields.Juno.Delivery_time | downcase %}
+        {% if 'Product Discontinued' != variantDeliveryTime %}
+          {% assign deliveryTime = variant.metafields.Juno.Delivery_time %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if deliveryTime == '' %}
+      {% assign deliveryTime = 'Product Discontinued' %}
+    {% endif %}
+
+    <a href="/pages/stores" id="deliveryEstimate">
+      <span class="location__icon icon icon"><img src="{{ 'icon-location.svg' | asset_url }}" alt="location"></span>
+      {{ deliveryTime }}</a>
+
+    <input
+      type="hidden"
+      value="{{ deliveryTime }}"
+      id="properties_deliveryEstimate"
+      name="properties[_DeliveryEstimate]" />
+    <div class="product-features desktop">
+      <div class="row"></div>
     </div>
 </div>

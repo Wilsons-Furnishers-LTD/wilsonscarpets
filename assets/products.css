@@ -152,9 +152,14 @@
   background-color: #414B52;
   display: block;
   content: "";
+  opacity: 0;
+  transition: all 0.3s ease;
 }
-.product-main-details__header li:hover {
+.product-main-details__header li:not(.active):hover {
   cursor: pointer;
+}
+.product-main-details__header li:not(.active):hover:after {
+  opacity: 1;
 }
 .product-main-details__header li.active {
   opacity: 1;

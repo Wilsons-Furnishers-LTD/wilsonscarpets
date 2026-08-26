@@ -122,3 +122,6 @@
 .product-main-details__header li.active {
   opacity: 1;
 }
+.product-main-details__main p {
+  margin-bottom: 10px;
+}

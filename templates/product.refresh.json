@@ -1613,11 +1613,6 @@
       "name": "Product Main Area",
       "settings": {}
     },
-    "product_features_ytAMcG": {
-      "type": "product-features",
-      "name": "Product Features",
-      "settings": {}
-    },
     "specifications": {
       "type": "specifications",
       "settings": {
@@ -1636,7 +1631,6 @@
   },
   "order": [
     "product_main_area_CM74mW",
-    "product_features_ytAMcG",
     "specifications",
     "related"
   ]

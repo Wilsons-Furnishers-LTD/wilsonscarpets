@@ -23,6 +23,8 @@
 .product-main .product-photo-thumbs {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
 }
 .product-main .owl-nav {
   display: none;

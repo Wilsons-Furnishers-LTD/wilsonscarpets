@@ -106,4 +106,5 @@
 
 .product-main-details__header {
   display: flex;
+  gap: 30px;
 }

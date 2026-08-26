@@ -92,4 +92,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
+  gap: 10px;
+}
+.product-main-sidebar__inner .price-only h3 {
+  font-weight: 400;
+  text-decoration: line-through;
 }

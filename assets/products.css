@@ -112,6 +112,9 @@
   border-top: none;
   margin-top: 0;
 }
+.product-main-details .product-features .feature {
+  width: 25%;
+}
 .product-main-details__header {
   display: flex;
   gap: 30px;

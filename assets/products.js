@@ -179,12 +179,13 @@ class Products {
             },
             onInitialized: function(){
 
-                // jQuery('.product-photo-gallery .featherlight-gallery').zoom({
-                //     magnify: 1.35,
-                //     callback: function(){
 
-                //     }
-                // });
+                jQuery('.product-photo-gallery .featherlight-gallery').zoom({
+                    magnify: 1.35,
+                    callback: function(){
+
+                    }
+                });
 
                 /* mobile swipe initial on top zoom element */
                 var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');

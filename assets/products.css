@@ -5,13 +5,13 @@
   min-width: calc(100vw - 600px);
   max-width: calc(100vw - 700px);
 }
-.product-main_images picture {
+.product-main_images padd picture {
   position: relative;
   width: 100%;
   padding-bottom: calc(100vh - 348px);
   height: 0;
 }
-.product-main_images picture img {
+.product-main_images padd picture img {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -32,6 +32,6 @@
 .product-main .owl-nav {
   display: none;
 }
-.product-main .zoom-mobile {
+.product-main .pinch-zoom-container {
   display: none;
 }

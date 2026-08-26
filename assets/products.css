@@ -20,6 +20,9 @@
 .product-main_sidebar {
   flex: 1;
 }
+.product-main .product-photo-gallery .pinch-zoom-container {
+  display: none;
+}
 .product-main .product-photo-thumbs {
   display: flex;
   gap: 10px;

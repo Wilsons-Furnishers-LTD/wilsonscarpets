@@ -271,7 +271,7 @@ class Products {
                 }
             });
         }
-        $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
+        
     }
 
 }

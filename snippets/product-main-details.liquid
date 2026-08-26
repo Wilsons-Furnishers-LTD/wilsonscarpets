@@ -16,12 +16,11 @@
             </li>
         {% endif %}
     </ul>
-    <div class="product-main-details__main" id="tab-description">
+    <div class="product-main-details__main">
         {% if product.description %}
-            <div class="product-main-details__item">
+            <div class="product-main-details__item active" id="tab-description">
                 {{ product.description }}
-            </div>
-            <div class="product-features">
+                <div class="product-features">
                 {% for tag in product.tags %}
                 {% if tag contains 'Feature_' %}
                     {% assign feature_title = tag | remove: 'Feature_' %}
@@ -63,6 +62,7 @@
                     {% endfor %}
                 {% endif %}
                 {% endfor %}
+            </div>
             </div>
         {% endif %}
         <div class="product-main-details__item" id="tab-spec">

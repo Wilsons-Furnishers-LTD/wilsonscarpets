@@ -19,10 +19,15 @@ class Products {
             this.hideDefaultTitle = true;
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
-        document.addEventListener('DOMContentLoaded', this.setupCarousel.bind(this));
+        
 
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
+        });
+
+        jQuery(document).ready(function () {
+            console.log('jquery');
+            this.setupCarousel(this);
         });
         
         

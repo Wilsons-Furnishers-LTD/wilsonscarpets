@@ -5,6 +5,9 @@
   min-width: calc(100vw - 600px);
   max-width: calc(100vw - 700px);
 }
+.product-main_images .item {
+  position: relative;
+}
 .product-main_images .owl-item a {
   display: block;
   position: relative;

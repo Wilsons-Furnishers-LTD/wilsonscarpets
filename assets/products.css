@@ -5,6 +5,7 @@
   height: calc(100vh - 348px);
 }
 .product-main_images {
+  padding-left: 10px;
   min-width: calc(100vw - 600px);
   max-width: calc(100vw - 700px);
 }

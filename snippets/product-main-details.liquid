@@ -21,6 +21,9 @@
             <div class="product-main-details__item">
                 {{ product.description }}
             </div>
+            <div class="product-features desktop">
+                <div class="row"></div>
+            </div>
         {% endif %}
         <div class="product-main-details__item">
             {% assign specifications = product.metafields.custom.specifications.value %}

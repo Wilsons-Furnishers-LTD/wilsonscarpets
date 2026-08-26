@@ -126,7 +126,7 @@
             {% unless image_exclude contains variant_image %}
                 {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
                     {% unless image.attached_to_variant? %}
-                        <div class="item" data-slide="{{ forloop.index }}">
+                        <div class="item">
                             <a class="featherlight-gallery" href="{{ image | img_url: '1600x1600' }}">
                                 <picture>
                                     <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">
@@ -138,7 +138,7 @@
                         </div>
                     {% endunless %}
                 {% else %}
-                    <div class="item" data-slide="{{ forloop.index }}">
+                    <div class="item">
                         <a class="featherlight-gallery" href="{{ image | img_url: '1600x1600' }}">
                             <picture>
                             <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">
@@ -176,7 +176,7 @@
                                     {% if option == color %}
                                         {% unless displayedColor contains color %}
                                             {% assign displayedColor = displayedColor | append: '|' | append: color %}
-                                                <li class="product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
+                                                <li data-slide="{{ forloop.index }} " class="product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
                                                 <a href="#" class="data" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '80x80', crop: 'center' }}" alt="{{ variant.image.alt | escape }}"/></a>
                                                 {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
                                             {% break %}

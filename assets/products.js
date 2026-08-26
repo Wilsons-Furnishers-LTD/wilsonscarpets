@@ -13,7 +13,8 @@ class Products {
         this.productType = variantData.getAttribute('data-product-type'),
         this.hideDefaultTitle = false,
         this.soldOut = variantData.getAttribute('data-sold-out'),
-        this.unavailable = variantData.getAttribute('data-unavailable');
+        this.unavailable = variantData.getAttribute('data-unavailable'),
+        this.detailTitles = document.querySelectorAll('.product-main-details__title');
 
         if(variantData.getAttribute('data-hide-default-title') == 'true') {
             this.hideDefaultTitle = true;
@@ -25,10 +26,15 @@ class Products {
             this.updateVariant();
         });
         
-        
+         this.detailTitles.forEach(detailTitle => {
+            detailTitle.addEventListener('click', this.changeProductDetailView.bind(this));
+         });
         
     }
 
+    changeProductDetailView() {
+        console.log('dsffdssf');
+    }
     updateVariantSelection() {        
 
         this.selects.forEach(select => {

@@ -125,6 +125,12 @@
   font-size: 12px;
   margin-top: 15px;
 }
+.product-main-details__item {
+  display: none;
+}
+.product-main-details__item.active {
+  display: block;
+}
 .product-main-details__header {
   display: flex;
   gap: 30px;

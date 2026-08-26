@@ -141,10 +141,20 @@
   font-weight: 700;
   opacity: 0.5;
   padding-bottom: 15px;
+  position: relative;
+}
+.product-main-details__header li:after {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  bottom: -1px;
+  left: 0;
+  background-color: #414B52;
+  display: block;
+  content: "";
 }
 .product-main-details__header li:hover {
   cursor: pointer;
-  text-decoration: underline;
 }
 .product-main-details__header li.active {
   opacity: 1;

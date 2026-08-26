@@ -111,3 +111,10 @@
   display: flex;
   gap: 30px;
 }
+.product-main-details__header li {
+  font-weight: 700;
+  opacity: 0.5;
+}
+.product-main-details__header li.active {
+  opacity: 1;
+}

@@ -114,8 +114,11 @@
   display: flex;
 }
 .product-main-details .product-features .feature {
-  width: 25%;
+  width: 20%;
   float: none;
+}
+.product-main-details .product-features .feature .text-content h2 {
+  font-size: 12px;
 }
 .product-main-details__header {
   display: flex;

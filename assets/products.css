@@ -6,6 +6,7 @@
   flex-direction: column;
 }
 .product-main_images {
+  overflow: hidden;
   display: flex;
   height: calc(100vh - 248px);
   padding-left: 10px;

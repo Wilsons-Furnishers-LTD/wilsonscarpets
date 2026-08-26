@@ -20,6 +20,10 @@
 .product-main_sidebar {
   flex: 1;
 }
+.product-main .product-photo-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+}
 .product-main .zoom-mobile {
   display: none;
 }

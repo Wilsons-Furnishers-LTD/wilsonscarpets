@@ -35,6 +35,7 @@ class Products {
             nav:true,
             items:1
         });
+        $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
     }
 
     updateVariantSelection() {        

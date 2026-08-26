@@ -8,3 +8,6 @@
 .product-main_sidebar {
   flex: 1;
 }
+.product-main .zoom-mobile {
+  display: none;
+}

@@ -112,7 +112,7 @@
         {% assign stockAvailability = 'Out of stock' %}
       {% endif %}
     {% endif %}
-
+    <div class="stock-delivery-wrapper">
     <p id="stockLevel" class="{{stockAvailability | handle | replace: '-', ''}} ">
       <i class="icon-{{stockAvailability | handle | replace: '-', ''}}"></i>
       {{ stockAvailability }}
@@ -153,15 +153,13 @@
     <a href="/pages/stores" id="deliveryEstimate">
       <span class="location__icon icon icon"><img src="{{ 'icon-location.svg' | asset_url }}" alt="location"></span>
       {{ deliveryTime }}</a>
-
+    </div>
     <input
       type="hidden"
       value="{{ deliveryTime }}"
       id="properties_deliveryEstimate"
       name="properties[_DeliveryEstimate]" />
-    <div class="product-features desktop">
-      <div class="row"></div>
-    </div>
+
     <div class="price-only{{ onSaleClass }}">
       {% assign afterText = afterText | strip | downcase %}
       {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}

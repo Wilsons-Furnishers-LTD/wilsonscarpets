@@ -16,10 +16,8 @@
         </div>
         <div class="product-main-details__item">
             {% assign specifications = product.metafields.custom.specifications.value %}
-
             {% if section.blocks.size > 0 %}
                 <div class="specifications">
-
                     {% if specifications %}
                         <ul>
                             {% for specification in specifications %}
@@ -46,7 +44,14 @@
             {% endif %}            
         </div>
         <div class="product-main-details__item">
-            
+            <div class="delivery">
+                {% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
+                <div class="content">
+                    {% if pages[delivery_type] %}
+                        {{ pages[delivery_type].content }}
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

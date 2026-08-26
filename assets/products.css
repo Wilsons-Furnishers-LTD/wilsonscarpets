@@ -2,7 +2,7 @@
   display: flex;
 }
 .product-main .owl-stage-outer {
-  height: calc(98vh - 348px);
+  height: 100vh;
 }
 .product-main_images {
   padding-left: 10px;
@@ -16,7 +16,6 @@
   display: block;
   position: relative;
   width: 100%;
-  padding-bottom: calc(95vh - 348px);
   height: 0;
 }
 .product-main_images .owl-item a img {

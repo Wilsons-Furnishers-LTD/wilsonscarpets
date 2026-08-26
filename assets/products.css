@@ -94,7 +94,11 @@
   align-items: baseline;
   gap: 10px;
 }
+.product-main-sidebar__inner .price-only h2 {
+  font-size: 28px;
+}
 .product-main-sidebar__inner .price-only h3 {
   font-weight: 400;
+  font-size: 16px;
   text-decoration: line-through;
 }

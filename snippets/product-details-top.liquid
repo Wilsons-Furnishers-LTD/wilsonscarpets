@@ -81,7 +81,7 @@
           {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
         {% endif %}
       {% else %}
-        <h2>{{ beforeText }}{{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</h2>
+        <h2>{{ beforeText }} <span class="update-on-change">{{ product.price | divided_by: packSizePerSQM | money }}</span>{{ afterText }}</h2>
         {% if product.compare_at_price > product.price %}
           {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
         {% else %}

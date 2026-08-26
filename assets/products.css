@@ -5,14 +5,14 @@
   min-width: calc(100vw - 600px);
   max-width: calc(100vw - 700px);
 }
-.product-main_images a {
+.product-main_images .owl-item a {
   display: block;
   position: relative;
   width: 100%;
   padding-bottom: calc(100vh - 348px);
   height: 0;
 }
-.product-main_images a img {
+.product-main_images .owl-item a img {
   width: 100%;
   height: 100%;
   position: absolute;

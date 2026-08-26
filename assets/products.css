@@ -4,6 +4,7 @@
 .product-main .product-photo-gallery-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .product-main_images {
   overflow: hidden;

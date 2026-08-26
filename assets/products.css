@@ -1,9 +1,6 @@
 .product-main {
   display: flex;
 }
-.product-main .owl-stage-outer {
-  height: 100vh;
-}
 .product-main_images {
   display: flex;
   height: calc(100vh - 248px);

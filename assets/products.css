@@ -32,6 +32,9 @@
 .product-main .product-photo-gallery .pinch-zoom-container {
   display: none;
 }
+.product-main .product-photo-gallery {
+  height: 100%;
+}
 .product-main .product-photo-thumbs {
   display: flex;
   gap: 10px;

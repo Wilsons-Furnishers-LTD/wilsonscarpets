@@ -84,6 +84,15 @@
                   {{ item.quantity }} Packs
                 </li>
               {% endif %}
+
+              {% if item.product.type == 'Bed'%}
+                {% for option in item.options_with_values %}
+                  <li>
+                    <strong>{{ option.name | append: ':' }}</strong>
+                    {{ option.value }}
+                  </li>
+              {% endfor %}
+              {% endif %}
             </ul>
         {% endunless %}
           {% comment %}

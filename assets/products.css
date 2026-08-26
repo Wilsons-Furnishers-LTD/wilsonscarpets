@@ -108,6 +108,10 @@
 .product-main-details {
   padding-top: 30px;
 }
+.product-main-details .product-features {
+  border-top: none;
+  margin-top: 0;
+}
 .product-main-details__header {
   display: flex;
   gap: 30px;

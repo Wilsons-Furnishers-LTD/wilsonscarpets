@@ -121,6 +121,7 @@
 }
 .product-main-details .product-features .feature .text-content h2 {
   font-size: 12px;
+  margin-top: 15px;
 }
 .product-main-details__header {
   display: flex;

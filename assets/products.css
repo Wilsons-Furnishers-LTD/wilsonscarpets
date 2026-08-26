@@ -68,3 +68,13 @@
   display: inline-block;
   color: #28a81a;
 }
+.product-main-sidebar__inner #deliveryEstimate {
+  padding-left: 22px;
+  position: relative;
+}
+.product-main-sidebar__inner #deliveryEstimate .icon {
+  width: 12px;
+  position: absolute;
+  top: 2px;
+  left: 0;
+}

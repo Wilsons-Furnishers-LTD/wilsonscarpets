@@ -62,45 +62,6 @@
 
 <div class="product-main-sidebar__inner">
     <h1 itemprop="name">{{ product.title }}</h1>
-    <div class="price-only{{ onSaleClass }}">
-      {% assign afterText = afterText | strip | downcase %}
-      {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
-        <h2>{{ beforeText }}{{ product.price | money }}{{ afterText }}</h2>
-        {% if product.compare_at_price > product.price %}
-          {% assign wasPrice = product.compare_at_price | money | prepend: 'was ' | append: afterText %}
-        {% else %}
-          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
-        {% endif %}
-      {% elsif product.type == 'Laminate' or product.type == 'LVT' %}
-        <h2>{{ beforeText }}{{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</h2>
-
-        {% if product.compare_at_price > product.price %}
-          {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
-        {% else %}
-          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
-        {% endif %}
-      {% else %}
-        <h2>{{ beforeText }} <span class="update-on-change">{{ product.price | divided_by: packSizePerSQM | money }}</span>{{ afterText }}</h2>
-        {% if product.compare_at_price > product.price %}
-          {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
-        {% else %}
-          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
-        {% endif %}
-      {% endif %}
-      
-      {% if priceSquareMetre > purchasePricePerSQM or product.compare_at_price > product.price %}
-        <h3>
-          <span>{{ wasPrice }}</span>
-          {% assign percentSaved = priceSquareMetre | minus: purchasePricePerSQM | divided_by: priceSquareMetre | times: 100 | ceil %}
-          {% if RRPPrice == '' and product.compare_at_price <= product.price %}
-            {% if priceSquareMetre != product.price %}
-              (Save
-              {{ percentSaved }}%)
-            {% endif %}
-          {% endif %}
-        </h3>
-      {% endif %}
-    </div>
     {% assign product_vendor_handle = product.vendor | handle %}
     {% comment %}
       Do we have a collection that has the same name as our product vendor name?
@@ -200,5 +161,44 @@
       name="properties[_DeliveryEstimate]" />
     <div class="product-features desktop">
       <div class="row"></div>
+    </div>
+    <div class="price-only{{ onSaleClass }}">
+      {% assign afterText = afterText | strip | downcase %}
+      {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
+        <h2>{{ beforeText }}{{ product.price | money }}{{ afterText }}</h2>
+        {% if product.compare_at_price > product.price %}
+          {% assign wasPrice = product.compare_at_price | money | prepend: 'was ' | append: afterText %}
+        {% else %}
+          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+        {% endif %}
+      {% elsif product.type == 'Laminate' or product.type == 'LVT' %}
+        <h2>{{ beforeText }}{{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</h2>
+
+        {% if product.compare_at_price > product.price %}
+          {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
+        {% else %}
+          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+        {% endif %}
+      {% else %}
+        <h2>{{ beforeText }} <span class="update-on-change">{{ product.price | divided_by: packSizePerSQM | money }}</span>{{ afterText }}</h2>
+        {% if product.compare_at_price > product.price %}
+          {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
+        {% else %}
+          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+        {% endif %}
+      {% endif %}
+      
+      {% if priceSquareMetre > purchasePricePerSQM or product.compare_at_price > product.price %}
+        <h3>
+          <span>{{ wasPrice }}</span>
+          {% assign percentSaved = priceSquareMetre | minus: purchasePricePerSQM | divided_by: priceSquareMetre | times: 100 | ceil %}
+          {% if RRPPrice == '' and product.compare_at_price <= product.price %}
+            {% if priceSquareMetre != product.price %}
+              (Save
+              {{ percentSaved }}%)
+            {% endif %}
+          {% endif %}
+        </h3>
+      {% endif %}
     </div>
 </div>

@@ -24,8 +24,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin: 10px;
 }
 .product-main .owl-nav {
   display: none;

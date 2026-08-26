@@ -91,4 +91,5 @@
 .product-main-sidebar__inner .price-only {
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
 }

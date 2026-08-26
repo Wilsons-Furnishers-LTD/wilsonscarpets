@@ -6,7 +6,6 @@
   flex-direction: column;
 }
 .product-main_images {
-  overflow: hidden;
   display: flex;
   height: calc(100vh - 248px);
   padding-left: 10px;
@@ -38,8 +37,8 @@
   display: none;
 }
 .product-main .product-photo-gallery {
-  height: 100%;
   display: flex;
+  overflow: hidden;
 }
 .product-main .product-photo-thumbs {
   display: flex;

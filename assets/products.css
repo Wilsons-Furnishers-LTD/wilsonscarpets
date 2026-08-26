@@ -104,6 +104,9 @@
   text-decoration: line-through;
 }
 
+.product-main-details {
+  padding-top: 30px;
+}
 .product-main-details__header {
   display: flex;
   gap: 30px;

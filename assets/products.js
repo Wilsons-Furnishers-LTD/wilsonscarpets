@@ -22,6 +22,7 @@ class Products {
         document.addEventListener('DOMContentLoaded', this.setupCarousel.bind(this));
         
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('dsffds');
             document.addEventListener('shopify:section:load', (event) => {
             const section = event.target;
 

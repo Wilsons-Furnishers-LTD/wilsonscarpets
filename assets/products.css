@@ -146,7 +146,7 @@
 .product-main-details__header li:after {
   position: absolute;
   width: 100%;
-  height: 5px;
+  height: 3px;
   bottom: -1px;
   left: 0;
   background-color: #414B52;

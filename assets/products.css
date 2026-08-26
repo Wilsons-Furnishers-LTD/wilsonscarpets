@@ -142,6 +142,10 @@
   opacity: 0.5;
   padding-bottom: 15px;
 }
+.product-main-details__header li:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .product-main-details__header li.active {
   opacity: 1;
 }

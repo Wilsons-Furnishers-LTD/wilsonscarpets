@@ -127,7 +127,7 @@
                 {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
                     {% unless image.attached_to_variant? %}
                         <div class="item">
-                            <a class="featherlight-gallery" href="{{ image | img_url: '1600x1600' }}">
+                            <a class="featherlight-gallery ct" href="{{ image | img_url: '1600x1600' }}">
                                 <picture>
                                     <source media="(min-width: 1024px)" srcset="{{ image | img_url: '600x600' }}">
                                     <source srcset="{{ image | img_url: '860x860' }}">

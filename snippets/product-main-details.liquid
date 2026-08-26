@@ -21,8 +21,48 @@
             <div class="product-main-details__item">
                 {{ product.description }}
             </div>
-            <div class="product-features desktop">
-                <div class="row"></div>
+            <div class="product-features">
+                {% for tag in product.tags %}
+                {% if tag contains 'Feature_' %}
+                    {% assign feature_title = tag | remove: 'Feature_' %}
+
+                    {% for block in section.blocks %}
+                    {% if block.settings.title == feature_title %}
+                        <div class="feature" {{ block.shopify_attributes }}>
+
+                        {% if block.settings.link != blank %}
+                            <a class="image" href="{{ block.settings.link }}">
+                        {% endif %}
+
+                        {% if block.settings.image != blank %}
+                            <picture>
+                            <img
+                                src="{{ block.settings.image | image_url }}"
+                                alt="{{ block.settings.title | escape }}"
+                                loading="lazy"
+                            >
+                            </picture>
+                        {% endif %}
+
+                        {% if block.settings.link != blank %}
+                            </a>
+                        {% endif %}
+
+                        <div class="text-content">
+                            {% if block.settings.title != blank %}
+                            <h2 class="title">{{ block.settings.title }}</h2>
+                            {% endif %}
+
+                            {% if block.settings.subheading != blank %}
+                            <p class="subtitle">{{ block.settings.subheading }}</p>
+                            {% endif %}
+                        </div>
+
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% endfor %}
             </div>
         {% endif %}
         <div class="product-main-details__item">
@@ -65,46 +105,3 @@
         {% endif %}
     </div>
 </div>
-
-
-{% for tag in product.tags %}
-  {% if tag contains 'Feature_' %}
-    {% assign feature_title = tag | remove: 'Feature_' %}
-
-    {% for block in section.blocks %}
-      {% if block.settings.title == feature_title %}
-        <div class="feature" {{ block.shopify_attributes }}>
-
-          {% if block.settings.link != blank %}
-            <a class="image" href="{{ block.settings.link }}">
-          {% endif %}
-
-          {% if block.settings.image != blank %}
-            <picture>
-              <img
-                src="{{ block.settings.image | image_url }}"
-                alt="{{ block.settings.title | escape }}"
-                loading="lazy"
-              >
-            </picture>
-          {% endif %}
-
-          {% if block.settings.link != blank %}
-            </a>
-          {% endif %}
-
-          <div class="text-content">
-            {% if block.settings.title != blank %}
-              <h2 class="title">{{ block.settings.title }}</h2>
-            {% endif %}
-
-            {% if block.settings.subheading != blank %}
-              <p class="subtitle">{{ block.settings.subheading }}</p>
-            {% endif %}
-          </div>
-
-        </div>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
-{% endfor %}

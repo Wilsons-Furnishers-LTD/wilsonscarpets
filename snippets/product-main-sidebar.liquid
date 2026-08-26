@@ -1,3 +1,104 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+{% assign afterText = "" %}
+{% assign beforeText = "Only " %}
+{% assign beforeText = "Only " %}
+{% assign afterText = "" %}
+{% comment %}
+    check to see if it's a cloned product:
+{% endcomment %}
+{% assign productTag = '' %}
+{% assign productPromo = '' %}
+{% assign onSaleClass = '' %}
+{% assign RRPPrice = '' %}
+{% assign packSizePerSQM = 1 %}
+
+
+{% for tag in product.tags %}
+    {% if tag contains 'After Label_' %}
+        {% assign afterText = tag | replace: 'After Label_', '' | prepend: " " %}
+    {% endif %}
+    {% if tag contains 'RRP_' %}
+        {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Before Label_' %}
+        {% assign beforeText = tag | replace: 'Before Label_', '' | prepend: "<small>" | append: "</small> " %}
+    {% endif %}
+{% endfor %}
+
+{% if RRPPrice != '' %}
+    {% assign priceSquareMetre = RRPPrice | times: 100 %}
+    {% assign purchasePricePerSQM = product.price | divided_by: packSizePerSQM %}
+{% endif %}
+
+{% for tag in product.tags %}
+    {% if tag contains 'parent_' %}
+        {% assign parentHandle = tag | replace: 'parent_', '' %}
+        <script>
+            window.location = "/products/{{ parentHandle }}";
+        </script>
+    {% endif %}
+    {% if tag contains 'RRP_' %}
+        {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Pack Size (M²)_' %}
+        {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'After Label_' %}
+        {% assign afterText = tag | replace: 'After Label_', '' | prepend: " " %}
+    {% endif %}
+    {% if tag contains 'promo_' %}
+        {% assign productPromo = tag | replace: 'promo_' %}
+    {% endif %}
+{% endfor %}
+
 <div class="product-main-sidebar">
 <h1 itemprop="name">{{ product.title }}</h1>
+<div class="price-only{{ onSaleClass }}">
+      {% assign afterText = afterText | strip | downcase %}
+      {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
+        <h2>{{ beforeText }}{{ product.price | money }}{{ afterText }}</h2>
+        {% if product.compare_at_price > product.price %}
+          {% assign wasPrice = product.compare_at_price | money | prepend: 'was ' | append: afterText %}
+        {% else %}
+          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+        {% endif %}
+      {% elsif product.type == 'Laminate' or product.type == 'LVT' %}
+        <h2>{{ beforeText }}{{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</h2>
+
+        {% if product.compare_at_price > product.price %}
+          {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
+        {% else %}
+          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+        {% endif %}
+      {% else %}
+        <h2>{{ beforeText }} <span class="update-on-change">{{ product.price | divided_by: packSizePerSQM | money }}</span>{{ afterText }}</h2>
+        {% if product.compare_at_price > product.price %}
+          {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
+        {% else %}
+          {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+        {% endif %}
+      {% endif %}
+      
+      {% if priceSquareMetre > purchasePricePerSQM or product.compare_at_price > product.price %}
+        <h3>
+          <span>{{ wasPrice }}</span>
+          {% assign percentSaved = priceSquareMetre | minus: purchasePricePerSQM | divided_by: priceSquareMetre | times: 100 | ceil %}
+          {% if RRPPrice == '' and product.compare_at_price <= product.price %}
+            {% if priceSquareMetre != product.price %}
+              (Save
+              {{ percentSaved }}%)
+            {% endif %}
+          {% endif %}
+        </h3>
+      {% endif %}
+    </div>
 </div>

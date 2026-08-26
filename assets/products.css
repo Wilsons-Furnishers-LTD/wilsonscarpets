@@ -26,7 +26,7 @@
 .product-main_sidebar {
   flex: 1;
 }
-.product-main .owl-carousel {
+.product-main .owl-carousel, .product-main .owl-stage-outer {
   display: flex;
 }
 .product-main .product-photo-gallery .pinch-zoom-container {

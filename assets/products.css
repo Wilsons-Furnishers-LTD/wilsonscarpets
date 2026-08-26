@@ -54,3 +54,10 @@
 .product-main .owl-nav {
   display: none;
 }
+
+.product-main-sidebar__inner {
+  padding-left: 10px;
+}
+.product-main-sidebar__inner h1 {
+  font-size: 32px;
+}

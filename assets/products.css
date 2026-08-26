@@ -9,7 +9,7 @@
 .product-main_images {
   overflow: hidden;
   display: flex;
-  height: calc(100vh - 219px);
+  height: calc(100vh - 304px);
   padding-left: 10px;
   min-width: calc(100vw - 600px);
   max-width: calc(100vw - 700px);

@@ -26,6 +26,9 @@
   gap: 10px;
   margin: 10px;
 }
+.product-main .product-photo-thumbs a {
+  display: block;
+}
 .product-main .owl-nav {
   display: none;
 }

@@ -5,6 +5,18 @@
   min-width: calc(100vw - 500px);
   max-width: calc(100vw - 700px);
 }
+.product-main_images picture {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100vh;
+  height: 0;
+}
+.product-main_images picture img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+}
 .product-main_sidebar {
   flex: 1;
 }

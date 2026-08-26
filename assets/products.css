@@ -61,3 +61,10 @@
 .product-main-sidebar__inner h1 {
   font-size: 32px;
 }
+.product-main-sidebar .instock {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  display: inline-block;
+  color: #28a81a;
+}

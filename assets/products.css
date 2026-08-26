@@ -88,3 +88,7 @@
 .product-main-sidebar__inner .stock-delivery-wrapper {
   padding-bottom: 15px;
 }
+.product-main-sidebar__inner .price-only {
+  display: flex;
+  flex-wrap: wrap;
+}

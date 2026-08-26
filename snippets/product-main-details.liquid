@@ -1,19 +1,27 @@
+{% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
+
 <div class="product-main-details">
     <ul class="product-main-details__header">
-        <li class="product-main-details__title active" data-item="description">
-            Description
-        </li>
+        {% if product.description %}
+            <li class="product-main-details__title active" data-item="description">
+                Description
+            </li>
+        {% endif %}
         <li class="product-main-details__title" data-item="specs">
             Specs
         </li>
-        <li class="product-main-details__title" data-item="delivery">
-            Delivery
-        </li>
+        {% if pages[delivery_type] %}
+            <li class="product-main-details__title" data-item="delivery">
+                Delivery
+            </li>
+        {% endif %}
     </ul>
     <div class="product-main-details__main">
-        <div class="product-main-details__item">
-            {{ product.description }}
-        </div>
+        {% if product.description %}
+            <div class="product-main-details__item">
+                {{ product.description }}
+            </div>
+        {% endif %}
         <div class="product-main-details__item">
             {% assign specifications = product.metafields.custom.specifications.value %}
             {% if section.blocks.size > 0 %}
@@ -43,15 +51,14 @@
                 </div>
             {% endif %}            
         </div>
-        <div class="product-main-details__item">
-            <div class="delivery">
-                {% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
-                <div class="content">
-                    {% if pages[delivery_type] %}
+        {% if pages[delivery_type] %}
+            <div class="product-main-details__item">
+                <div class="delivery">
+                    <div class="content">
                         {{ pages[delivery_type].content }}
-                    {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 </div>

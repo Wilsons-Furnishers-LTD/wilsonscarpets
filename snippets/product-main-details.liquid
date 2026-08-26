@@ -80,7 +80,6 @@
           		    features_tags.push({{ feature | json }});
                 {% endif %}
           	{% endfor %}
-            console.log(features_blocks)
     		jQuery.each(features_blocks, function(index, value) {
             	var tag_block = value,
                         image = tag_block.image,
@@ -112,6 +111,7 @@
                         }
                         feature_html += '</div>'
                         feature_html += '</div>';
+                        console.log(feature_html)
                         jQuery('.product-features .row').append(feature_html);
                     }
                 });

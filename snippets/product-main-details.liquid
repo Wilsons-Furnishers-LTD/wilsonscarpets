@@ -65,3 +65,54 @@
         {% endif %}
     </div>
 </div>
+
+<script type="text/javascript">
+            var features_blocks = [],
+                features_tags= [];
+
+            {% for block in section.blocks %}
+            	features_blocks.push({{ block.settings | json }});
+        	{% endfor %}
+
+	        {% for tag in product.tags %}
+          	    {% if tag contains 'Feature_' %}
+               	    {% assign feature = tag | replace: 'Feature_', '' %}
+          		    features_tags.push({{ feature | json }});
+                {% endif %}
+          	{% endfor %}
+    		jQuery.each(features_blocks, function(index, value) {
+            	var tag_block = value,
+                        image = tag_block.image,
+                        title = tag_block.title,
+                        subheading = tag_block.subheading,
+                        link = tag_block.link,
+                        feature_html = '';
+                
+                jQuery.each(features_tags, function(index, value) {
+                    var tag_title = value;
+	
+                    if(tag_title == title){
+                        feature_html += '<div class="feature">';
+                        if(link != ''){
+                            feature_html += '<a class="image" href="'+ link +'">';
+                        }
+                        if(image != ''){
+                            feature_html += '<picture><img src="'+ image +'" alt="'+ title +'"/></picture>';
+                        }
+                        if(link != ''){
+                            feature_html += '</a>';
+                        }
+                        feature_html += '<div class="text-content">'
+                        if(title != ''){
+                            feature_html += '<h2 class="title">'+ title +'</h2>';
+                        }
+                        if(subheading != ''){
+                            feature_html += '<p class="subtitle">'+ subheading +'</p>';
+                        }
+                        feature_html += '</div>'
+                        feature_html += '</div>';
+                        jQuery('.product-features .row').append(feature_html);
+                    }
+                });
+            });
+        </script>

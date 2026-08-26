@@ -27,7 +27,7 @@
   margin: 10px;
 }
 .product-main .product-photo-thumbs a {
-  display: block;
+  display: flex;
 }
 .product-main .owl-nav {
   display: none;

@@ -120,6 +120,7 @@
   padding-top: 30px;
 }
 .product-main-details .product-features {
+  border-bottom: 1px solid rgba(65, 75, 82, 0.5);
   border-top: none;
   margin-top: 0;
   padding-top: 0;

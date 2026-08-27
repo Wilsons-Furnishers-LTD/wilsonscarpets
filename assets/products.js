@@ -27,13 +27,13 @@ class Products {
         });
 
         this.detailTitles.forEach(detailTitle => {
-            detailTitle.addEventListener('click', this.changeProductDetailView.bind(this));
+            detailTitle.addEventListener('click', this.changeProductDetailView(detailTitle));
         });
         
     }
 
-    changeProductDetailView() {
-        console.log(this);
+    changeProductDetailView(detailTitle) {
+        console.log(detailTitle);
     }
     updateVariantSelection() {        
 

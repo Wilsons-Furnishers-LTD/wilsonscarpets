@@ -3,6 +3,9 @@
     padding-top: 203px;
   }
 }
+body.product-refresh .breadcrumb a {
+  font-size: 14px;
+}
 
 .product-main {
   display: flex;

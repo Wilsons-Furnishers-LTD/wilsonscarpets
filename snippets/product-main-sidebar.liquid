@@ -61,6 +61,7 @@
 {% endfor %}
 
 <div class="product-main-sidebar__inner">
+    {% render 'breadcrumbs' %}
     <h1 itemprop="name">{{ product.title }}</h1>
     {% assign product_vendor_handle = product.vendor | handle %}
     {% comment %}
@@ -161,7 +162,6 @@
       name="properties[_DeliveryEstimate]" />
 
     <div class="price-only{{ onSaleClass }}">
-        {% render 'breadcrumbs' %}
       {% assign afterText = afterText | strip | downcase %}
       {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
         <h2>{{ beforeText }}{{ product.price | money }}{{ afterText }}</h2>

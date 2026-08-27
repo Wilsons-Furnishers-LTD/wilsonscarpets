@@ -82,6 +82,7 @@
 			{% endcase %}
 
 			{% capture related_items %}
+                {{collection.products | json}}
 			{% for product in collection.products %}
 			{% unless product.handle == current_product.handle %}
 			{% unless same_vendor and current_product.vendor != product.vendor %}
@@ -102,7 +103,7 @@
 			{% assign related_items = related_items | trim %}
 
 			{% unless related_items == blank %}
-                {{collection | json}}
+                
 	<div class=" related-products-refresh related-products" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
 			{% unless heading == blank %}
 			<h2 class="title-section">{{ heading }}</h2>

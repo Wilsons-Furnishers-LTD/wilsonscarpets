@@ -64,6 +64,9 @@
 .product-main_sidebar .product-price-wrapper .product-price {
   padding-left: 10px;
 }
+.product-main_sidebar .product-price-wrapper #product-price {
+  font-size: 26px;
+}
 .product-main_sidebar .product-price-wrapper button {
   width: 160px;
   padding-left: 10px;

@@ -117,7 +117,7 @@
 .product-main .product-photo-thumbs a {
   display: flex;
 }
-.product-main .related-products-refresh h2 {
+.product-main .related-products-refresh h2.title-section {
   text-align: left;
   font-size: 26px;
   padding-bottom: 20px;

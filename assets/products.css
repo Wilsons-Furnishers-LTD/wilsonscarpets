@@ -60,6 +60,9 @@
 }
 .product-main_sidebar .product-price-wrapper button {
   width: 160px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 16px;
 }
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;

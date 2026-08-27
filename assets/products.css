@@ -142,7 +142,7 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 0;
+  top: 0 !important;
   bottom: 0;
   margin: auto;
 }

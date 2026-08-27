@@ -10,7 +10,6 @@
   overflow: hidden;
   display: flex;
   height: calc(100vh - 203px - 18px);
-  padding-left: 10px;
 }
 .product-main_images .item {
   position: relative;
@@ -30,6 +29,7 @@
 .product-main_column {
   min-width: calc(100vw - 600px);
   max-width: calc(100vw - 700px);
+  padding-left: 10px;
 }
 .product-main_sidebar {
   transition: all 0.3s ease;

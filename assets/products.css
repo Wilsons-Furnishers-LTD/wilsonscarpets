@@ -130,6 +130,9 @@
   right: 5px;
   display: flex;
   gap: 5px;
+  height: 0;
+  padding-top: 25%;
+  width: 65px;
 }
 .product-main .related-products-refresh .owl-nav .owl-prev, .product-main .related-products-refresh .owl-nav .owl-next {
   background-color: #fff;
@@ -138,6 +141,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
 }
 
 .product-main-sidebar__inner {

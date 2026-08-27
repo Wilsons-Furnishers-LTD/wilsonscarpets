@@ -36,6 +36,7 @@ class Products {
         let item = detailTitle.getAttribute('data-item');
         let tabs = document.querySelectorAll('.product-main-details__item');
         let activeElement = document.getElementById('tab-' + item);
+        console.log(activeElement);
         tabs.forEach(tab => {
             tab.classList.remove('active');
         });

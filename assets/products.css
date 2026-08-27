@@ -32,6 +32,8 @@
 .product-main_sidebar {
   flex: 1;
   position: relative;
+  height: calc(100vh - 304px);
+  overflow: scroll;
 }
 .product-main_sidebar .product-details .actions .option h2 {
   padding: 0;

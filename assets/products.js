@@ -25,11 +25,11 @@ class Products {
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
         });
-        
-         this.detailTitles.forEach(detailTitle => {
+
+        this.detailTitles.forEach(detailTitle => {
             console.log(detailTitle);
             detailTitle.addEventListener('click', this.changeProductDetailView.bind(this));
-         });
+        });
         
     }
 

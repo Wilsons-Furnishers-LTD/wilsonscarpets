@@ -4,15 +4,15 @@
 			and number of rows.
 			{% endcomment %}
 
-			{% assign number_of_related_products_per_row = section.settings.related_grid_num %}
-			{% assign number_of_rows = section.settings.related_grid_row %}
+			{% assign number_of_related_products_per_row = shop.metafields.product_template.products_per_row_desktop %}
+			{% assign number_of_rows = shop.metafields.product_template.number_of_rows_desktop %}
 
 			{% comment %}
 			Heading.
 			Leave blank if you don't need one.
 			{% endcomment %}
 
-			{% assign heading = section.settings.related_title %}
+			{% assign heading = shop.metafields.product_template.related_product_title %}
 
 			{% comment %}
 			Set either or both to true, if you want

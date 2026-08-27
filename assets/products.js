@@ -26,7 +26,6 @@ class Products {
             this.updateVariant();
         });
         
-        console.log('dfsfd');
          this.detailTitles.forEach(detailTitle => {
             console.log(detailTitle);
             detailTitle.addEventListener('click', this.changeProductDetailView.bind(this));

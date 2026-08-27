@@ -655,32 +655,32 @@
                                 {% endif %}
                             </div>
                             <input type="hidden" id="quantity" name="quantity" value="1"/>
+                            <div class="product-price-wrapper">
+                                <div id="product-price" class="delta">
+                                    <p>
+                                        {% assign variant = product.selected_or_first_available_variant %}
+                                        {% if product.compare_at_price > product.price %}
+                                            <span class="product-price on-sale">
+                                                {{ variant.price | money_without_currency }}
+                                            </span>
+                                            <s class="product-compare-price">
+                                                {{ variant.compare_at_price | money_without_currency }}
+                                            </s>
+                                        {% else %}
+                                            <span class="product-price">
+                                                {{ variant.price | money_without_currency }}
+                                            </span>
+                                        {% endif %}
+                                    </p>
+                                </div>
+                                <div id="totalAreaM2">
+                                    <p>Total Area
+                                        <span>0m<sup>2</sup></span>
+                                    </p>
+                                </div>
 
-                            <div id="product-price" class="delta">
-                                <p>
-                                    {% assign variant = product.selected_or_first_available_variant %}
-                                    {% if product.compare_at_price > product.price %}
-                                        <span class="product-price on-sale">
-                                            {{ variant.price | money_without_currency }}
-                                        </span>
-                                        <s class="product-compare-price">
-                                            {{ variant.compare_at_price | money_without_currency }}
-                                        </s>
-                                    {% else %}
-                                        <span class="product-price">
-                                            {{ variant.price | money_without_currency }}
-                                        </span>
-                                    {% endif %}
-                                </p>
+                                <button type="button" id="carpetAddToCart">{{ add_to_cart }}</button>
                             </div>
-                            <div id="totalAreaM2">
-                                <p>Total Area
-                                    <span>0m<sup>2</sup></span>
-                                </p>
-
-                            </div>
-
-                            <button type="button" id="carpetAddToCart">{{ add_to_cart }}</button>
 
                             <a href="/cart" id="GoToCheckout" class="button button-second">{{ go_to_checkout | escape }}</a>
 

@@ -13,7 +13,8 @@ class Products {
         this.productType = variantData.getAttribute('data-product-type'),
         this.hideDefaultTitle = false,
         this.soldOut = variantData.getAttribute('data-sold-out'),
-        this.unavailable = variantData.getAttribute('data-unavailable');
+        this.unavailable = variantData.getAttribute('data-unavailable'),
+        this.detailTitles = document.querySelectorAll('.product-main-details__title');
 
         if(variantData.getAttribute('data-hide-default-title') == 'true') {
             this.hideDefaultTitle = true;
@@ -24,20 +25,33 @@ class Products {
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
         });
-        
-        
-    }
 
-    setupCarousel() {
-        $('.product-photo-gallery .owl-carousel').owlCarousel({
-            loop:false,
-            margin:10,
-            nav:true,
-            items:1
+        this.detailTitles.forEach(detailTitle => {
+            detailTitle.addEventListener('click', this.changeProductDetailView.bind(this, detailTitle));
         });
-        $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
+        
     }
 
+    changeProductDetailView(detailTitle) {
+        let item = detailTitle.getAttribute('data-item'),
+            tabs = document.querySelectorAll('.product-main-details__item'),
+            activeElement = document.getElementById('tab-' + item),
+            activeClass = 'active';
+
+        tabs.forEach(tab => {
+            tab.classList.remove(activeClass);
+        });
+        
+        if(activeElement) {
+            activeElement.classList.add(activeClass);
+        }
+
+        this.detailTitles.forEach(detailTitle => {
+            detailTitle.classList.remove(activeClass);
+        });
+
+        detailTitle.classList.add(activeClass);
+    }
     updateVariantSelection() {        
 
         this.selects.forEach(select => {
@@ -155,6 +169,11 @@ class Products {
             jQuery('#backorder').addClass('hidden');
             jQuery('#AddToCart').val(this.unavailable).addClass('disabled').prop('disabled', true);
         }
+    }
+
+
+    setupCarousel() {
+        
     }
 
 }

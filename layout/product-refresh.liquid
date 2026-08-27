@@ -188,7 +188,7 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 
 <body
 id="{{ page_title | handle }}"
-class="
+class=" product-refresh
 {% if customer %}customer-logged-in{% endif %}
 template-{{ template.name }}
 {% if request.host == 'wilsons-beds.myshopify.com'
@@ -243,10 +243,8 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 
 <main>
     <div class="product-page" itemscope itemtype="https://schema.org/Product">
-    {% render 'breadcrumbs' %}
     {%- include 'product-top' -%}
     {%- include 'product-meta' -%}
-    {%- include 'product-top' -%}
     {{ content_for_layout }}
     </div>
 </main>
@@ -265,7 +263,7 @@ window.KlarnaThemeGlobals.data_purchase_amount =
            
 
 
-            {{ content_for_layout }}
+            
         </div>
     </div>
     {% if request.page_type == 'index' or request.page_type == '404' or request.page_type == 'search' %}
@@ -307,5 +305,5 @@ document.documentElement.classList.add('js');
 
 
 </body>
-
+<script  src="{{ 'products.js' |  asset_url}}"></script>
 </html>

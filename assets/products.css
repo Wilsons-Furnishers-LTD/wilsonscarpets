@@ -46,6 +46,9 @@
 .product-main_sidebar .product-details .actions .option-colour .swatch-colours {
   padding: 0;
 }
+.product-main_sidebar .product-details .option-size .content {
+  padding: 0;
+}
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;
 }

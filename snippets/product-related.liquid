@@ -36,7 +36,6 @@
 			{% if product.metafields.Juno.related_products %}
 			{% assign collection = collections[product.metafields.Juno.related_products] %}
 			{% endif %}
-            
 
 			{% assign found_a_collection = false %}
 			{% if collection and collection.all_products_count > 1 %}
@@ -82,13 +81,12 @@
 			{% endcase %}
 
 			{% capture related_items %}
-                
 			{% for product in collection.products %}
 			{% unless product.handle == current_product.handle %}
 			{% unless same_vendor and current_product.vendor != product.vendor %}
 			{% unless same_type and current_product.type != product.type %}
 
-			
+			{% render 'product-grid-item-related' %}
 
 			{% assign counter = counter | plus: 1 %}
 			{% if counter == break_at %}
@@ -103,7 +101,6 @@
 			{% assign related_items = related_items | trim %}
 
 			{% unless related_items == blank %}
-                
 	<div class=" related-products-refresh related-products" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
 			{% unless heading == blank %}
 			<h2 class="title-section">{{ heading }}</h2>

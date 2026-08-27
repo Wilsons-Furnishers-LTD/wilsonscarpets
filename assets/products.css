@@ -1,15 +1,3 @@
-@media only screen and (min-width: 64em) {
-  body.product-refresh {
-    padding-top: 203px;
-  }
-}
-body.product-refresh .breadcrumb {
-  padding-top: 20px;
-}
-body.product-refresh .breadcrumb a {
-  font-size: 14px;
-}
-
 .product-main {
   display: flex;
 }
@@ -44,6 +32,7 @@ body.product-refresh .breadcrumb a {
   max-width: calc(100vw - 700px);
 }
 .product-main_sidebar {
+  transition: all 0.3s ease;
   flex: 1;
   position: fixed;
   width: 600px;
@@ -180,6 +169,21 @@ body.product-refresh .breadcrumb a {
   font-weight: 400;
   font-size: 16px;
   text-decoration: line-through;
+}
+
+@media only screen and (min-width: 64em) {
+  body.product-refresh {
+    padding-top: 203px;
+  }
+}
+body.product-refresh .breadcrumb {
+  padding-top: 20px;
+}
+body.product-refresh .breadcrumb a {
+  font-size: 14px;
+}
+body.product-refresh.header-sticky .product-main_sidebar {
+  padding-top: 80px;
 }
 
 .product-main-details {

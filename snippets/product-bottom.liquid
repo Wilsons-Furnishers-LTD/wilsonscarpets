@@ -428,7 +428,7 @@
                 //swatchClick(value);
             }
 
-            console.log()
+
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
@@ -582,7 +582,7 @@
     }
 
     jQuery(document).ready(function () {
-        if(jQuery('.product-photo-container .js-product-photo-thumb').length){
+        if(jQuery('.js-product-photo-thumb').length){
             carouselInit(true);
         }else{
             carouselInit(false);

@@ -161,6 +161,7 @@
       name="properties[_DeliveryEstimate]" />
 
     <div class="price-only{{ onSaleClass }}">
+        {% render 'breadcrumbs' %}
       {% assign afterText = afterText | strip | downcase %}
       {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
         <h2>{{ beforeText }}{{ product.price | money }}{{ afterText }}</h2>

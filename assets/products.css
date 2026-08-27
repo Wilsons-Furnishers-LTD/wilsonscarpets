@@ -60,11 +60,17 @@
   align-items: center;
   justify-content: space-between;
 }
+.product-main_sidebar .product-price-wrapper .product-price {
+  padding-left: 10px;
+}
 .product-main_sidebar .product-price-wrapper button {
   width: 160px;
   padding-left: 10px;
   padding-right: 10px;
   font-size: 16px;
+  margin-bottom: 0;
+}
+.product-main_sidebar .product-price-wrapper #totalAreaM2 {
   margin-bottom: 0;
 }
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {

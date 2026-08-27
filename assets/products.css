@@ -130,11 +130,13 @@
   padding-bottom: 0;
   display: flex;
   justify-content: space-around;
-  align-items: flex-start;
+  align-items: center;
 }
 .product-main-details .product-features .feature {
   width: 20%;
   float: none;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .product-main-details .product-features .feature img {
   width: 3.8rem;

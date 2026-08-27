@@ -3,6 +3,14 @@
     {% assign show_col = false %}
     {{ 'filters.css' | asset_url | stylesheet_tag }}
 {% endif %}
+{% if show_col %}
+    <style>
+        .cms-two-columns  .col-main .container {
+            max-width: 100%;
+            width: 100%;
+        }
+    </style>
+{% endif %}
 <div class="{% if request.path == '/pages/search-results' %}search-page{% endif %} {% if show_col %}cms-two-columns{% endif %}">
   <div class="wrapper">
     <div class="row">

@@ -37,6 +37,9 @@
   background: none;
   color: #414B52;
 }
+.product-main_sidebar .product-details .actions {
+  border: none;
+}
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;
 }

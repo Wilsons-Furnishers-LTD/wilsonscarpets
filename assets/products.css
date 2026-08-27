@@ -127,7 +127,7 @@
 .product-main .related-products-refresh .owl-nav {
   background: transparent;
   position: absolute;
-  right: 0;
+  right: 5px;
   display: flex;
   gap: 5px;
 }

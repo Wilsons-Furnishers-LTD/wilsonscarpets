@@ -61,6 +61,7 @@
   justify-content: space-between;
   border-top: 1px solid rgba(65, 75, 82, 0.5);
   padding-top: 15px;
+  padding-bottom: 15px;
 }
 .product-main_sidebar .product-price-wrapper .product-price {
   padding-left: 10px;

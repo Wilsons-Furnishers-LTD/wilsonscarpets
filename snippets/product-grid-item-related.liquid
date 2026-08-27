@@ -163,7 +163,14 @@
             {% else %}
               {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
             {% endif %}
-
+          {% elsif product.type == 'Bed' or product.type == 'Headboard' or product.type == 'Mattress' %}
+                
+                <span class="price{{onSaleClass}}">From {{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</span>
+                {% if product.compare_at_price > product.price %}
+                {% assign wasPrice = product.compare_at_price | divided_by: packSizePerSQM | money | prepend: 'was ' | append: afterText %}
+                {% else %}
+                {% assign wasPrice = RRPPrice | times: 100 | money | prepend: 'RRP ' | append: afterText %}
+                {% endif %}
           {% else %}
             <span class="price{{onSaleClass}}">{{ beforeText }}{{ product.price | divided_by: packSizePerSQM | money }}{{ afterText }}</span>
             {% if product.compare_at_price > product.price %}

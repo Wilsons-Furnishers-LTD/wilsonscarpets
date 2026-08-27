@@ -55,6 +55,9 @@
 .product-main_sidebar .product-details {
   float: none;
 }
+.product-main_sidebar .product-price-wrapper {
+  display: flex;
+}
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;
 }

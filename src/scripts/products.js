@@ -20,7 +20,9 @@ class Products {
             this.hideDefaultTitle = true;
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
-        document.addEventListener('DOMContentLoaded', this.setupCarousel.bind(this));
+        document.addEventListener('DOMContentLoaded', this.setupRelatedProductCarousel.bind(this));
+
+        this.setupRelatedProductCarousel.bind(this)
 
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
@@ -172,8 +174,52 @@ class Products {
     }
 
 
-    setupCarousel() {
-        
+    setupRelatedProductCarousel() {
+        if (jQuery('.related-products-refresh .owl-carousel').length) {
+            var $featuredCollection = $('.related-products-refresh .owl-carousel');
+            $featuredCollection.owlCarousel({
+                loop: true,
+                autoplay: false,
+                margin: 20,
+                nav: true,
+                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    1152: {
+                        items: 3.5
+                    }
+                },
+                onInitialized: match_height,
+                onResized: match_height
+            });
+
+            $featuredCollection.on('translated.owl.carousel',function(event){
+                $(event.target).find(".owl-item.active .product-name").sameHeight();
+            });
+
+            function match_height(event) {
+                var img_height = jQuery(event.target).find('.owl-item.active').first().find('.product-image-wrap').height();
+                if(isIpadOS()){
+                    var img_height = jQuery(event.target).find('.owl-item.active').first().height();
+                }
+                
+                
+
+                $(event.currentTarget).find('.owl-item .product-name').removeAttr('style');
+                $(event.currentTarget).find('.owl-item.active .product-name').sameHeight();
+
+
+                var windowwidth = $(window).width();
+                jQuery(event.currentTarget).find('.owl-prev,.owl-next').css('top', img_height / 2);
+                
+            }
+        }
     }
 
 }

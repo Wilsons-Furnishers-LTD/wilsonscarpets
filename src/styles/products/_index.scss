@@ -15,7 +15,6 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
         overflow: hidden;
         display: flex;
         height: $full-height;
-        padding-left: 10px;
         .item {
             position: relative;
         }
@@ -35,6 +34,7 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
     &_column {
         min-width: calc(100vw - 600px);
         max-width: calc(100vw - 700px);
+        padding-left: 10px;
     }
     &_sidebar {
         transition: all 0.3s ease;
@@ -109,6 +109,9 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
     .product-photo-gallery {
         display: flex;
         overflow: hidden;
+        .owl-nav {
+            display: none;
+        }
     }
     .product-photo-thumbs {
         display: flex;
@@ -119,10 +122,43 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
             display: flex;
         }
     }
-    .owl-nav {
-        display: none;
+    .related-products-refresh {
+        h2.title-section {
+            text-align: left;
+            font-size: 26px;
+            padding-bottom: 20px;
+            padding-top: 40px;
+            border-top: none;
+        }
+        .owl-nav {
+        background: transparent;
+        position: absolute;
+        right: 5px;
+        display: flex;
+        gap: 5px;
+        height: 0;
+        padding-top: 25%;
+        width: 65px;
+            .owl-prev, .owl-next {
+                background-color: #fff;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: absolute;
+                top: 0 !important;
+                bottom: 0;
+                margin: auto;
+            }
+            .owl-prev {
+                left: 0;
+            }
+            .owl-next {
+                right: 0;
+            }
+        }
     }
-    
 }
 
 .product-main-sidebar {
@@ -184,7 +220,7 @@ body.product-refresh {
         padding-top: $desktop-body-padding;
     }
     .breadcrumb {
-        padding-top: 20px;
+        padding-top: 50px;
     }
     .breadcrumb a {
             font-size: 14px;
@@ -193,6 +229,10 @@ body.product-refresh {
         .product-main_sidebar {
             padding-top: 80px;
         }
+    }
+    #shopify-section-footer {
+        position: relative;
+        z-index: 1000;
     }
 }
 .product-main-details {

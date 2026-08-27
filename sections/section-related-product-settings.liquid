@@ -64,61 +64,59 @@
     "settings": [
         {
             "type": "checkbox",
-            "id": "enable_cookies",
-            "label": "Enable cookies",
+            "id": "show_related_products",
+            "label": "Show related products",
             "default": true
         },
         {
-            "type": "color",
-            "id": "bg_color",
-            "label": "Background Color",
-            "default": "#1f325d"
-        },
-        {
-            "type": "header",
-            "content": "Content Settings"
-        },
-        {
+            "id": "related_title",
             "type": "text",
-            "id": "title",
-            "label": "Title"
+            "label": "Section title",
+            "default": "You may also like"
         },
         {
-            "type": "color",
-            "id": "title_color",
-            "label": "Title Color",
-            "default": "#feca52"
+            "type": "select",
+            "id": "related_grid_num",
+            "label": "Products per row (Desktop)",
+            "default": "3",
+            "options": [
+                {
+                    "value": "2",
+                    "label": "2"
+                },
+                {
+                    "value": "3",
+                    "label": "3"
+                },
+                {
+                    "value": "4",
+                    "label": "4"
+                },
+                {
+                    "value": "5",
+                    "label": "5"
+                }
+            ]
         },
         {
-            "type": "richtext",
-            "id": "content",
-            "label": "Content"
-        },
-        {
-            "type": "color",
-            "id": "content_color",
-            "label": "Content Color",
-            "default": "#fff"
-        },
-        {
-            "type": "header",
-            "content": "Button"
-        },
-        {
-            "type": "url",
-            "id": "button_link",
-            "label": "Button Link"
-        },
-        {
-            "type": "text",
-            "id": "button_text",
-            "label": "Button Text"
-        },
-        {
-            "type": "color",
-            "id": "button_bg_color",
-            "label": "Button Background Color",
-            "default": "#feca52"
+            "type": "select",
+            "id": "related_grid_row",
+            "label": "Number of rows (Desktop)",
+            "default": "3",
+            "options": [
+                {
+                    "value": "1",
+                    "label": "1"
+                },
+                {
+                    "value": "2",
+                    "label": "2"
+                },
+                {
+                    "value": "3",
+                    "label": "3"
+                }
+            ]
         }
     ]
 }

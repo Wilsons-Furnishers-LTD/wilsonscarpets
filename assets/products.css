@@ -57,6 +57,8 @@
 }
 .product-main_sidebar .product-price-wrapper {
   display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 .product-main_sidebar .product-price-wrapper button {
   width: 160px;

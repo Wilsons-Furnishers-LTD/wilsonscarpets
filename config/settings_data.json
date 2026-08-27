@@ -191,10 +191,10 @@
         "type": "footer",
         "settings": {
           "footer_linklist": "footer",
-          "footer_linklist_two": "online-carpets",
-          "footer_linklist_three": "advice-centre",
+          "footer_linklist_two": "",
+          "footer_linklist_three": "",
           "footer_linklist_four": "",
-          "footer_linklist_five": "contact-us",
+          "footer_linklist_five": "",
           "payment_logos": "shopify://shop_images/payments.png",
           "copyright": "All Rights Reserved. Company Registration Number: 04651763"
         }
@@ -211,15 +211,17 @@
       "footer-scripts": {
         "type": "footer-scripts",
         "settings": {}
+      },
+      "section-related-product-settings": {
+        "type": "section-related-product-settings",
+        "settings": {
+          "show_related_products": true,
+          "related_title": "test title",
+          "related_grid_num": "3",
+          "related_grid_row": "3"
+        }
       }
     },
-    "content_for_index": [],
-    "blocks": {
-      "15351435345818755577": {
-        "type": "shopify://apps/pandectes-gdpr/blocks/banner/58c0baa2-6cc1-480c-9ea6-38d6d559556a",
-        "disabled": false,
-        "settings": {}
-      }
-    }
+    "content_for_index": []
   }
 }

@@ -38,6 +38,7 @@ class Products {
     }
     updateVariantSelection() {        
 
+        
         this.selects.forEach(select => {
             select.addEventListener('change', this.updateVariant.bind(this));
         });

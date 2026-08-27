@@ -54,6 +54,9 @@
 .product-main_sidebar .swatch-colours .grid {
   display: none;
 }
+.product-main_sidebar .product-details {
+  float: none;
+}
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;
 }

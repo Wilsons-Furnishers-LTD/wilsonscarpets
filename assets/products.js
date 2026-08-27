@@ -33,11 +33,15 @@ class Products {
     }
 
     changeProductDetailView(detailTitle) {
-        detailTitle.getAttribute('data-item');
+        let item = detailTitle.getAttribute('data-item');
         let tabs = document.querySelectorAll('.product-main-details__item');
+        let activeElement = document.getElementById('tab-' + item);
         tabs.forEach(tab => {
             tab.classList.remove('active');
         });
+        if(activeElement.length) {
+            activeElement.classList.add('active');
+        }
     }
     updateVariantSelection() {        
 

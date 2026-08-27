@@ -129,6 +129,11 @@
   position: absolute;
   right: 0;
 }
+.product-main .related-products-refresh .owl-nav .owl-prev, .product-main .related-products-refresh .owl-nav .owl-next {
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+}
 
 .product-main-sidebar__inner {
   padding-left: 50px;

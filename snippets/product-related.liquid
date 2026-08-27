@@ -36,6 +36,7 @@
 			{% if product.metafields.Juno.related_products %}
 			{% assign collection = collections[product.metafields.Juno.related_products] %}
 			{% endif %}
+            {{collection}}
 
 			{% assign found_a_collection = false %}
 			{% if collection and collection.all_products_count > 1 %}

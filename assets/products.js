@@ -38,7 +38,6 @@ class Products {
     }
     updateVariantSelection() {        
 
-        
         this.selects.forEach(select => {
             select.addEventListener('change', this.updateVariant.bind(this));
         });
@@ -105,7 +104,7 @@ class Products {
                     cartButton.disabled = true;
                 }
             }
-            updatePrice();
+            //updatePrice();
             
             if(this.productType == 'Carpets' || this.productType == 'Vinyl' || this.productType == 'Artificial Grass') {
                 updateSampleAvailability();    

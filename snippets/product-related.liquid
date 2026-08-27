@@ -36,7 +36,7 @@
 			{% if product.metafields.Juno.related_products %}
 			{% assign collection = collections[product.metafields.Juno.related_products] %}
 			{% endif %}
-            {{collection}}
+            
 
 			{% assign found_a_collection = false %}
 			{% if collection and collection.all_products_count > 1 %}
@@ -102,6 +102,7 @@
 			{% assign related_items = related_items | trim %}
 
 			{% unless related_items == blank %}
+                {{collection | json}}
 	<div class=" related-products-refresh related-products" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
 			{% unless heading == blank %}
 			<h2 class="title-section">{{ heading }}</h2>

@@ -447,7 +447,6 @@ jQuery(window).load(function() {
 
     if (jQuery('.featured-collections .owl-carousel').length) {
         var $featuredCollection = $('.featured-collections .owl-carousel');
-        console.log($featuredCollection)
         $featuredCollection.owlCarousel({
             loop: true,
             autoplay: false,

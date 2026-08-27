@@ -1627,11 +1627,17 @@
         "related_grid_num": "3",
         "related_grid_row": "3"
       }
+    },
+    "product_features_TQVi3D": {
+      "type": "product-features",
+      "name": "Product Features",
+      "settings": {}
     }
   },
   "order": [
     "product_main_area_CM74mW",
     "specifications",
-    "related"
+    "related",
+    "product_features_TQVi3D"
   ]
 }

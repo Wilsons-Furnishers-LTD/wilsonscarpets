@@ -58,6 +58,9 @@
 .product-main_sidebar .product-price-wrapper {
   display: flex;
 }
+.product-main_sidebar .product-price-wrapper button {
+  width: 160px;
+}
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;
 }

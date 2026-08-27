@@ -155,10 +155,10 @@
   opacity: 0;
   transition: all 0.3s ease;
 }
-.product-main-details__header li:not(.active):hover {
+.product-main-details__header li:hover {
   cursor: pointer;
 }
-.product-main-details__header li:not(.active):hover:after {
+.product-main-details__header li:hover:after {
   opacity: 1;
 }
 .product-main-details__header li.active {

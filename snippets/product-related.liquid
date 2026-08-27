@@ -101,7 +101,7 @@
 			{% assign related_items = related_items | trim %}
 
 			{% unless related_items == blank %}
-	<div class=" related-products" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
+	<div class=" related-products-refresh related-products" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
 			{% unless heading == blank %}
 			<h2 class="title-section">{{ heading }}</h2>
 			{% endunless %}

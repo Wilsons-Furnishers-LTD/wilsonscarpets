@@ -52,6 +52,7 @@ body.product-refresh .breadcrumb a {
   z-index: 1000;
   height: 100vh;
   padding-top: 203px;
+  top: 0;
 }
 .product-main_sidebar .product-details .actions .option h2 {
   padding: 0;

@@ -41,7 +41,7 @@ class Products {
             tab.classList.remove('active');
         });
         console.log(activeElement);
-        if(activeElement.length) {
+        if(activeElement) {
             activeElement.classList.add('active');
         }
     }

@@ -45,7 +45,7 @@ body.product-refresh .breadcrumb a {
 }
 .product-main_sidebar {
   flex: 1;
-  position: relative;
+  position: fixed;
 }
 .product-main_sidebar .product-details .actions .option h2 {
   padding: 0;

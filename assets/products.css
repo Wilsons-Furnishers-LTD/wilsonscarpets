@@ -35,6 +35,7 @@
 .product-main_sidebar .product-details .actions .option h2 {
   padding: 0;
   background: none;
+  color: #414B52;
 }
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;

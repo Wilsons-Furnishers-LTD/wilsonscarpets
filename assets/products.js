@@ -27,7 +27,7 @@ class Products {
         });
 
         this.detailTitles.forEach(detailTitle => {
-            detailTitle.addEventListener('click', this.changeProductDetailView(detailTitle));
+            detailTitle.addEventListener('click', this.changeProductDetailView.bind(this, detailTitle));
         });
         
     }

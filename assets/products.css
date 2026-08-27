@@ -135,8 +135,8 @@
 .product-main-details .product-features .feature {
   width: 20%;
   float: none;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 .product-main-details .product-features .feature img {
   width: 3.8rem;

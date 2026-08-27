@@ -47,7 +47,7 @@
   padding: 0;
 }
 .product-main_sidebar .product-details .option-size .content {
-  padding: 0;
+  padding: 0 !important;
 }
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;

@@ -65,7 +65,7 @@
             </div>
             </div>
         {% endif %}
-        <div class="product-main-details__item" id="tab-spec">
+        <div class="product-main-details__item" id="tab-specs">
             {% assign specifications = product.metafields.custom.specifications.value %}
             {% if section.blocks.size > 0 %}
                 <div class="specifications">
@@ -107,4 +107,3 @@
 </div>
 
 
-<input min="{{ minimumLengthValue }}" data-min="{{ minimumLengthValue }}" type="text" inputmode="decimal" value="" pattern="[0-9.]*" id="userLength"/>

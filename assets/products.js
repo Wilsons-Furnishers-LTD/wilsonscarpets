@@ -26,6 +26,7 @@ class Products {
             this.updateVariant();
         });
         
+        console.log('dfsfd');
          this.detailTitles.forEach(detailTitle => {
             console.log(detailTitle);
             detailTitle.addEventListener('click', this.changeProductDetailView.bind(this));
@@ -104,7 +105,7 @@ class Products {
                     cartButton.disabled = true;
                 }
             }
-            //updatePrice();
+            updatePrice();
             
             if(this.productType == 'Carpets' || this.productType == 'Vinyl' || this.productType == 'Artificial Grass') {
                 updateSampleAvailability();    

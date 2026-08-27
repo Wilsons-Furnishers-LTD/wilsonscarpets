@@ -105,6 +105,9 @@
   display: flex;
   overflow: hidden;
 }
+.product-main .product-photo-gallery .owl-nav {
+  display: none;
+}
 .product-main .product-photo-thumbs {
   display: flex;
   gap: 10px;
@@ -113,9 +116,6 @@
 }
 .product-main .product-photo-thumbs a {
   display: flex;
-}
-.product-main .owl-nav {
-  display: none;
 }
 .product-main .related-products-refresh h2 {
   text-align: left;

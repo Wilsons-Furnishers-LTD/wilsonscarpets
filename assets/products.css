@@ -128,6 +128,8 @@
   background: transparent;
   position: absolute;
   right: 0;
+  display: flex;
+  gap: 5px;
 }
 .product-main .related-products-refresh .owl-nav .owl-prev, .product-main .related-products-refresh .owl-nav .owl-next {
   background-color: #fff;

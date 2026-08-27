@@ -197,6 +197,10 @@ body.product-refresh .breadcrumb a {
 body.product-refresh.header-sticky .product-main_sidebar {
   padding-top: 80px;
 }
+body.product-refresh #shopify-section-footer {
+  position: relative;
+  z-index: 1000;
+}
 
 .product-main-details {
   padding-top: 30px;

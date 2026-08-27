@@ -124,6 +124,11 @@
   padding-top: 40px;
   border-top: none;
 }
+.product-main .related-products-refresh .owl-nav {
+  background: transparent;
+  position: absolute;
+  right: 0;
+}
 
 .product-main-sidebar__inner {
   padding-left: 50px;

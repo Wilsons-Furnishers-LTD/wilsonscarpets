@@ -30,8 +30,6 @@
   object-fit: cover;
 }
 .product-main_sidebar {
-  height: calc(100vh - 304px);
-  overflow: scroll;
   flex: 1;
 }
 .product-main_sidebar .product-details .actions .option h2 {

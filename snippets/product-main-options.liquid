@@ -1,1 +1,914 @@
-main options
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+  CHANGES YOU MAKE MAY BE AUTOMATICALLY OVERWRITTEN AT ANY TIME.
+
+  Github is used to create an automated theme deployment pipeline for Shopify,
+  it is used to provide version control, theme testing and reliable deployment environments.
+
+  If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
+{%- endcomment -%}
+
+<style>
+    .standardProduct .content.colour-dropdown {
+        display: none;
+    }
+    .product-details .option-colour {
+        display: flex;
+        flex-direction: column;
+    }
+    .product-page #product-variants.standardProduct.option-single {
+        border-top: 0;
+    }
+    .product-details .option-colour #product-variants {
+        order: -1
+    }
+
+    .numberOfOptions2.standardProduct .selector-wrapper:first-child {
+        display: block;
+    }
+</style>
+{% assign add_to_cart = 'Add to Basket' %}
+{% assign adding_to_cart = 'Adding' %}
+{% assign added_to_cart = 'Added' %}
+{% assign go_to_checkout = 'Go to Checkout' %}
+{% assign sold_out = 'Sold Out' %}
+{% assign unavailable = 'Unavailable' %}
+
+{% assign minimumLength = '' %}
+
+{% for tag in product.tags %}
+
+    {% if tag contains 'parent_' %}
+        {% assign parentHandle = tag | replace: 'parent_', '' %}
+        <script>
+            window.location = "/products/{{ parentHandle }}";
+        </script>
+    {% endif %}
+    {% if tag contains 'RRP_' %}
+        {% assign RRPPrice = tag | replace: 'RRP_', '' | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Pack Size (M²)_' %}
+        {% assign packSizePerSQM = tag | replace: 'Pack Size (M²)_', '' | split: 'm' | first | plus: 0 %}
+    {% endif %}
+    {% if tag contains 'Before Label_' %}
+        {% assign beforeText = tag | replace: 'Before Label_', '' | prepend: "<small>" | append: "</small> " %}
+    {% endif %}
+    {% if tag contains 'After Label_' %}
+        {% assign afterText = tag | replace: 'After Label_', '' | prepend: " " %}
+    {% endif %}
+    {% if tag contains 'promo_' %}
+        {% assign productPromo = tag | replace: 'promo_' %}
+    {% endif %}
+    {% if tag contains 'minLength_' %}
+        {% assign minimumLength = tag | replace: 'minLength_' %}
+    {% endif %}
+
+    {% if tag contains 'default-length_' %}
+        {% assign defaultLength = tag | replace: 'default-length_', '' %}
+    {% endif %}
+
+    {% if tag contains 'identifier_exists_' %}
+        {% assign GTINexist = tag | replace: 'identifier_exists_', '' %}
+    {% endif %}
+
+    {% if tag contains 'GTIN_' %}
+        {% assign GTINvalue = tag | replace: 'GTIN_', '' %}
+    {% endif %}
+
+
+    {% if tag contains 'ShoppingID_' %}
+        {% assign ShoppingID = tag | replace: 'ShoppingID_', '' %}
+    {% endif %}
+{% endfor %}
+
+{% for product_option in product.options_with_values %}
+    {% assign product_option_name = product_option.name | downcase %}
+    {% assign position = product_option.position | minus: 1 %}
+    {% if product_option_name == 'color' or product_option_name == 'colour' %}
+        {% assign value_colors = '' %}
+        {% assign position_option_colors = position %}
+        {% for variant in product.variants %}
+            {% assign value = variant.title | split: ' / ' %}
+            {% assign value = value[position] | lstrip %}
+            {% assign value_colors = value_colors | append: value %}
+            {% if forloop.last == false %}
+                {% assign value_colors = value_colors | append: ' / ' %}
+            {% endif %}
+        {% endfor %}
+        {% assign value_colors = value_colors | split: ' / ' | uniq %}
+    {% endif %}
+    {% if product_option_name == 'width' or product_option_name == 'rug size' %}
+        {% assign value_sizes = '' %}
+        {% assign length_value_sizes = '' %}
+        {% assign position_option_size = position %}
+        {% for variant in product.variants %}
+            {% assign value = variant.title | split: ' / ' %}
+            {% assign value = value[position] | lstrip %}
+            {% assign value_sizes = value_sizes | append: value %}
+            {% if variant.metafields.juno.is_in_stock == "1" %}
+                {% assign length_value_sizes = length_value_sizes | append: value %}
+            {% endif %}
+            {% if forloop.last == false %}
+                {% if variant.metafields.juno.is_in_stock == "1" %}
+                    {% assign length_value_sizes = length_value_sizes | append: ' / ' %}
+                {% endif %}
+                {% assign value_sizes = value_sizes | append: ' / ' %}
+            {% endif %}
+        {% endfor %}
+        {% assign value_sizes = value_sizes | split: ' / ' | uniq %}
+    {% endif %}
+{% endfor %}
+
+<div class="product-details">
+    <div class="actions">
+        {% assign hide_default_title = false %}
+        {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+            {% assign hide_default_title = true %}
+        {% endif %}
+
+        {% assign show_variants = 'hidden' %}
+        {% if product.available %}
+            {% assign show_variants = '' %}
+        {% endif %}
+
+        {% assign needsToShowStandardVariant = true %}
+        {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass' %}
+            {% assign needsToShowStandardVariant = false %}
+        {% endif %}
+        {% if product.type == 'Laminate' or product.type == 'LVT' %}
+            {% assign needsToShowStandardVariant = false %}
+        {% endif %}
+        
+        {% if product.type == 'Rugs' or product.type == 'Mattress' or product.type == 'Bed' or product.type == 'Headboard' %}
+            {% assign needsToShowStandardVariant = false %}
+        {% endif %}
+        {% unless product.type == 'Rugs' or product.type == 'Mattress' or product.type == 'Bed' or product.type == 'Headboard' %}
+            <div id="product-variants" class="numberOfOptions{{ product.options.size }} {% if hide_default_title %}hidden{% endif %} {{ show_variants }}{% if needsToShowStandardVariant %} standardProduct{% endif %}">
+                {% if needsToShowStandardVariant %}
+                    <div class="option option-single">
+                {% endif %}
+                    {% if product.options.size == 1 and product.options.first != 'Title' %}
+                        {% if needsToShowStandardVariant %}
+                            <h2>{{ product.options.first }}</h2>
+                        {% else %}
+                            <label style="display:block">{{ product.options.first }}</label>
+                        {% endif %}
+                    {% elsif product.options.size > 1 and needsToShowStandardVariant %}
+                        <h2>Options</h2>
+                    {% endif %}
+
+                    <div class="content">
+                        <select id="product-select" name="id" style="display: none;">
+                            {% for variant in product.variants %}
+                                <option {% if variant == product.selected_or_first_available_variant %} selected {% endif %} value="{{ variant.id }}" data-colour="{{ variant.option1 }}" data-size="{{variant.option2}}" data-quantity="{{ variant.inventory_quantity }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"  data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-inStock="{{variant.metafields.juno.is_in_stock}}" data-price="{{ variant.price }}">
+                                    {{ variant.title }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% for option in product.options_with_values %}
+                            {% assign order = option.position | minus: 1  %}
+                            
+                            <div class="selector-wrapper">
+                                <label for="product-select-option-{{ order }}">{{ option.name }}</label>
+                                <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
+                                    {% for value in option.values %}
+                                        <option value="{{ value | escape }}">{{ value }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        {% endfor %}  
+                            
+                            <script data-unavailable="{{ unavailable }}" data-product-type="{{ product.type }}" data-sold-out="{{ sold_out }}" data-hide-default-title="{{hide_default_title}}" data-product-title="{{ product.title }}" data-money-format="{{ shop.money_format }}" type="application/json" id="ProductVariants">
+                                {{ product.variants | json }}
+                            </script>
+                        
+                        {% if product.metafields.custom.colours %}
+                            <div class="selector-wrapper" id="custom-product-colours" style="margin-top: 15px;"></div>
+                            <script>
+                                let coloursEl  = document.getElementById('custom-product-colours')
+                                let colours = "{{ product.metafields.custom.colours }}"
+                                let coloursArray = colours.split(',')
+                                
+                                if(Array.isArray(coloursArray)) {
+                                    let coloursDropdown = '<label for="custom-product-colours">Colour</label><select id="custom-product-colours" name="properties[Colour]">'
+                                    for (let index = 0; index < coloursArray.length; index++) {
+                                        const colour = coloursArray[index];
+                                        coloursDropdown += `<option value="${colour}">${colour}</option>`;
+                                    }
+                                    coloursDropdown += '</select>';
+
+                                    coloursEl.innerHTML = coloursDropdown
+                                }
+                                
+                            </script>
+                            
+                        {% endif %}   
+                    </div>
+
+                {% if needsToShowStandardVariant %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endunless %}
+        
+        {% unless needsToShowStandardVariant %}
+            <div class="option option-colour" data-select-option="{{ '#product-select-option-' | append: position_option_colors }}">
+                
+                {% if value_colors.size > 0 %}
+                    {% unless product.title contains " - " and value_colors.size == 1 %}
+                        {% if product.type == 'Rugs' %}
+                            <h2>Options</h2>
+                        {% else %}
+                            <h2>Colour</h2>
+                        {% endif %}
+                        <div class="swatch-colours swatch-colours__product">
+                            <div id="select-option-colour" class="select">
+                                <label>Choose Your Colour</label>
+                                <ul>
+                                    {% for value_color in value_colors %}
+                                        {% assign color = value_color | strip %}
+                                        <li data-value="{{ color }}" class="js-get-colour-value">
+                                            {% assign displayedColor = '' %}
+                                            {% for variant in product.variants %}
+                                                {% for option in variant.options %}
+                                                    {% if option == color %}
+                                                        {% unless displayedColor contains color %}
+                                                            {% assign displayedColor = displayedColor | append: '|' | append: color %}
+                                                            <span class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>{{ color }}</span>
+                                                        {% endunless %}
+                                                        {% break %}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <ul class="grid">
+                                {% for value_color in value_colors %}
+                                    {% assign color = value_color | strip %}
+                                    <li data-value="{{ color }}" class="js-get-colour-value">
+                                        {% assign displayedColor = '' %}
+                                        {% for variant in product.variants %}
+                                            {% for option in variant.options %}
+                                                {% if option == color %}
+                                                    {% unless displayedColor contains color %}
+                                                        {% assign displayedColor = displayedColor | append: '|' | append: color %}
+                                                        <span class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}">
+                                                            <picture>
+                                                                <source media="(min-width: 768px)" srcset="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" >
+                                                                <source srcset="{{ variant.image.src | img_url: '80x80', crop: 'center' }}" >
+                                                                <img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>
+                                                            </picture>
+                                                        </span>
+                                                        {% break %}
+                                                    {% endunless %}
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endunless %}
+                {% endif %}
+                {% if product.type == 'Rugs' or product.type == 'Mattress' or product.type == 'Bed' or product.type == 'Headboard' %}
+                    
+                    <div id="product-variants" class="numberOfOptions{{ product.options.size }} {% if hide_default_title %}hidden{% endif %} {{ show_variants }} standardProduct option-single">
+                        
+                            <select id="product-select" name="id" style="display: none;">
+                                {% for variant in product.variants %}
+                                    <option {% if variant == product.selected_or_first_available_variant %} selected {% endif %} value="{{ variant.id }}" data-colour="{{ variant.option1 }}" data-size="{{variant.option2}}" data-quantity="{{ variant.inventory_quantity }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"  data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-inStock="{{variant.metafields.juno.is_in_stock}}" data-price="{{ variant.price }}">
+                                        {{ variant.title }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        
+
+                            {% for option in product.options_with_values %}
+                                {% assign order = option.position | minus: 1  %}
+                                {% assign isColour = false  %}
+                                {% if option.name contains 'Colour' %}
+                                    {% assign isColour = true  %}
+                                {% endif %}
+                                
+                                {% if isColour == false %}
+                                    <h2 style="order: {{ order }}">{{option.name}}</h2>
+                                {% endif %}
+                                <div style="order: {{ order }}" data-order="{{ order }}" class="content {% if isColour %} colour-dropdown {% endif %}">
+                                    <div class="selector-wrapper">
+                                        <label for="product-select-option-{{ order }}">{{ option.name }}</label>
+                                        <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
+                                            {% for value in option.values %}
+                                                <option value="{{ value | escape }}">{{ value }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            {% endfor %}  
+                            
+                            <script data-unavailable="{{ unavailable }}" data-product-type="{{ product.type }}" data-sold-out="{{ sold_out }}" data-hide-default-title="{{hide_default_title}}" data-product-title="{{ product.title }}" data-money-format="{{ shop.money_format }}" type="application/json" id="ProductVariants">
+                                {{ product.variants | json }}
+                            </script>
+                            
+                    </div>
+                {% endif %}
+                {% assign product_colour = product.title | split: " - " | first | strip %}
+                {% assign product_title = product.title | split: " - " | last | strip %}
+                {% assign product_handle = product.handle %}
+
+                {% assign hasSomeColours = true %}
+                {% if value_colors == blank %}
+                    {% assign hasSomeColours = false %}
+                {% endif %}
+                {% if value_colors.size < 2 %}
+                    {% assign hasSomeColours = false %}
+                {% endif %}
+
+                {% if product.title contains " - " and hasSomeColours == false %}
+                    <h2>Colour</h2>
+                    <div class="swatch-colours swatch-colours__product">
+                        <div id="select-option-colour" class="select">
+                            {% assign first_image = product.images | first %}
+                            <label>
+                                <span><img src="{{ first_image | img_url: '40x40', crop: 'center' }}" alt="{{ product_colour }}"/>{{ product_colour }}</span>
+                            </label>
+                            <ul>
+                                {% assign other_products = '' %}
+                                {% for collection in product.collections %}
+                                    {% for inner_product in collection.products %}
+                                        {% if inner_product.title contains product_title %}
+                                            {% if inner_product.handle != product_handle %}
+                                                {% unless other_products contains inner_product.handle %}
+                                                    {% assign first_image = inner_product.images | first %}
+                                                    {% assign other_products = other_products | append: "," | append: inner_product.handle %}
+                                                    {% assign product_colour = inner_product.title | split: " - " | first | strip %}
+                                                    <li data-value="{{ product_colour }}">
+                                                        <a href="/products/{{ inner_product.handle }}">
+                                                            <span><img src="{{ first_image | img_url: '40x40', crop: 'center' }}" alt="{{ product_colour }}"/>{{ product_colour }}</span>
+                                                        </a>
+                                                    </li>
+                                                {% endunless %}
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <ul class="grid">
+                            {% assign first_image = product.images | first %}
+                            <li>
+                                <span>
+                                    <picture>
+                                        <source media="(min-width: 768px)" srcset="{{ first_image | img_url: '40x40', crop: 'center' }}" >
+                                        <source srcset="{{ first_image | img_url: '80x80', crop: 'center' }}" >
+                                        <img src="{{ first_image | img_url: '40x40', crop: 'center' }}" alt="{{ product_colour }}"/>
+                                    </picture>
+
+                                    {{ product_colour }}
+                                </span>
+                            </li>
+                            {% assign other_products = '' %}
+                            {% for collection in product.collections %}
+                                {% for inner_product in collection.products %}
+                                    {% if inner_product.title contains product_title %}
+                                        {% if inner_product.handle != product_handle %}
+                                            {% unless other_products contains inner_product.handle %}
+                                                {% assign first_image = inner_product.images | first %}
+                                                {% assign other_products = other_products | append: "," | append: inner_product.handle %}
+                                                {% assign product_colour = inner_product.title | split: " - " | first | strip %}
+                                                <li data-value="{{ product_colour }}">
+                                                    <a href="/products/{{ inner_product.handle }}">
+                                                        <span>
+                                                            <picture>
+                                                                <source media="(min-width: 768px)" srcset="{{ first_image | img_url: '40x40', crop: 'center' }}" >
+                                                                <source srcset="{{ first_image | img_url: '80x80', crop: 'center' }}" >
+                                                                <img src="{{ first_image | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>
+                                                                {{ product_colour }}
+                                                            </picture>
+                                                        </span>
+                                                    </a>
+                                                </li>
+                                            {% endunless %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+            <!-- .colour -->
+        {% endunless %}
+        <script>
+            var allImageVariants = [];{% for variant in product.variants %}allImageVariants['{{ variant.title }}'] = '{{ variant.image.src | img_url: "1280x1280" }}';{% endfor %}
+        </script>
+
+        <div id="product-add">
+
+            <!-- Additional Swatches using tag "customdropdown_" for single product page -->
+
+            {% for tag in product.tags %}
+                {% if tag contains 'customdropdown_' %}
+                    {% assign productName = tag | replace: 'customdropdown_', '' %}
+                    {% assign productData = all_products[productName] %}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+
+            <!-- Additional Swatches using tag "defaultvariant_" to selecte specific variant -->
+
+            {% for tag in product.tags %}
+                {% if tag contains 'defaultvariant_' %}
+                    {% assign defaultVariantSelect = tag | replace: 'defaultvariant_', '' %}
+                {% endif %}
+            {% endfor %}
+
+            {%- if productName -%}
+                <div class="option option-colour" data-select-option="{{ '#product-select-option-' | append: position_option_colors }}">
+                    {% if productData.type != 'Rugs' and productData.type != 'Mattress' and productData.type != 'Headboard' and productData.type != 'Bed' %}
+                    {% assign values = productData.variants | map: "option1" | uniq %}
+                        <h2>Colour</h2>
+                    {% endif %}
+
+                    <!-- Check if Assigned tag Variant value match from variant loop end -->
+
+                    {% for option in productData.options_with_values %}
+                        {% if option.name == "Colour" %}
+                            {% for value in option.values %}
+                                {% if defaultVariantSelect == value %}
+                                    {% assign defaultVariantSelection = "" %}
+                                    {% break %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Check if Assigned tag Variant value match from variant loop end -->
+
+                    <div class="swatch-colours swatch-colours-new swatch-colours__product">
+                        <div id="select-option-colour-custom-dropdown" class="select">
+                            <label>
+                                {% for option in productData.options_with_values %}
+                                    {% if option.name == "Colour" %}
+
+                                        <!-- Default Dropdown Selected Variant Html End -->
+                                        {% for value in option.values %}
+
+                                            {% if defaultVariantSelection %}
+                                                {% if defaultVariantSelect == value %}
+                                                    <span class="data">
+                                                        {% for color_value in values %}
+                                                                {% assign value_variants = productData.variants | where: "option1", color_value %}
+                                                                    {% if value ==  color_value %}
+                                                                        <div class="color-swatch">
+                                                                            <img src="{{value_variants[0].image | img_url: '40x40', crop: 'center' }}" alt="{{ value }}" />
+                                                                        </div>
+                                                                    {% endif %}
+                                                            {% endfor %}
+                                                        {{ value }}
+                                                    </span>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if forloop.first == true %}
+                                                    <span class="data">
+                                                        {% for color_value in values %}
+                                                                {% assign value_variants = productData.variants | where: "option1", color_value %}
+                                                                    {% if value ==  color_value %}
+                                                                        <div class="color-swatch">
+                                                                            <img src="{{value_variants[0].image | img_url: '40x40', crop: 'center' }}" alt="{{ value }}" />
+                                                                        </div>
+                                                                    {% endif %}
+                                                            {% endfor %}
+                                                        {{ value }}
+                                                    </span>
+                                                {% endif %}
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                        <!-- Default Dropdown Selected Variant Html End -->
+
+                                    {% endif %}
+                                {% endfor %}
+                            </label>
+
+                            <ul class="colour-dropdown">
+                                {% for option in productData.options_with_values %}
+                                    {% if option.name == "Colour" %}
+                                        {% for value in option.values %}
+                                            <li data-value="{{ value }}"
+                                                {% if defaultVariantSelection %}
+                                                    {% if defaultVariantSelect == value %}class="selected"{% endif %}
+                                                {% else %}
+                                                    {% if forloop.first == true %}class="selected"{% endif %}
+                                                {% endif %}>
+                                                <a href="{{ productData.url }}?color={{ value }}">
+                                                <span class="data">
+                                                    {% for color_value in values %}
+                                                        {% assign value_variants = productData.variants | where: "option1", color_value %}
+                                                            {% if value ==  color_value %}
+                                                                <div class="color-swatch">
+                                                                    <img src="{{value_variants[0].image | img_url: '40x40', crop: 'center' }}" alt="{{ value }}" />
+                                                                </div>
+                                                            {% endif %}
+                                                    {% endfor %}
+                                                    {{ value }}
+                                                </span>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <!-- Colour Image Grid Section -->
+
+                        <ul class="grid">
+                            {% for option in productData.options_with_values %}
+                                {% if option.name == "Colour" %}
+                                    {% for value in option.values %}
+                                        <li data-value="{{ value }}"
+                                            {% if defaultVariantSelection %}
+                                                {% if defaultVariantSelect == value %}class="selected"{% endif %}
+                                            {% else %}
+                                                {% if forloop.first == true %}class="selected"{% endif %}
+                                            {% endif %}>
+                                            <a href="{{ productData.url }}?color={{ value }}">
+                                            <span class="data">
+                                                {% for color_value in values %}
+                                                    {% assign value_variants = productData.variants | where: "option1", color_value %}
+                                                        {% if value ==  color_value %}
+                                                            <div class="color-swatch">
+                                                                <img src="{{value_variants[0].image | img_url: '40x40', crop: 'center' }}" alt="{{ value }}" />
+                                                            </div>
+                                                        {% endif %}
+                                                {% endfor %}
+                                            </span>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+
+                        <!-- Colour Image Grid Section End -->
+
+                    </div>
+                </div>
+
+            {%- endif -%}
+
+            <!-- Additional Swatches using tag for single product page Code End -->
+
+            <script>
+                var freeSampleVariants = [];
+                var freeSampleVariantsAvailability = [];
+            </script>
+                {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass'  %}
+                    <div class="option option-size" data-select-option="{{ '#product-select-option-' | append: position_option_size }}">
+                        <h2>Enter your size</h2>
+                        <div class="content">
+                            <div class="length-qty metres">
+                                <div id="metreInchesSwitcher">
+                                    <input type="radio" name="measurementToggle" id="measurementToggleMetres" value="1" checked="checked"/><label for="measurementToggleMetres">Metres</label>
+                                    <input type="radio" name="measurementToggle" id="measurementToggleInches" value="0"/>
+                                    <label for="measurementToggleInches">Feet &amp; Inches</label>
+                                </div>
+
+                                <div class="qty" id="lengthMetres">
+                                    <label for="quantity">Length (m)</label>
+                                    {% comment %}<!-- show the SQM price initial - so divide 1 by the width as the initial length value: /-->{% endcomment %}
+                                    {% assign lengthInitial = 1 %}
+                                    {% if value_sizes.size > 0 %}
+                                        {% assign firstWidthNumeric = length_value_sizes | plus: 0 %}
+                                        {% assign lengthInitial = 100 | divided_by: firstWidthNumeric | times: 0.01 %}
+                                    {% endif %}
+                                    {% assign minimumLengthValue = lengthInitial %}
+
+                                    {% if minimumLength != '' %}
+                                        {% assign minimumLengthValue = minimumLength %}
+                                    {% endif %}
+                                    {% if defaultLength != '' %}
+                                        {% assign lengthInitial = defaultLength %}
+                                    {% endif %}
+                                    <input min="{{ minimumLengthValue }}" data-min="{{ minimumLengthValue }}" type="text" inputmode="decimal" value="" pattern="[0-9.]*" id="userLength"/>
+                                </div>
+
+                                <div class="qty" id="lengthInches">
+                                    <label for="quantity">Length (ft &amp; in)</label>
+                                    <input min="0" type="text" inputmode="decimal" pattern="[0-9.]*" id="userLengthFeet"/>
+                                    <input min="0" type="text" inputmode="decimal" pattern="[0-9.]*" id="userLengthInches"/>
+                                </div>
+
+                                <div class="space">
+                                    <svg xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink" version="1.1" width="10" height="10" viewBox="0 0 20 20" data-tags="close"><g transform="scale(0.01953125 0.01953125)"><path d="M512 439.603l-362.035-362.035-72.397 72.397 362.035 362.035-362.035 362.035 72.397 72.397 362.035-362.035 362.035 362.035 72.397-72.397-362.035-362.035 362.035-362.035-72.397-72.397-362.035 362.035z"/></g></svg>
+                                </div>
+                                {% if value_sizes.size > 0 %}
+                                    <div class="size">
+                                        <div id="widthMetres" class="measurementSelect">
+                                            <label>Width (m)</label>
+                                            <div class="selectWrapper">
+                                                <select>
+                                                    {% for value_size in value_sizes %}
+                                                        <option value="{{ value_size }}">{{ value_size }}</option>
+                                                    {% endfor %}
+                                                    {% comment %} {% for value_size in value_sizes %}
+                                                        <option value="{{ value_size }}">{{ value_size }}</option>
+                                                    {% endfor %} {% endcomment %}
+
+                                                    {% comment %} Waqar
+                                                    {% for variant in product.variants %}
+                                                        <option value="{{ variant.title }}" {% if variant.metafields.juno.is_in_stock == "0" %} disabled="disabled" {% endif %}>{{ variant.title }}</option>
+                                                    {% endfor %}
+                                                    {% endcomment %}
+                                                    {% comment %} {% for variant in product.variants %}
+                                                        <option value="{{ variant.title }}" {% if variant.metafields.juno.is_in_stock == "0" %} disabled="disabled" {% endif %}>{{ variant.title }}</option>
+                                                    {% endfor %} {% endcomment %}
+                                                </select>
+
+
+                                            </div>
+                                        </div>
+                                        <div id="widthFeetInches" class="measurementSelect">
+                                            <label>Width (ft)</label>
+                                            <div class="selectWrapper">
+                                                <select>
+                                                    {% for value_size in value_sizes %}
+                                                        {% assign metres = value_size | plus: 0 %}
+
+                                                        {% assign feet = metres | times: 3.2808 | floor %}
+                                                        {% assign inchesAccountedFor = feet | times: 12 %}
+                                                        {% assign inches = metres | times: 39.370 | minus: inchesAccountedFor | floor %}
+
+
+                                                        <option value="{{ value_size }}">{{ feet }}
+                                                            ft
+                                                            {{ inches }}
+                                                            inches</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <input type="hidden" id="quantity" name="quantity" value="1"/>
+
+                            <div id="product-price" class="delta">
+                                <p>
+                                    {% assign variant = product.selected_or_first_available_variant %}
+                                    {% if product.compare_at_price > product.price %}
+                                        <span class="product-price on-sale">
+                                            {{ variant.price | money_without_currency }}
+                                        </span>
+                                        <s class="product-compare-price">
+                                            {{ variant.compare_at_price | money_without_currency }}
+                                        </s>
+                                    {% else %}
+                                        <span class="product-price">
+                                            {{ variant.price | money_without_currency }}
+                                        </span>
+                                    {% endif %}
+                                </p>
+                            </div>
+                            <div id="totalAreaM2">
+                                <p>Total Area
+                                    <span>0m<sup>2</sup></span>
+                                </p>
+
+                            </div>
+
+                            <button type="button" id="carpetAddToCart">{{ add_to_cart }}</button>
+
+                            <a href="/cart" id="GoToCheckout" class="button button-second">{{ go_to_checkout | escape }}</a>
+
+                            <!-- <p id="freeSampleAddedMessage" class="productStatusMessage">{{product.title}} <span id="freeSampleAddedVariantMessage"></span> FREE sample has been added</p> -->
+                            <p id="addAWidthError" class="productErrorMessage">Please enter a width and length</p>
+                            <p id="addAColourError" class="productErrorMessage">Please choose a colour</p>
+                            <p id="minimumLengthError" class="productErrorMessage">Length is too small, please enter a length of at least
+                                {{ minimumLengthValue }}m</p>
+                            <p id="addASampleColourError" class="productErrorMessage">Please choose your sample colour</p>
+                            <p id="duplicateSampleError" class="productErrorMessage">Sample already in cart. A maximum of 6 different colour samples can be ordered</p>
+                            <p id="max6SampleError" class="productErrorMessage">Sorry, we can only send out 6 samples at a time</p>
+                            <p id="responseFailure" class="productErrorMessage">We are sorry, but we're unable to process your request, please try again in a moment&mdash;alternatively, please contact our support team on
+                                <a href="tel:{{ shop.phone }}">{{ shop.phone }}</a>
+                            </p>
+
+                            {% comment %} <script>
+                                sampleVariantsAlreadyInCart = [];{% if cart.item_count > 0 %}
+                                    {% for item in cart.items %}
+                                        {% if item.product.type == "Sample" %}
+                                            {% assign numberOfSamplesInCart = numberOfSamplesInCart | plus: item.quantity %}
+                                            sampleVariantsAlreadyInCart.push("{{ item.variant_id }}");{% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </script> {% endcomment %}
+                            {% assign sampleProduct = product.handle | append: '-sample' %}
+                            {% assign freeSampleProduct = all_products[sampleProduct] %}
+                            {% if freeSampleProduct != blank %}
+                                <script>
+                                    {%- for variant in freeSampleProduct.variants -%}freeSampleVariants['{{ variant.title | split: " / " | first }}'] = '{{ variant.id }}';{%- endfor -%}
+
+                                    {% assign hasAvailableSamples = false %}
+                                    {%- for variant in product.variants -%}freeSampleVariantsAvailability['{{ variant.id }}'] = '{{ variant.metafields.Juno.is_sample }}';{% unless variant.metafields.Juno.is_sample == 'no' %}
+                                            {% assign hasAvailableSamples = true %}
+                                        {% endunless %}
+                                    {%- endfor -%}
+                                </script>
+                                {% if hasAvailableSamples %}
+                                    <!-- <a href="#" id="orderFreeSample" data-variant="{% if product.variants.size == 1 %}{{ freeSampleProduct.selected_or_first_available_variant.id }}{% else %}null{% endif %}" data-defaultvariant="{{ freeSampleProduct.selected_or_first_available_variant.id }}" class="btn button button-second">Order FREE Sample</a> -->
+                                    <a href="#" id="orderFreeSample" data-variant="{{ freeSampleProduct.selected_or_first_available_variant.id }}" data-defaultvariant="{{ freeSampleProduct.selected_or_first_available_variant.id }}" class="btn button button-second">Order FREE Sample</a>
+                                {% endif %}
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                {% else %}
+                    {% if product.type == 'Laminate' or product.type == 'LVT' %}
+                        <div class="option option-laminate">
+                            <h2>Price Calculator</h2>
+                            <input type="hidden" id="laminateLinnWork" name="properties[Size]" value="{{ packSizePerSQM }}M² For 1 Packs">
+                                <div class="content">
+                                    <a id="toggleFlooringCalculator" href="#lengthWidthCalculator">
+                                        <i class="icon-calculator"></i>
+                                        Use flooring calculator</a>
+                                    <div id="lengthWidthCalculator" style="display: none;" class="clearfix">
+                                        <div class="qty">
+                                            <label for="calculatorWidth">Length (m)</label>
+                                            <input type="text" id="calculatorLength" inputmode="decimal" pattern="[0-9.]*"/>
+                                        </div>
+                                        <div class="space">x</div>
+                                        <div class="size">
+                                            <label for="calculatorWidth">Width (m)</label>
+                                            <input type="text" id="calculatorWidth" inputmode="decimal" pattern="[0-9.]*"/>
+                                        </div>
+                                    </div>
+                                    <div id="priceCalculator" class="length-qty">
+                                        <div class="qty">
+                                            <label for="sqmRequired">Square Metres<!--(m<sup>2</sup>)--></label>
+                                            <input min="1" type="text" id="sqmRequired" inputmode="decimal" pattern="[0-9.]*"/>
+                                        </div>
+                                        <div class="space">or</div>
+                                        <div class="packs size">
+                                            <label for="quantity">Number of Packs</label>
+                                            <input min="1" type="text" id="quantity" name="quantity" value="" inputmode="decimal" pattern="[0-9.]*"/>
+                                        </div>
+                                    </div>
+                                    <div id="product-price">
+                                        <p>
+                                            {% assign variant = product.selected_or_first_available_variant %}
+                                            {% if product.compare_at_price > product.price %}
+                                                <span class="product-price on-sale">
+                                                    {{ variant.price | money_without_currency }}
+                                                </span>
+                                                <s class="product-compare-price">
+                                                    {{ variant.compare_at_price | money_without_currency }}
+                                                </s>
+                                            {% else %}
+                                                <span class="product-price">
+                                                    {{ variant.price | money_without_currency }}
+                                                </span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div id="totalAreaM2">
+                                        <p>Total Area
+                                            <span>0m<sup>2</sup>
+                                            </p>
+                                        </span>
+                                    </div>
+                                    <div class="wrap-add-cart-btn">
+                                        <button type="submit" name="add" id="AddToCart" class="button button-primary">
+                                            <span id="AddToCartText">{{ add_to_cart | escape }}</span>
+                                            <span id="AddingToCartText">{{ adding_to_cart | escape }}</span>
+                                            <span id="AddedToCartText">{{ added_to_cart | escape }}</span>
+                                        </button>
+                                        <button type="button" id="fake-add-card-btn">{{ add_to_cart | escape }}</button>
+                                    </div>
+
+                                    <div id="add-card-output-mess"></div>
+
+                                    <a href="/cart" id="GoToCheckout" class="button button-second">{{ go_to_checkout | escape }}</a>
+                                    {% assign numberOfSamplesInCart = 0 %}
+                                    <script>
+                                        sampleVariantsAlreadyInCart = [];{% if cart.item_count > 0 %}
+                                            {% for item in cart.items %}
+                                                {% if item.product.type == "Sample" %}
+                                                    {% assign numberOfSamplesInCart = numberOfSamplesInCart | plus: item.quantity %}
+                                                    sampleVariantsAlreadyInCart.push("{{ item.variant_id }}");{% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </script>
+                                </div>
+                            </div>
+                        {% else %}
+                            {%- comment -%}
+                                standard product
+                                not display qtybox for underlays, doorbars, tapes, adhevies or tag qty_no
+                            {%- endcomment -%}
+                            {%- assign is_hide_qty = false -%}
+                            {%- assign hide_qty_style = '' -%}
+
+                            {%- for tag in product.tags -%}
+                                {%- assign tag_downcase = tag | downcase -%}
+                                {%- if tag_downcase == 'type_door bar' or tag_downcase == 'type_underlay' or tag_downcase == 'accessories: adhesives and tapes' or tag_downcase == 'qty_no' -%}
+                                   {%- assign is_hide_qty = true -%}
+                                {%- endif -%}
+                                {%- if tag_downcase == 'bundles' -%}
+                                    {%- assign is_hide_qty = true -%}
+                                {%- endif -%}
+                            {%- endfor  -%}
+
+                           
+
+                            {%- if is_hide_qty -%}
+                                {%- assign hide_qty_style = ' style="display: none"' -%}
+                            {%- endif -%}
+
+
+                            <div class="option option-single">
+
+                                <h2 {{ hide_qty_style }}>Enter your Quantity</h2>
+
+                                <div class="content">
+                                    <div class="length-qty" {{ hide_qty_style }}>
+                                        <div class="qty">
+                                            <label for="quantity">Quantity</label>
+                                            <input min="1" type="text" id="quantity" name="quantity" value="1"/>
+                                        </div>
+                                    </div>
+                                    <div id="product-price"  class="delta">
+                                        <p>
+                                            {% assign variant = product.selected_or_first_available_variant %}
+                                            {% if product.compare_at_price > product.price %}
+                                                <span class="product-price on-sale">
+                                                    {{ variant.price | money_without_currency }}
+                                                </span>
+                                                <s class="product-compare-price">
+                                                    {{ variant.compare_at_price | money_without_currency }}
+                                                </s>
+                                            {% else %}
+                                                <span class="product-price">
+                                                    {{ variant.price | money_without_currency }}
+                                                </span>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <button type="submit" name="add" id="AddToCart" class="btn button button-primary">
+                                        <span id="AddToCartText">{{ add_to_cart | escape }}</span>
+                                        <span id="AddingToCartText">{{ adding_to_cart | escape }}</span>
+                                        <span id="AddedToCartText">{{ added_to_cart | escape }}</span>
+                                    </button>
+
+                                    <a href="/cart" id="GoToCheckout" class="button button-second">{{ go_to_checkout | escape }}</a>
+                                    {% assign numberOfSamplesInCart = 0 %}
+                                    <script>
+                                        sampleVariantsAlreadyInCart = [];{% if cart.item_count > 0 %}
+                                            {% for item in cart.items %}
+                                                {% if item.product.type == "Sample" %}
+                                                    {% assign numberOfSamplesInCart = numberOfSamplesInCart | plus: item.quantity %}
+                                                    sampleVariantsAlreadyInCart.push("{{ item.variant_id }}");{% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+                                    </script>
+                                    {% if numberOfSamplesInCart < 6 %}
+
+                                {% assign sampleProduct = product.handle | append: '-sample' %}
+                                {% assign freeSampleProduct = all_products[sampleProduct] %}
+                                {% if freeSampleProduct != blank %}
+                                    <script>
+                                        {%- for variant in freeSampleProduct.variants -%}freeSampleVariants['{{ variant.title | split: " / " | first }}'] = '{{ variant.id }}';{%- endfor -%}
+
+                                        {% assign hasAvailableSamples = false %}
+                                        {%- for variant in product.variants -%}freeSampleVariantsAvailability['{{ variant.id }}'] = '{{ variant.metafields.Juno.is_sample }}';{% unless variant.metafields.Juno.is_sample == 'no' %}
+                                                {% assign hasAvailableSamples = true %}
+                                            {% endunless %}
+                                        {%- endfor -%}
+                                    </script>
+                                        {% if hasAvailableSamples %}
+                                            <!-- <a href="#" id="orderFreeSample" data-variant="{% if product.variants.size == 1 %}{{ freeSampleProduct.selected_or_first_available_variant.id }}{% else %}null{% endif %}" data-defaultvariant="{{ freeSampleProduct.selected_or_first_available_variant.id }}" class="btn button button-second">Order FREE Sample</a> -->
+                                            <a href="#" id="orderFreeSample" data-variant="{{ freeSampleProduct.selected_or_first_available_variant.id }}" data-defaultvariant="{{ freeSampleProduct.selected_or_first_available_variant.id }}" class="btn button button-second">Order FREE Sample</a>
+                                        {% endif %}
+
+                                    {% endif %}
+                                {% endif %}
+
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                <div id="backorder" class="hidden">
+                    <p>
+                        {{ '%s is back-ordered. We will ship it separately in 10 to 15 days.' | replace: '%s', '<span id="selected-variant"></span>' }}
+                    </p>
+                </div>
+                {% render 'product-features' %}
+            </div>
+        <!-- #product-add -->
+    </div>
+<!-- .actions -->
+</div>
+<!-- .product-details -->

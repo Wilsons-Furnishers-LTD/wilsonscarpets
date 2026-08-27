@@ -121,7 +121,7 @@
 .product-main-sidebar__inner {
   padding-left: 50px;
   padding-right: 50px;
-  height: calc(100vh - 203px - 18px);
+  height: 100%;
   overflow: scroll;
   padding-bottom: 100px;
 }

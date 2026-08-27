@@ -33,17 +33,24 @@ class Products {
     }
 
     changeProductDetailView(detailTitle) {
-        let item = detailTitle.getAttribute('data-item');
-        let tabs = document.querySelectorAll('.product-main-details__item');
-        let activeElement = document.getElementById('tab-' + item);
-        
+        let item = detailTitle.getAttribute('data-item'),
+            tabs = document.querySelectorAll('.product-main-details__item'),
+            activeElement = document.getElementById('tab-' + item),
+            activeClass = 'active';
+
         tabs.forEach(tab => {
-            tab.classList.remove('active');
+            tab.classList.remove(activeClass);
         });
-        console.log(activeElement);
+        
         if(activeElement) {
-            activeElement.classList.add('active');
+            activeElement.classList.add(activeClass);
         }
+
+        this.detailTitles.forEach(detailTitle => {
+            detailTitle.classList.remove(activeClass);
+        });
+
+        detailTitle.classList.add(activeClass);
     }
     updateVariantSelection() {        
 

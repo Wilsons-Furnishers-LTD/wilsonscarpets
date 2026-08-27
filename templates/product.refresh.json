@@ -1622,6 +1622,7 @@
     },
     "related": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "show_related_products": true,
         "related_title": "You may also like",

@@ -146,6 +146,12 @@
   bottom: 0;
   margin: auto;
 }
+.product-main .related-products-refresh .owl-nav .owl-prev {
+  left: 0;
+}
+.product-main .related-products-refresh .owl-nav .owl-next {
+  right: 0;
+}
 
 .product-main-sidebar__inner {
   padding-left: 50px;

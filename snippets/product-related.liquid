@@ -86,7 +86,7 @@
 			{% unless same_vendor and current_product.vendor != product.vendor %}
 			{% unless same_type and current_product.type != product.type %}
 
-			{% include 'product-grid-item-related' %}
+			{% render 'product-grid-item-related' %}
 
 			{% assign counter = counter | plus: 1 %}
 			{% if counter == break_at %}

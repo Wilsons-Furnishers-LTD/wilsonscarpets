@@ -136,6 +136,9 @@
   width: 20%;
   float: none;
 }
+.product-main-details .product-features .feature img {
+  width: 3.8rem;
+}
 .product-main-details .product-features .feature .text-content h2 {
   font-size: 12px;
   margin-top: 15px;

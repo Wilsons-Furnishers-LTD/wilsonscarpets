@@ -11,8 +11,6 @@
   display: flex;
   height: calc(100vh - 304px);
   padding-left: 10px;
-  min-width: calc(100vw - 600px);
-  max-width: calc(100vw - 700px);
 }
 .product-main_images .item {
   position: relative;
@@ -28,6 +26,10 @@
   height: 100%;
   position: absolute;
   object-fit: cover;
+}
+.product-main_column {
+  min-width: calc(100vw - 600px);
+  max-width: calc(100vw - 700px);
 }
 .product-main_sidebar {
   flex: 1;

@@ -246,11 +246,11 @@ body.product-refresh label.toggleContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: fit-content;
-  border: 3px solid #343434;
+  border: 3px solid #414B52;
   border-radius: 20px;
-  background: #343434;
+  background: #414B52 !important;
   font-weight: bold;
-  color: #343434;
+  color: #414B52;
   cursor: pointer;
 }
 body.product-refresh .toggleContainer::before {

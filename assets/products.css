@@ -261,6 +261,7 @@ body.product-refresh .toggleContainer::before {
   border-radius: 20px;
   background: white;
   transition: all 0.3s;
+  left: 0;
 }
 body.product-refresh .toggleCheckbox:checked + .toggleContainer::before {
   left: 50%;

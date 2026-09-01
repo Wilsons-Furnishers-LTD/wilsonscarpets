@@ -13,6 +13,8 @@
   position: absolute;
   border-radius: 3px;
   padding: 5px 10px;
+  top: -40px;
+  z-index: 1000;
 }
 .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip {
   opacity: 1;

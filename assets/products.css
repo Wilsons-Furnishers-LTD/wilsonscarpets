@@ -213,6 +213,7 @@
 }
 body.product-refresh .breadcrumb {
   padding-top: 30px;
+  padding-bottom: 10px;
 }
 body.product-refresh .breadcrumb a {
   font-size: 14px;

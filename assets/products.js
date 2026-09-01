@@ -13,20 +13,47 @@ class Products {
         this.productType = variantData.getAttribute('data-product-type'),
         this.hideDefaultTitle = false,
         this.soldOut = variantData.getAttribute('data-sold-out'),
-        this.unavailable = variantData.getAttribute('data-unavailable');
+        this.unavailable = variantData.getAttribute('data-unavailable'),
+        this.detailTitles = document.querySelectorAll('.product-main-details__title');
 
         if(variantData.getAttribute('data-hide-default-title') == 'true') {
             this.hideDefaultTitle = true;
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
+        document.addEventListener('DOMContentLoaded', this.setupRelatedProductCarousel.bind(this));
+
+        this.setupRelatedProductCarousel.bind(this);
 
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
         });
-        
+
+        this.detailTitles.forEach(detailTitle => {
+            detailTitle.addEventListener('click', this.changeProductDetailView.bind(this, detailTitle));
+        });
         
     }
 
+    changeProductDetailView(detailTitle) {
+        let item = detailTitle.getAttribute('data-item'),
+            tabs = document.querySelectorAll('.product-main-details__item'),
+            activeElement = document.getElementById('tab-' + item),
+            activeClass = 'active';
+
+        tabs.forEach(tab => {
+            tab.classList.remove(activeClass);
+        });
+        
+        if(activeElement) {
+            activeElement.classList.add(activeClass);
+        }
+
+        this.detailTitles.forEach(detailTitle => {
+            detailTitle.classList.remove(activeClass);
+        });
+
+        detailTitle.classList.add(activeClass);
+    }
     updateVariantSelection() {        
 
         this.selects.forEach(select => {
@@ -143,6 +170,55 @@ class Products {
             // variant doesn't exist.
             jQuery('#backorder').addClass('hidden');
             jQuery('#AddToCart').val(this.unavailable).addClass('disabled').prop('disabled', true);
+        }
+    }
+
+
+    setupRelatedProductCarousel() {
+        if (jQuery('.related-products-refresh .owl-carousel').length) {
+            var $featuredCollection = $('.related-products-refresh .owl-carousel');
+            $featuredCollection.owlCarousel({
+                loop: true,
+                autoplay: false,
+                margin: 20,
+                nav: true,
+                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2
+                    },
+                    1152: {
+                        items: 3.5
+                    }
+                },
+                onInitialized: match_height,
+                onResized: match_height
+            });
+
+            $featuredCollection.on('translated.owl.carousel',function(event){
+                $(event.target).find(".owl-item.active .product-name").sameHeight();
+            });
+
+            function match_height(event) {
+                var img_height = jQuery(event.target).find('.owl-item.active').first().find('.product-image-wrap').height();
+                if(isIpadOS()){
+                    var img_height = jQuery(event.target).find('.owl-item.active').first().height();
+                }
+                
+                
+
+                $(event.currentTarget).find('.owl-item .product-name').removeAttr('style');
+                $(event.currentTarget).find('.owl-item.active .product-name').sameHeight();
+
+
+                $(window).width();
+                jQuery(event.currentTarget).find('.owl-prev,.owl-next').css('top', img_height / 2);
+                
+            }
         }
     }
 

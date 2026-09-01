@@ -4,9 +4,15 @@
     {{ 'filters.css' | asset_url | stylesheet_tag }}
 {% endif %}
 {% if show_col %}
-    <style>
+    <style>        
+        .cms-two-columns {
+            background-color: #fff !important;
+        }
         .cms-two-columns  .col-main .container {
             max-width: 100%;
+            width: 100%;
+        }
+        .cms-two-columns .col-main {
             width: 100%;
         }
     </style>

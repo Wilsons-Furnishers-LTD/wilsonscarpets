@@ -573,18 +573,13 @@
                             <div class="length-qty metres">
                                 <div class="size-calculator-header">
                                     <h2>Enter your size</h2>
-                                    <div id="metreInchesSwitcher">
-                                        <input type="radio" name="measurementToggle" id="measurementToggleMetres" value="1" checked="checked"/><label for="measurementToggleMetres">Metres</label>
-                                        <input type="radio" name="measurementToggle" id="measurementToggleInches" value="0"/>
-                                        <label for="measurementToggleInches">Feet &amp; Inches</label>
+                                    <div class="toggle-wrapper">
+                                        <input type="checkbox" id="toggleMeasurementType" class="toggleCheckbox" />
+                                        <label for="toggleMeasurementType" class='toggleContainer'>
+                                            <div>Metres</div>   
+                                            <div>Feet & Inches</div>
+                                        </label>
                                     </div>
-                                </div>
-                                <div class="toggle-wrapper">
-                                <input type="checkbox" id="toggleMeasurementType" class="toggleCheckbox" />
-                                    <label for="toggleMeasurementType" class='toggleContainer'>
-                                        <div>Metres</div>   
-                                        <div>Feet & Inches</div>
-                                    </label>
                                 </div>
                                 <div class="qty" id="lengthMetres">
                                     <label for="quantity">Length (m)</label>

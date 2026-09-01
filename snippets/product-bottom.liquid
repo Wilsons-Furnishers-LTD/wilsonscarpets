@@ -734,26 +734,37 @@
                 jQuery(this).parents('.measurementSelect').siblings().find('select').val(jQuery(this).val());
                 setSelectedSize(jQuery(this).val());
             });
-            // jQuery("#metreInchesSwitcher input").on('change', function () {
-            //     if (jQuery(this).attr("id") == "measurementToggleMetres") {
-            //         jQuery('#product-add .length-qty').removeClass("inches").addClass("metres");
+            jQuery("#toggleMeasurementType").on('change', function () {
+                if (!jQuery(this).is(':checked')) {
+                    jQuery('#product-add .length-qty').removeClass("inches").addClass("metres");
+                    jQuery('#lengthMetres').find('input').removeAttr('disabled');
+                    jQuery('#lengthInches').find('input').attr('disabled', 'disabled');
+                } else {
+                    jQuery('#product-add .length-qty').removeClass("metres").addClass("inches");
+                    jQuery('#lengthInches').find('input').removeAttr('disabled');
+                    jQuery('#lengthMetres').find('input').attr('disabled', 'disabled');
+                }
+            });
+            jQuery("#metreInchesSwitcher input").on('change', function () {
+                if (jQuery(this).attr("id") == "measurementToggleMetres") {
+                    jQuery('#product-add .length-qty').removeClass("inches").addClass("metres");
 
-            //         jQuery('#lengthMetres').find('input').removeAttr('disabled');
-            //         jQuery('#lengthInches').find('input').attr('disabled', 'disabled');
-            //     } else {
+                    jQuery('#lengthMetres').find('input').removeAttr('disabled');
+                    jQuery('#lengthInches').find('input').attr('disabled', 'disabled');
+                } else {
 
-            //         jQuery('#lengthInches').find('input').removeAttr('disabled');
-            //         jQuery('#lengthMetres').find('input').attr('disabled', 'disabled');
-            //         // convert values and populate the other inputs:
-            //         // john ###
-            //         var currentMetres = jQuery('#userLength').val();
-            //         var currentFeet = Math.floor(currentMetres * 3.2808);
-            //         var currentInches = Math.floor((currentMetres * 39.370) - (currentFeet * 12));
-            //         jQuery('#userLengthFeet').val(currentFeet);
-            //         jQuery('#userLengthInches').val(currentInches);
-            //         jQuery('#product-add .length-qty').removeClass("metres").addClass("inches");
-            //     }
-            // });
+                    jQuery('#lengthInches').find('input').removeAttr('disabled');
+                    jQuery('#lengthMetres').find('input').attr('disabled', 'disabled');
+                    // convert values and populate the other inputs:
+                    // john ###
+                    var currentMetres = jQuery('#userLength').val();
+                    var currentFeet = Math.floor(currentMetres * 3.2808);
+                    var currentInches = Math.floor((currentMetres * 39.370) - (currentFeet * 12));
+                    jQuery('#userLengthFeet').val(currentFeet);
+                    jQuery('#userLengthInches').val(currentInches);
+                    jQuery('#product-add .length-qty').removeClass("metres").addClass("inches");
+                }
+            });
         });
 
         var variantImagePath = "{{ product.selected_or_first_available_variant.image.src | img_url: '1280x1280' }}";

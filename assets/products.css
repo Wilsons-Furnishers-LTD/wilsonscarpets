@@ -239,6 +239,9 @@ body.product-refresh .size-calculator-header h2 {
   margin: 0 !important;
   font-size: 18px !important;
 }
+body.product-refresh .size-calculator-header input[type=text] {
+  height: 35px;
+}
 body.product-refresh .toggle-wrapper {
   display: flex;
   align-items: center;

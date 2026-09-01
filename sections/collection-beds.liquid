@@ -126,17 +126,17 @@
     					</p>
                     {% endfor %}
                 </div>
-                <div class="toolbar bottom toolbar-product">
-                    <div class="row">
-                        {% if paginate.pages > 1 %}
-                        <div class="wrap-pagi">
-                            <div class="collection-pagination">
-                                {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                {% if paginate.pages > 1 %}
+                    <div class="toolbar bottom toolbar-product">
+                        <div class="row">
+                            <div class="wrap-pagi">
+                                <div class="collection-pagination">
+                                    {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                                </div>
                             </div>
                         </div>
-                        {% endif %}
                     </div>
-                </div>
+                {% endif %}
                 {% endpaginate %}
             </div>
         </div>

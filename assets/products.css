@@ -47,6 +47,10 @@
   float: none;
   padding-right: 10px;
 }
+.product-main .product-description.store-description .button {
+  margin-top: 20px;
+  width: initial;
+}
 .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip, .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip__text, .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip__text:after {
   opacity: 1;
 }

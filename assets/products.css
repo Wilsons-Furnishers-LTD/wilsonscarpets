@@ -72,12 +72,12 @@
   z-index: 111;
   width: calc(100% - 100px);
   background: #fff;
+  border-top: 1px solid rgba(65, 75, 82, 0.5);
 }
 .product-main_sidebar .product-price-wrapper {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  border-top: 1px solid rgba(65, 75, 82, 0.5);
   padding-top: 15px;
   padding-bottom: 15px;
   background: #fff;

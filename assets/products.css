@@ -265,7 +265,7 @@ body.product-refresh .toggleContainer::before {
   transition: all 0.3s;
   left: 0;
 }
-body.product-refresh .toggleCheckbox:checked + .toggleContainer::before {
+body.product-refresh .toggle-checkbox:checked + .toggleContainer::before {
   left: 50%;
 }
 body.product-refresh .toggleContainer div {
@@ -273,22 +273,22 @@ body.product-refresh .toggleContainer div {
   text-align: center;
   z-index: 1;
 }
-body.product-refresh .toggleCheckbox {
+body.product-refresh .toggle-checkbox {
   display: none;
 }
-body.product-refresh .toggleCheckbox:checked + .toggleContainer div:first-child {
+body.product-refresh .toggle-checkbox:checked + .toggleContainer div:first-child {
   color: #414B52;
   transition: color 0.3s;
 }
-body.product-refresh .toggleCheckbox:checked + .toggleContainer div:last-child {
+body.product-refresh .toggle-checkbox:checked + .toggleContainer div:last-child {
   color: #414B52;
   transition: color 0.3s;
 }
-body.product-refresh .toggleCheckbox + .toggleContainer div:first-child {
+body.product-refresh .toggle-checkbox + .toggleContainer div:first-child {
   color: #414B52;
   transition: color 0.3s;
 }
-body.product-refresh .toggleCheckbox + .toggleContainer div:last-child {
+body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   color: #414B52;
   transition: color 0.3s;
 }

@@ -174,7 +174,7 @@
   background: #FFF;
   background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 100%);
   position: absolute;
-  bottom: 0;
+  bottom: 220px;
   left: 0;
   content: "";
   display: block;
@@ -243,9 +243,6 @@ body.product-refresh.header-sticky .product-main_sidebar {
 body.product-refresh #shopify-section-footer {
   position: relative;
   z-index: 1000;
-}
-body.product-refresh .actions .option-colour .swatch-colours .select ul {
-  z-index: 10000;
 }
 body.product-refresh .size-calculator-header {
   display: flex;

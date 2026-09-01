@@ -87,6 +87,13 @@
   padding-left: 10px;
   background-color: #F9F8FA;
 }
+.product-main_column .product-grid .item {
+  display: flex;
+  flex-direction: column;
+}
+.product-main_column .product-caption {
+  flex: 1;
+}
 .product-main_sidebar {
   transition: all 0.3s ease;
   flex: 1;

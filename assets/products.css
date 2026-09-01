@@ -246,7 +246,7 @@ body.product-refresh label.toggleContainer {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: fit-content;
-  border: 3px solid #eae9ee;
+  border: 2px solid #eae9ee;
   border-radius: 20px;
   background: #eae9ee !important;
   font-weight: bold;

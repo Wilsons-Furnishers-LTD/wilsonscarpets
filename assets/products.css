@@ -9,7 +9,7 @@
   z-index: 120 !important;
 }
 .product-main .product-photo-thumbs li a.active img {
-  border: 1px solid red;
+  border: 1px solid #414B52;
 }
 .product-main .product-photo-thumb-tooltip {
   position: relative;

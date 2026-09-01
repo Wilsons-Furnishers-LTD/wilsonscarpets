@@ -189,9 +189,9 @@ class Products {
                         items: 1
                     },
                     768: {
-                        items: 2.5
+                        items: 2
                     },
-                    1400: {
+                    1152: {
                         items: 3.5
                     }
                 },

@@ -1,7 +1,7 @@
 .product-main {
   display: flex;
 }
-.product-main .product-details .option-colour h2, .product-main .product-details .option-colour .swatch-colours {
+.product-main .product-details .option-colour h2, .product-main .product-details .option-colour .swatch-colours label {
   position: relative;
   z-index: 100;
 }

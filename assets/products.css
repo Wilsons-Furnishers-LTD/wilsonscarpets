@@ -48,6 +48,7 @@
   margin-right: 10px;
   padding-top: 0;
   width: calc(100% - 10px);
+  border-top: none;
 }
 .product-main .product-description.store-description .button {
   margin-top: 20px;

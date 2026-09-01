@@ -81,6 +81,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  border-top: 1px dashed rgba(234, 233, 238, 0.5);
   padding-top: 15px;
   padding-bottom: 15px;
   background: #fff;

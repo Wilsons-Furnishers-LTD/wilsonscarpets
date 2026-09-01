@@ -43,6 +43,10 @@
   margin: auto;
   opacity: 0;
 }
+.product-main .product-description.store-description {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip, .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip__text, .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip__text:after {
   opacity: 1;
 }

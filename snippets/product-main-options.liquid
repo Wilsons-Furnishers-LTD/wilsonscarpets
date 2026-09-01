@@ -571,12 +571,14 @@
                         
                         <div class="content">
                             <div class="length-qty metres">
-                                <div id="metreInchesSwitcher">
-                                    <input type="radio" name="measurementToggle" id="measurementToggleMetres" value="1" checked="checked"/><label for="measurementToggleMetres">Metres</label>
-                                    <input type="radio" name="measurementToggle" id="measurementToggleInches" value="0"/>
-                                    <label for="measurementToggleInches">Feet &amp; Inches</label>
+                                <div class="size-calculator-header">
+                                    <div id="metreInchesSwitcher">
+                                        <input type="radio" name="measurementToggle" id="measurementToggleMetres" value="1" checked="checked"/><label for="measurementToggleMetres">Metres</label>
+                                        <input type="radio" name="measurementToggle" id="measurementToggleInches" value="0"/>
+                                        <label for="measurementToggleInches">Feet &amp; Inches</label>
+                                    </div>
+                                    <h2>Enter your size</h2>
                                 </div>
-                                <h2>Enter your size</h2>
                                 <div class="qty" id="lengthMetres">
                                     <label for="quantity">Length (m)</label>
                                     {% comment %}<!-- show the SQM price initial - so divide 1 by the width as the initial length value: /-->{% endcomment %}

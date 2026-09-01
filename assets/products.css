@@ -8,6 +8,9 @@
 .product-main .product-details .option-colour ul {
   z-index: 120 !important;
 }
+.product-main .product-photo-thumbs li a.active img {
+  border: 1px solid red;
+}
 .product-main .product-photo-thumb-tooltip {
   position: relative;
   display: flex;

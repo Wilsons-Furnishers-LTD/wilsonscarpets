@@ -282,7 +282,7 @@ body.product-refresh .toggleCheckbox:checked + .toggleContainer div:last-child {
   transition: color 0.3s;
 }
 body.product-refresh .toggleCheckbox + .toggleContainer div:first-child {
-  color: #343434;
+  color: #414B52;
   transition: color 0.3s;
 }
 body.product-refresh .toggleCheckbox + .toggleContainer div:last-child {

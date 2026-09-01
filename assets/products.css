@@ -236,6 +236,60 @@ body.product-refresh .size-calculator-header h2 {
   margin: 0 !important;
   font-size: 18px !important;
 }
+body.product-refresh .toggle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body.product-refresh .toggleContainer {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: fit-content;
+  border: 3px solid #343434;
+  border-radius: 20px;
+  background: #343434;
+  font-weight: bold;
+  color: #343434;
+  cursor: pointer;
+}
+body.product-refresh .toggleContainer::before {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  left: 0%;
+  border-radius: 20px;
+  background: white;
+  transition: all 0.3s;
+}
+body.product-refresh .toggleCheckbox:checked + .toggleContainer::before {
+  left: 50%;
+}
+body.product-refresh .toggleContainer div {
+  padding: 6px;
+  text-align: center;
+  z-index: 1;
+}
+body.product-refresh .toggleCheckbox {
+  display: none;
+}
+body.product-refresh .toggleCheckbox:checked + .toggleContainer div:first-child {
+  color: white;
+  transition: color 0.3s;
+}
+body.product-refresh .toggleCheckbox:checked + .toggleContainer div:last-child {
+  color: #343434;
+  transition: color 0.3s;
+}
+body.product-refresh .toggleCheckbox + .toggleContainer div:first-child {
+  color: #343434;
+  transition: color 0.3s;
+}
+body.product-refresh .toggleCheckbox + .toggleContainer div:last-child {
+  color: white;
+  transition: color 0.3s;
+}
 
 .product-main-details {
   padding-top: 30px;

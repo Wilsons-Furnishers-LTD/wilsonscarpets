@@ -106,7 +106,7 @@
 			{% unless heading == blank %}
 			<h2 class="title-section">{{ heading }}</h2>
 			{% endunless %}
-
+            {{related_items | json}}
 			<div class="product-grid owl-carousel carousel">
 				{{ related_items }}
 			</div>

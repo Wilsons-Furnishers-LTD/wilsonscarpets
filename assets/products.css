@@ -252,8 +252,8 @@ body.product-refresh label.toggleContainer {
   font-weight: bold;
   color: #414B52;
   cursor: pointer;
-  left: initial;
-  transform: inherit;
+  left: initial !important;
+  transform: inherit !important;
 }
 body.product-refresh .toggleContainer::before {
   content: "";

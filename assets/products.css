@@ -5,7 +5,9 @@
   position: relative;
 }
 .product-main .product-photo-thumb-tooltip__text {
+  background: #fff;
   position: absolute;
+  border-radius: 3px;
 }
 .product-main .product-photo-gallery-container {
   display: flex;

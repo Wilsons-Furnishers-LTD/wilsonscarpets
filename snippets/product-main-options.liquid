@@ -579,13 +579,11 @@
                                         <label for="measurementToggleInches">Feet &amp; Inches</label>
                                     </div>
                                 </div>
-                                <div class="unit-toggle">
-  <input type="radio" id="metres" name="unit" value="metres" checked>
-  <label for="metres">Metres</label>
-
-  <input type="radio" id="feet-inches" name="unit" value="feet-inches">
-  <label for="feet-inches">Feet &amp; Inches</label>
-</div>
+                                <input type="checkbox" id="toggle" class="toggleCheckbox" />
+<label for="toggle" class='toggleContainer'>
+  <div>This is a toggle</div>   
+  <div>button</div>
+</label>
                                 <div class="qty" id="lengthMetres">
                                     <label for="quantity">Length (m)</label>
                                     {% comment %}<!-- show the SQM price initial - so divide 1 by the width as the initial length value: /-->{% endcomment %}

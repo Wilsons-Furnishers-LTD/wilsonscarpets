@@ -231,6 +231,10 @@ body.product-refresh #shopify-section-footer {
 }
 .product-main-details .specifications ul {
   list-style: disc;
+  padding-left: 20px;
+}
+.product-main-details .specifications ul li {
+  margin-bottom: 5px;
 }
 .product-main-details .product-features {
   border-bottom: 1px solid rgba(65, 75, 82, 0.5);

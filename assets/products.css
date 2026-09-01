@@ -29,6 +29,7 @@
   display: block;
   left: 0;
   right: 0;
+  margin: auto;
 }
 .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip {
   opacity: 1;

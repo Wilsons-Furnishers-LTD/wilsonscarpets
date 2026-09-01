@@ -245,7 +245,7 @@ body.product-refresh label.toggleContainer {
   position: relative !important;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  width: fit-content;
+  width: 200px;
   border: 2px solid #eae9ee;
   border-radius: 20px;
   background: #eae9ee !important;
@@ -258,7 +258,7 @@ body.product-refresh label.toggleContainer {
 body.product-refresh .toggleContainer::before {
   content: "";
   position: absolute;
-  width: 50%;
+  width: 85px;
   height: 100%;
   border-radius: 20px;
   background: white;
@@ -266,7 +266,7 @@ body.product-refresh .toggleContainer::before {
   left: 0;
 }
 body.product-refresh .toggle-checkbox:checked + .toggleContainer::before {
-  left: 50%;
+  left: 81px;
 }
 body.product-refresh .toggleContainer div {
   padding: 6px 15px;

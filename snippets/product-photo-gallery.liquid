@@ -168,6 +168,7 @@
 
             <ul class="product-photo-thumbs">
                 {% capture variant_images %}
+                    {{value_colors[0]}}
                     {% for value_color in value_colors %}
                         {% assign color = value_color | strip %}
                         {% assign displayedColor = '' %}
@@ -201,7 +202,6 @@
                     {% unless image_exclude contains variant_image %}
                         {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
                             {% unless image.attached_to_variant? %}
-                                {{image}}
                                 <li class="product-photo-thumb js-product-photo-thumb two-per-row {{product_option_name}}" data-value="">
                                     <div class="product-photo-thumb-tooltip">
                                         <div class="product-photo-thumb-tooltip__text">{{ color }}</div>

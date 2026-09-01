@@ -201,9 +201,10 @@
                     {% unless image_exclude contains variant_image %}
                         {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
                             {% unless image.attached_to_variant? %}
+                                {{image}}
                                 <li class="product-photo-thumb js-product-photo-thumb two-per-row {{product_option_name}}" data-value="">
                                     <div class="product-photo-thumb-tooltip">
-                                        <div class="product-photo-thumb-tooltip__text">{{ product_option_name }}</div>
+                                        <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
                                     </div>
                                     <a href="#" class="data" data-quantity="{% if product.available %}999{% endif %}" data-stockLevel="{{ product.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ product.metafields.customAttributes.delivery-time }}"><img src="{{ image | img_url: '80x80', crop: 'center' }}" alt="{{ image.alt | escape }}"  /></a>
                                 </li>

@@ -3,6 +3,8 @@
 }
 .product-main .product-photo-thumb-tooltip {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 .product-main .product-photo-thumb-tooltip__text {
   background: #fff;

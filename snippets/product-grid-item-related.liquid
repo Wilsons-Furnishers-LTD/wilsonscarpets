@@ -15,6 +15,7 @@
   {% endif %}
 {% endif %}
 
+{{product | json}}
 
 {% if itemIsShown %}
   {% unless product.tags contains "clone product" or product.type == "Sample" %}

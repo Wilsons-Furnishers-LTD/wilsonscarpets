@@ -241,8 +241,8 @@ body.product-refresh .toggle-wrapper {
   align-items: center;
   justify-content: center;
 }
-body.product-refresh .toggleContainer {
-  position: relative;
+body.product-refresh label.toggleContainer {
+  position: relative !important;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: fit-content;
@@ -255,6 +255,8 @@ body.product-refresh .toggleContainer {
 }
 body.product-refresh .toggleContainer::before {
   content: "";
+  position: absolute;
+  width: 50%;
   height: 100%;
   border-radius: 20px;
   background: white;

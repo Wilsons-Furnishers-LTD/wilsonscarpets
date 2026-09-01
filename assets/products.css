@@ -46,6 +46,8 @@
 .product-main .product-description.store-description {
   float: none;
   margin-right: 10px;
+  padding-top: 0;
+  margin-top: 10px;
 }
 .product-main .product-description.store-description .button {
   margin-top: 20px;

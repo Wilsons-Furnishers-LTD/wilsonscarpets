@@ -5,6 +5,9 @@
   position: relative;
   z-index: 100;
 }
+.product-main .product-details .option-colour ul {
+  z-index: 120;
+}
 .product-main .product-photo-thumb-tooltip {
   position: relative;
   display: flex;

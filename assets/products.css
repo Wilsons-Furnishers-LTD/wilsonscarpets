@@ -228,6 +228,9 @@ body.product-refresh #shopify-section-footer {
 body.product-refresh .size-calculator-header {
   display: flex;
 }
+body.product-refresh .size-calculator-header h2 {
+  margin: 0;
+}
 
 .product-main-details {
   padding-top: 30px;

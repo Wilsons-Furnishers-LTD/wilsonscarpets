@@ -255,6 +255,7 @@ body.product-refresh .toggleContainer {
 }
 body.product-refresh .toggleContainer::before {
   content: "";
+  height: 100%;
   border-radius: 20px;
   background: white;
   transition: all 0.3s;

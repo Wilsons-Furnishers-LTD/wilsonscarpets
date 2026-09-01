@@ -20,6 +20,7 @@
         height: 100%;
         object-fit: cover;
     }
+
 </style>
 {% assign products_per_page = settings.products_per_row | times: settings.number_of_rows %}
 {% assign numbers = 'zero, one, two, three, four, five, six' | split: ',' %}
@@ -70,9 +71,6 @@
                 <div class="toolbar toolbar-product">
                     <div class="row">
 						<div class="wrap-filter-sorter">
-							<div class="filter-by">
-								<span class="js-filter-by">Filter by <i class="icon-chevron-right"></i></span>
-							</div>
 							<div class="sorter">
 								<label for="sorter">Sort by</label>
 								<div class="selectWrapper">

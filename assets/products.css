@@ -229,10 +229,12 @@ body.product-refresh .size-calculator-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
+  padding-top: 15px;
 }
 body.product-refresh .size-calculator-header h2 {
   margin: 0 !important;
+  font-size: 16px;
 }
 
 .product-main-details {

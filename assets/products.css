@@ -8,6 +8,7 @@
   background: #fff;
   position: absolute;
   border-radius: 3px;
+  padding: 5px 10px;
 }
 .product-main .product-photo-gallery-container {
   display: flex;

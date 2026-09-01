@@ -21,12 +21,14 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 0px 10px 17.32px 10px;
-  border-color: transparent transparent #fff transparent;
+  border-width: 17.32px 10px 0px 10px;
+  border-color: #ffffff transparent transparent transparent;
   transform: rotate(0deg);
   position: absolute;
   content: "";
   display: block;
+  left: 0;
+  right: 0;
 }
 .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip {
   opacity: 1;

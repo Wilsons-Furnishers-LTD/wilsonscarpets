@@ -45,7 +45,7 @@
 }
 .product-main .product-description.store-description {
   float: none;
-  padding-right: 0;
+  padding-right: 10px;
 }
 .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip, .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip__text, .product-main .product-photo-thumb:hover .product-photo-thumb-tooltip__text:after {
   opacity: 1;

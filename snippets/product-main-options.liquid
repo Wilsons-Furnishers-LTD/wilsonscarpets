@@ -568,7 +568,7 @@
             </script>
                 {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass'  %}
                     <div class="option option-size" data-select-option="{{ '#product-select-option-' | append: position_option_size }}">
-                        <h2>Enter your size</h2>
+                        
                         <div class="content">
                             <div class="length-qty metres">
                                 <div id="metreInchesSwitcher">
@@ -576,7 +576,7 @@
                                     <input type="radio" name="measurementToggle" id="measurementToggleInches" value="0"/>
                                     <label for="measurementToggleInches">Feet &amp; Inches</label>
                                 </div>
-
+                                <h2>Enter your size</h2>
                                 <div class="qty" id="lengthMetres">
                                     <label for="quantity">Length (m)</label>
                                     {% comment %}<!-- show the SQM price initial - so divide 1 by the width as the initial length value: /-->{% endcomment %}

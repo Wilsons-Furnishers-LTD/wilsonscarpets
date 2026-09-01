@@ -225,6 +225,9 @@ body.product-refresh #shopify-section-footer {
   position: relative;
   z-index: 1000;
 }
+body.product-refresh .size-calculator-header {
+  display: flex;
+}
 
 .product-main-details {
   padding-top: 30px;
@@ -235,9 +238,6 @@ body.product-refresh #shopify-section-footer {
 }
 .product-main-details .specifications ul li {
   margin-bottom: 5px;
-}
-.product-main-details .size-calculator-header {
-  display: flex;
 }
 .product-main-details .product-features {
   border-bottom: 1px solid rgba(65, 75, 82, 0.5);

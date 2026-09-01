@@ -390,3 +390,9 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 .product-main-details__main p {
   margin-bottom: 10px;
 }
+.product-main-details .product-photo-thumb-tooltip {
+  position: relative;
+}
+.product-main-details .product-photo-thumb-tooltip__text {
+  position: absolute;
+}

@@ -138,7 +138,7 @@
 }
 @media (min-width: 1550px) {
   .product-main_sidebar {
-    right: calc((100vw - 1550px) / 2);
+    right: calc((100vw - 1400px) / 2);
   }
 }
 .product-main_sidebar .product-details {

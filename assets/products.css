@@ -1,6 +1,11 @@
 .product-main {
   display: flex;
 }
+@media (min-width: 1550px) {
+  .product-main {
+    max-width: 1550px;
+  }
+}
 .product-main .product-details .option-colour h2, .product-main .product-details .option-colour .swatch-colours label {
   position: relative;
   z-index: 100;
@@ -115,6 +120,7 @@
 @media (min-width: 1550px) {
   .product-main_column {
     max-width: 850px;
+    min-width: initial;
   }
 }
 .product-main_sidebar {

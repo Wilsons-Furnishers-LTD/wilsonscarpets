@@ -136,6 +136,11 @@
   padding-top: 203px;
   top: 0;
 }
+@media (min-width: 1550px) {
+  .product-main_sidebar {
+    right: calc((100vw - 1550px) / 2);
+  }
+}
 .product-main_sidebar .product-details {
   margin-top: 20px;
 }

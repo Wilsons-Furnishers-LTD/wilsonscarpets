@@ -222,6 +222,7 @@
                         {% else %}
                             <h2>Colour</h2>
                         {% endif %}
+                        
                         <div class="swatch-colours swatch-colours__product">
                             <div id="select-option-colour" class="select">
                                 <label>Choose Your Colour</label>
@@ -249,6 +250,7 @@
                                 {% for value_color in value_colors %}
                                     {% assign color = value_color | strip %}
                                     <li data-value="{{ color }}" class="js-get-colour-value">
+                                        
                                         {% assign displayedColor = '' %}
                                         {% for variant in product.variants %}
                                             {% for option in variant.options %}
@@ -568,15 +570,19 @@
             </script>
                 {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass'  %}
                     <div class="option option-size" data-select-option="{{ '#product-select-option-' | append: position_option_size }}">
-                        <h2>Enter your size</h2>
+                        
                         <div class="content">
                             <div class="length-qty metres">
-                                <div id="metreInchesSwitcher">
-                                    <input type="radio" name="measurementToggle" id="measurementToggleMetres" value="1" checked="checked"/><label for="measurementToggleMetres">Metres</label>
-                                    <input type="radio" name="measurementToggle" id="measurementToggleInches" value="0"/>
-                                    <label for="measurementToggleInches">Feet &amp; Inches</label>
+                                <div class="size-calculator-header">
+                                    <h2>Enter your size</h2>
+                                    <div class="toggle-wrapper">
+                                        <input type="checkbox" id="toggleMeasurementType" class="toggle-checkbox" />
+                                        <label for="toggleMeasurementType" class='toggleContainer'>
+                                            <div>Metres</div>   
+                                            <div>Feet & Inches</div>
+                                        </label>
+                                    </div>
                                 </div>
-
                                 <div class="qty" id="lengthMetres">
                                     <label for="quantity">Length (m)</label>
                                     {% comment %}<!-- show the SQM price initial - so divide 1 by the width as the initial length value: /-->{% endcomment %}

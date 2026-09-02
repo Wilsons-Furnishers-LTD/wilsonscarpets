@@ -87,7 +87,7 @@
 			{% unless same_vendor and current_product.vendor != product.vendor %}
 			{% unless same_type and current_product.type != product.type %}
 
-			{% render 'product-grid-item-related' %}
+			{% render 'product-grid-item-related',  product: product %}
 
 			{% assign counter = counter | plus: 1 %}
 			{% if counter == break_at %}
@@ -101,12 +101,12 @@
 
 			{% assign related_items = related_items | trim %}
 
+
 			{% unless related_items == blank %}
 	<div class=" related-products-refresh related-products" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true">
 			{% unless heading == blank %}
 			<h2 class="title-section">{{ heading }}</h2>
 			{% endunless %}
-
 			<div class="product-grid owl-carousel carousel">
 				{{ related_items }}
 			</div>

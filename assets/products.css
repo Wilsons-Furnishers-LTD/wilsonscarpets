@@ -6,6 +6,16 @@
     max-width: 1550px;
     margin: 0 auto;
   }
+  .product-main:before {
+    content: "";
+    display: block;
+    width: 50%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: red;
+    height: 100%;
+  }
 }
 .product-main .product-details .option-colour h2, .product-main .product-details .option-colour .swatch-colours label {
   position: relative;

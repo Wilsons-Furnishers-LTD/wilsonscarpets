@@ -14,6 +14,9 @@
 .product-main .product-details .option-colour ul {
   z-index: 120 !important;
 }
+.product-main .product-details .option-colour ul li {
+  border-radius: 4px;
+}
 .product-main .product-photo-thumbs li a.active img {
   border: 1px solid #414B52;
 }

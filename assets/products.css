@@ -440,6 +440,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 .product-main-details__header li {
   font-weight: 700;
   opacity: 0.5;
+  border-radius: 20px;
   position: relative;
   font-size: 20px;
   border: #414B52 2px solid;

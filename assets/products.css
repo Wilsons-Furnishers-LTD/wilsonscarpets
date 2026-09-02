@@ -449,7 +449,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 .product-main-details__header li {
   font-weight: 700;
   opacity: 0.5;
-  padding-bottom: 15px;
+  padding-bottom: 10px;
   position: relative;
 }
 .product-main-details__header li:after {

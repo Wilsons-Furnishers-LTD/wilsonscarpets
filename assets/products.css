@@ -443,8 +443,8 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   gap: 30px;
   border-top: 1px solid rgba(65, 75, 82, 0.5);
   margin-bottom: 15px;
-  margin-top: 15px;
-  padding-top: 15px;
+  margin-top: 0px;
+  padding-top: 20px;
 }
 .product-main-details__header li {
   font-weight: 700;
@@ -471,6 +471,9 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   opacity: 1;
 }
 .product-main-details__header li.active {
+  opacity: 1;
+}
+.product-main-details__header li.active:after {
   opacity: 1;
 }
 .product-main-details__main p {

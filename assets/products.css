@@ -444,24 +444,6 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   position: relative;
   font-size: 20px;
 }
-.product-main-details__header li:after {
-  position: absolute;
-  width: 100%;
-  height: 3px;
-  bottom: -1px;
-  left: 0;
-  background-color: #414B52;
-  display: block;
-  content: "";
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-.product-main-details__header li:hover {
-  cursor: pointer;
-}
-.product-main-details__header li:hover:after {
-  opacity: 1;
-}
 .product-main-details__header li.active {
   opacity: 1;
 }

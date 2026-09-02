@@ -112,6 +112,11 @@
 .product-main_column .product-caption {
   flex: 1;
 }
+@media (min-width: 1550px) {
+  .product-main_column {
+    max-width: 850px;
+  }
+}
 .product-main_sidebar {
   transition: all 0.3s ease;
   flex: 1;

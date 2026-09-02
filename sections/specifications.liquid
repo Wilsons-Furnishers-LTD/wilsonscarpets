@@ -105,7 +105,7 @@
                                     {% assign spec_tag = block.settings.tag | append: '_' %}
                                     {% for tag in product.tags %}
                                         {% if tag contains spec_tag %} 
-                                            <li><strong>{{ block.settings.tag }}</strong> {{ tag | replace: spec_tag, '' }}</li>
+                                            <li><strong>{{ block.settings.tag }}</strong> <span>{{ tag | replace: spec_tag, '' }}</span></li>
                                         {% endif %} 
                                     {% endfor %}
                                 {% endfor %}

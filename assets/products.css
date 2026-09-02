@@ -435,7 +435,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   width: 3.8rem;
 }
 .product-main-details .product-features .feature .text-content h2 {
-  font-size: 12px;
+  font-size: 14px;
   margin-top: 15px;
 }
 .product-main-details__item {

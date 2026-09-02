@@ -395,18 +395,9 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   padding-top: 30px;
   padding-right: 20px;
 }
-.product-main-details p {
+.product-main-details p, .product-main-details li {
   font-size: 18px;
   line-height: 30px;
-}
-.product-main-details .specifications ul {
-  list-style: disc;
-  padding-left: 20px;
-}
-.product-main-details .specifications ul li {
-  font-size: 18px;
-  line-height: 30px;
-  margin-bottom: 5px;
 }
 .product-main-details .product-features {
   border-top: none;

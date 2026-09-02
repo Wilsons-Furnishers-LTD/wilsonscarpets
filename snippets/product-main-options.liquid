@@ -222,25 +222,25 @@
                         {% else %}
                             <h2>Colour</h2>
                         {% endif %}
-                        <ul>
-                                    {% for value_color in value_colors %}
-                                        {% assign color = value_color | strip %}
-                                        <li data-value="{{ color }}" class="js-get-colour-value">
-                                            {% assign displayedColor = '' %}
-                                            {% for variant in product.variants %}
-                                                {% for option in variant.options %}
-                                                    {% if option == color %}
-                                                        {% unless displayedColor contains color %}
-                                                            {% assign displayedColor = displayedColor | append: '|' | append: color %}
-                                                            <span class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>{{ color }}</span>
-                                                        {% endunless %}
-                                                        {% break %}
-                                                    {% endif %}
-                                                {% endfor %}
-                                            {% endfor %}
-                                        </li>
+                        <div class="colour-grid">
+                            {% for value_color in value_colors %}
+                                {% assign color = value_color | strip %}
+                                <div data-value="{{ color }}" class="js-get-colour-value">
+                                    {% assign displayedColor = '' %}
+                                    {% for variant in product.variants %}
+                                        {% for option in variant.options %}
+                                            {% if option == color %}
+                                                {% unless displayedColor contains color %}
+                                                    {% assign displayedColor = displayedColor | append: '|' | append: color %}
+                                                    <span class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>{{ color }}</span>
+                                                {% endunless %}
+                                                {% break %}
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endfor %}
-                                </ul>
+                                </div>
+                            {% endfor %}
+                        </div>
                         <div class="swatch-colours swatch-colours__product">
                             <div id="select-option-colour" class="select">
                                 <label>Choose Your Colour</label>

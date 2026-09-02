@@ -120,7 +120,7 @@
     {% endif %}
 {% endfor %}
 
-<div class="product-details">
+<div class="product-details ct">
     <div class="actions">
         {% assign hide_default_title = false %}
         {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
@@ -177,7 +177,6 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            fdggdf
                         {% endfor %}  
                             
                             <script data-unavailable="{{ unavailable }}" data-product-type="{{ product.type }}" data-sold-out="{{ sold_out }}" data-hide-default-title="{{hide_default_title}}" data-product-title="{{ product.title }}" data-money-format="{{ shop.money_format }}" type="application/json" id="ProductVariants">

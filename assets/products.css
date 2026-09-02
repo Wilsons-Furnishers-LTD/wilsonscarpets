@@ -401,6 +401,11 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   font-size: 18px;
   line-height: 30px;
 }
+.product-main-details .specifications strong {
+  width: 12.5rem;
+  text-transform: capitalize;
+  font-weight: 700;
+}
 .product-main-details .product-features {
   border-top: none;
   margin-top: 0;

@@ -408,6 +408,8 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 }
 .product-main-details .specifications li {
   display: flex;
+  border-bottom: 1px solid #e8eaee;
+  padding: 0.9375rem 0;
 }
 .product-main-details .product-features {
   border-top: none;

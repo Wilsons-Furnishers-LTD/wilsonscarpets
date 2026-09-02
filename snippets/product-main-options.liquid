@@ -222,6 +222,7 @@
                         {% else %}
                             <h2>Colour</h2>
                         {% endif %}
+                        
                         <div class="swatch-colours swatch-colours__product">
                             <div id="select-option-colour" class="select">
                                 <label>Choose Your Colour</label>
@@ -249,6 +250,9 @@
                                 {% for value_color in value_colors %}
                                     {% assign color = value_color | strip %}
                                     <li data-value="{{ color }}" class="js-get-colour-value">
+                                                    <div class="product-photo-thumb-tooltip">
+                                                        <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
+                                                    </div>
                                         {% assign displayedColor = '' %}
                                         {% for variant in product.variants %}
                                             {% for option in variant.options %}

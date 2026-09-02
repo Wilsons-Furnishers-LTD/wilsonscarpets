@@ -250,9 +250,9 @@
                                 {% for value_color in value_colors %}
                                     {% assign color = value_color | strip %}
                                     <li data-value="{{ color }}" class="js-get-colour-value">
-                                                    <div class="product-photo-thumb-tooltip">
-                                                        <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
-                                                    </div>
+                                        <div class="product-photo-thumb-tooltip">
+                                            <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
+                                        </div>
                                         {% assign displayedColor = '' %}
                                         {% for variant in product.variants %}
                                             {% for option in variant.options %}

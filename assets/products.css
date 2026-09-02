@@ -454,6 +454,9 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 .product-main-details__header li.active:after {
   opacity: 1;
 }
+.product-main-details__header li:hover {
+  cursor: pointer;
+}
 .product-main-details__main p {
   margin-bottom: 10px;
 }

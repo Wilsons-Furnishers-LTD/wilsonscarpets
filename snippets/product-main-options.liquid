@@ -120,7 +120,7 @@
     {% endif %}
 {% endfor %}
 
-<div class="product-details ct">
+<div class="product-details">
     <div class="actions">
         {% assign hide_default_title = false %}
         {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
@@ -169,7 +169,7 @@
                         {% for option in product.options_with_values %}
                             {% assign order = option.position | minus: 1  %}
                             
-                            <div class="selector-wrapper">
+                            <div class="selector-wrapper ct">
                                 <label for="product-select-option-{{ order }}">{{ option.name }}</label>
                                 <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
                                     {% for value in option.values %}

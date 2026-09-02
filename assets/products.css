@@ -450,7 +450,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   gap: 10px;
   margin-bottom: 25px;
   margin-top: 0px;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 .product-main-details__header li {
   font-weight: 700;

@@ -95,7 +95,7 @@
                     {% if specifications %}
                         <ul>
                             {% for specification in specifications %}
-                                <li><strong>{{ specification | replace: ':', '</strong>' }}</li>
+                                <li><strong>{{ specification | replace: ':', '</strong><span>' }}</span></li>
                             {% endfor %}
                         </ul>
                     {% else %} 

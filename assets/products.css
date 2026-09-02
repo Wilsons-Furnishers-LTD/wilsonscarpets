@@ -413,6 +413,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 }
 .product-main-details .specifications li:last-of-type {
   border-bottom: none;
+  padding-bottom: 0;
 }
 .product-main-details .product-features {
   border-top: none;

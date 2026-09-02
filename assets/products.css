@@ -404,6 +404,8 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   padding-left: 20px;
 }
 .product-main-details .specifications ul li {
+  font-size: 18px;
+  line-height: 30px;
   margin-bottom: 5px;
 }
 .product-main-details .product-features {

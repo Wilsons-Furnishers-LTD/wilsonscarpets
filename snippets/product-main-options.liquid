@@ -169,7 +169,7 @@
                         {% for option in product.options_with_values %}
                             {% assign order = option.position | minus: 1  %}
                             
-                            <div class="selector-wrapper ct">
+                            <div class="selector-wrapper">
                                 <label for="product-select-option-{{ order }}">{{ option.name }}</label>
                                 <select class="single-option-selector" id="product-select-option-{{ order }}" data-option="option{{ order }}">
                                     {% for value in option.values %}
@@ -327,7 +327,7 @@
                 {% endif %}
 
                 {% if product.title contains " - " and hasSomeColours == false %}
-                    <h2>Colour</h2>
+                    <h2>Colour</h2> dghf
                     <div class="swatch-colours swatch-colours__product">
                         <div id="select-option-colour" class="select">
                             {% assign first_image = product.images | first %}

@@ -125,15 +125,15 @@
   top: 0;
 }
 .product-main_sidebar .product-details {
-  padding-top: 20px;
+  margin-top: 20px;
 }
 .product-main_sidebar .product-details .actions .option h2 {
   padding: 0;
   background: none;
   color: #414B52;
   margin-bottom: 15px;
-  margin-top: 30px;
-  font-size: 20px;
+  margin-top: 15px;
+  font-size: 16px;
 }
 .product-main_sidebar .product-details .actions {
   border: none;

@@ -4,6 +4,7 @@
 @media (min-width: 1550px) {
   .product-main {
     max-width: 1550px;
+    margin: 0 auto;
   }
 }
 .product-main .product-details .option-colour h2, .product-main .product-details .option-colour .swatch-colours label {

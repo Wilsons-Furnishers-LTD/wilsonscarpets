@@ -443,6 +443,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   padding-bottom: 10px;
   position: relative;
   font-size: 20px;
+  border: #414B52 1px solid;
 }
 .product-main-details__header li.active {
   opacity: 1;

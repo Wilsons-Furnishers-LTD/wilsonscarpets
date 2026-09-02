@@ -1615,7 +1615,6 @@
     },
     "specifications": {
       "type": "specifications",
-      "disabled": true,
       "settings": {
         "title": "Specifications"
       }

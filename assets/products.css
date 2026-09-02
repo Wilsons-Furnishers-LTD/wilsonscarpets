@@ -124,6 +124,9 @@
   padding-top: 203px;
   top: 0;
 }
+.product-main_sidebar .product-details {
+  padding-top: 20px;
+}
 .product-main_sidebar .product-details .actions .option h2 {
   padding: 0;
   background: none;

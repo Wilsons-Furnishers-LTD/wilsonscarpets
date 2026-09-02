@@ -406,6 +406,9 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   text-transform: capitalize;
   font-weight: 700;
 }
+.product-main-details .specifications li {
+  display: flex;
+}
 .product-main-details .product-features {
   border-top: none;
   margin-top: 0;

@@ -433,7 +433,6 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 .product-main-details__header {
   display: flex;
   gap: 30px;
-  border-top: 1px solid rgba(65, 75, 82, 0.5);
   margin-bottom: 15px;
   margin-top: 0px;
   padding-top: 20px;

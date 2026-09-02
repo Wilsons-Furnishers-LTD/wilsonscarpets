@@ -144,9 +144,6 @@
 .product-main_sidebar .product-details .option-size .content {
   padding: 0 !important;
 }
-.product-main_sidebar .swatch-colours .grid {
-  display: none;
-}
 .product-main_sidebar .product-details {
   float: none;
   border-top: 1px solid rgba(65, 75, 82, 0.5);

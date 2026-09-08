@@ -1,60 +1,64 @@
 @use './../variables' as v;
 
-.klevu-container  {
-    .klevu-fluid  .klevu-pt-rs-hover {
-        border-radius: 20px;
-        padding: 30px 0px;
-        
-        box-shadow: 0 1px 5px #32323226;
-        strong {
-            font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
-            font-weight: 700;
-            font-size: 20px;
-            width: 100%;
-            margin-bottom: 15px;
+
+.klevu-fluid  .klevu-pt-rs-hover {
+    border-radius: 20px;
+    padding: 30px 0px;
+    
+    box-shadow: 0 1px 5px #32323226;
+    strong {
+        font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
+        font-weight: 700;
+        font-size: 20px;
+        width: 100%;
+        margin-bottom: 15px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .klevu-pt-rs-keywords {
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        font-size: 0;
+        a {
+            font-size: 16px;
+            display: block;
             padding-left: 20px;
             padding-right: 20px;
-        }
-        .klevu-pt-rs-keywords {
-            display: block;
-            width: 100%;
-            margin-left: 0;
-            font-size: 0;
-            a {
-                font-size: 16px;
-                display: block;
-                padding-left: 20px;
-                padding-right: 20px;
-                padding-top: 10px;
-                padding-bottom: 10px;
-                margin-bottom: -15px;
-                transition: all 0.3s ease;
-                &:hover {
-                    text-decoration: none;
-                    background-color: #d7d7d7;
-                }
-                &:before {
-                    padding-right: 10px;
-                    content: "";
-                    font-variant: normal;
-                    text-transform: none;
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                    font-style: normal;
-                    font-weight: 400;
-                    line-height: 1;
-                    font-family: icomoon !important;
-                    opacity: 0.6;
-                    font-size: 14px;
-                }
+            padding-top: 10px;
+            padding-bottom: 10px;
+            margin-bottom: -15px;
+            transition: all 0.3s ease;
+            &:hover {
+                text-decoration: none;
+                background-color: #d7d7d7;
+            }
+            &:before {
+                padding-right: 10px;
+                content: "";
+                font-variant: normal;
+                text-transform: none;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1;
+                font-family: icomoon !important;
+                opacity: 0.6;
+                font-size: 14px;
             }
         }
-        @media screen and (max-width: 1024px) {
-            padding: 30px 0px !important;
-            width: 70% !important;
+    }
+    .klevu-rs-hover-box {
+        strong {
+            padding-top: 40px;
         }
-        @media screen and (max-width: 700px) {
-            width: 90% !important;
-        }
+    }
+    @media screen and (max-width: 1024px) {
+        padding: 30px 0px !important;
+        width: 70% !important;
+    }
+    @media screen and (max-width: 700px) {
+        width: 90% !important;
     }
 }

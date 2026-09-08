@@ -428,7 +428,7 @@
                 //swatchClick(value);
             }
 
-
+            console.log()
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
@@ -582,7 +582,7 @@
     }
 
     jQuery(document).ready(function () {
-        if(jQuery('.js-product-photo-thumb').length){
+        if(jQuery('.product-photo-container .js-product-photo-thumb').length){
             carouselInit(true);
         }else{
             carouselInit(false);
@@ -733,6 +733,17 @@
             jQuery(".size .selectWrapper select").on('change', function () { // change the sibling as well:
                 jQuery(this).parents('.measurementSelect').siblings().find('select').val(jQuery(this).val());
                 setSelectedSize(jQuery(this).val());
+            });
+            jQuery("#toggleMeasurementType").on('change', function () {
+                if (!jQuery(this).is(':checked')) {
+                    jQuery('#product-add .length-qty').removeClass("inches").addClass("metres");
+                    jQuery('#lengthMetres').find('input').removeAttr('disabled');
+                    jQuery('#lengthInches').find('input').attr('disabled', 'disabled');
+                } else {
+                    jQuery('#product-add .length-qty').removeClass("metres").addClass("inches");
+                    jQuery('#lengthInches').find('input').removeAttr('disabled');
+                    jQuery('#lengthMetres').find('input').attr('disabled', 'disabled');
+                }
             });
             jQuery("#metreInchesSwitcher input").on('change', function () {
                 if (jQuery(this).attr("id") == "measurementToggleMetres") {

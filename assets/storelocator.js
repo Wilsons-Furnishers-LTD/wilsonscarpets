@@ -203,9 +203,9 @@
                                 ${openingTime}
                             </div>
                             <div class="store-details-modal-directions">
-                                <a class="modal-btn-yellow"  href="${storeProperties.url}" target="_blank" aria-label="This link opens in a new tab.">View Store  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <a class="modal-btn-yellow" href="${storeProperties.url}" target="_blank" aria-label="This link opens in a new tab.">View Store  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
   <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></a> 
-                                <a href="https://maps.google.com/?daddr=${storeProperties.name} ${storeProperties.address}" target="_blank" aria-label="This link opens in a new tab.">Get Directions </a> 
+                                <a  href="${storeProperties.place_id}" target="_blank" aria-label="This link opens in a new tab.">Get Directions </a> 
                             </div>
                             <div class="store-details-modal-opening-times">
                                 <div class="store-details-modal-subtitle">

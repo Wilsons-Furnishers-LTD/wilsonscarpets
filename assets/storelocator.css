@@ -3223,6 +3223,9 @@ body .cw-storelocator .store-details-modal .store-details-modal-directions a {
   background-color: #ba3c3d;
   padding: 10px 20px;
   width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 body .cw-storelocator .store-details-modal .store-details-modal-directions a.modal-btn-yellow {
   background-color: #F2BF00;

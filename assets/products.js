@@ -181,7 +181,7 @@ class Products {
             $swatchCarousel.owlCarousel({
                 loop: true,
                 autoplay: false,
-                margin: 20,
+                margin: 10,
                 nav: true,
                 navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
                 dots: false,

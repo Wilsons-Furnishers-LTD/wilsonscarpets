@@ -1,6 +1,6 @@
 @use './../variables' as v;
 
-$desktop-body-padding: 203px;
+$desktop-body-padding: 194px;
 $full-height: calc(100vh - $desktop-body-padding - 18px);
 
 
@@ -18,6 +18,15 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
             top: 0;
             background: v.$wilson-alabaster;
             height: 100%;
+        }
+    }
+    .product-photo-thumbs-container {
+        padding-right: 30px;
+        position: relative;
+        ul {
+            .owl-nav {
+                position: absolute;
+            }
         }
     }
     .product-details .option-colour h2, .product-details .option-colour .swatch-colours label {

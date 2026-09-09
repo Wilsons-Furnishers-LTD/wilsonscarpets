@@ -7,7 +7,7 @@ const entries = [
   'filters',
   'search',
   'products',
-  'finance',
+  'landing',
 ];
 
 const configs = [];

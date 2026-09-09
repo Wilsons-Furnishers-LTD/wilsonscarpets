@@ -3213,6 +3213,8 @@ body .cw-storelocator .store-details-modal .store-details-modal-directions {
   border-top: 2px solid #ddd;
   padding: 20px 0;
   text-align: center;
+  display: flex;
+  gap: 20px;
 }
 body .cw-storelocator .store-details-modal .store-details-modal-directions a {
   display: inline-block;

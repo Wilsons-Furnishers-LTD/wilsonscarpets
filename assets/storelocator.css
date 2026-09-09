@@ -3215,6 +3215,12 @@ body .cw-storelocator .store-details-modal .store-details-modal-directions {
   text-align: center;
   display: flex;
   gap: 20px;
+  flex-direction: column;
+}
+@media only screen and (min-width: 768px) {
+  body .cw-storelocator .store-details-modal .store-details-modal-directions {
+    flex-direction: row;
+  }
 }
 body .cw-storelocator .store-details-modal .store-details-modal-directions a {
   display: inline-block;

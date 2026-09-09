@@ -3412,6 +3412,12 @@ body .cw-storelocator {
             border-top: 2px solid #ddd;
             padding: 20px 0;
             text-align: center;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            @media  only screen and (min-width: 768px){
+                flex-direction: row;
+            }
             a {
                 display: inline-block;
                 font-weight: 700;
@@ -3419,6 +3425,14 @@ body .cw-storelocator {
                 background-color: v.$wilson-red;
                 padding: 10px 20px;
                 width: 100%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                &.modal-btn-yellow {
+                    background-color: v.$wilson-yellow;
+                    color: v.$wilson-grey;
+                }
             }
         }
         .store-details-modal-header {

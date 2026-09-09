@@ -61,7 +61,9 @@ class Products {
         let productPrice = document.querySelector('#product-price .product-price');
         if (productPrice) {
             productPrice.textContent = Shopify.formatMoney(variant.price, this.moneyFormat);
+            $('.update-on-change').html(Shopify.formatMoney(variant.price, this.moneyFormat));
         }
+        
     }
 
     checkVariant(variant) {

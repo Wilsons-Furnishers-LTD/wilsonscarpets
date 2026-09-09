@@ -193,7 +193,7 @@ class Products {
                         items: 2.5
                     },
                     1400: {
-                        items: 3.5
+                        items: 10
                     }
                 }
             });

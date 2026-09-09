@@ -17,7 +17,7 @@
     height: 100%;
   }
 }
-.product-main .product-photo-thumbs-container ul {
+.product-main .product-photo-thumbs-container {
   padding-right: 30px;
 }
 .product-main .product-details .option-colour h2, .product-main .product-details .option-colour .swatch-colours label {

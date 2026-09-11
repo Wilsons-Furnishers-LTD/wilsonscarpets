@@ -130,6 +130,15 @@
             "link": ""
           }
         },
+        "image_4d3FyE": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/luxury_fillings_icon_13503f0a-b643-4eec-aeb0-ddeb4b71363a.svg",
+            "title": "Luxury Fillings",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_jqniaY": {
           "type": "image",
           "settings": {
@@ -756,6 +765,7 @@
         "image_KRTzMn",
         "image_BLrjUx",
         "image_JQJeRP",
+        "image_4d3FyE",
         "image_jqniaY",
         "image_VzUBUL",
         "image_HgGrjy",

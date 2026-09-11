@@ -121,6 +121,15 @@
             "link": ""
           }
         },
+        "image_JQJeRP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/memory_foam_layer.svg",
+            "title": "Memory Foam Fillings",
+            "subheading": "",
+            "link": ""
+          }
+        },
         "image_jqniaY": {
           "type": "image",
           "settings": {
@@ -746,6 +755,7 @@
         "image_EQ88Xi",
         "image_KRTzMn",
         "image_BLrjUx",
+        "image_JQJeRP",
         "image_jqniaY",
         "image_VzUBUL",
         "image_HgGrjy",

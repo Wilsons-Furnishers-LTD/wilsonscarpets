@@ -329,8 +329,8 @@
             }
         })
 
-        jQuery('.product-photo-thumbs li').click(function (e) {
-            console.log(jQuery(this))
+        jQuery('.grid li').click(function (e) {
+            console.log(jQuery(this).index())
             e.preventDefault();
             var index = jQuery(this).index(),
                 value = jQuery(this).data('value'),

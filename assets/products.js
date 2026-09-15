@@ -13,49 +13,20 @@ class Products {
         this.productType = variantData.getAttribute('data-product-type'),
         this.hideDefaultTitle = false,
         this.soldOut = variantData.getAttribute('data-sold-out'),
-        this.unavailable = variantData.getAttribute('data-unavailable'),
-        this.detailTitles = document.querySelectorAll('.product-main-details__title');
+        this.unavailable = variantData.getAttribute('data-unavailable');
 
         if(variantData.getAttribute('data-hide-default-title') == 'true') {
             this.hideDefaultTitle = true;
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
-        document.addEventListener('DOMContentLoaded', this.setupRelatedProductCarousel.bind(this));
-        document.addEventListener('DOMContentLoaded', this.setupSwatchCarousel.bind(this));
-        document.addEventListener('DOMContentLoaded', this.setupProductCarousel.bind(this));
-
-        
 
         document.addEventListener('colour:changed', (event) => {
             this.updateVariant();
         });
-
-        this.detailTitles.forEach(detailTitle => {
-            detailTitle.addEventListener('click', this.changeProductDetailView.bind(this, detailTitle));
-        });
+        
         
     }
 
-    changeProductDetailView(detailTitle) {
-        let item = detailTitle.getAttribute('data-item'),
-            tabs = document.querySelectorAll('.product-main-details__item'),
-            activeElement = document.getElementById('tab-' + item),
-            activeClass = 'active';
-
-        tabs.forEach(tab => {
-            tab.classList.remove(activeClass);
-        });
-        
-        if(activeElement) {
-            activeElement.classList.add(activeClass);
-        }
-
-        this.detailTitles.forEach(detailTitle => {
-            detailTitle.classList.remove(activeClass);
-        });
-
-        detailTitle.classList.add(activeClass);
-    }
     updateVariantSelection() {        
 
         this.selects.forEach(select => {
@@ -175,207 +146,5 @@ class Products {
         }
     }
 
-    setupSwatchCarousel() {
-       
-        const item = document.getElementById('product-photo-thumbs-element');
-    const target = document.getElementById('product-main-details');
-
-    target.appendChild(item);
-        
-        if (jQuery('.product-photo-thumbs.owl-carousel').length) {
-            var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
-            $swatchCarousel.owlCarousel({
-                loop: true,
-                autoplay: false,
-                margin: 10,
-                nav: true,
-                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
-                dots: false,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    768: {
-                        items: 2.5
-                    },
-                    1400: {
-                        items: 10
-                    }
-                }
-            });
-        }
-    }
-    setupRelatedProductCarousel() {
-        if (jQuery('.related-products-refresh .owl-carousel').length) {
-            var $featuredCollection = $('.related-products-refresh .owl-carousel');
-            $featuredCollection.owlCarousel({
-                loop: true,
-                autoplay: false,
-                margin: 20,
-                nav: true,
-                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
-                dots: false,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    768: {
-                        items: 2.5
-                    },
-                    1400: {
-                        items: 3.5
-                    }
-                },
-                onInitialized: match_height,
-                onResized: match_height
-            });
-
-            $featuredCollection.on('translated.owl.carousel',function(event){
-                $(event.target).find(".owl-item.active .product-name").sameHeight();
-            });
-
-            function match_height(event) {
-                var img_height = jQuery(event.target).find('.owl-item.active').first().find('.product-image-wrap').height();
-                if(isIpadOS()){
-                    var img_height = jQuery(event.target).find('.owl-item.active').first().height();
-                }
-                
-                
-
-                $(event.currentTarget).find('.owl-item .product-name').removeAttr('style');
-                $(event.currentTarget).find('.owl-item.active .product-name').sameHeight();
-
-
-                $(window).width();
-                jQuery(event.currentTarget).find('.owl-prev,.owl-next').css('top', img_height / 2);
-                
-            }
-        }
-    }
-
-    setupProductCarousel() {
-        const loop = false;
-        const is_loop = loop;
-        jQuery(".product-photo-gallery .owl-carousel").owlCarousel({
-            items: 1,
-            loop: is_loop,
-            margin: 0,
-            nav: true,
-            dots: true,
-            animateOut: '',
-            mouseDrag: false,
-            touchDrag: true,
-            lazyLoad: true,
-            responsive: {
-                0: {
-                    loop: true,
-                    mouseDrag: true,
-                    margin: 15,
-                },
-                480: {
-                    loop: true,
-                    mouseDrag: true,
-                    margin: 20,
-                },
-                1024: {
-                    mouseDrag: true
-                }
-            },
-            onInitialized: function(){
-
-
-                jQuery('.product-photo-gallery .featherlight-gallery').zoom({
-                    magnify: 1.35,
-                    callback: function(){
-
-                    }
-                });
-
-                /* mobile swipe initial on top zoom element */
-                var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');
-                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
-                pz.enable(); // Enables all gesture capturing (is enabled by default)
-
-                var hammertime = new Hammer(zoomElement, {});
-                hammertime.on('swipeleft swiperight', function(ev) {
-
-                    if(ev.type === 'swipeleft'){
-                        //jQuery('.option-colour .swatch-colours li:first-child').trigger('click');
-                        //jQuery('.option-colour .swatch-colours li.selected').next().trigger('click')
-                        jQuery('.product-photo-thumb').eq(currentItem - 1).trigger('click');
-                    }
-
-                    if(ev.type === 'swiperight'){
-                        //jQuery('.product-photo-gallery .owl-dot.active').next().trigger('click');
-                        jQuery('.product-photo-thumb').eq(currentItem + 1).trigger('click');
-
-                    }
-                });
-            }
-        });
-        jQuery(".product-photo-gallery .owl-carousel").on('changed.owl.carousel', function(event) {
-            //var currentItem = event.item.index;
-            const currentItem = jQuery('.product-photo-gallery .owl-dot.active').index();
-
-            setTimeout(function() {
-                jQuery('.product-photo-gallery .owl-stage .owl-item').removeClass('animated owl-animated-out fadeOut').css('left', '');
-                var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');
-                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
-                pz.enable(); // Enables all gesture capturing (is enabled by default)
-            }, 100);
-
-            //jQuery('.product-photo-thumbs a').removeClass('active');
-            //jQuery('.product-photo-thumb').eq(currentItem).find('a').addClass('active');
-            jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
-
-            var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
-            
-            if(colour_variant != '') {
-              jQuery('#select-option-colour ul').each(function () {
-                    jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
-                });
-            }
-        });
-
-        jQuery('.product-photo-thumbs li').click(function (e) {
-            e.preventDefault();
-            var index = jQuery(this).index(),
-                value = jQuery(this).data('value'),
-                swatch = jQuery('.swatch-colours'),
-                ul = swatch.find('ul');
-                colour = swatch.find('.select li[data-value="' + value + '"]').html();
-
-            if (value && value != '') {
-                swatch.find('label').html(colour);
-                swatch.find('li').removeClass('selected');
-                swatch.find('.select ul').slideUp(200);
-                jQuery(ul).each(function () {
-                    jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
-                });
-
-                //swatchClick(value);
-            }
-
-            console.log();
-            jQuery('.product-photo-thumbs a').removeClass('active');
-            jQuery(this).find('a').addClass('active');
-            jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
-        });
-
-        {
-            jQuery('.product-photo-gallery .featherlight-gallery').featherlight({
-                variant: "featherlight-product-photo-image",
-                afterContent: function(){
-                    var caption = this.$currentTarget.find('img').attr('alt');
-                    this.$instance.find('.caption').remove();
-                    this.$instance.addClass('loaded');
-                    if(caption !== ''){
-                        $('<div class="caption">').html('<span>' + caption + '</span>').appendTo(this.$instance.find('.featherlight-content'));
-                    }
-                }
-            });
-        }
-        
-    }
 }
 new Products();

@@ -177,9 +177,7 @@
                                             {% unless displayedColor contains color %}
                                                 {% assign displayedColor = displayedColor | append: '|' | append: color %}
                                                     <li class=" " data-value="{{ color }}">
-                                                        <div class="product-photo-thumb-tooltip">
-                                                            <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
-                                                        </div>
+                                  
                                                         
                                                     {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
                                                     </li>

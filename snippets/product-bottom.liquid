@@ -416,7 +416,7 @@
                 swatch = jQuery('.swatch-colours'),
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
-
+console.log(index)
             if (value && value != '') {
                 swatch.find('label').html(colour);
                 swatch.find('li').removeClass('selected');
@@ -428,7 +428,7 @@
                 //swatchClick(value);
             }
 
-            console.log(index)
+            
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');

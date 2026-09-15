@@ -89,8 +89,6 @@
                 {% assign displayedColor = '' %}
                 {% assign firstDisplayed = true %}
                 {% for variant in product.variants %}
-
-
                         {% for option in variant.options %}
                             {% if option == color %}
                                 {% unless displayedColor contains color %}
@@ -155,9 +153,76 @@
         {% endfor %}
         {% endcapture %}
 
+        {% capture variant_images %}
+            {% for value_color in value_colors %}
+                {% assign color = value_color | strip %}
+                {% assign displayedColor = '' %}
+                {% assign firstDisplayed = true %}
+                {% for variant in product.variants %}
+                        {% for option in variant.options %}
+                            {% if option == color %}
+                                {% unless displayedColor contains color %}
+                                    {% assign displayedColor = displayedColor | append: '|' | append: color %}
+                                        <div class="item {{ variant.title }}" data-value="{{ color }}">
+                                            <a class="featherlight-gallery" href="{{ variant.image | img_url: '1600x1600' }}">
+                                                <picture>
+                                                    <source media="(min-width: 1024px)" srcset="{{ variant.image | img_url: '1600x1600' }}">
+                                                    <source srcset="{{ variant.image | img_url: '860x860' }}">
+                                                    <img class="product-photo-image" src="{{ variant.image | img_url: '1600x1600' }}" alt="{{ color }}"/>
+                                                </picture>
+                                            </a>
+                                            <span class="zoom-mobile"><img src="{{ variant.image | img_url: '1600x1600' }}" alt="" /></span>
+                                        {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
+                                    {% break %}
+                                {% endunless %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {% assign firstDisplayed = false %}
+
+                {% endfor %}
+                </div>
+            {% endfor %}
+        {% endcapture %}
+
+        {% assign image_exclude = image_exclude | replace: "products/", "" %}
+
+        {% capture thumb_product_images %}
+        {% assign firstDisplayed = true %}
+        {% for image in product.images %}
+            {% assign variant_image = image | replace: "products/", "" %}
+            {% unless image_exclude contains variant_image %}
+                {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
+                    {% unless image.attached_to_variant? %}
+                        <div class="item">
+                            <a href="{{ image | img_url: '1600x1600' }}">
+                                <picture>
+                                    <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">
+                                    <source srcset="{{ image | img_url: '1600x1600' }}">
+                                    <img src="{{ image | img_url: '1600x1600' }}" alt="{{ product.title | escape }}"/>
+                                </picture>
+                            </a>
+                        </div>
+                    {% endunless %}
+                {% else %}
+                    <div class="item">
+                            <picture>
+                            <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">
+                                <source srcset="{{ image | img_url: '1600x1600' }}">
+                                <img src="{{ image | img_url: '1600x1600' }}" alt="{{ product.title | escape }}"/>
+                            </picture>
+  
+                    </div>
+                    {% assign image_exclude = image_exclude | append: image.src | append: "<|>" %}
+                {% endif %}
+                {% assign firstDisplayed = false %}
+            {% endunless %}
+        {% endfor %}
+        {% endcapture %}
+
         <div class="product-photo-gallery" data-photoui="{{ usedPhotoUI | json }}">
             <div class="owl-carousel">
-                {{product_images}}
+                {{thumb_product_images}}
                 {{variant_images}}
             </div>
         </div>

@@ -409,7 +409,7 @@
             }
         })
 
-        jQuery('.swatch-colours li').click(function (e) {
+        jQuery('.product-photo-thumbs li').click(function (e) {
             e.preventDefault();
             var index = jQuery(this).index(),
                 value = jQuery(this).data('value'),
@@ -417,7 +417,6 @@
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
 
-                console.log(index, value)
             if (value && value != '') {
                 swatch.find('label').html(colour);
                 swatch.find('li').removeClass('selected');
@@ -622,11 +621,11 @@
                 jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
             });
 
-            // jQuery('.product-photo-thumb').each(function () {
-            //     if (jQuery(this).data('value') == value) {
-            //         jQuery(this).trigger('click');
-            //     }
-            // });
+            jQuery('.product-photo-thumb').each(function () {
+                if (jQuery(this).data('value') == value) {
+                    jQuery(this).trigger('click');
+                }
+            });
             if(jQuery('.swatch-colours').hasClass('swatch-colours-new')) {
 
             }else {

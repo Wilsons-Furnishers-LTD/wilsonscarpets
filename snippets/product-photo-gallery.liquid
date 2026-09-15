@@ -329,8 +329,8 @@
             }
         })
 
-        jQuery('.product-photo-thumbs li').click(function (e) {
-            console.log('dsfsfdfd')
+        jQuery('.product-main_sidebar .product-photo-thumbs li').click(function (e) {
+            
             e.preventDefault();
             var index = jQuery(this).index(),
                 value = jQuery(this).data('value'),
@@ -349,7 +349,7 @@
                 //swatchClick(value);
             }
 
-            console.log()
+            
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');

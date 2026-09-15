@@ -89,6 +89,8 @@
                 {% assign displayedColor = '' %}
                 {% assign firstDisplayed = true %}
                 {% for variant in product.variants %}
+
+
                         {% for option in variant.options %}
                             {% if option == color %}
                                 {% unless displayedColor contains color %}
@@ -153,48 +155,19 @@
         {% endfor %}
         {% endcapture %}
 
-        {% capture variant_images %}
-            {% for value_color in value_colors %}
-                {% assign color = value_color | strip %}
-                {% assign displayedColor = '' %}
-                {% assign firstDisplayed = true %}
-                {% for variant in product.variants %}
-                        {% for option in variant.options %}
-                            {% if option == color %}
-                                {% unless displayedColor contains color %}
-                                    {% assign displayedColor = displayedColor | append: '|' | append: color %}
-                                        <div class="item {{ variant.title }}" data-value="{{ color }}">
-                                            <a class="featherlight-gallery" href="{{ variant.image | img_url: '1600x1600' }}">
-                                                <picture>
-                                                    <source media="(min-width: 1024px)" srcset="{{ variant.image | img_url: '1600x1600' }}">
-                                                    <source srcset="{{ variant.image | img_url: '860x860' }}">
-                                                    <img class="product-photo-image" src="{{ variant.image | img_url: '1600x1600' }}" alt="{{ color }}"/>
-                                                </picture>
-                                            </a>
-                                            <span class="zoom-mobile"><img src="{{ variant.image | img_url: '1600x1600' }}" alt="" /></span>
-                                        {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
-                                    {% break %}
-                                {% endunless %}
-                            {% endif %}
-                        {% endfor %}
-
-                        {% assign firstDisplayed = false %}
-
-                {% endfor %}
-                </div>
-            {% endfor %}
-        {% endcapture %}
-
-      
-
         <div class="product-photo-gallery" data-photoui="{{ usedPhotoUI | json }}">
             <div class="owl-carousel">
-                {{thumb_product_images}}
+                {{product_images}}
                 {{variant_images}}
             </div>
         </div>
 
-        {% capture variant_images %}
+
+        {% if product.images.size > 1 %}
+            {% assign image_exclude = "" %}
+            <div class="product-photo-thumbs-container">
+                <ul class="product-photo-thumbs owl-carousel">
+                    {% capture variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
                             {% assign displayedColor = '' %}
@@ -243,10 +216,6 @@
                     {% endfor %}
                     {% endcapture %}
 
-        {% if product.images.size > 1 %}
-            {% assign image_exclude = "" %}
-            <div class="product-photo-thumbs-container">
-                <ul class="product-photo-thumbs owl-carousel">
                     {{product_images}}
                     {{variant_images}}
                 </ul>
@@ -281,7 +250,7 @@
         const is_loop = loop ?? true;
         jQuery(".product-photo-gallery .owl-carousel").owlCarousel({
             items: 1,
-            loop: is_loop,
+            loop: false,
             margin: 0,
             nav: true,
             dots: true,

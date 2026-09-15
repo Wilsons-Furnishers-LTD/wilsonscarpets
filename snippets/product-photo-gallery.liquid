@@ -338,7 +338,7 @@
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
 
-                console.log(e)
+                console.log($(e.target))
             if (value && value != '') {
                 swatch.find('label').html(colour);
                 swatch.find('li').removeClass('selected');

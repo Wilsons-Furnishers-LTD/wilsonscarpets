@@ -21,11 +21,20 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
         }
     }
     .product-photo-thumbs-container {
-        padding-right: 30px;
-        position: relative;
+
+        .product-photo-thumb {
+            display: block;
+            width: 100%;
+            height: 100%;
+            a {
+                position: relative;
+                padding-top: 100%;
+            }
+        }
         ul {
             .owl-nav {
                 position: absolute;
+                right: 0;
             }
         }
     }
@@ -123,7 +132,6 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
         }
         .owl-item a {
             display: block;
-            position: absolute;
             width: 100%;
             height: 100%;
             img {
@@ -131,6 +139,7 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
                 height: 100%;
                 position: absolute;
                 object-fit: cover;
+                top: 0;
             }
         }
     }
@@ -253,6 +262,7 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
         gap: 10px;
         margin-top: 10px;
         margin-bottom: 10px;
+        width: 90%;
         a {
             display: flex;
         }

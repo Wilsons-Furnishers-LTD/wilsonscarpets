@@ -428,7 +428,7 @@
                 //swatchClick(value);
             }
 
-            console.log(jQuery(this))
+            console.log(jQuery(this).parent().index())
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');

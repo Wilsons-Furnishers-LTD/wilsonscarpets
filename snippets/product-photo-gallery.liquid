@@ -223,7 +223,7 @@
         {% endif %}
         {% if product.images.size > 1 %}
             {% assign image_exclude = "" %}
-            <div class="product-photo-thumbs-container">
+            
                 <ul class="ct-owl product-photo-thumbs owl-carousel">
                     {% capture thumb_variant_images %}
                         {% for value_color in value_colors %}
@@ -277,7 +277,7 @@
                     {{thumb_product_images}}
                     {{thumb_variant_images}}
                 </ul>
-            </div>
+            
         {% endif %}
     {% else %}
         <div class="product-photo-container" data-photoui="{{ usedPhotoUI | json }}" data-large="{{ product.featured_image | img_url: '860x860' }}">

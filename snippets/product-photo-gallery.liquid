@@ -166,7 +166,7 @@
         {% if product.images.size > 1 %}
             {% assign image_exclude = "" %}
             <div class="product-photo-thumbs-container">
-                <ul class="product-photo-thumbs owl-carousel">
+                <ul class="product-photo-thumbs">
                     {% capture variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
@@ -232,7 +232,7 @@
                             <img class="product-photo-container__img" src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title | escape }}" />
                         </picture>
                     </a>
-                    {% comment %} <span class="zoom-mobile"><img src="{{ product.featured_image | img_url: '860x860' }}" alt="" /></span> {% endcomment %}
+                    <span class="zoom-mobile"><img src="{{ product.featured_image | img_url: '860x860' }}" alt="" /></span>
                 </div>
             </div>
         </div>
@@ -276,12 +276,12 @@
             onInitialized: function(){
 
 
-                jQuery('.product-photo-gallery .featherlight-gallery').zoom({
-                    magnify: 1.35,
-                    callback: function(){
+                // jQuery('.product-photo-gallery .featherlight-gallery').zoom({
+                //     magnify: 1.35,
+                //     callback: function(){
 
-                    }
-                });
+                //     }
+                // });
 
                 /* mobile swipe initial on top zoom element */
                 var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');

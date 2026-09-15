@@ -175,7 +175,6 @@ class Products {
     }
 
     setupSwatchCarousel() {
-        console.log('fdsfds');
         if (jQuery('.product-photo-thumbs.owl-carousel').length) {
             var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
             $swatchCarousel.owlCarousel({

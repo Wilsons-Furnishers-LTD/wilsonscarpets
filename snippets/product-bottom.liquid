@@ -411,7 +411,7 @@
 
         jQuery('.product-photo-thumbs li').click(function (e) {
             e.preventDefault();
-            var index = jQuery(this).index(),
+            var index = jQuery(this).parent().index(),
                 value = jQuery(this).data('value'),
                 swatch = jQuery('.swatch-colours'),
                 ul = swatch.find('ul');
@@ -428,10 +428,10 @@
                 //swatchClick(value);
             }
 
-            console.log()
+
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
-            jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+            // jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
         });
 
         if(is_loop){

@@ -21,7 +21,7 @@ class Products {
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
         document.addEventListener('DOMContentLoaded', this.setupRelatedProductCarousel.bind(this));
-        // document.addEventListener('DOMContentLoaded', this.setupSwatchCarousel.bind(this));
+        document.addEventListener('DOMContentLoaded', this.setupSwatchCarousel.bind(this));
 
         this.setupRelatedProductCarousel.bind(this);
 

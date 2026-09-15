@@ -229,7 +229,7 @@
                                 <ul>
                                     {% for value_color in value_colors %}
                                         {% assign color = value_color | strip %}
-                                        <li ct data-value="{{ color }}" class="js-get-colour-value">
+                                        <li data-value="{{ color }}" class="js-get-colour-value">
                                             {% assign displayedColor = '' %}
                                             {% for variant in product.variants %}
                                                 {% for option in variant.options %}

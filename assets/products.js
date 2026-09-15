@@ -176,7 +176,7 @@ class Products {
 
     setupSwatchCarousel() {
        
-        if (jQuery('.product-photo-thumbs.owl-carousel').length) {
+        if (jQuery('.ct-owl.owl-carousel').length) {
             var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
             $swatchCarousel.owlCarousel({
                 loop: true,

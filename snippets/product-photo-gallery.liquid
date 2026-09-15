@@ -166,7 +166,8 @@
         {% if product.images.size > 1 %}
             {% assign image_exclude = "" %}
             <div class="product-photo-thumbs-container">
-                <ul class="product-photo-thumbs owl-carousel">
+                <div class="product-photo-thumbs ">
+                    <div class="owl-carousel">
                     {% capture variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
@@ -218,7 +219,8 @@
 
                     {{product_images}}
                     {{variant_images}}
-                </ul>
+                    </div>
+                </div>
             </div>
         {% endif %}
     {% else %}

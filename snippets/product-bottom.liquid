@@ -434,8 +434,8 @@
             jQuery(this).find('a').addClass('active');
             
             
-            $('.product-photo-gallery .owl-carousel').trigger('to.owl.carousel', [index + 1, 0, true]);// 500 is the speed of the transition in ms
-            $('.product-photo-thumbs.owl-carousel').trigger('to.owl.carousel', [index + 1, 0, true]);
+            $('.product-photo-gallery .owl-carousel').trigger('to.owl.carousel', [index - 1, 100, true]);// 500 is the speed of the transition in ms
+            $('.product-photo-thumbs.owl-carousel').trigger('to.owl.carousel', [index - 1, 100, true]);
             
         });
 

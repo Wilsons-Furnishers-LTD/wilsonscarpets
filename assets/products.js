@@ -176,17 +176,17 @@ class Products {
 
     setupSwatchCarousel() {
        
-        if (jQuery('.product-photo-thumbs.owl-carousel').length) {
-            var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
-            $swatchCarousel.owlCarousel({
-                loop: true,
-                autoplay: false,
-                margin: 10,
-                nav: true,
-                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
-                dots: false
-            });
-        }
+        // if (jQuery('.product-photo-thumbs.owl-carousel').length) {
+        //     var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
+        //     $swatchCarousel.owlCarousel({
+        //         loop: true,
+        //         autoplay: false,
+        //         margin: 10,
+        //         nav: true,
+        //         navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+        //         dots: false
+        //     });
+        // }
     }
     setupRelatedProductCarousel() {
         if (jQuery('.related-products-refresh .owl-carousel').length) {

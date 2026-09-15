@@ -21,7 +21,7 @@ class Products {
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
         document.addEventListener('DOMContentLoaded', this.setupRelatedProductCarousel.bind(this));
-        // document.addEventListener('DOMContentLoaded', this.setupSwatchCarousel.bind(this));
+        document.addEventListener('DOMContentLoaded', this.setupSwatchCarousel.bind(this));
 
         this.setupRelatedProductCarousel.bind(this);
 
@@ -175,29 +175,45 @@ class Products {
     }
 
     setupSwatchCarousel() {
-       
-        if (jQuery('.product-photo-thumbs.owl-carousel').length) {
-            var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
-            $swatchCarousel.owlCarousel({
-                loop: true,
-                autoplay: false,
-                margin: 10,
-                nav: true,
-                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
-                dots: false,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    768: {
-                        items: 2.5
-                    },
-                    1400: {
-                        items: 10
-                    }
-                }
-            });
+
+        $('.ct-owl.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        },
+        1000:{
+            items:5
         }
+    }
+});
+        // if (jQuery('.product-photo-thumbs.owl-carousel').length) {
+        //     var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
+        //     $swatchCarousel.owlCarousel({
+        //         loop: true,
+        //         autoplay: false,
+        //         margin: 10,
+        //         nav: true,
+        //         navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+        //         dots: false,
+        //         responsive: {
+        //             0: {
+        //                 items: 1
+        //             },
+        //             768: {
+        //                 items: 2.5
+        //             },
+        //             1400: {
+        //                 items: 10
+        //             }
+        //         }
+        //     });
+        // }
     }
     setupRelatedProductCarousel() {
         if (jQuery('.related-products-refresh .owl-carousel').length) {

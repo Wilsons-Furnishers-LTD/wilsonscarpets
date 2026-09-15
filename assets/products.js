@@ -176,7 +176,29 @@ class Products {
 
     setupSwatchCarousel() {
        
-        if (jQuery('.product-photo-thumbs .owl-carousel').length) ;
+        if (jQuery('.product-photo-thumbs .owl-carousel').length) {
+            var $swatchCarousel = $('.product-photo-thumbs .owl-carousel');
+            $swatchCarousel.owlCarousel({
+loop: true,
+                autoplay: false,
+                margin: 20,
+                nav: true,
+                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
+                dots: false,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    768: {
+                        items: 2.5
+                    },
+                    1400: {
+                        items: 3.5
+                    }
+                },
+  
+            });
+        }
     }
     setupRelatedProductCarousel() {
         if (jQuery('.related-products-refresh .owl-carousel').length) {

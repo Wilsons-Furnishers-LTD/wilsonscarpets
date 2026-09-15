@@ -432,8 +432,9 @@
 
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
-            jQuery('.product-photo-gallery .owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
             
+            
+            $('.product-photo-gallery .owl-carousel').trigger('to.owl.carousel', [index, 500, true]);// 500 is the speed of the transition in ms
             console.log(index)
         });
 

@@ -167,19 +167,28 @@
             {% assign image_exclude = "" %}
             <div class="product-photo-thumbs-container">
                 <div class="ct-owl owl-carousel owl-theme">
-    <div class="item"><h4>1</h4></div>
-    <div class="item"><h4>2</h4></div>
-    <div class="item"><h4>3</h4></div>
-    <div class="item"><h4>4</h4></div>
-    <div class="item"><h4>5</h4></div>
-    <div class="item"><h4>6</h4></div>
-    <div class="item"><h4>7</h4></div>
-    <div class="item"><h4>8</h4></div>
-    <div class="item"><h4>9</h4></div>
-    <div class="item"><h4>10</h4></div>
-    <div class="item"><h4>11</h4></div>
-    <div class="item"><h4>12</h4></div>
-</div>
+                                      {% for value_color in value_colors %}
+                            {% assign color = value_color | strip %}
+                            {% assign displayedColor = '' %}
+                            {% for variant in product.variants %}
+                                    {% for option in variant.options %}
+                                        {% if option == color %}
+                                            {% unless displayedColor contains color %}
+                                                {% assign displayedColor = displayedColor | append: '|' | append: color %}
+                                                    <li class="product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
+                                                        <div class="product-photo-thumb-tooltip">
+                                                            <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
+                                                        </div>
+                                                        <a href="#" class="data" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '80x80', crop: 'center' }}" alt="{{ variant.image.alt | escape }}"/></a>
+                                                    {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
+                                                {% break %}
+                                            {% endunless %}
+                                        {% endif %}
+                                    {% endfor %}
+                            {% endfor %}
+                            </li>
+                        {% endfor %}
+                </div>
                 <ul class="product-photo-thumbs owl-carousel">
                     {% capture variant_images %}
                         {% for value_color in value_colors %}
@@ -200,7 +209,6 @@
                                             {% endunless %}
                                         {% endif %}
                                     {% endfor %}
-
                             {% endfor %}
                             </li>
                         {% endfor %}

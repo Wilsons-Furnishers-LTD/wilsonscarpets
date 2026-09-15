@@ -640,11 +640,11 @@
                 jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
             });
 
-            // jQuery('.product-photo-thumb').each(function () {
-            //     if (jQuery(this).data('value') == value) {
-            //         jQuery(this).trigger('click');
-            //     }
-            // });
+            jQuery('.product-photo-thumb').each(function () {
+                if (jQuery(this).data('value') == value) {
+                    jQuery(this).trigger('click');
+                }
+            });
             if(jQuery('.swatch-colours').hasClass('swatch-colours-new')) {
 
             }else {
@@ -675,7 +675,7 @@
                 });
             }
         }else{
-            jQuery('.product-photo-thumbs li:first-child').trigger('click');
+            // jQuery('.product-photo-thumbs li:first-child').trigger('click');
         }
     });
 

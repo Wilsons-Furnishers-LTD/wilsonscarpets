@@ -328,8 +328,8 @@
 
     function carouselInit(loop){
         const is_loop = loop ?? true;
-        console.log(loop)
-        jQuery(".product-photo-container .owl-carousel").owlCarousel({
+
+        jQuery(".product-photo-gallery .owl-carousel").owlCarousel({
             items: 1,
             loop: is_loop,
             margin: 0,
@@ -357,7 +357,7 @@
             onInitialized: function(){
 
 
-                jQuery('.product-photo-container .featherlight-gallery').zoom({
+                jQuery('.product-photo-gallery .featherlight-gallery').zoom({
                     magnify: 1.35,
                     callback: function(){
 
@@ -365,7 +365,7 @@
                 });
 
                 /* mobile swipe initial on top zoom element */
-                var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
+                var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');
                 let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
                 pz.enable(); // Enables all gesture capturing (is enabled by default)
 
@@ -379,20 +379,20 @@
                     }
 
                     if(ev.type === 'swiperight'){
-                        //jQuery('.product-photo-container .owl-dot.active').next().trigger('click');
+                        //jQuery('.product-photo-gallery .owl-dot.active').next().trigger('click');
                         jQuery('.product-photo-thumb').eq(currentItem + 1).trigger('click');
 
                     }
                 });
             }
         });
-        jQuery(".product-photo-container .owl-carousel").on('changed.owl.carousel', function(event) {
+        jQuery(".product-photo-gallery .owl-carousel").on('changed.owl.carousel', function(event) {
             //var currentItem = event.item.index;
-            const currentItem = jQuery('.product-photo-container .owl-dot.active').index();
+            const currentItem = jQuery('.product-photo-gallery .owl-dot.active').index();
 
             setTimeout(function() {
-                jQuery('.product-photo-container .owl-stage .owl-item').removeClass('animated owl-animated-out fadeOut').css('left', '');
-                var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
+                jQuery('.product-photo-gallery .owl-stage .owl-item').removeClass('animated owl-animated-out fadeOut').css('left', '');
+                var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');
                 let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
                 pz.enable(); // Enables all gesture capturing (is enabled by default)
             }, 100);
@@ -436,7 +436,7 @@
         });
 
         if(is_loop){
-            jQuery('.product-photo-container .featherlight-gallery').featherlightGallery({
+            jQuery('.product-photo-gallery .featherlight-gallery').featherlightGallery({
                 variant: "featherlight-product-photo-image",
                 afterContent: function(){
                     var caption = this.$currentTarget.find('img').attr('alt');
@@ -448,7 +448,7 @@
                 }
             });
         }else{
-            jQuery('.product-photo-container .featherlight-gallery').featherlight({
+            jQuery('.product-photo-gallery .featherlight-gallery').featherlight({
                 variant: "featherlight-product-photo-image",
                 afterContent: function(){
                     var caption = this.$currentTarget.find('img').attr('alt');
@@ -467,7 +467,7 @@
 
     function swatchClick(value, variant_id, index){
         /* change image */
-        const $productPhotoContainer = jQuery('.product-photo-container');
+        const $productPhotoContainer = jQuery('.product-photo-gallery');
         const $mainImage = $productPhotoContainer.find('img');
         const $mainImageSource = $productPhotoContainer.find('source');
         const $photoThumbHolder = jQuery('.product-photo-thumbs-holder');
@@ -583,7 +583,7 @@
     }
 
     jQuery(document).ready(function () {
-        if(jQuery('.product-photo-container .js-product-photo-thumb').length){
+        if(jQuery('.product-photo-gallery .js-product-photo-thumb').length){
             carouselInit(true);
         }else{
             carouselInit(false);
@@ -672,7 +672,7 @@
         }
     });
 
-    //Shopify.Image.preload({{ product.images | json }}, Math.ceil($('.product-photo-container').width()) + "x");
+    //Shopify.Image.preload({{ product.images | json }}, Math.ceil($('.product-photo-gallery').width()) + "x");
     //Shopify.Image.preload({{ product.images | json }}, '1600x1600');
 
     // https://help.shopify.com/themes/customization/products/variants/how-to-add-a-pick-an-option-to-drop-downs

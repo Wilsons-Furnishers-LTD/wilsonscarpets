@@ -365,18 +365,11 @@
         "related_grid_num": "3",
         "related_grid_row": "3"
       }
-    },
-    "product_features_KheFPc": {
-      "type": "product-features",
-      "disabled": true,
-      "name": "Product Features",
-      "settings": {}
     }
   },
   "order": [
     "product_main_area_rqjCxw",
     "specifications",
-    "related",
-    "product_features_KheFPc"
+    "related"
   ]
 }

@@ -385,29 +385,29 @@
                 });
             }
         });
-        // jQuery(".product-photo-container .owl-carousel").on('changed.owl.carousel', function(event) {
-        //     //var currentItem = event.item.index;
-        //     const currentItem = jQuery('.product-photo-container .owl-dot.active').index();
+        jQuery(".product-photo-container .owl-carousel").on('changed.owl.carousel', function(event) {
+            //var currentItem = event.item.index;
+            const currentItem = jQuery('.product-photo-container .owl-dot.active').index();
 
-        //     setTimeout(function() {
-        //         jQuery('.product-photo-container .owl-stage .owl-item').removeClass('animated owl-animated-out fadeOut').css('left', '');
-        //         var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
-        //         let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
-        //         pz.enable(); // Enables all gesture capturing (is enabled by default)
-        //     }, 100);
+            setTimeout(function() {
+                jQuery('.product-photo-container .owl-stage .owl-item').removeClass('animated owl-animated-out fadeOut').css('left', '');
+                var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
+                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
+                pz.enable(); // Enables all gesture capturing (is enabled by default)
+            }, 100);
 
-        //     //jQuery('.product-photo-thumbs a').removeClass('active');
-        //     //jQuery('.product-photo-thumb').eq(currentItem).find('a').addClass('active');
-        //     jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
+            //jQuery('.product-photo-thumbs a').removeClass('active');
+            //jQuery('.product-photo-thumb').eq(currentItem).find('a').addClass('active');
+            jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
 
-        //     var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
+            var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
             
-        //     if(colour_variant != '') {
-        //       jQuery('#select-option-colour ul').each(function () {
-        //             jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
-        //         });
-        //     }
-        // })
+            if(colour_variant != '') {
+              jQuery('#select-option-colour ul').each(function () {
+                    jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
+                });
+            }
+        })
 
         jQuery('.product-photo-thumbs li').click(function (e) {
             e.preventDefault();

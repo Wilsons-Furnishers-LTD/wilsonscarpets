@@ -29,6 +29,7 @@
 }
 .product-main .product-photo-thumbs-container ul .owl-nav {
   position: absolute;
+  right: 0;
 }
 .product-main .product-details .option-colour h2, .product-main .product-details .option-colour .swatch-colours label {
   position: relative;

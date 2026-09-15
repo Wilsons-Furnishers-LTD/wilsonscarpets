@@ -198,6 +198,7 @@ class Products {
                 },
                 onInitialized: function() {
                     $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
+                    console.log($('.product-photo-gallery .owl-carousel'));
                 }
             });
         }

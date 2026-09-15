@@ -3213,14 +3213,6 @@ body .cw-storelocator .store-details-modal .store-details-modal-directions {
   border-top: 2px solid #ddd;
   padding: 20px 0;
   text-align: center;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-}
-@media only screen and (min-width: 768px) {
-  body .cw-storelocator .store-details-modal .store-details-modal-directions {
-    flex-direction: row;
-  }
 }
 body .cw-storelocator .store-details-modal .store-details-modal-directions a {
   display: inline-block;
@@ -3229,14 +3221,6 @@ body .cw-storelocator .store-details-modal .store-details-modal-directions a {
   background-color: #ba3c3d;
   padding: 10px 20px;
   width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-body .cw-storelocator .store-details-modal .store-details-modal-directions a.modal-btn-yellow {
-  background-color: #F2BF00;
-  color: #414B52;
 }
 body .cw-storelocator .store-details-modal .store-details-modal-header {
   position: relative;

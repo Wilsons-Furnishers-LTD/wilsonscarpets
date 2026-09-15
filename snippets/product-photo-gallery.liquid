@@ -167,7 +167,7 @@
             {% assign image_exclude = "" %}
             <div class="product-photo-thumbs-container">
                 <ul class="product-photo-thumbs owl-carousel">
-                    {% capture thumb_variant_images %}
+                    {% capture variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
                             {% assign displayedColor = '' %}
@@ -195,7 +195,7 @@
                     {% assign image_exclude = image_exclude | replace: "products/", "" %}
 
 
-                    {% capture thumb_product_images %}
+                    {% capture product_images %}
                     {% for image in product.images %}
                         {% assign variant_image = image | replace: "products/", "" %}
                         {% unless image_exclude contains variant_image %}
@@ -329,7 +329,7 @@
             }
         })
 
-        jQuery('.product-photo-thumbs .owl-item').click(function (e) {
+        jQuery('.product-photo-thumbs li').click(function (e) {
             e.preventDefault();
             var index = jQuery(this).index(),
                 value = jQuery(this).data('value'),

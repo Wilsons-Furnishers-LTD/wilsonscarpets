@@ -176,8 +176,8 @@ class Products {
 
     setupSwatchCarousel() {
        
-        if (jQuery('.product-photo-thumbs').length) {
-            var $swatchCarousel = $('.product-photo-thumbs');
+        if (jQuery('.product-photo-thumbs.owl-carousel').length) {
+            var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
             $swatchCarousel.owlCarousel({
                 loop: true,
                 autoplay: false,
@@ -195,6 +195,9 @@ class Products {
                     1400: {
                         items: 10
                     }
+                },
+                onInitialized: function() {
+                    $('.product-photo-gallery .owl-carousel').trigger('refresh.owl.carousel');
                 }
             });
         }

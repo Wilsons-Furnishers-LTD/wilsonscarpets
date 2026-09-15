@@ -411,7 +411,9 @@
         })
         
         jQuery('.swatch-colour .grid li').click(function() {
-
+            let index = jQuery(this).parent().index();
+            $('.product-photo-gallery .owl-carousel').trigger('to.owl.carousel', [index - 1, 100, true]);// 500 is the speed of the transition in ms
+            $('.product-photo-thumbs.owl-carousel').trigger('to.owl.carousel', [index - 1, 100, true]);
         });
         // jQuery('.product-photo-thumbs li').click(function (e) {
         //     e.preventDefault();

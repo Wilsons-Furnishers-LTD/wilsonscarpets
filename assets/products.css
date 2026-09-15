@@ -24,6 +24,9 @@
 .product-main .product-photo-thumbs-container .product-photo-thumb {
   display: block;
 }
+.product-main .product-photo-thumbs-container .product-photo-thumb a {
+  position: initial;
+}
 .product-main .product-photo-thumbs-container ul .owl-nav {
   position: absolute;
 }

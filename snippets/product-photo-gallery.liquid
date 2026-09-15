@@ -167,7 +167,7 @@
             {% assign image_exclude = "" %}
             <div class="product-photo-thumbs-container">
                 <ul class="product-photo-thumbs owl-carousel">
-                    {% capture variant_images %}
+                    {% capture thumb_variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
                             {% assign displayedColor = '' %}
@@ -195,7 +195,7 @@
                     {% assign image_exclude = image_exclude | replace: "products/", "" %}
 
 
-                    {% capture product_images %}
+                    {% capture thumb_product_images %}
                     {% for image in product.images %}
                         {% assign variant_image = image | replace: "products/", "" %}
                         {% unless image_exclude contains variant_image %}
@@ -216,8 +216,6 @@
                     {% endfor %}
                     {% endcapture %}
 
-                    {{product_images}}
-                    {{variant_images}}
                 </ul>
             </div>
         {% endif %}

@@ -410,9 +410,14 @@
             }
         })
         
+        jQuery(".product-photo-thumbs.owl-carousel").on('changed.owl.carousel', function(event) {
+            let currentItem = event.item.index;
+            console.log(currentItem)
+        })
+        
+
         jQuery('.grid li').click(function() {
             let index = jQuery(this).index();
-            console.log(index)
             $('.product-photo-gallery .owl-carousel').trigger('to.owl.carousel', [index, 100, true]);// 500 is the speed of the transition in ms
             $('.product-photo-thumbs.owl-carousel').trigger('to.owl.carousel', [index, 100, true]);
         });

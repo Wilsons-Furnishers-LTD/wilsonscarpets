@@ -185,40 +185,7 @@
             {% endfor %}
         {% endcapture %}
 
-        {% assign image_exclude = image_exclude | replace: "products/", "" %}
-
-        {% capture thumb_product_images %}
-        {% assign firstDisplayed = true %}
-        {% for image in product.images %}
-            {% assign variant_image = image | replace: "products/", "" %}
-            {% unless image_exclude contains variant_image %}
-                {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
-                    {% unless image.attached_to_variant? %}
-                        <div class="item">
-                            <a href="{{ image | img_url: '1600x1600' }}">
-                                <picture>
-                                    <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">
-                                    <source srcset="{{ image | img_url: '1600x1600' }}">
-                                    <img src="{{ image | img_url: '1600x1600' }}" alt="{{ product.title | escape }}"/>
-                                </picture>
-                            </a>
-                        </div>
-                    {% endunless %}
-                {% else %}
-                    <div class="item">
-                            <picture>
-                            <source media="(min-width: 1024px)" srcset="{{ image | img_url: '1600x1600' }}">
-                                <source srcset="{{ image | img_url: '1600x1600' }}">
-                                <img src="{{ image | img_url: '1600x1600' }}" alt="{{ product.title | escape }}"/>
-                            </picture>
-  
-                    </div>
-                    {% assign image_exclude = image_exclude | append: image.src | append: "<|>" %}
-                {% endif %}
-                {% assign firstDisplayed = false %}
-            {% endunless %}
-        {% endfor %}
-        {% endcapture %}
+      
 
         <div class="product-photo-gallery" data-photoui="{{ usedPhotoUI | json }}">
             <div class="owl-carousel">

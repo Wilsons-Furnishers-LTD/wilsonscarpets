@@ -410,14 +410,13 @@
         })
 
         jQuery('.product-photo-thumbs li').click(function (e) {
-            console.log('sdfsdfsdf')
             e.preventDefault();
-            var index = jQuery(this).parent().index(),
+            var index = jQuery(this).index(),
                 value = jQuery(this).data('value'),
                 swatch = jQuery('.swatch-colours'),
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
-            
+
             if (value && value != '') {
                 swatch.find('label').html(colour);
                 swatch.find('li').removeClass('selected');
@@ -429,11 +428,10 @@
                 //swatchClick(value);
             }
 
-            
+            console.log()
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
-            jQuery('.product-photo-gallery .owl-carousel').trigger('to.owl.carousel', [index, 500, true]);// 500 is the speed of the transition in ms
-            // jQuery('.product-photo-gallery .owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+            jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
         });
 
         if(is_loop){

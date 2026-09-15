@@ -21,6 +21,9 @@
   padding-right: 30px;
   position: relative;
 }
+.product-main .product-photo-thumbs-container .product-photo-thumb {
+  display: block;
+}
 .product-main .product-photo-thumbs-container ul .owl-nav {
   position: absolute;
 }

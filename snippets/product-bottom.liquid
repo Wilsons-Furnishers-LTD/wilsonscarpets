@@ -410,11 +410,12 @@
             }
         })
         
-        jQuery(".product-photo-thumbs.owl-carousel").on('changed.owl.carousel', function(event) {
-            let currentItem = event.item.index;
-            console.log(currentItem)
-        })
+
         
+        jQuery('.product-photo-thumbs .product-photo-thumb').click(function() {
+            let index = jQuery(this).index();
+           console.log(index)
+        });
 
         jQuery('.grid li').click(function() {
             let index = jQuery(this).index();

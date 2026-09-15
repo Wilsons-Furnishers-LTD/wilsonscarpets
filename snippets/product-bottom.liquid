@@ -413,8 +413,9 @@
 
         
         jQuery('.product-photo-thumbs.owl-carousel .product-photo-thumb').click(function() {
-            console.log($(this).data('value'))
-           
+            console.log()
+            let dataValue = $(this).data('value');
+           console.log($('.grid li[data-value="' + dataValue + '"]'))
         });
 
         jQuery('.grid li').click(function() {

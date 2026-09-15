@@ -329,7 +329,7 @@
             }
         })
 
-        jQuery('.product-photo-thumbs li').click(function (e) {
+        jQuery('.swatch-colours li').click(function (e) {
             
             e.preventDefault();
             var index = jQuery(this).index(),
@@ -338,7 +338,7 @@
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
 
-                console.log($(e.target).index())
+                console.log(value, index)
             if (value && value != '') {
                 swatch.find('label').html(colour);
                 swatch.find('li').removeClass('selected');

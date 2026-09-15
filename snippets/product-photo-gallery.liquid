@@ -168,7 +168,17 @@
             {% assign image_exclude = "" %}
             <div class="product-photo-thumbs-container">
                         <div class="ct-owl owl-carousel owl-theme">
-{% capture variant_images %}
+    <li class="item"><h4>1</h4></li>
+    <li class="item"><h4>1</h4></li>
+    <li class="item"><h4>1</h4></li>
+    <li class="item"><h4>1</h4></li>
+    <li class="item"><h4>1</h4></li>
+    <li class="item"><h4>1</h4></li>
+    <li class="item"><h4>1</h4></li>
+
+</div>
+                <ul class="product-photo-thumbs owl-carousel">
+                    {% capture variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
                             {% assign displayedColor = '' %}
@@ -219,9 +229,6 @@
 
                     {{product_images}}
                     {{variant_images}}
-</div>
-                <ul class="product-photo-thumbs owl-carousel">
-                    
                 </ul>
             </div>
         {% endif %}

@@ -146,7 +146,7 @@
                                 <img src="{{ image | img_url: '1600x1600' }}" alt="{{ product.title | escape }}"/>
                             </picture>
                         </a>
-                        {% comment %} <span class="zoom-mobile"><img src="{{ image | img_url: '1600x1600' }}" alt="" /></span> {% endcomment %}
+                        <span class="zoom-mobile"><img src="{{ image | img_url: '1600x1600' }}" alt="" /></span>
                     </div>
                     {% assign image_exclude = image_exclude | append: image.src | append: "<|>" %}
                 {% endif %}
@@ -232,7 +232,7 @@
                             <img class="product-photo-container__img" src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title | escape }}" />
                         </picture>
                     </a>
-                    <span class="zoom-mobile"><img src="{{ product.featured_image | img_url: '860x860' }}" alt="" /></span>
+                    {% comment %} <span class="zoom-mobile"><img src="{{ product.featured_image | img_url: '860x860' }}" alt="" /></span> {% endcomment %}
                 </div>
             </div>
         </div>

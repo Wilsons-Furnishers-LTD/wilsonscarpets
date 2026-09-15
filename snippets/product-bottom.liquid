@@ -328,6 +328,7 @@
 
     function carouselInit(loop){
         const is_loop = loop ?? true;
+        console.log(loop)
         jQuery(".product-photo-container .owl-carousel").owlCarousel({
             items: 1,
             loop: is_loop,
@@ -585,7 +586,6 @@
         if(jQuery('.product-photo-container .js-product-photo-thumb').length){
             carouselInit(true);
         }else{
-            console.log('sdffsd')
             carouselInit(false);
         }
 

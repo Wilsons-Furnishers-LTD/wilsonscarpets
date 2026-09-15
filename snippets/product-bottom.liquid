@@ -539,11 +539,11 @@
                     if( variantsAndImages[variant_id].thumbs.length > 1 ){
                         $photoThumbHolder.empty().append(photoThumbs);
                         $productPhotoContainer.empty().append(photoLarges);
-                        carouselInit();
+                        
                     }else{
                         $photoThumbHolder.empty();
                         $productPhotoContainer.empty().append(photoLarges);
-                        carouselInit(false);
+                        
                     }
                 }
             }catch(err){

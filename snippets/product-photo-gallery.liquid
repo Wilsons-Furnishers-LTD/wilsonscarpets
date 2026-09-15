@@ -379,7 +379,8 @@
                 }
             });
         }
-        var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
+        setTimeout(() => {
+                    var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
             $swatchCarousel.owlCarousel({
                 loop: true,
                 autoplay: false,
@@ -399,5 +400,7 @@
                     }
                 }
             });
+        }, 4000);
+
     })
 </script>

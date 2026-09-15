@@ -232,7 +232,7 @@
                             <img class="product-photo-container__img" src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title | escape }}" />
                         </picture>
                     </a>
-                    <span class="zoom-mobile"><img src="{{ product.featured_image | img_url: '860x860' }}" alt="" /></span>
+                    {% comment %} <span class="zoom-mobile"><img src="{{ product.featured_image | img_url: '860x860' }}" alt="" /></span> {% endcomment %}
                 </div>
             </div>
         </div>

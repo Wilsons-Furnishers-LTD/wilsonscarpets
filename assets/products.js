@@ -177,6 +177,11 @@ class Products {
 
     setupSwatchCarousel() {
        
+        const item = document.getElementById('product-photo-thumbs-element');
+    const target = document.getElementById('product-main-details');
+
+    target.appendChild(item);
+        
         if (jQuery('.product-photo-thumbs.owl-carousel').length) {
             var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
             $swatchCarousel.owlCarousel({

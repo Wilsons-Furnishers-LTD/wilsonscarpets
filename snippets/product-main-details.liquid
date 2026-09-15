@@ -1,6 +1,6 @@
 {% assign delivery_type = product.type | prepend: 'delivery-' | append: '-block' | handleize %}
 
-<div class="product-main-details">
+<div class="product-main-details" id="product-main-details">
     <ul class="product-main-details__header">
         {% if product.description %}
             <li class="product-main-details__title active" data-item="description">

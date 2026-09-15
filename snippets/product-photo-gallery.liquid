@@ -329,7 +329,31 @@
             }
         })
 
+        jQuery('.product-photo-thumbs-ct li').click(function (e) {
+            
+            e.preventDefault();
+            var index = jQuery(this).index(),
+                value = jQuery(this).data('value'),
+                swatch = jQuery('.swatch-colours'),
+                ul = swatch.find('ul');
+                colour = swatch.find('.select li[data-value="' + value + '"]').html();
 
+            if (value && value != '') {
+                swatch.find('label').html(colour);
+                swatch.find('li').removeClass('selected');
+                swatch.find('.select ul').slideUp(200);
+                jQuery(ul).each(function () {
+                    jQuery(this).find('li[data-value="' + value + '"]').addClass('selected');
+                });
+
+                //swatchClick(value);
+            }
+
+            
+            jQuery('.product-photo-thumbs a').removeClass('active');
+            jQuery(this).find('a').addClass('active');
+            jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+        });
 
         if(is_loop){
             jQuery('.product-photo-gallery .featherlight-gallery').featherlightGallery({

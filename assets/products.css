@@ -17,10 +17,6 @@
     height: 100%;
   }
 }
-.product-main .product-photo-thumbs-container {
-  padding-right: 30px;
-  position: relative;
-}
 .product-main .product-photo-thumbs-container .product-photo-thumb {
   display: block;
   width: 100%;

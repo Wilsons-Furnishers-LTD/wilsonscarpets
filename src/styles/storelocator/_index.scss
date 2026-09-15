@@ -3368,20 +3368,56 @@ body .cw-storelocator {
     .storeify-stl-col1 {
         position: relative;
     }
+    .store-details-modal-button {
+        text-decoration: underline;
+        color: v.$wilson-red;
+        font-weight: 900;
+        padding-top: 10px;
+        display: inline-block;
+    }
     .store-details-modal {
         position: absolute;
         background-color: #fff;
-        z-index: 100;
-        left: 0;
+        z-index: 1000000;
+        left: -100%;
         top: 0;
-        padding: 40px;
+        padding: 0px 40px 40px 40px;
         width: 100%;
         height: 100%;
+        transition: all 0.3s ease;
+        overflow-y: scroll;
+        @media  only screen and (min-width: 768px){
+            position: fixed;
+        width: calc(50% - 15px);
+        min-width: 485px;
+        max-width: 685px;
+        }
+        @media  only screen and (max-width: 767px){
+            height: 100dvh;
+            position: fixed;
+            top: 0;
+            .store-details-modal-inner {
+                border-top: none;
+            }
+        }
+        &.active {
+            left: 0;
+        }   
+        .store-details-modal-inner {
+            padding-top: 20px;
+            border-top: 2px solid #ddd;
+        }
         .store-details-modal-directions {
             border-bottom: 2px solid #ddd;
             border-top: 2px solid #ddd;
             padding: 20px 0;
             text-align: center;
+            display: flex;
+            gap: 20px;
+            flex-direction: column;
+            @media  only screen and (min-width: 768px){
+                flex-direction: row;
+            }
             a {
                 display: inline-block;
                 font-weight: 700;
@@ -3389,6 +3425,14 @@ body .cw-storelocator {
                 background-color: v.$wilson-red;
                 padding: 10px 20px;
                 width: 100%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+                &.modal-btn-yellow {
+                    background-color: v.$wilson-yellow;
+                    color: v.$wilson-grey;
+                }
             }
         }
         .store-details-modal-header {
@@ -3396,23 +3440,40 @@ body .cw-storelocator {
             text-align: center;
             border-bottom: 2px solid #ddd;
             padding-bottom: 20px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             .store-details-modal-title {
                 font-weight: 900;
                 font-size: 24px;
-                color: v.$wilson-red;
+                color: v.$wilson-grey;
                 padding: 0 35px;
+                @media only screen and (max-width: 767px) {
+                    padding-left: 0;
+                    text-align: left;
+                }
             }
 
             .store-details-modal-close {
                 position: absolute;
-                top: 0;
-                bottom: 0;
+                top: 1px;
                 margin: auto;
                 right: 0;
+                height: 25px;
+                @media only screen and (max-width: 767px) {
+                    top: 6px;
+                }
                 svg {
-                    stroke: v.$wilson-red;
+                    stroke: v.$wilson-grey;
                     stroke-width: 3px;
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+        table {
+            tr {
+                td:first-of-type:after {
+                    content: ":";
                 }
             }
         }
@@ -3767,8 +3828,58 @@ body .cw-storelocator {
         margin-top: 15px;
         margin-left: 20px;
     }
+    .store-details-modal-subtitle {
+        font-weight: 900;
+        color: v.$wilson-grey;
+        font-size: 16px;
+        padding-top: 20px;
+        padding-bottom: 10px;
+    }
+    .store-details-modal-address {
+        padding-bottom: 20px;
+        line-height: 24px;
+        .store-details-modal-store-title {
+            font-weight: 900;
+            color: v.$wilson-grey;
+        }
+    }
+    .store-details-modal-current-time {
+        font-weight: 900;
+        border-top: 2px solid #ddd;
+        color: v.$wilson-red;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    }
+    .store-details-modal-opening-times {
+        td {
+            border-bottom: none;
+            padding-bottom: 5px;
+            padding-top: 5px;
+        }
+        tr.today {
+            td {
+                font-weight: 900;
+                color: v.$wilson-red;
+            }
+        }
+    }
 }
 
+@media only screen and (max-width: 767px) {
+    body.store-modal-open {
+        position: fixed;
+        width: 100%;
+        overflow: hidden;
+        .storelocator-search {
+            transform: none !important;
+        }
+    }
+    .store-details-modal {
+        .store-details-modal-inner {
+            border-top: none !important;
+        }
+    }
+}
 
 @media only screen and (max-width: 1200px) {
     body .cw-storelocator #results-slt .item-thumb, body .cw-storelocator #info-window-wrapper .item-thumb {

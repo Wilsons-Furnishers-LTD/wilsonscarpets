@@ -433,6 +433,7 @@
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.product-photo-gallery .owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+            console.log(jQuery('.product-photo-gallery'))
         });
 
         if(is_loop){

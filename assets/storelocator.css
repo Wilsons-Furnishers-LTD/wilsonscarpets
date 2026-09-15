@@ -3164,15 +3164,49 @@ body .cw-storelocator.not-holiday .store-opening-times {
 body .cw-storelocator .storeify-stl-col1 {
   position: relative;
 }
+body .cw-storelocator .store-details-modal-button {
+  text-decoration: underline;
+  color: #ba3c3d;
+  font-weight: 900;
+  padding-top: 10px;
+  display: inline-block;
+}
 body .cw-storelocator .store-details-modal {
   position: absolute;
   background-color: #fff;
-  z-index: 100;
-  left: 0;
+  z-index: 1000000;
+  left: -100%;
   top: 0;
-  padding: 40px;
+  padding: 0px 40px 40px 40px;
   width: 100%;
   height: 100%;
+  transition: all 0.3s ease;
+  overflow-y: scroll;
+}
+@media only screen and (min-width: 768px) {
+  body .cw-storelocator .store-details-modal {
+    position: fixed;
+    width: calc(50% - 15px);
+    min-width: 485px;
+    max-width: 685px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  body .cw-storelocator .store-details-modal {
+    height: 100dvh;
+    position: fixed;
+    top: 0;
+  }
+  body .cw-storelocator .store-details-modal .store-details-modal-inner {
+    border-top: none;
+  }
+}
+body .cw-storelocator .store-details-modal.active {
+  left: 0;
+}
+body .cw-storelocator .store-details-modal .store-details-modal-inner {
+  padding-top: 20px;
+  border-top: 2px solid #ddd;
 }
 body .cw-storelocator .store-details-modal .store-details-modal-directions {
   border-bottom: 2px solid #ddd;
@@ -3193,24 +3227,41 @@ body .cw-storelocator .store-details-modal .store-details-modal-header {
   text-align: center;
   border-bottom: 2px solid #ddd;
   padding-bottom: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-title {
   font-weight: 900;
   font-size: 24px;
-  color: #ba3c3d;
+  color: #414B52;
   padding: 0 35px;
+}
+@media only screen and (max-width: 767px) {
+  body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-title {
+    padding-left: 0;
+    text-align: left;
+  }
 }
 body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 1px;
   margin: auto;
   right: 0;
+  height: 25px;
+}
+@media only screen and (max-width: 767px) {
+  body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close {
+    top: 6px;
+  }
 }
 body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close svg {
-  stroke: #ba3c3d;
+  stroke: #414B52;
   stroke-width: 3px;
+}
+body .cw-storelocator .store-details-modal .store-details-modal-header .store-details-modal-close:hover {
+  cursor: pointer;
+}
+body .cw-storelocator .store-details-modal table tr td:first-of-type:after {
+  content: ":";
 }
 body .cw-storelocator .store-opening-times {
   line-height: 20px;
@@ -3550,7 +3601,51 @@ body .cw-storelocator .feature-flag {
   margin-top: 15px;
   margin-left: 20px;
 }
+body .cw-storelocator .store-details-modal-subtitle {
+  font-weight: 900;
+  color: #414B52;
+  font-size: 16px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+body .cw-storelocator .store-details-modal-address {
+  padding-bottom: 20px;
+  line-height: 24px;
+}
+body .cw-storelocator .store-details-modal-address .store-details-modal-store-title {
+  font-weight: 900;
+  color: #414B52;
+}
+body .cw-storelocator .store-details-modal-current-time {
+  font-weight: 900;
+  border-top: 2px solid #ddd;
+  color: #ba3c3d;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+body .cw-storelocator .store-details-modal-opening-times td {
+  border-bottom: none;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+body .cw-storelocator .store-details-modal-opening-times tr.today td {
+  font-weight: 900;
+  color: #ba3c3d;
+}
 
+@media only screen and (max-width: 767px) {
+  body.store-modal-open {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+  body.store-modal-open .storelocator-search {
+    transform: none !important;
+  }
+  .store-details-modal .store-details-modal-inner {
+    border-top: none !important;
+  }
+}
 @media only screen and (max-width: 1200px) {
   body .cw-storelocator #results-slt .item-thumb, body .cw-storelocator #info-window-wrapper .item-thumb {
     min-width: 130px;

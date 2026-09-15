@@ -413,8 +413,8 @@
 
         
         jQuery('.product-photo-thumbs .product-photo-thumb').click(function() {
-            let index = jQuery(this).parent().index();
-           console.log(index)
+            console.log($(this).data('value'))
+           
         });
 
         jQuery('.grid li').click(function() {

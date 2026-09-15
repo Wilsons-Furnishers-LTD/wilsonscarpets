@@ -176,12 +176,12 @@ class Products {
 
     setupSwatchCarousel() {
        
-        if (jQuery('.product-photo-thumbs .owl-carousel').length) {
-            var $swatchCarousel = $('.product-photo-thumbs .owl-carousel');
+        if (jQuery('.product-photo-thumbs.owl-carousel').length) {
+            var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
             $swatchCarousel.owlCarousel({
-loop: true,
+                loop: true,
                 autoplay: false,
-                margin: 20,
+                margin: 10,
                 nav: true,
                 navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
                 dots: false,
@@ -193,10 +193,9 @@ loop: true,
                         items: 2.5
                     },
                     1400: {
-                        items: 3.5
+                        items: 10
                     }
-                },
-  
+                }
             });
         }
     }

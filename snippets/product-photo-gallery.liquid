@@ -89,8 +89,6 @@
                 {% assign displayedColor = '' %}
                 {% assign firstDisplayed = true %}
                 {% for variant in product.variants %}
-
-
                         {% for option in variant.options %}
                             {% if option == color %}
                                 {% unless displayedColor contains color %}
@@ -162,16 +160,13 @@
             </div>
         </div>
 
-        <div class="ct-owl owl-carousel owl-theme">
-    {{product_images}}
-{{variant_images}}
-</div>
+        
 
         {% if product.images.size > 1 %}
             {% assign image_exclude = "" %}
             <div class="product-photo-thumbs-container">
                 <ul class="product-photo-thumbs owl-carousel">
-                    {% capture variant_images %}
+                    {% capture thumb_variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
                             {% assign displayedColor = '' %}
@@ -221,7 +216,7 @@
                     {% endcapture %}
 
                     {{product_images}}
-                    {{variant_images}}
+                    {{thumb_variant_images}}
                 </ul>
             </div>
         {% endif %}

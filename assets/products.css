@@ -521,6 +521,7 @@
   top: 0;
 }
 .product-main_column {
+  width: 55%;
   padding-left: 10px;
   background-color: #F9F8FA;
   position: relative;

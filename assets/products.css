@@ -627,6 +627,11 @@
     z-index: 1;
     border-radius: 20px;
     padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-main_sidebar .price-only, .product-main_sidebar h1 {
+    order: -1;
   }
 }
 @media (min-width: 992px) {

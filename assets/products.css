@@ -979,7 +979,8 @@
     margin-bottom: 10px;
   }
   .product-main-sidebar__inner .stock-delivery-wrapper {
-    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 0;
   }
   .product-main-sidebar__inner .inStock {
     font-size: 14px;

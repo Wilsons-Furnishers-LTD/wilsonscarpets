@@ -550,8 +550,8 @@
 }
 .product-main_column {
   order: 1;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 0;
+  padding-right: 0;
   background-color: #F9F8FA;
   position: relative;
 }

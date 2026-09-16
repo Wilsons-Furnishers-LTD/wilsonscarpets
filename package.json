@@ -7,6 +7,7 @@
     "watch": "rollup -c -w"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-terser": "^1.0.0",
     "rollup": "^4.0.0",
     "rollup-plugin-postcss": "^4.0.2",
@@ -14,6 +15,7 @@
     "sass": "^1.100.0"
   },
   "dependencies": {
-    "rollup-plugin-delete": "^3.0.2"
+    "rollup-plugin-delete": "^3.0.2",
+    "swiper": "^14.2.0"
   }
 }

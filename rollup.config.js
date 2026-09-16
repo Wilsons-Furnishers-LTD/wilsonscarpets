@@ -1,5 +1,6 @@
 import fs from 'fs';
 import postcss from 'rollup-plugin-postcss';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const entries = [
   'storelocator',
@@ -27,6 +28,7 @@ for (const name of entries) {
         format: 'es',
       },
       plugins: [
+        nodeResolve(),
         postcss({
           extract: `${name}.css`,
           use: ['sass'],

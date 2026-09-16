@@ -909,6 +909,15 @@
   text-decoration: line-through;
 }
 
+@media (max-width: 991px) {
+  .product-main-sidebar {
+    margin-top: -20px;
+    position: relative;
+    z-index: 1;
+    border-radius: 20px;
+    padding-top: 10px;
+  }
+}
 .product-main-sidebar__inner {
   padding-left: 15px;
   padding-right: 15px;
@@ -946,13 +955,6 @@
   display: block;
 }
 @media (max-width: 991px) {
-  .product-main-sidebar__inner {
-    margin-top: -20px;
-    position: relative;
-    z-index: 1;
-    border-radius: 20px;
-    padding-top: 10px;
-  }
   .product-main-sidebar__inner h1, .product-main-sidebar__inner .stock-delivery-wrapper {
     text-align: center;
   }

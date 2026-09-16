@@ -393,6 +393,7 @@
 }
 @media (min-width: 992px) {
   .product-main {
+    display: grid;
     grid-template-columns: minmax(0, 1fr) 45%;
   }
   .product-main:before {

@@ -504,7 +504,7 @@
   overflow: hidden;
   display: flex;
 }
-@media (min-width: 1024px) {
+@media (min-width: 992px) {
   .product-main_images {
     height: calc(100vh - 194px - 18px);
   }

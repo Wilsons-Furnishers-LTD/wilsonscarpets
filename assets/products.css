@@ -838,13 +838,13 @@
   left: 15px;
 }
 .product-main .product-photo-gallery .owl-nav .owl-prev:after {
-  background: url(icon-prev.svg) 50%/24px no-repeat;
+  background: url(iicon-prev-refresh.svg) 50%/24px no-repeat;
 }
 .product-main .product-photo-gallery .owl-nav .owl-next {
   right: 15px;
 }
 .product-main .product-photo-gallery .owl-nav .owl-next:after {
-  background: url(icon-next.svg) 50%/24px no-repeat;
+  background: url(icon-next-refresh.svg) 50%/24px no-repeat;
 }
 .product-main .wc-product-photo-thumbs {
   padding-top: 20px;

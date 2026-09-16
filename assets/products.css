@@ -432,7 +432,12 @@
 }
 .product-main .product-photo-thumbs-container .product-photo-thumb a {
   position: relative;
-  padding-top: 100%;
+  padding-top: calc(100vh - 300px);
+}
+@media (min-width: 992px) {
+  .product-main .product-photo-thumbs-container .product-photo-thumb a {
+    padding-top: 100%;
+  }
 }
 .product-main .product-photo-thumbs-container ul .owl-nav {
   position: absolute;

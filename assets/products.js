@@ -4809,8 +4809,11 @@ class Products {
        
         // init Swiper:
         new Swiper('.product-photo-thumbs-container', {
-            // configure Swiper to use modules
             modules: [Navigation],
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            }
         });
         
     }

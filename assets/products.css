@@ -615,6 +615,7 @@
     position: relative;
     z-index: 1;
     border-radius: 20px;
+    padding-top: 10px;
   }
 }
 @media (min-width: 992px) {

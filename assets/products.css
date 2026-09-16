@@ -1211,13 +1211,19 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
+  flex-wrap: wrap;
 }
 .product-main-details .product-features .feature {
-  width: 25%;
+  width: 50%;
   float: none;
   padding-top: 10px;
   padding-bottom: 20px;
   max-width: 150px;
+}
+@media (min-width: 1200px) {
+  .product-main-details .product-features .feature {
+    width: 25%;
+  }
 }
 .product-main-details .product-features .feature img {
   width: 3.8rem;

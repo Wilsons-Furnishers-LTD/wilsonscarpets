@@ -620,6 +620,9 @@
   .product-main_sidebar h1, .product-main_sidebar .stock-delivery-wrapper {
     text-align: center;
   }
+  .product-main_sidebar h1 {
+    font-size: 24px;
+  }
   .product-main_sidebar .price-only {
     justify-content: center;
   }

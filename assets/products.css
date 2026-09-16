@@ -388,7 +388,8 @@
 }
 
 .product-main {
-  display: flex;
+  display: grid;
+  grid-template-columns: calc(100vw - 600px) 600px;
 }
 @media (min-width: 1550px) {
   .product-main {

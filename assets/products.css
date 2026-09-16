@@ -538,7 +538,7 @@
   position: absolute;
   z-index: 1000;
   top: 10px;
-  left: 10px;
+  left: 20px;
 }
 .product-main_column .product-caption {
   flex: 1;

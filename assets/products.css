@@ -822,11 +822,11 @@
 }
 .product-main .product-photo-gallery .owl-nav .owl-prev {
   left: 15px;
-  background: url(icon-prev.svg) 50%/24px no-repeat;
+  background-image: url(icon-prev.svg) 50%/24px no-repeat;
 }
 .product-main .product-photo-gallery .owl-nav .owl-next {
   right: 15px;
-  background: url(icon-next.svg) 50%/24px no-repeat;
+  background-image: url(icon-next.svg) 50%/24px no-repeat;
 }
 .product-main .wc-product-photo-thumbs {
   padding-top: 20px;

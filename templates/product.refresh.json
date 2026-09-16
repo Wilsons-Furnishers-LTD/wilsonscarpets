@@ -29,24 +29,302 @@
             "link": ""
           }
         },
-        "specification_WQFgja": {
+        "1594310045198": {
           "type": "specification",
           "settings": {
-            "tag": "test"
+            "tag": "Wear Layer"
           }
         },
-        "specification_drRbPf": {
+        "1585832129019": {
           "type": "specification",
           "settings": {
-            "tag": "this"
+            "tag": "Pile Height"
+          }
+        },
+        "1585832141898": {
+          "type": "specification",
+          "settings": {
+            "tag": "Material"
+          }
+        },
+        "eb149e96-ec67-4a4e-87ce-4a2f1308102c": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pile Content"
+          }
+        },
+        "1585832123201": {
+          "type": "specification",
+          "settings": {
+            "tag": "TOG Rating"
+          }
+        },
+        "1585832161729": {
+          "type": "specification",
+          "settings": {
+            "tag": "Backing"
+          }
+        },
+        "1593160938413": {
+          "type": "specification",
+          "settings": {
+            "tag": "Manufacturer"
+          }
+        },
+        "1594310024664": {
+          "type": "specification",
+          "settings": {
+            "tag": "Slip Resistant?"
+          }
+        },
+        "1593092171313": {
+          "type": "specification",
+          "settings": {
+            "tag": "Available Widths"
+          }
+        },
+        "1593099719771": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pattern Repeat"
+          }
+        },
+        "1586356434849": {
+          "type": "specification",
+          "settings": {
+            "tag": "Brand"
+          }
+        },
+        "1586356394457": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pack Size (M²)"
+          }
+        },
+        "1586356446042": {
+          "type": "specification",
+          "settings": {
+            "tag": "Planks Per Pack"
+          }
+        },
+        "1586356481879": {
+          "type": "specification",
+          "settings": {
+            "tag": "Plank Size"
+          }
+        },
+        "1586356418476": {
+          "type": "specification",
+          "settings": {
+            "tag": "Edges"
+          }
+        },
+        "1586356399117": {
+          "type": "specification",
+          "settings": {
+            "tag": "Installation System"
+          }
+        },
+        "1596811869234": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pile Weight"
+          }
+        },
+        "1596811880230": {
+          "type": "specification",
+          "settings": {
+            "tag": "Total Weight"
+          }
+        },
+        "1597147090699": {
+          "type": "specification",
+          "settings": {
+            "tag": "Density"
+          }
+        },
+        "1597147103035": {
+          "type": "specification",
+          "settings": {
+            "tag": "Impact sound reduction"
+          }
+        },
+        "1597142176678": {
+          "type": "specification",
+          "settings": {
+            "tag": "Shipping"
+          }
+        },
+        "1597226835218": {
+          "type": "specification",
+          "settings": {
+            "tag": "Dimensions"
+          }
+        },
+        "1591966797018": {
+          "type": "specification",
+          "settings": {
+            "tag": "Testing"
+          }
+        },
+        "1589200564508": {
+          "type": "specification",
+          "settings": {
+            "tag": "Juno Test"
+          }
+        },
+        "1597227219394": {
+          "type": "specification",
+          "settings": {
+            "tag": "Pack Size"
+          }
+        },
+        "4e48c7a1-484b-43c8-9deb-f09a7e3b0210": {
+          "type": "specification",
+          "settings": {
+            "tag": "Plank / Tile Size"
+          }
+        },
+        "8182abeb-94a0-4348-948d-af4e0af817de": {
+          "type": "specification",
+          "settings": {
+            "tag": "Tape Length"
+          }
+        },
+        "5deb96a9-a3a7-4a21-be0f-4618f944a8f1": {
+          "type": "specification",
+          "settings": {
+            "tag": "Tape Width"
+          }
+        },
+        "e9ee4257-db4b-411e-baba-3d553d893822": {
+          "type": "specification",
+          "settings": {
+            "tag": "Underfloor Heating Resistant"
+          }
+        },
+        "907a4658-d668-4217-b65e-c05ca690c5ce": {
+          "type": "specification",
+          "settings": {
+            "tag": "Castor Wheel Resistant"
+          }
+        },
+        "4a5e03bf-949b-4ec3-a5f1-6c4ffb297941": {
+          "type": "specification",
+          "settings": {
+            "tag": "Heel Resistant"
+          }
+        },
+        "0d875bb6-3af4-421d-b0f1-4d9931081481": {
+          "type": "specification",
+          "settings": {
+            "tag": "Coverage"
+          }
+        },
+        "60a45f3d-8519-4864-bb16-80bec875f2ab": {
+          "type": "specification",
+          "settings": {
+            "tag": "Door Bar Length"
+          }
+        },
+        "f9042522-02da-42e0-97d2-c319313db7be": {
+          "type": "specification",
+          "settings": {
+            "tag": "Beading Length"
+          }
+        },
+        "4eac8104-cfc5-467a-b9ea-cda3b5cd79ec": {
+          "type": "specification",
+          "settings": {
+            "tag": "Remnant Size"
+          }
+        },
+        "419b47b4-68cb-419e-b68a-dd0453e5d2d2": {
+          "type": "specification",
+          "settings": {
+            "tag": "Suitability"
+          }
+        },
+        "ce047d82-6f8f-4849-8e88-f69dc612205a": {
+          "type": "specification",
+          "settings": {
+            "tag": "Acoustic Insulation"
+          }
+        },
+        "tags_XeNVc8": {
+          "type": "specification",
+          "settings": {
+            "tag": "Oak Layer"
+          }
+        },
+        "tags_nt6BDg": {
+          "type": "specification",
+          "settings": {
+            "tag": "Finish"
+          }
+        },
+        "tags_6KcEQd": {
+          "type": "specification",
+          "settings": {
+            "tag": "Style"
+          }
+        },
+        "tags_PUzRkw": {
+          "type": "specification",
+          "settings": {
+            "tag": "Drainage Holes"
+          }
+        },
+        "tags_kJqakc": {
+          "type": "specification",
+          "settings": {
+            "tag": "Usage Class"
           }
         }
       },
       "block_order": [
-        "feature_Qj46ED",
-        "feature_a99fc9",
-        "specification_WQFgja",
-        "specification_drRbPf"
+"1594310045198",
+        "1585832129019",
+        "1585832141898",
+        "eb149e96-ec67-4a4e-87ce-4a2f1308102c",
+        "1585832123201",
+        "1585832161729",
+        "1593160938413",
+        "1594310024664",
+        "1593092171313",
+        "1593099719771",
+        "1586356434849",
+        "1586356394457",
+        "1586356446042",
+        "1586356481879",
+        "1586356418476",
+        "1586356399117",
+        "1596811869234",
+        "1596811880230",
+        "1597147090699",
+        "1597147103035",
+        "1597142176678",
+        "1597226835218",
+        "1591966797018",
+        "1589200564508",
+        "1597227219394",
+        "4e48c7a1-484b-43c8-9deb-f09a7e3b0210",
+        "8182abeb-94a0-4348-948d-af4e0af817de",
+        "5deb96a9-a3a7-4a21-be0f-4618f944a8f1",
+        "e9ee4257-db4b-411e-baba-3d553d893822",
+        "907a4658-d668-4217-b65e-c05ca690c5ce",
+        "4a5e03bf-949b-4ec3-a5f1-6c4ffb297941",
+        "0d875bb6-3af4-421d-b0f1-4d9931081481",
+        "60a45f3d-8519-4864-bb16-80bec875f2ab",
+        "f9042522-02da-42e0-97d2-c319313db7be",
+        "4eac8104-cfc5-467a-b9ea-cda3b5cd79ec",
+        "419b47b4-68cb-419e-b68a-dd0453e5d2d2",
+        "ce047d82-6f8f-4849-8e88-f69dc612205a",
+        "tags_XeNVc8",
+        "tags_nt6BDg",
+        "tags_6KcEQd",
+        "tags_PUzRkw",
+        "tags_kJqakc"
       ],
       "name": "Product Main Area",
       "settings": {}

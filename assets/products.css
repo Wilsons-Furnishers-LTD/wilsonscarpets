@@ -521,8 +521,6 @@
   top: 0;
 }
 .product-main_column {
-  min-width: calc(100vw - 600px);
-  max-width: calc(100vw - 700px);
   padding-left: 10px;
   background-color: #F9F8FA;
   position: relative;

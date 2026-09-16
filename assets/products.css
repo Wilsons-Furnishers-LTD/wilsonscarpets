@@ -515,6 +515,11 @@
   left: 50%;
   transform: translate(-50%);
 }
+@media (min-width: 992px) {
+  .product-main .product-photo-gallery-container .owl-dots {
+    display: none;
+  }
+}
 .product-main .product-photo-gallery-container .owl-dots .owl-dot {
   width: 10px;
   height: 10px;

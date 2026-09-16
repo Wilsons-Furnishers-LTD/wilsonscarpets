@@ -720,6 +720,11 @@
   padding-left: 60px;
   position: relative;
 }
+@media (max-width: 991px) {
+  .product-main .wc-product-photo-thumbs {
+    display: none;
+  }
+}
 .product-main .wc-product-photo-thumbs .swiper-button-prev, .product-main .wc-product-photo-thumbs .swiper-button-next {
   position: absolute;
   right: 10px;

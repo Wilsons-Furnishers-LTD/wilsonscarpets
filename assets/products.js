@@ -21,7 +21,7 @@ class Products {
         }
         document.addEventListener('DOMContentLoaded', this.updateVariantSelection.bind(this));
         document.addEventListener('DOMContentLoaded', this.setupRelatedProductCarousel.bind(this));
-        // document.addEventListener('DOMContentLoaded', this.setupSwatchCarousel.bind(this));
+        document.addEventListener('DOMContentLoaded', this.setupSwatchCarousel.bind(this));
 
         this.setupRelatedProductCarousel.bind(this);
 
@@ -176,6 +176,12 @@ class Products {
 
     setupSwatchCarousel() {
        
+        $('.multiple-items').slick({
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 3
+});
+		
         if (jQuery('.product-photo-thumbs.owl-carousel').length) {
             var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
             $swatchCarousel.owlCarousel({

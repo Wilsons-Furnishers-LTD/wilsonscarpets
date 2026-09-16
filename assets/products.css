@@ -907,21 +907,6 @@
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (max-width: 991px) {
-  .product-main-sidebar__inner .product-details {
-    border-top: none;
-    margin-top: 0;
-  }
-  .product-main-sidebar__inner h1 {
-    display: none;
-  }
-  .product-main-sidebar__inner .stock-delivery-wrapper {
-    display: none;
-  }
-  .product-main-sidebar__inner .price-only {
-    display: none !important;
-  }
-}
 @media (min-width: 476px) {
   .product-main-sidebar__inner {
     padding-left: 20px;

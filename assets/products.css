@@ -531,10 +531,10 @@
   width: 100vw;
   padding-left: 30px;
   padding-right: 30px;
-  display: flex;
 }
 @media (min-width: 992px) {
   .product-main_column {
+    display: flex;
     width: 55%;
     padding-left: 10px;
     background-color: #F9F8FA;

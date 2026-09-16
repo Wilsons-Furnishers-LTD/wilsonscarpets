@@ -716,10 +716,11 @@
 .product-main .product-photo-thumbs img {
   border-radius: 4px;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
   object-fit: cover;
-  top: 0;
+  inset: 0;
+  margin: auto;
 }
 .product-main .related-products-refresh h2.title-section {
   text-align: left;

@@ -818,6 +818,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+  background-color: #fff;
 }
 .product-main .product-photo-gallery .owl-nav .owl-prev {
   left: 15px;

@@ -165,8 +165,8 @@
 
         {% if product.images.size > 1 %}
             {% assign image_exclude = "" %}
-            <div class="product-photo-thumbs-container">
-                <ul class="product-photo-thumbs owl-carousel">
+            <div class="product-photo-thumbs-container swiper">
+                <ul class="product-photo-thumbs swiper-wrapper">
                     {% capture variant_images %}
                         {% for value_color in value_colors %}
                             {% assign color = value_color | strip %}
@@ -176,7 +176,7 @@
                                         {% if option == color %}
                                             {% unless displayedColor contains color %}
                                                 {% assign displayedColor = displayedColor | append: '|' | append: color %}
-                                                    <li class="product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
+                                                    <li class="swiper-slide product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
                                                         <div class="product-photo-thumb-tooltip">
                                                             <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
                                                         </div>
@@ -201,13 +201,13 @@
                         {% unless image_exclude contains variant_image %}
                             {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
                                 {% unless image.attached_to_variant? %}
-                                    <li class="product-photo-thumb js-product-photo-thumb two-per-row {{product_option_name}}" data-value="">
+                                    <li class="swiper-slide product-photo-thumb js-product-photo-thumb two-per-row {{product_option_name}}" data-value="">
                                         <a href="#" class="data" data-quantity="{% if product.available %}999{% endif %}" data-stockLevel="{{ product.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ product.metafields.customAttributes.delivery-time }}"><img src="{{ image | img_url: '80x80', crop: 'center' }}" alt="{{ image.alt | escape }}"  /></a>
                                     </li>
 
                                 {% endunless %}
                             {% else %}
-                                <li class="product-photo-thumb js-product-photo-thumb two-per-row {{product_option_name}}" data-value="">
+                                <li class="swiper-slide product-photo-thumb js-product-photo-thumb two-per-row {{product_option_name}}" data-value="">
                                     <a href="#" class="data" data-quantity="{% if product.available %}999{% endif %}" data-stockLevel="{{ product.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ product.metafields.customAttributes.delivery-time }}"><img src="{{ image | img_url: '80x80', crop: 'center' }}" alt="{{ image.alt | escape }}"  /></a>
                                 </li>
                                 {% assign image_exclude = image_exclude | append: image.src | append: "<|>" %}

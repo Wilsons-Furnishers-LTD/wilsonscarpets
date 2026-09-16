@@ -793,9 +793,13 @@
 .product-main-sidebar__inner {
   padding-left: 30px;
   padding-right: 30px;
-  height: 100%;
-  overflow: scroll;
-  padding-bottom: 250px;
+}
+@media (min-width: 992px) {
+  .product-main-sidebar__inner {
+    overflow: scroll;
+    height: 100%;
+    padding-bottom: 250px;
+  }
 }
 @media (min-width: 1200px) {
   .product-main-sidebar__inner {

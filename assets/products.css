@@ -820,6 +820,7 @@
   transform: translateY(-50%);
   background-color: #fff;
   border-radius: 100%;
+  backdrop-filter: blur(10px);
 }
 .product-main .product-photo-gallery .owl-nav .owl-prev {
   left: 15px;

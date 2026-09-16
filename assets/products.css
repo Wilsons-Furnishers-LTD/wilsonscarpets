@@ -539,6 +539,9 @@
   z-index: 1000;
   top: 10px;
   left: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 10px;
 }
 .product-main_column .product-caption {
   flex: 1;

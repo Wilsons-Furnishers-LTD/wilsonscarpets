@@ -519,6 +519,11 @@
   bottom: 30px;
   right: 15px;
 }
+@media (min-width: 476px) {
+  .product-main .product-photo-gallery-container .item:after {
+    right: 20px;
+  }
+}
 @media (min-width: 992px) {
   .product-main .product-photo-gallery-container .item:after {
     bottom: 0;

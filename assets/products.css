@@ -648,11 +648,11 @@
   margin: auto;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-prev {
-  top: 15px;
+  top: 14px;
   bottom: initial;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-next {
-  bottom: 5px;
+  bottom: 4px;
   top: initial;
 }
 .product-main .product-photo-thumbs a {

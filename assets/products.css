@@ -528,10 +528,19 @@
   top: 0;
 }
 .product-main_column {
-  width: 55%;
-  padding-left: 10px;
-  background-color: #F9F8FA;
-  position: relative;
+  width: 100vw;
+  padding-left: 30px;
+  padding-right: 30px;
+  display: flex;
+}
+@media (min-width: 992px) {
+  .product-main_column {
+    width: 55%;
+    padding-left: 10px;
+    background-color: #F9F8FA;
+    position: relative;
+    padding-right: 0;
+  }
 }
 @media (min-width: 1335px) {
   .product-main_column {

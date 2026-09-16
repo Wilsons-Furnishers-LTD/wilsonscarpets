@@ -704,7 +704,12 @@
   padding-left: 10px;
 }
 .product-main_sidebar .product-price-wrapper #product-price {
-  font-size: 26px;
+  font-size: 13px;
+}
+@media (min-width: 992px) {
+  .product-main_sidebar .product-price-wrapper #product-price {
+    font-size: 26px;
+  }
 }
 .product-main_sidebar .product-price-wrapper button {
   width: 160px;

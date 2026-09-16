@@ -410,14 +410,9 @@
         })
 
         jQuery('.product-photo-thumbs li').click(function (e) {
-            
-            let index = jQuery(this).index()
-            if($(this).parent().hasClass('owl-item')) {
-                index = $(this).parent().index()
-            }
-            console.log(index)
             e.preventDefault();
-            let value = jQuery(this).data('value'),
+            var index = jQuery(this).index(),
+                value = jQuery(this).data('value'),
                 swatch = jQuery('.swatch-colours'),
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
@@ -433,10 +428,10 @@
                 //swatchClick(value);
             }
 
-            
+            console.log()
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
-            jQuery('.product-photo-gallery .owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+            jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
         });
 
         if(is_loop){

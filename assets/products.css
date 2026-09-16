@@ -531,6 +531,9 @@
   display: flex;
   flex-direction: column;
 }
+.product-main_column .product-grid .owl-nav i {
+  height: 16px;
+}
 .product-main_column .product-caption {
   flex: 1;
 }

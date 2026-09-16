@@ -636,12 +636,14 @@
 }
 .product-main .wc-product-photo-thumbs {
   padding-top: 10px;
-  padding-right: 50px;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-prev, .product-main .wc-product-photo-thumbs .swiper-button-next {
   position: absolute;
   right: -40px;
   left: initial;
+}
+.product-main .product-photo-thumbs-container {
+  padding-right: 50px;
 }
 .product-main .product-photo-thumbs a {
   display: flex;

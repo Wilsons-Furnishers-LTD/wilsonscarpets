@@ -392,7 +392,7 @@
             setTimeout(function() {
                 jQuery('.product-photo-container .owl-stage .owl-item').removeClass('animated owl-animated-out fadeOut').css('left', '');
                 var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
-                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: true});///(zoomElement);
+                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
                 pz.enable(); // Enables all gesture capturing (is enabled by default)
             }, 100);
 
@@ -585,6 +585,7 @@
         if(jQuery('.product-photo-container .js-product-photo-thumb').length){
             carouselInit(true);
         }else{
+            console.log('loading')
             carouselInit(false);
         }
 

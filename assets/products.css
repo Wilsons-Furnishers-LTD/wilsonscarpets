@@ -540,6 +540,7 @@
 }
 .product-main_column .product-photo-gallery {
   position: relative;
+  flex: 1;
 }
 .product-main_column .product-photo-gallery__colour {
   position: absolute;

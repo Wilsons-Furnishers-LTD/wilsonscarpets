@@ -636,6 +636,7 @@
 }
 .product-main .wc-product-photo-thumbs {
   padding-top: 10px;
+  padding-bottom: 10px;
   padding-right: 60px;
   padding-left: 60px;
   position: relative;
@@ -654,6 +655,7 @@
 .product-main .wc-product-photo-thumbs .swiper-button-prev {
   top: 14px;
   bottom: initial;
+  left: 0;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-next {
   bottom: 4px;

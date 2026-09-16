@@ -840,7 +840,9 @@
 }
 .product-main .product-photo-gallery .owl-nav .owl-next {
   right: 15px;
-  background-image: url(icon-next.svg) 50%/24px no-repeat;
+}
+.product-main .product-photo-gallery .owl-nav .owl-next:after {
+  background: url(icon-next.svg) 50%/24px no-repeat;
 }
 .product-main .wc-product-photo-thumbs {
   padding-top: 20px;

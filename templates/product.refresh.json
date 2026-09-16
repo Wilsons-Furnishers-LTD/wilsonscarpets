@@ -13,17 +13,10 @@
     "product_main_area_rqjCxw": {
       "type": "product-main-area",
       "blocks": {
-        "feature_Qj46ED": {
+        "feature_mX4a4H": {
           "type": "feature",
           "settings": {
-            "title": "Image slide",
-            "subheading": "Lorem ipsum dolor sit amet, consectetur",
-            "link": ""
-          }
-        },
-        "feature_a99fc9": {
-          "type": "feature",
-          "settings": {
+            "image": "shopify://shop_images/mattress-test-3_3ab6a4f6-2213-45df-8204-1744beca2cc2.webp",
             "title": "Image slide",
             "subheading": "Lorem ipsum dolor sit amet, consectetur",
             "link": ""
@@ -283,7 +276,8 @@
         }
       },
       "block_order": [
-"1594310045198",
+        "feature_mX4a4H",
+        "1594310045198",
         "1585832129019",
         "1585832141898",
         "eb149e96-ec67-4a4e-87ce-4a2f1308102c",

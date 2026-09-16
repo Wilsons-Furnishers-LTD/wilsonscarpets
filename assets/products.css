@@ -612,6 +612,9 @@
 @media (max-width: 991px) {
   .product-main_sidebar {
     margin-top: -20px;
+    position: relative;
+    z-index: 1;
+    border-radius: 40px;
   }
 }
 @media (min-width: 992px) {

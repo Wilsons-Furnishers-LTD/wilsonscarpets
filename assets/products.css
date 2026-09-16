@@ -857,6 +857,52 @@
   right: 0;
 }
 
+.product-main-sidebar__inner h1, .product-mobile-header h1 {
+  margin-top: 0px;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+.product-main-sidebar__inner .instock, .product-main-sidebar__inner .inStock, .product-mobile-header .instock, .product-mobile-header .inStock {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  display: inline-block;
+  color: #28a81a;
+  margin-right: 1.5625rem;
+}
+.product-main-sidebar__inner #deliveryEstimate, .product-mobile-header #deliveryEstimate {
+  padding-left: 22px;
+  position: relative;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  display: inline-block;
+  color: #414B52;
+}
+.product-main-sidebar__inner #deliveryEstimate .icon, .product-mobile-header #deliveryEstimate .icon {
+  width: 12px;
+  position: absolute;
+  top: 2px;
+  left: 0;
+}
+.product-main-sidebar__inner .stock-delivery-wrapper, .product-mobile-header .stock-delivery-wrapper {
+  padding-bottom: 20px;
+}
+.product-main-sidebar__inner .price-only, .product-mobile-header .price-only {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+.product-main-sidebar__inner .price-only h2, .product-mobile-header .price-only h2 {
+  font-size: 28px;
+}
+.product-main-sidebar__inner .price-only h3, .product-mobile-header .price-only h3 {
+  font-weight: 400;
+  font-size: 16px;
+  text-decoration: line-through;
+}
+
 .product-main-sidebar__inner {
   padding-left: 15px;
   padding-right: 15px;
@@ -907,51 +953,6 @@
   left: 0;
   content: "";
   display: block;
-}
-.product-main-sidebar__inner h1 {
-  margin-top: 0px;
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-.product-main-sidebar__inner .instock, .product-main-sidebar__inner .inStock {
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.4;
-  display: inline-block;
-  color: #28a81a;
-  margin-right: 1.5625rem;
-}
-.product-main-sidebar__inner #deliveryEstimate {
-  padding-left: 22px;
-  position: relative;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.4;
-  display: inline-block;
-  color: #414B52;
-}
-.product-main-sidebar__inner #deliveryEstimate .icon {
-  width: 12px;
-  position: absolute;
-  top: 2px;
-  left: 0;
-}
-.product-main-sidebar__inner .stock-delivery-wrapper {
-  padding-bottom: 20px;
-}
-.product-main-sidebar__inner .price-only {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 10px;
-}
-.product-main-sidebar__inner .price-only h2 {
-  font-size: 28px;
-}
-.product-main-sidebar__inner .price-only h3 {
-  font-weight: 400;
-  font-size: 16px;
-  text-decoration: line-through;
 }
 
 @media only screen and (min-width: 64em) {

@@ -639,6 +639,11 @@
 }
 .product-main .product-photo-thumbs img {
   border-radius: 4px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
 }
 .product-main .related-products-refresh h2.title-section {
   text-align: left;

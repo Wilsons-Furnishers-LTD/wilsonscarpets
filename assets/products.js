@@ -175,9 +175,10 @@ class Products {
     }
 
     setupSwatchCarousel() {
+       
         if (jQuery('.product-photo-thumbs.owl-carousel').length) {
             var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
-$swatchCarousel.owlCarousel({
+            $swatchCarousel.owlCarousel({
                 loop: true,
                 autoplay: false,
                 margin: 10,
@@ -189,7 +190,7 @@ $swatchCarousel.owlCarousel({
                         items: 1
                     },
                     768: {
-                        items: 10
+                        items: 2.5
                     },
                     1400: {
                         items: 10

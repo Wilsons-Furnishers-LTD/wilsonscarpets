@@ -119,6 +119,47 @@
       {{ stockAvailability }}
     </p>
 
+    <input
+      type="hidden"
+      value=" {{stockAvailability}}"
+      id="properties_stockLevel"
+      name="properties[_StockLevel]" />
+    <input
+      type="hidden"
+      value="false"
+      id="first_load"
+      name="first_load" />
+    {% assign deliveryTime = '' %}
+
+    {% for variant in product.variants %}
+      {% assign variantDeliveryTime = variant.metafields.Juno.Delivery_time | downcase %}
+      {% if 'fast delivery' == variantDeliveryTime %}
+        {% assign deliveryTime = 'Fast Delivery' %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if deliveryTime == '' %}
+      {% for variant in product.variants %}
+        {% assign variantDeliveryTime = variant.metafields.Juno.Delivery_time | downcase %}
+        {% if 'Product Discontinued' != variantDeliveryTime %}
+          {% assign deliveryTime = variant.metafields.Juno.Delivery_time %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if deliveryTime == '' %}
+      {% assign deliveryTime = 'Product Discontinued' %}
+    {% endif %}
+
+    <a href="/pages/stores" id="deliveryEstimate">
+      <span class="location__icon icon icon"><img src="{{ 'icon-location.svg' | asset_url }}" alt="location"></span>
+      {{ deliveryTime }}</a>
+    </div>
+    <input
+      type="hidden"
+      value="{{ deliveryTime }}"
+      id="properties_deliveryEstimate"
+      name="properties[_DeliveryEstimate]" />
 
     <div class="price-only{{ onSaleClass }}">
       {% assign afterText = afterText | strip | downcase %}
@@ -159,5 +200,5 @@
         </h3>
       {% endif %}
     </div>
-    
+    {%- render 'product-main-options' -%}
 </div>

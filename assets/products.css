@@ -405,14 +405,14 @@
   .product-main {
     grid-template-columns: minmax(0, 1fr) 600px;
   }
+  .product-main:before {
+    width: calc(100% - 600px);
+  }
 }
 @media (min-width: 1550px) {
   .product-main {
     max-width: 1550px;
     margin: 0 auto;
-  }
-  .product-main:before {
-    width: calc(100% - 600px);
   }
 }
 .product-main .product-photo-thumbs-container .product-photo-thumb {

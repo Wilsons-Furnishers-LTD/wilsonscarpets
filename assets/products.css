@@ -634,6 +634,10 @@
 .product-main .product-photo-gallery .owl-nav {
   display: none;
 }
+.product-main .wc-product-photo-thumbs {
+  padding-top: 10px;
+  padding-right: 10px;
+}
 .product-main .product-photo-thumbs a {
   display: flex;
 }

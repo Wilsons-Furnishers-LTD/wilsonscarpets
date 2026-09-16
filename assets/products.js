@@ -1,3 +1,8 @@
+import Swiper from 'swiper';
+import 'swiper/css';
+import { Navigation } from 'swiper/modules';
+import 'swiper/css/navigation';
+
 class Products {
     constructor() {
         const variantData = document.getElementById(
@@ -176,34 +181,12 @@ class Products {
 
     setupSwatchCarousel() {
        
-        $('.multiple-items').slick({
-  infinite: true,
-  slidesToShow: 3,
-  slidesToScroll: 3
-});
-		
-        if (jQuery('.product-photo-thumbs.owl-carousel').length) {
-            var $swatchCarousel = $('.product-photo-thumbs.owl-carousel');
-            $swatchCarousel.owlCarousel({
-                loop: true,
-                autoplay: false,
-                margin: 10,
-                nav: true,
-                navText: ['<i class="fas fa-chevron-left"></i>', '<i class="fas fa-chevron-right"></i>'],
-                dots: false,
-                responsive: {
-                    0: {
-                        items: 1
-                    },
-                    768: {
-                        items: 2.5
-                    },
-                    1400: {
-                        items: 10
-                    }
-                }
-            });
-        }
+        // init Swiper:
+        new Swiper('.product-photo-thumbs-container', {
+            // configure Swiper to use modules
+            modules: [Navigation],
+        });
+        
     }
     setupRelatedProductCarousel() {
         if (jQuery('.related-products-refresh .owl-carousel').length) {

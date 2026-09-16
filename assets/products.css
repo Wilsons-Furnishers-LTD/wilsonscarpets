@@ -537,7 +537,7 @@
 .product-main_column {
   grid-column: 1;
   grid-row: 1;
-  padding-left: 10px;
+  padding-left: 20px;
   background-color: #F9F8FA;
   position: relative;
 }
@@ -680,8 +680,8 @@
   display: none;
 }
 .product-main .wc-product-photo-thumbs {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   padding-right: 60px;
   padding-left: 60px;
   position: relative;

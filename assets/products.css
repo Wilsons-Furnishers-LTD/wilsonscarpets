@@ -820,6 +820,9 @@
   padding-right: 15px;
 }
 @media (max-width: 991px) {
+  .product-main-sidebar__inner .product-details {
+    border-top: none;
+  }
   .product-main-sidebar__inner h1 {
     display: none;
   }

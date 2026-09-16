@@ -32,7 +32,6 @@
     {% endif %}
 {% endfor %}
 
-
 <script>
     // activeVariant = -1;
     variantsAndPrices = [];
@@ -329,7 +328,7 @@
 
     function carouselInit(loop){
         const is_loop = loop ?? true;
-
+        
         jQuery(".product-photo-container .owl-carousel").owlCarousel({
             items: 1,
             loop: is_loop,
@@ -358,33 +357,33 @@
             onInitialized: function(){
 
 
-                // jQuery('.product-photo-container .featherlight-gallery').zoom({
-                //     magnify: 1.35,
-                //     callback: function(){
+                jQuery('.product-photo-container .featherlight-gallery').zoom({
+                    magnify: 1.35,
+                    callback: function(){
 
-                //     }
-                // });
+                    }
+                });
 
-                // /* mobile swipe initial on top zoom element */
-                // var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
-                // let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
-                // pz.enable(); // Enables all gesture capturing (is enabled by default)
+                /* mobile swipe initial on top zoom element */
+                var zoomElement = document.querySelector('.product-photo-container .owl-item.active span.zoom-mobile');
+                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
+                pz.enable(); // Enables all gesture capturing (is enabled by default)
 
-                // var hammertime = new Hammer(zoomElement, {});
-                // hammertime.on('swipeleft swiperight', function(ev) {
+                var hammertime = new Hammer(zoomElement, {});
+                hammertime.on('swipeleft swiperight', function(ev) {
 
-                //     if(ev.type === 'swipeleft'){
-                //         //jQuery('.option-colour .swatch-colours li:first-child').trigger('click');
-                //         //jQuery('.option-colour .swatch-colours li.selected').next().trigger('click')
-                //         jQuery('.product-photo-thumb').eq(currentItem - 1).trigger('click');
-                //     }
+                    if(ev.type === 'swipeleft'){
+                        //jQuery('.option-colour .swatch-colours li:first-child').trigger('click');
+                        //jQuery('.option-colour .swatch-colours li.selected').next().trigger('click')
+                        jQuery('.product-photo-thumb').eq(currentItem - 1).trigger('click');
+                    }
 
-                //     if(ev.type === 'swiperight'){
-                //         //jQuery('.product-photo-container .owl-dot.active').next().trigger('click');
-                //         jQuery('.product-photo-thumb').eq(currentItem + 1).trigger('click');
+                    if(ev.type === 'swiperight'){
+                        //jQuery('.product-photo-container .owl-dot.active').next().trigger('click');
+                        jQuery('.product-photo-thumb').eq(currentItem + 1).trigger('click');
 
-                //     }
-                // });
+                    }
+                });
             }
         });
         jQuery(".product-photo-container .owl-carousel").on('changed.owl.carousel', function(event) {
@@ -589,6 +588,33 @@
         }else{
             carouselInit(false);
         }
+
+        jQuery(".product-photo-gallery .owl-carousel").owlCarousel({
+            items: 1,
+            loop: true,
+            margin: 0,
+            nav: true,
+            dots: true,
+            animateOut: '',
+            mouseDrag: false,
+            touchDrag: true,
+            lazyLoad: true,
+            responsive: {
+                0: {
+                    loop: true,
+                    mouseDrag: true,
+                    margin: 15,
+                },
+                480: {
+                    loop: true,
+                    mouseDrag: true,
+                    margin: 20,
+                },
+                1024: {
+                    mouseDrag: true
+                }
+            }
+        });
 
         if(jQuery('.swatch-colours').hasClass('swatch-colours-new')) {
             jQuery('.option-colour .swatch-colours-new label').click(function () {

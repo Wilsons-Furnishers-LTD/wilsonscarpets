@@ -584,7 +584,9 @@
   }
 }
 .product-main_sidebar .grid {
-  display: flex;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
 }
 .product-main_sidebar .grid li {
   margin: 0 !important;

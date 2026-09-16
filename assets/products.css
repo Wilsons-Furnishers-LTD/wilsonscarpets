@@ -391,6 +391,16 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 45%;
 }
+.product-main:before {
+  content: "";
+  display: block;
+  width: 55%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #F9F8FA;
+  height: 100%;
+}
 @media (min-width: 1280px) {
   .product-main {
     grid-template-columns: minmax(0, 1fr) 600px;
@@ -402,14 +412,7 @@
     margin: 0 auto;
   }
   .product-main:before {
-    content: "";
-    display: block;
     width: calc(100% - 600px);
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: #F9F8FA;
-    height: 100%;
   }
 }
 .product-main .product-photo-thumbs-container .product-photo-thumb {

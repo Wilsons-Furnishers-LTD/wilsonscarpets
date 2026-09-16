@@ -643,16 +643,16 @@
   position: absolute;
   right: 10px;
   left: initial;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   margin: auto;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-prev {
-  top: 10px;
+  top: 15px;
   bottom: initial;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-next {
-  bottom: 10px;
+  bottom: 5px;
   top: initial;
 }
 .product-main .product-photo-thumbs a {

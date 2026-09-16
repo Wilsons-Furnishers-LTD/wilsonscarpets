@@ -534,6 +534,9 @@
 .product-main_column .product-grid .owl-nav i {
   height: 16px;
 }
+.product-main_column .product-photo-gallery {
+  position: relative;
+}
 .product-main_column .product-photo-gallery__colour {
   position: absolute;
   z-index: 1000;

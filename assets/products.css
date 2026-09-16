@@ -503,7 +503,12 @@
 .product-main_images {
   overflow: hidden;
   display: flex;
-  height: calc(100vh - 194px - 18px);
+  height: calc(100vh - 145px);
+}
+@media (min-width: 1024px) {
+  .product-main_images {
+    height: calc(100vh - 194px - 18px);
+  }
 }
 .product-main_images .item {
   position: relative;
@@ -540,6 +545,7 @@
 }
 .product-main_column .product-photo-gallery {
   position: relative;
+  flex: 1;
 }
 .product-main_column .product-photo-gallery__colour {
   position: absolute;
@@ -578,6 +584,15 @@
     right: calc((100vw - 1400px) / 2);
   }
 }
+.product-main_sidebar .grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+}
+.product-main_sidebar .grid li {
+  margin: 0 !important;
+  flex: none;
+}
 .product-main_sidebar .product-details {
   margin-top: 20px;
 }
@@ -609,12 +624,17 @@
   position: absolute;
   bottom: 0;
   z-index: 111;
-  width: calc(100% - 100px);
+  width: calc(100% - 60px);
   background: #fff;
   border-top: 1px solid rgba(65, 75, 82, 0.5);
 }
 .product-main_sidebar .option-size.option input[type=text], .product-main_sidebar .option-size.option select {
   height: 35px;
+}
+@media (min-width: 1200px) {
+  .product-main_sidebar .option-size.option {
+    width: calc(100% - 100px);
+  }
 }
 .product-main_sidebar .product-price-wrapper {
   display: flex;
@@ -687,16 +707,20 @@
   right: 12.5px;
   left: initial;
 }
+.product-main .product-photo-thumbs {
+  display: flex;
+}
 .product-main .product-photo-thumbs a {
   display: flex;
 }
 .product-main .product-photo-thumbs img {
   border-radius: 4px;
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
   object-fit: cover;
-  top: 0;
+  inset: 0;
+  margin: auto;
 }
 .product-main .related-products-refresh h2.title-section {
   text-align: left;
@@ -735,11 +759,17 @@
 }
 
 .product-main-sidebar__inner {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
   height: 100%;
   overflow: scroll;
   padding-bottom: 250px;
+}
+@media (min-width: 1200px) {
+  .product-main-sidebar__inner {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 }
 .product-main-sidebar__inner:after {
   width: 100%;

@@ -126,7 +126,10 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
     &_images {
         overflow: hidden;
         display: flex;
-        height: $full-height;
+        height: calc(100vh - 145px);
+        @media (min-width: 1024px) {
+            height: $full-height;
+        }
         .item {
             position: relative;
         }
@@ -164,6 +167,7 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
         }
         .product-photo-gallery {
             position: relative;
+            flex: 1;
         }
         .product-photo-gallery__colour {
             position: absolute;
@@ -198,6 +202,16 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
         @media (min-width: 1550px) {
             right: calc((100vw - 1400px) / 2);
         }
+        .grid {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: repeat(6, 1fr);
+
+            li {
+                margin: 0 !important;
+                flex: none;
+            }
+        }
         .product-details {
             margin-top: 20px;
         }
@@ -229,11 +243,14 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
             position: absolute;
             bottom: 0;
             z-index: 111;
-            width: calc(100% - 100px);
+            width: calc(100% - 60px);
             background: #fff;
             border-top: 1px solid rgba(v.$wilson-grey, 0.5);
             input[type="text"], select {
                 height: 35px;
+            }
+            @media (min-width: 1200px) {
+                width: calc(100% - 100px);
             }
         }
         .product-price-wrapper {
@@ -314,6 +331,7 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
     }
 
     .product-photo-thumbs {
+        display: flex;
         // display: flex;
         // gap: 10px;
         // margin-top: 10px;
@@ -325,10 +343,11 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
         img {
             border-radius: 4px;
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: calc(100% - 2px);
+            height: calc(100% - 2px);
             object-fit: cover;
-            top: 0;
+            inset: 0;
+            margin: auto;
         }
     }
     .related-products-refresh {
@@ -372,11 +391,15 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
 
 .product-main-sidebar {
     &__inner {
-        padding-left: 50px;
-        padding-right: 50px;
+        padding-left: 30px;
+        padding-right: 30px;
         height: 100%;
         overflow: scroll;
         padding-bottom: 250px;
+        @media (min-width: 1200px) {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
         &:after {
             width: 100%;
             height: 45px;

@@ -4812,6 +4812,17 @@ class Products {
             modules: [Navigation],
             slidesPerView: 10,
             spaceBetween: 10,
+            breakpoints: {
+                768: {
+                    slidesPerView: 6,
+                },
+                1024: {
+                    slidesPerView: 8,
+                },
+                1200: {
+                    slidesPerView: 10,
+                }
+            },
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',

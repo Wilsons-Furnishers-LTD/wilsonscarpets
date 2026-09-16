@@ -388,8 +388,8 @@
 }
 
 .product-main {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  display: flex;
+  flex-direction: column;
 }
 @media (min-width: 992px) {
   .product-main {

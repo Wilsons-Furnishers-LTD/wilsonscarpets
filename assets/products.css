@@ -514,7 +514,7 @@
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: 20px;
-  display: block;
+  display: none;
   position: absolute;
   bottom: 30px;
   right: 15px;
@@ -526,6 +526,7 @@
 }
 @media (min-width: 992px) {
   .product-main .product-photo-gallery-container .item:after {
+    display: block;
     bottom: 0;
     right: 0;
   }

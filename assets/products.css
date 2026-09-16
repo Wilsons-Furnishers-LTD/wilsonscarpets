@@ -399,7 +399,7 @@
   .product-main:before {
     content: "";
     display: block;
-    width: 50%;
+    width: calc(100% - 600px);
     position: absolute;
     left: 0;
     top: 0;

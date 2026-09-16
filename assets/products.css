@@ -389,7 +389,7 @@
 
 .product-main {
   display: grid;
-  grid-template-columns: calc(100vw - 600px) 600px;
+  grid-template-columns: minmax(0, 1fr) 600px;
 }
 @media (min-width: 1550px) {
   .product-main {

@@ -646,6 +646,9 @@
   width: 30px;
   height: 30px;
 }
+.product-main .wc-product-photo-thumbs .swiper-button-next {
+  bottom: 0;
+}
 .product-main .product-photo-thumbs a {
   display: flex;
 }

@@ -924,6 +924,8 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   margin-right: 20px;
   padding-bottom: 30px;
   border-bottom: 1px solid rgba(65, 75, 82, 0.5);
+  grid-column: 1;
+  grid-row: 2;
 }
 .product-main-details p, .product-main-details li {
   font-size: 18px;

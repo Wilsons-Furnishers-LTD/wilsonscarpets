@@ -4816,7 +4816,7 @@ class Products {
                 768: {
                     slidesPerView: 6,
                 },
-                1024: {
+                1200: {
                     slidesPerView: 10,
                 }
             },

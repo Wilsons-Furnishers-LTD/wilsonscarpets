@@ -518,7 +518,11 @@
 .product-main_images {
   overflow: hidden;
   display: flex;
-  height: calc(100vh - 145px);
+}
+@media (min-width: 992px) {
+  .product-main_images {
+    height: calc(100vh - 145px);
+  }
 }
 @media (min-width: 1024px) {
   .product-main_images {

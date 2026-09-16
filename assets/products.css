@@ -724,6 +724,11 @@
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;
 }
+@media (min-width: 992px) {
+  .product-main .product-photo-gallery .pinch-zoom-container {
+    display: none;
+  }
+}
 .product-main .product-photo-gallery {
   display: flex;
   overflow: hidden;

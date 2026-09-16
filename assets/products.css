@@ -729,7 +729,7 @@
 .product-main .related-products-refresh {
   grid-column: 1;
   grid-row: 3;
-  padding-left: 10px;
+  padding-left: 20px;
 }
 .product-main .related-products-refresh h2.title-section {
   text-align: left;

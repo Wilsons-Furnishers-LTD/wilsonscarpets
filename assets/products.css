@@ -583,6 +583,9 @@
     right: calc((100vw - 1400px) / 2);
   }
 }
+.product-main_sidebar .grid {
+  display: flex;
+}
 .product-main_sidebar .product-details {
   margin-top: 20px;
 }

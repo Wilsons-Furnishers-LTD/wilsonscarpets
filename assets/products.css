@@ -627,8 +627,6 @@
     z-index: 1;
     border-radius: 20px;
     padding-top: 10px;
-    display: flex;
-    flex-direction: column;
   }
   .product-main_sidebar .price-only, .product-main_sidebar h1 {
     order: -1;
@@ -937,6 +935,12 @@
 .product-main-sidebar__inner {
   padding-left: 15px;
   padding-right: 15px;
+}
+@media (max-width: 991px) {
+  .product-main-sidebar__inner {
+    display: flex;
+    flex-direction: column;
+  }
 }
 @media (min-width: 476px) {
   .product-main-sidebar__inner {

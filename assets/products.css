@@ -389,7 +389,12 @@
 
 .product-main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 600px;
+  grid-template-columns: minmax(0, 1fr) 45%;
+}
+@media (min-width: 1280px) {
+  .product-main {
+    grid-template-columns: minmax(0, 1fr) 600px;
+  }
 }
 @media (min-width: 1550px) {
   .product-main {

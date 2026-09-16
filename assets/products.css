@@ -587,7 +587,8 @@
   display: flex;
 }
 .product-main_sidebar .grid li {
-  margin: 0;
+  margin: 0 !important;
+  flex: none;
 }
 .product-main_sidebar .product-details {
   margin-top: 20px;

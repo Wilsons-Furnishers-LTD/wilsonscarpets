@@ -964,7 +964,12 @@ body.product-refresh .size-calculator-header {
 }
 body.product-refresh .size-calculator-header h2 {
   margin: 0 !important;
-  font-size: 18px !important;
+  font-size: 13px !important;
+}
+@media (min-width: 992px) {
+  body.product-refresh .size-calculator-header h2 {
+    font-size: 18px !important;
+  }
 }
 body.product-refresh .toggle-wrapper {
   display: flex;

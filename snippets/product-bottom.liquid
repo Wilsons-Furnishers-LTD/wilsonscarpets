@@ -410,10 +410,14 @@
         })
 
         jQuery('.product-photo-thumbs li').click(function (e) {
-            console.log('click')
+            
+            let index = jQuery(this).index()
+            if($(this).parent().hasClass('owl-item')) {
+                index = $(this).parent().index()
+            }
+            console.log(index)
             e.preventDefault();
-            var index = jQuery(this).index(),
-                value = jQuery(this).data('value'),
+            let value = jQuery(this).data('value'),
                 swatch = jQuery('.swatch-colours'),
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();

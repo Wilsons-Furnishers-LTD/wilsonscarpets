@@ -627,7 +627,7 @@
   position: absolute;
   z-index: 1000;
   top: 20px;
-  left: 20px;
+  left: 15px;
   background-color: rgba(255, 255, 255, 0.6);
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
@@ -635,6 +635,11 @@
   padding: 5px 10px;
   font-weight: 700;
   font-size: 14px;
+}
+@media (min-width: 476px) {
+  .product-main_column .product-photo-gallery__colour {
+    left: 20px;
+  }
 }
 @media (min-width: 992px) {
   .product-main_column .product-photo-gallery__colour {

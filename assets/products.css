@@ -838,7 +838,7 @@
   left: 15px;
 }
 .product-main .product-photo-gallery .owl-nav .owl-prev:after {
-  background: url(iicon-prev-refresh.svg) 50%/24px no-repeat;
+  background: url(icon-prev-refresh.svg) 50%/24px no-repeat;
 }
 .product-main .product-photo-gallery .owl-nav .owl-next {
   right: 15px;

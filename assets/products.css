@@ -623,12 +623,17 @@
   position: absolute;
   bottom: 0;
   z-index: 111;
-  width: calc(100% - 100px);
+  width: calc(100% - 60px);
   background: #fff;
   border-top: 1px solid rgba(65, 75, 82, 0.5);
 }
 .product-main_sidebar .option-size.option input[type=text], .product-main_sidebar .option-size.option select {
   height: 35px;
+}
+@media (min-width: 1200px) {
+  .product-main_sidebar .option-size.option {
+    width: calc(100% - 100px);
+  }
 }
 .product-main_sidebar .product-price-wrapper {
   display: flex;

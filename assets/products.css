@@ -755,6 +755,7 @@
 }
 @media (min-width: 992px) {
   .product-main_sidebar .option-size.option {
+    box-shadow: none;
     position: absolute;
     left: initial;
     width: calc(100% - 60px);

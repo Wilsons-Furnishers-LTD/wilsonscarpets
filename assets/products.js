@@ -4811,6 +4811,7 @@ class Products {
         new Swiper('.product-photo-thumbs-container', {
             modules: [Navigation],
             slidesPerView: 10,
+            spaceBetween: 10,
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',

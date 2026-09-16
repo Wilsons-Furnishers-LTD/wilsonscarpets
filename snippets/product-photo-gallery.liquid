@@ -290,9 +290,9 @@
                 });
 
                 /* mobile swipe initial on top zoom element */
-                // var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');
-                // let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
-                // pz.enable(); // Enables all gesture capturing (is enabled by default)
+                var zoomElement = document.querySelector('.product-photo-gallery .owl-item.active span.zoom-mobile');
+                let pz = new PinchZoom.default(zoomElement, {draggableUnzoomed: false});///(zoomElement);
+                pz.enable(); // Enables all gesture capturing (is enabled by default)
 
                 var hammertime = new Hammer(zoomElement, {});
                 hammertime.on('swipeleft swiperight', function(ev) {

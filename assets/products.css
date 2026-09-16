@@ -797,6 +797,9 @@
 .product-main .owl-carousel, .product-main .owl-stage-outer, .product-main .owl-stage, .product-main .owl-item {
   display: flex;
 }
+.product-main .pinch-zoom-container {
+  position: absolute !important;
+}
 @media (min-width: 992px) {
   .product-main .product-photo-gallery .pinch-zoom-container {
     display: none;

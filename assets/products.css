@@ -924,6 +924,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 }
 
 .product-main-details {
+  position: relative;
   padding-top: 30px;
   margin-right: 20px;
   padding-bottom: 30px;

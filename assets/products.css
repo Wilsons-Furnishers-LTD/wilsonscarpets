@@ -542,12 +542,20 @@
 }
 .product-main_column {
   order: 1;
-  padding-left: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
   background-color: #F9F8FA;
   position: relative;
 }
+@media (min-width: 476px) {
+  .product-main_column {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 @media (min-width: 992px) {
   .product-main_column {
+    padding-right: 0;
     order: initial;
     grid-column: 1;
     grid-row: 1;

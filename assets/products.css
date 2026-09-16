@@ -745,9 +745,15 @@
   margin: auto;
 }
 .product-main .related-products-refresh {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
   order: 4;
+}
+@media (min-width: 476px) {
+  .product-main .related-products-refresh {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
 @media (min-width: 992px) {
   .product-main .related-products-refresh {

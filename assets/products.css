@@ -752,11 +752,17 @@
 }
 
 .product-main-sidebar__inner {
-  padding-left: 50px;
-  padding-right: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
   height: 100%;
   overflow: scroll;
   padding-bottom: 250px;
+}
+@media (min-width: 1200px) {
+  .product-main-sidebar__inner {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 }
 .product-main-sidebar__inner:after {
   width: 100%;

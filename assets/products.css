@@ -1214,10 +1214,15 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   flex-wrap: wrap;
 }
 .product-main-details .product-features .feature {
-  width: 49%;
+  width: 100%;
   float: none;
   padding-top: 10px;
   padding-bottom: 20px;
+}
+@media (min-width: 767px) {
+  .product-main-details .product-features .feature {
+    width: 49%;
+  }
 }
 @media (min-width: 1200px) {
   .product-main-details .product-features .feature {

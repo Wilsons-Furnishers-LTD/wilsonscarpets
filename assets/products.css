@@ -648,7 +648,7 @@
   margin: auto;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-prev svg, .product-main .wc-product-photo-thumbs .swiper-button-next svg {
-  stroke: #414B52 !important;
+  stroke: #414B52;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-prev {
   top: 14px;

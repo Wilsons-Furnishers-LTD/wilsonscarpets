@@ -32,13 +32,13 @@
         "specification_WQFgja": {
           "type": "specification",
           "settings": {
-            "tag": ""
+            "tag": "test"
           }
         },
         "specification_drRbPf": {
           "type": "specification",
           "settings": {
-            "tag": ""
+            "tag": "this"
           }
         }
       },

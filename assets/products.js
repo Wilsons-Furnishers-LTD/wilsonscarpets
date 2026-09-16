@@ -4813,6 +4813,9 @@ class Products {
             slidesPerView: 10,
             spaceBetween: 10,
             breakpoints: {
+                0: {
+                    slidesPerView: 4,
+                },
                 768: {
                     slidesPerView: 6,
                 },
@@ -4842,7 +4845,7 @@ class Products {
                 dots: false,
                 responsive: {
                     0: {
-                        items: 1
+                        items: 1.5
                     },
                     768: {
                         items: 2.5

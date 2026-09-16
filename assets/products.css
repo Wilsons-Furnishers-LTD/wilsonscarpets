@@ -1218,11 +1218,11 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   float: none;
   padding-top: 10px;
   padding-bottom: 20px;
-  max-width: 150px;
 }
 @media (min-width: 1200px) {
   .product-main-details .product-features .feature {
     width: 25%;
+    max-width: 150px;
   }
 }
 .product-main-details .product-features .feature img {

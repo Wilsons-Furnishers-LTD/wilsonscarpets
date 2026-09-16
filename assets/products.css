@@ -746,7 +746,7 @@
 }
 @media (max-width: 991px) {
   .product-main .product-photo-gallery a {
-    padding-top: calc(100vh - 300px);
+    padding-top: calc(100vh - 400px);
   }
   .product-main .product-photo-gallery .zoom-mobile {
     z-index: 1;

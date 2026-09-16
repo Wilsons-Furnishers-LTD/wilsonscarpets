@@ -697,6 +697,8 @@
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(6, 1fr);
+  margin-left: 0;
+  margin-right: 0;
 }
 .product-main_sidebar .grid li {
   margin: 0 !important;

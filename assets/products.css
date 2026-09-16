@@ -820,7 +820,7 @@
   transform: translateY(-50%);
 }
 .product-main .product-photo-gallery .owl-nav .owl-prev {
-  left: 10px;
+  left: 20px;
   background: url(icon-prev.svg) 50%/24px no-repeat;
 }
 .product-main .product-photo-gallery .owl-nav .owl-next {

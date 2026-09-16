@@ -389,17 +389,22 @@
 
 .product-main {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 45%;
+  grid-template-columns: repeat(1, 1fr);
 }
-.product-main:before {
-  content: "";
-  display: block;
-  width: 55%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #F9F8FA;
-  height: 100%;
+@media (min-width: 992px) {
+  .product-main {
+    grid-template-columns: minmax(0, 1fr) 45%;
+  }
+  .product-main:before {
+    content: "";
+    display: block;
+    width: 55%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #F9F8FA;
+    height: 100%;
+  }
 }
 @media (min-width: 1280px) {
   .product-main {

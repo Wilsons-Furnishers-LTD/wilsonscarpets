@@ -935,6 +935,8 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   position: relative;
   font-size: 20px;
   border: #414B52 2px solid;
+  -webkit-user-select: none; /* Safari */
+  user-select: none; /* Standard syntax */
 }
 .product-main-details__header li.active {
   background: #414B52;

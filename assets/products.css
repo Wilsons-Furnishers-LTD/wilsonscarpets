@@ -387,10 +387,6 @@
   }
 }
 
-.owl-carousel {
-  display: none !important;
-}
-
 .product-main {
   display: grid;
   grid-template-columns: calc(100vw - 600px) 600px;
@@ -727,10 +723,6 @@
   object-fit: cover;
   inset: 0;
   margin: auto;
-}
-.product-main .related-products-refresh {
-  grid-column: 1;
-  grid-row: 3;
 }
 .product-main .related-products-refresh h2.title-section {
   text-align: left;

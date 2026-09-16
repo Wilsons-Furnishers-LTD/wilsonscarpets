@@ -646,6 +646,10 @@
   width: 30px;
   height: 30px;
 }
+.product-main .wc-product-photo-thumbs .swiper-button-prev {
+  top: 10px;
+  bottom: initial;
+}
 .product-main .wc-product-photo-thumbs .swiper-button-next {
   bottom: 10px;
   top: initial;

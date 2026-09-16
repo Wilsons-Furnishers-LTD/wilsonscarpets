@@ -96,7 +96,6 @@
                                 {% unless displayedColor contains color %}
                                     {% assign displayedColor = displayedColor | append: '|' | append: color %}
                                         <div class="item {{ variant.title }}" data-value="{{ color }}">
-                                            <span>dshfsj</span>
                                             <a class="featherlight-gallery" href="{{ variant.image | img_url: '1600x1600' }}">
                                                 <picture>
                                                     <source media="(min-width: 1024px)" srcset="{{ variant.image | img_url: '1600x1600' }}">
@@ -157,6 +156,7 @@
         {% endcapture %}
 
         <div class="product-photo-gallery" data-photoui="{{ usedPhotoUI | json }}">
+            <div class="">Ivory</div>
             <div class="owl-carousel">
                 {{product_images}}
                 {{variant_images}}

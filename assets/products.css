@@ -533,11 +533,6 @@
   background-color: #F9F8FA;
   position: relative;
 }
-@media (min-width: 1335px) {
-  .product-main_column {
-    width: calc(100vw - 600px);
-  }
-}
 .product-main_column .product-grid .item {
   display: flex;
   flex-direction: column;
@@ -564,7 +559,6 @@
 }
 @media (min-width: 1550px) {
   .product-main_column {
-    max-width: 850px;
     min-width: initial;
   }
 }

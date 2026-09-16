@@ -609,6 +609,15 @@
   order: 2;
   background-color: #fff;
 }
+@media (max-width: 991px) {
+  .product-main_sidebar {
+    margin-top: -20px;
+    position: relative;
+    z-index: 1;
+    border-radius: 20px;
+    padding-top: 10px;
+  }
+}
 @media (min-width: 992px) {
   .product-main_sidebar {
     order: initial;
@@ -909,15 +918,6 @@
   text-decoration: line-through;
 }
 
-@media (max-width: 991px) {
-  .product-main-sidebar {
-    margin-top: -20px;
-    position: relative;
-    z-index: 1;
-    border-radius: 20px;
-    padding-top: 10px;
-  }
-}
 .product-main-sidebar__inner {
   padding-left: 15px;
   padding-right: 15px;

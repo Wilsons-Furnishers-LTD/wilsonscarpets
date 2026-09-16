@@ -1089,7 +1089,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   font-weight: 700;
   opacity: 0.5;
   border-radius: 4px;
-  padding: 5px 15px;
+  padding: 5px 10px;
   position: relative;
   font-size: 18px;
   border: #414B52 2px solid;
@@ -1099,6 +1099,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 @media (min-width: 992px) {
   .product-main-details__header li {
     font-size: 20px;
+    padding: 5px 15px;
   }
 }
 .product-main-details__header li.active {

@@ -640,7 +640,7 @@
 }
 .product-main .wc-product-photo-thumbs .swiper-button-prev, .product-main .wc-product-photo-thumbs .swiper-button-next {
   position: absolute;
-  right: 0;
+  right: -40px;
   left: initial;
 }
 .product-main .product-photo-thumbs a {

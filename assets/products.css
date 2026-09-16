@@ -387,6 +387,10 @@
   }
 }
 
+.product-features.mobile {
+  display: none !important;
+}
+
 .product-main {
   display: flex;
   flex-direction: column;

@@ -586,6 +586,9 @@
 .product-main_sidebar .grid {
   display: flex;
 }
+.product-main_sidebar .grid li {
+  margin: 0;
+}
 .product-main_sidebar .product-details {
   margin-top: 20px;
 }

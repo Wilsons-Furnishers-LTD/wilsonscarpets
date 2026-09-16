@@ -4845,7 +4845,7 @@ class Products {
                 dots: false,
                 responsive: {
                     0: {
-                        items: 1
+                        items: 1.5
                     },
                     768: {
                         items: 2.5

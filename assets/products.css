@@ -569,15 +569,19 @@
 .product-main_sidebar {
   transition: all 0.3s ease;
   flex: 1;
-  position: fixed;
-  width: 45%;
   right: 0;
   background-color: #fff;
   z-index: 1000;
   height: 100vh;
   padding-top: 194px;
   top: 0;
-  max-width: 600px;
+}
+@media (min-width: 992px) {
+  .product-main_sidebar {
+    max-width: 600px;
+    position: fixed;
+    width: 45%;
+  }
 }
 @media (min-width: 1550px) {
   .product-main_sidebar {

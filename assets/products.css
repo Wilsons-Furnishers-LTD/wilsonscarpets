@@ -653,14 +653,18 @@
   stroke: #414B52;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-prev {
-  top: 14px;
-  bottom: initial;
+  top: 0;
+  bottom: 0;
+  margin: auto;
   left: 0;
   right: initial;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-next {
-  bottom: 4px;
-  top: initial;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  right: 0;
+  left: initial;
 }
 .product-main .product-photo-thumbs a {
   display: flex;

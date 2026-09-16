@@ -876,8 +876,10 @@ body.product-refresh .breadcrumb {
 body.product-refresh .breadcrumb a {
   font-size: 14px;
 }
-body.product-refresh.header-sticky .product-main_sidebar {
-  padding-top: 80px;
+@media (min-width: 992px) {
+  body.product-refresh.header-sticky .product-main_sidebar {
+    padding-top: 80px;
+  }
 }
 body.product-refresh #shopify-section-footer {
   position: relative;

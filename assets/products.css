@@ -1067,10 +1067,15 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   border-radius: 4px;
   padding: 5px 15px;
   position: relative;
-  font-size: 20px;
+  font-size: 18px;
   border: #414B52 2px solid;
   -webkit-user-select: none; /* Safari */
   user-select: none; /* Standard syntax */
+}
+@media (min-width: 992px) {
+  .product-main-details__header li {
+    font-size: 20px;
+  }
 }
 .product-main-details__header li.active {
   background: #414B52;

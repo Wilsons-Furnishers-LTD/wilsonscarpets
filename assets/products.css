@@ -517,11 +517,12 @@
   display: block;
   position: absolute;
   bottom: 30px;
-  right: 0;
+  right: 15px;
 }
 @media (min-width: 992px) {
   .product-main .product-photo-gallery-container .item:after {
     bottom: 0;
+    right: 0;
   }
 }
 .product-main_images {

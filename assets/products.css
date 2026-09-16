@@ -965,6 +965,9 @@
   .product-main-sidebar__inner .stock-delivery-wrapper {
     padding-bottom: 10px;
   }
+  .product-main-sidebar__inner .inStock {
+    font-size: 14px;
+  }
   .product-main-sidebar__inner .price-only {
     justify-content: center;
   }

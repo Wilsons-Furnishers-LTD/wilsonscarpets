@@ -178,9 +178,6 @@
                                                 {% unless displayedColor contains color %}
                                                     {% assign displayedColor = displayedColor | append: '|' | append: color %}
                                                         <li class="swiper-slide product-photo-thumb js-product-photo-thumb two-per-row" data-value="{{ color }}">
-                                                            <div class="product-photo-thumb-tooltip">
-                                                                <div class="product-photo-thumb-tooltip__text">{{ color }}</div>
-                                                            </div>
                                                             <a href="#" class="data" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '80x80', crop: 'center' }}" alt="{{ variant.image.alt | escape }}"/></a>
                                                         {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
                                                     {% break %}

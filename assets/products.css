@@ -820,11 +820,11 @@
   transform: translateY(-50%);
 }
 .product-main .product-photo-gallery .owl-nav .owl-prev {
-  left: 20px;
+  left: 10px;
   background: url(icon-prev.svg) 50%/24px no-repeat;
 }
 .product-main .product-photo-gallery .owl-nav .owl-next {
-  right: 20px;
+  right: 10px;
   background: url(icon-next.svg) 50%/24px no-repeat;
 }
 .product-main .wc-product-photo-thumbs {

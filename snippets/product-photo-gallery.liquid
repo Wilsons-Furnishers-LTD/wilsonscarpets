@@ -165,6 +165,7 @@
 
         {% if product.images.size > 1 %}
             {% assign image_exclude = "" %}
+            <div>
             <div class="product-photo-thumbs-container swiper">
                 <ul class="product-photo-thumbs swiper-wrapper">
                     {% capture variant_images %}
@@ -219,6 +220,7 @@
                     {{product_images}}
                     {{variant_images}}
                 </ul>
+            </div>
             </div>
         {% endif %}
     {% else %}

@@ -410,6 +410,7 @@
         })
 
         jQuery('.product-photo-thumbs li').click(function (e) {
+            console.log('click')
             e.preventDefault();
             var index = jQuery(this).index(),
                 value = jQuery(this).data('value'),

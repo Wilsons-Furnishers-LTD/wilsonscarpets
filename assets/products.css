@@ -598,12 +598,13 @@
   left: 20px;
   background-color: #fff;
   border-radius: 4px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
 }
 @media (min-width: 992px) {
   .product-main_column .product-photo-gallery__colour {
+    padding: 10px 20px;
     bottom: 20px;
     top: initial;
     font-size: 18px;

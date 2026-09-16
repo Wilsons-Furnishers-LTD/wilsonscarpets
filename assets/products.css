@@ -688,6 +688,9 @@
   right: 12.5px;
   left: initial;
 }
+.product-main .product-photo-thumbs {
+  display: flex;
+}
 .product-main .product-photo-thumbs a {
   display: flex;
 }

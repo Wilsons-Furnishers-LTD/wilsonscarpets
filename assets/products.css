@@ -537,11 +537,11 @@
 .product-main_column .product-photo-gallery__colour {
   position: absolute;
   z-index: 1000;
-  top: 10px;
+  bottom: 10px;
   left: 20px;
   background-color: #fff;
   border-radius: 4px;
-  padding: 10px;
+  padding: 10px 20px;
 }
 .product-main_column .product-caption {
   flex: 1;

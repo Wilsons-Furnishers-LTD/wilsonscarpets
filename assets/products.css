@@ -656,6 +656,7 @@
   top: 14px;
   bottom: initial;
   left: 0;
+  right: initial;
 }
 .product-main .wc-product-photo-thumbs .swiper-button-next {
   bottom: 4px;

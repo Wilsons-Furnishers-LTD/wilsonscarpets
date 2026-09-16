@@ -388,7 +388,7 @@
 }
 
 .owl-carousel {
-  display: none;
+  display: none !important;
 }
 
 .product-main {

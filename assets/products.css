@@ -614,7 +614,7 @@
     margin-top: -20px;
     position: relative;
     z-index: 1;
-    border-radius: 40px;
+    border-radius: 20px;
   }
 }
 @media (min-width: 992px) {

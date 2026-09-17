@@ -748,8 +748,11 @@
   padding-left: 15px;
   padding-right: 15px;
 }
-.product-main_sidebar .option-size.option input[type=text], .product-main_sidebar .option-size.option select {
+.product-main_sidebar .option-size.option input[type=text] {
   height: 35px;
+}
+.product-main_sidebar .option-size.option select {
+  height: 33px;
 }
 .product-main_sidebar .option-size.option .colour-selected {
   margin-left: -15px;

@@ -4851,7 +4851,7 @@ class Products {
                         margin:10
                     },
                     768: {
-                        items: 2.5
+                        items: 3
                     },
                     1400: {
                         items: 3.5

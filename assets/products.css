@@ -1230,9 +1230,13 @@ body.product-refresh .size-calculator-header {
   padding-top: 15px;
   position: relative;
 }
-body.product-refresh .size-calculator-header #lengthMetres input:after {
+body.product-refresh .size-calculator-header #lengthMetres {
+  position: relative;
+}
+body.product-refresh .size-calculator-header #lengthMetres:after {
   content: "m";
   display: block;
+  position: absolute;
 }
 body.product-refresh .size-calculator-header h2 {
   margin: 0 !important;

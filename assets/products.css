@@ -1290,6 +1290,11 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   flex-wrap: wrap;
   margin-bottom: 30px;
 }
+@media (min-width: 767px) {
+  .product-main-details .product-features {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 .product-main-details .product-features .feature {
   width: 100%;
   float: none;
@@ -1297,12 +1302,11 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 }
 @media (min-width: 767px) {
   .product-main-details .product-features .feature {
-    width: 49%;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (min-width: 1200px) {
   .product-main-details .product-features .feature {
-    width: 25%;
     max-width: 150px;
   }
 }

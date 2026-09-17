@@ -480,11 +480,12 @@
                 const bg = $(activeSwatch).attr('data-bg');
                 const $selected = $('.colour-selected');
 
+                $($selected).find('.colour-selected__bg').remove();
                 if (bg && $selected.length) {
                     const img = new Image();
 
                     img.onload = function () {
-                        $selected[0].style.backgroundImage = 'url("' + bg + '")';
+                        $($selected).prepend('<div style="background-image: ' + url("' + bg + '") +'" class="colour-selected__bg"></div>');
                     };
 
                     img.onerror = function () {

@@ -1234,8 +1234,8 @@ body.product-refresh #lengthMetres:before {
   content: "m";
   display: flex;
   position: absolute;
-  height: 30px;
-  width: 28px;
+  height: 28px;
+  width: 30px;
   top: 0;
   font-size: 16px;
   right: 15px;

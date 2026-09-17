@@ -1037,6 +1037,13 @@
   padding-top: 40px;
   border-top: none;
 }
+.product-main .related-products-refresh .owl-item {
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+.product-main .related-products-refresh .owl-item.active {
+  opacity: 1;
+}
 .product-main .related-products-refresh .owl-nav {
   background: transparent;
   position: absolute;

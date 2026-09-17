@@ -1038,10 +1038,10 @@
   border-top: none;
 }
 .product-main .related-products-refresh .owl-item {
-  opacity: 0.5;
+  opacity: 0.3;
   transition: all 0.3s ease;
 }
-.product-main .related-products-refresh .owl-item.active {
+.product-main .related-products-refresh .owl-item.active.center {
   opacity: 1;
 }
 .product-main .related-products-refresh .owl-nav {

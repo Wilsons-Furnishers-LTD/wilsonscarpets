@@ -996,9 +996,11 @@
     margin-left: -15px;
     margin-right: -15px;
   }
-  .product-main .related-products-refresh h2.product-name {
+  .product-main .related-products-refresh h2.title-section {
     padding-left: 15px;
     padding-right: 15px;
+  }
+  .product-main .related-products-refresh h2.product-name {
     height: initial !important;
   }
 }

@@ -387,6 +387,10 @@
   }
 }
 
+:root {
+  color-scheme: dark;
+}
+
 .product-features.mobile {
   display: none !important;
 }

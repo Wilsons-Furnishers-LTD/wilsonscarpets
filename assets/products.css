@@ -1226,7 +1226,7 @@ body.product-refresh #lengthMetres {
   position: relative;
 }
 body.product-refresh #lengthMetres input {
-  width: 100%;
+  width: 100% !important;
 }
 body.product-refresh #lengthMetres:before {
   content: "m";

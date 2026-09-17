@@ -758,6 +758,7 @@
     padding-right: 15px;
     background-image: url("http://127.0.0.1:9292/cdn/shop/files/platinum-10-serenade-saxony-far.jpg?v=1780341076");
     background-size: cover;
+    backdrop-filter: blur(10px);
   }
   .product-main_sidebar .option-size.option .content .size-calculator-header {
     padding-top: 10px;

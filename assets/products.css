@@ -1280,7 +1280,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 .product-main-details .product-features {
   border-top: none;
   margin-top: 0;
-  padding-top: 20px;
+  padding-top: 10px;
   padding-bottom: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1288,7 +1288,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   align-items: flex-start;
   gap: 20px 20px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .product-main-details .product-features .feature {
   width: 100%;

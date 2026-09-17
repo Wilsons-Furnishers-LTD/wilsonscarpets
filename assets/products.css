@@ -1034,6 +1034,9 @@
   bottom: 0;
   margin: auto;
 }
+.product-main .related-products-refresh .owl-nav .owl-prev i, .product-main .related-products-refresh .owl-nav .owl-next i {
+  height: 16px;
+}
 .product-main .related-products-refresh .owl-nav .owl-prev {
   left: 0;
 }

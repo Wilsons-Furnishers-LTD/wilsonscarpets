@@ -4850,9 +4850,13 @@ class Products {
                         items: 2,
                         margin:20
                     },
-                    768: {
+                    992: {
                         center:false,
                         items: 1.5
+                    },
+                    1200: {
+                        
+                        items: 2.5
                     },
                     1400: {
                         items: 3.5

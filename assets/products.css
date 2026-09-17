@@ -753,7 +753,7 @@
 }
 .product-main_sidebar .option-size.option select {
   height: 33px;
-  line-height: 19px;
+  line-height: 19px !important;
 }
 .product-main_sidebar .option-size.option .colour-selected {
   margin-left: -15px;

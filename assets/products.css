@@ -1039,7 +1039,7 @@
 }
 @media (max-width: 991px) {
   .product-main .related-products-refresh .owl-item {
-    opacity: 0.6;
+    opacity: 0.4;
     transition: all 0.3s ease;
   }
   .product-main .related-products-refresh .owl-item.active.center {

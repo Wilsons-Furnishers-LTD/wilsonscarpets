@@ -1307,7 +1307,8 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
     flex-direction: column;
   }
   .product-main-details .product-features .feature a {
-    display: block;
+    display: flex;
+    flex: 1;
   }
 }
 @media (min-width: 1200px) {

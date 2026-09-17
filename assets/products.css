@@ -814,6 +814,9 @@
     height: 30px;
     line-height: 20px !important;
   }
+  .product-main_sidebar .option-size.option .content select {
+    height: 28px;
+  }
   .product-main_sidebar .option-size.option .content .space {
     display: flex;
     align-items: center;

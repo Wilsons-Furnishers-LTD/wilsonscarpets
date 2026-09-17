@@ -754,6 +754,8 @@
   .product-main_sidebar .option-size.option .colour-selected {
     margin-left: -15px;
     margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
   .product-main_sidebar .option-size.option .content .size-calculator-header {
     padding-top: 10px;

@@ -326,7 +326,7 @@
         }
     }
 
-    function checkBackgroundContrast(imgSrc) {
+    function checkBackgroundContrast(imgSrc, textEl) {
         
         const img = new Image();
         img.crossOrigin = "anonymous";
@@ -355,6 +355,7 @@
             luminance /= pixels.length / 4;
             
             if(luminance > 0.5) {
+                textEl.style.color = 'red';
                 return 'black';
             } else {
                 return 'white';
@@ -468,8 +469,8 @@
             if($(activeSwatch) && $(activeSwatch).attr('data-bg')) {
                 $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')')
                 $('.colour-selected__inner span').text(value);
-                let contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'));
-                console.log(checkBackgroundContrast($(activeSwatch).attr('data-bg')))
+                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner span'));
+            
             }
             
             

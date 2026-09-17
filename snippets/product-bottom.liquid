@@ -480,12 +480,11 @@
                 const bg = $(activeSwatch).attr('data-bg');
                 const $selected = $('.colour-selected');
 
-                $($selected).find('.colour-selected__bg').remove();
                 if (bg && $selected.length) {
                     const img = new Image();
 
                     img.onload = function () {
-                        $($selected).prepend('<div style="background-image: url(' + bg + ')" class="colour-selected__bg"></div>');
+                        $selected[0].style.backgroundImage = 'url("' + bg + '")';
                     };
 
                     img.onerror = function () {
@@ -496,10 +495,7 @@
 
                     $('.colour-selected__inner span').text(value);
                     contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
-                    
                 }
-                window.scrollBy(0, 1);
-                window.scrollBy(0, -1);
             }
         });
 

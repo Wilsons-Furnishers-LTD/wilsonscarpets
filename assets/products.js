@@ -4861,9 +4861,9 @@ class Products {
                 onResized: match_height
             });
 
-            // $featuredCollection.on('translated.owl.carousel',function(event){
-            //     $(event.target).find(".owl-item.active .product-name").sameHeight();
-            // });
+            $featuredCollection.on('translated.owl.carousel',function(event){
+                $(event.target).find(".owl-item.active .product-name").sameHeight();
+            });
 
             function match_height(event) {
                 var img_height = jQuery(event.target).find('.owl-item.active').first().find('.product-image-wrap').height();
@@ -4874,7 +4874,7 @@ class Products {
                 
 
                 $(event.currentTarget).find('.owl-item .product-name').removeAttr('style');
-                // $(event.currentTarget).find('.owl-item.active .product-name').sameHeight();
+                $(event.currentTarget).find('.owl-item.active .product-name').sameHeight();
 
 
                 $(window).width();

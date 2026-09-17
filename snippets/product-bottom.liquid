@@ -719,13 +719,13 @@
                     if(jQuery(this).attr('data-value') != null ){
 
                         if( jQuery(this).attr('data-value').toLowerCase() == color.color.toLowerCase() ){
-                            // jQuery('.swatch-colours .grid li[data-value="' + jQuery(this).attr('data-value') + '"]').trigger('click');
+                            jQuery('.swatch-colours .grid li[data-value="' + jQuery(this).attr('data-value') + '"]').trigger('click');
                         }
                     }
                 });
             }
         }else{
-            // jQuery('.product-photo-thumbs li:first-child').trigger('click');
+            jQuery('.product-photo-thumbs li:first-child').trigger('click');
         }
     });
 
@@ -775,8 +775,8 @@
                 updatePrice();
                 check_submit_button();
             });
-            setTimeout(() => jQuery('#userLength').trigger("keyup") );
-            window.addEventListener("load", () => { jQuery('#userLength').trigger("keyup") }, {once:true});
+            // setTimeout(() => jQuery('#userLength').trigger("keyup") );
+            // window.addEventListener("load", () => { jQuery('#userLength').trigger("keyup") }, {once:true});
             jQuery('#userLengthFeet').keyup(function () {
                 updateMetres();
                 check_submit_button();

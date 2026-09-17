@@ -1005,6 +1005,10 @@
     order: initial;
   }
 }
+.product-main .related-products-refresh .item {
+  display: flex;
+  flex-direction: column;
+}
 .product-main .related-products-refresh h2.title-section {
   text-align: left;
   font-size: 26px;

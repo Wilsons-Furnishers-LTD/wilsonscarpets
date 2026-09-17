@@ -326,7 +326,7 @@
         }
     }
 
-    function checkBackgroundContrast(imgSrc, textEl, El) {
+    function checkBackgroundContrast(imgSrc, textEl) {
         
         const img = new Image();
         img.crossOrigin = "anonymous";
@@ -359,12 +359,6 @@
             } else {
                 $(textEl).css('color' , 'white');
             }
-            console.log(textEl, El, imgSrc)
-
-            setTimeout(() => {
-                            $(El).css('background-image', 'url(' + imgSrc + ')')
-            console.log(imgSrc)
-            }, 1000);
         }
     }
 
@@ -480,29 +474,14 @@
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
 
+            if($(activeSwatch).length && $(activeSwatch).attr('data-bg')) {
 
-
-            if ($(activeSwatch).length) {
-                const bg = $(activeSwatch).attr('data-bg');
-                const $selected = $('.colour-selected');
-
-                if (bg && $selected.length) {
-                    const img = new Image();
-
-                    img.onload = function () {
-                        $selected[0].style.backgroundImage = 'url("' + bg + '")';
-                    };
-
-                    img.onerror = function () {
-                        console.log('Failed to load background:', bg);
-                    };
-
-                    img.src = bg;
-
-                    $('.colour-selected__inner span').text(value);
-                    contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'), $('.colour-selected'));
-
-                }
+            
+                $('.colour-selected').css('background-image', '');    
+                $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')');
+                $('.colour-selected')[0].offsetHeight;
+                $('.colour-selected__inner span').text(value);
+                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
             }
         });
 
@@ -654,10 +633,6 @@
     }
 
     jQuery(document).ready(function () {
-
-            $('.product-details .option-colour li').click(function() {
-            console.log('clickkkk')
-        });
         if(jQuery('.product-photo-container .js-product-photo-thumb').length){
             carouselInit(true);
         }else{

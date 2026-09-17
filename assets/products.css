@@ -779,7 +779,7 @@
   }
   .product-main_sidebar .option-size.option .content input[type=text], .product-main_sidebar .option-size.option .content select, .product-main_sidebar .option-size.option .content .space {
     height: 30px;
-    line-height: 20px;
+    line-height: 20px !important;
   }
   .product-main_sidebar .option-size.option .content .space {
     display: flex;

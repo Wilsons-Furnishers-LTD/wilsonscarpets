@@ -465,7 +465,7 @@
                 //swatchClick(value);
             }
             
-            if($(activeSwatch) && $(activeSwatch).attr('data-bg')) {
+            if($(activeSwatch).length && $(activeSwatch).attr('data-bg')) {
                 
                 $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')');
                 $('.colour-selected')[0].offsetHeight;

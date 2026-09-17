@@ -760,6 +760,9 @@
     padding-bottom: 5px;
     font-size: 14px;
   }
+  .product-main_sidebar .option-size.option .content .product-price-wrapper {
+    padding-bottom: 10px;
+  }
 }
 @media (min-width: 476px) {
   .product-main_sidebar .option-size.option {

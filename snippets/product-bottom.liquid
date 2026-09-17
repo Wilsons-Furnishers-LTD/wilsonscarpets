@@ -415,7 +415,7 @@
                 value = jQuery(this).data('value'),
                 swatch = jQuery('.swatch-colours'),
                 ul = swatch.find('ul'),
-                activeSwatch = swatch.find('.select li[data-value="' + value + '"]'),
+                activeSwatch = swatch.find('.select li[data-value="' + value + '"] span'),
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
 
             if (value && value != '') {

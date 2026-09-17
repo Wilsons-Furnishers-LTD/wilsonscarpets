@@ -360,8 +360,11 @@
                 $(textEl).css('color' , 'white');
             }
             console.log(textEl, El, imgSrc)
-            $(El).css('background-image', 'url(' + imgSrc + ')')
+
+            setTimeout(() => {
+                            $(El).css('background-image', 'url(' + imgSrc + ')')
             console.log(imgSrc)
+            }, 1000);
         }
     }
 

@@ -1232,6 +1232,11 @@ body.product-refresh #lengthMetres:before {
   height: 30px;
   width: 30px;
   top: 0;
+  font-size: 16px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 body.product-refresh .size-calculator-header {
   display: flex;

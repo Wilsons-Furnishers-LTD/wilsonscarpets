@@ -692,7 +692,7 @@
 
             jQuery('.product-photo-thumb').each(function () {
                 if (jQuery(this).data('value') == value) {
-                    // jQuery(this).trigger('click');
+                    jQuery(this).trigger('click');
                 }
             });
             if(jQuery('.swatch-colours').hasClass('swatch-colours-new')) {
@@ -719,13 +719,13 @@
                     if(jQuery(this).attr('data-value') != null ){
 
                         if( jQuery(this).attr('data-value').toLowerCase() == color.color.toLowerCase() ){
-                            jQuery('.swatch-colours .grid li[data-value="' + jQuery(this).attr('data-value') + '"]').trigger('click');
+                            // jQuery('.swatch-colours .grid li[data-value="' + jQuery(this).attr('data-value') + '"]').trigger('click');
                         }
                     }
                 });
             }
         }else{
-            jQuery('.product-photo-thumbs li:first-child').trigger('click');
+            // jQuery('.product-photo-thumbs li:first-child').trigger('click');
         }
     });
 

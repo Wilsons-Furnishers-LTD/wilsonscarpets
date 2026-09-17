@@ -1301,6 +1301,11 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   padding: 0;
   display: flex;
 }
+@media (min-width: 767px) {
+  .product-main-details .product-features .feature {
+    flex-direction: column;
+  }
+}
 @media (min-width: 1200px) {
   .product-main-details .product-features .feature {
     max-width: 150px;

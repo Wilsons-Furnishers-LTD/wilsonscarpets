@@ -1038,7 +1038,7 @@
   border-top: none;
 }
 .product-main .related-products-refresh .owl-item {
-  opacity: 0.3;
+  opacity: 0.6;
   transition: all 0.3s ease;
 }
 .product-main .related-products-refresh .owl-item.active.center {

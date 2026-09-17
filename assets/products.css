@@ -1230,7 +1230,7 @@ body.product-refresh #lengthInches {
   display: flex;
 }
 body.product-refresh #lengthInches div input {
-  width: 100%;
+  width: 100% !important;
 }
 body.product-refresh #lengthMetres {
   position: relative;

@@ -481,7 +481,7 @@
                 $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')');
                 $('.colour-selected')[0].offsetHeight;
                 $('.colour-selected span').text(value);
-                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
+                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected'));
             }
         });
 

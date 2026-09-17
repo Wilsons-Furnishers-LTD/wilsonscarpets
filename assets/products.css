@@ -1282,7 +1282,8 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   margin-top: 0;
   padding-top: 20px;
   padding-bottom: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;

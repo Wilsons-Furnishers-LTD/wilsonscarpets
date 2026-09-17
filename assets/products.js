@@ -4852,7 +4852,7 @@ class Products {
                     },
                     796: {
                         
-                        items: 2
+                        items: 2.5
                     },
                     992: {
                         center:false,

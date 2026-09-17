@@ -814,6 +814,9 @@
     height: 30px;
     line-height: 20px !important;
   }
+  .product-main_sidebar .option-size.option .content .selectWrapper:after {
+    top: 10px;
+  }
   .product-main_sidebar .option-size.option .content select {
     height: 28px;
   }

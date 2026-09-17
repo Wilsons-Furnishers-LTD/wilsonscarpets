@@ -748,6 +748,9 @@
   height: 35px;
 }
 @media (max-width: 475px) {
+  .product-main_sidebar .option-size.option {
+    border-top: 1px solid rgba(65, 75, 82, 0.2);
+  }
   .product-main_sidebar .option-size.option .content .size-calculator-header {
     padding-top: 10px;
     padding-bottom: 20px;

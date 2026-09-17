@@ -407,17 +407,17 @@
                 var hammertime = new Hammer(zoomElement, {});
                 hammertime.on('swipeleft swiperight', function(ev) {
 
-                    // if(ev.type === 'swipeleft'){
-                    //     //jQuery('.option-colour .swatch-colours li:first-child').trigger('click');
-                    //     //jQuery('.option-colour .swatch-colours li.selected').next().trigger('click')
-                    //     jQuery('.product-photo-thumb').eq(currentItem - 1).trigger('click');
-                    // }
+                    if(ev.type === 'swipeleft'){
+                        //jQuery('.option-colour .swatch-colours li:first-child').trigger('click');
+                        //jQuery('.option-colour .swatch-colours li.selected').next().trigger('click')
+                        jQuery('.product-photo-thumb').eq(currentItem - 1).trigger('click');
+                    }
 
-                    // if(ev.type === 'swiperight'){
-                    //     //jQuery('.product-photo-container .owl-dot.active').next().trigger('click');
-                    //     jQuery('.product-photo-thumb').eq(currentItem + 1).trigger('click');
+                    if(ev.type === 'swiperight'){
+                        //jQuery('.product-photo-container .owl-dot.active').next().trigger('click');
+                        jQuery('.product-photo-thumb').eq(currentItem + 1).trigger('click');
 
-                    // }
+                    }
                 });
             }
         });
@@ -434,15 +434,15 @@
 
             //jQuery('.product-photo-thumbs a').removeClass('active');
             //jQuery('.product-photo-thumb').eq(currentItem).find('a').addClass('active');
-            // jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
+            jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
 
             var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
             
-            // if(colour_variant != '') {
-            //   jQuery('#select-option-colour ul').each(function () {
-            //         jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
-            //     });
-            // }
+            if(colour_variant != '') {
+              jQuery('#select-option-colour ul').each(function () {
+                    jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
+                });
+            }
         })
 
         jQuery('.product-photo-thumbs li').click(function (e) {
@@ -472,7 +472,7 @@
             
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
-            // jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+            jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
 
 
 
@@ -497,6 +497,10 @@
                     contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
                 }
             }
+        });
+
+        $('.product-details .option-colour li').click(function() {
+            console.log('clickkkk')
         });
 
         if(is_loop){
@@ -647,10 +651,6 @@
     }
 
     jQuery(document).ready(function () {
-
-            $('.product-details .option-colour li').click(function() {
-            console.log('clickkkk')
-        });
         if(jQuery('.product-photo-container .js-product-photo-thumb').length){
             carouselInit(true);
         }else{
@@ -1117,15 +1117,15 @@
             }
         }
 
-        // jQuery("body").on("change", ".numberOfOptions2 .option-single #product-select-option-0", function () {
+        jQuery("body").on("change", ".numberOfOptions2 .option-single #product-select-option-0", function () {
 
-        //     var whichColourToShow = jQuery(this).val();
-        //     jQuery('.product-photo-thumbs li').each(function () {
-        //         if (jQuery(this).attr('data-value') == whichColourToShow) {
-        //             jQuery(this).click();
-        //         }
-        //     });
-        // });
+            var whichColourToShow = jQuery(this).val();
+            jQuery('.product-photo-thumbs li').each(function () {
+                if (jQuery(this).attr('data-value') == whichColourToShow) {
+                    jQuery(this).click();
+                }
+            });
+        });
 
 
         // Handle add to cart for laminate and LVT same with each other

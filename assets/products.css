@@ -1264,7 +1264,7 @@ body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches di
   background-color: #fff;
 }
 body.product-refresh #lengthInches div:before {
-  right: 1px;
+  right: 5px;
   width: 20px;
 }
 body.product-refresh .size-calculator-header {

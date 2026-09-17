@@ -474,17 +474,13 @@
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
 
-            if($(activeSwatch).length && $(activeSwatch).attr('data-bg')) {
-
-                setTimeout(() => {
-                                    $('.colour-selected').css('background-image', '');    
-                $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')');
-                console.log($('.colour-selected').css('background-image'));
-                $('.colour-selected')[0].offsetHeight;
-                $('.colour-selected__inner span').text(value);
-                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
-                }, 1000);
-            }
+            // if($(activeSwatch).length && $(activeSwatch).attr('data-bg')) {
+            //     $('.colour-selected').css('background-image', '');    
+            //     $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')');
+            //     $('.colour-selected')[0].offsetHeight;
+            //     $('.colour-selected__inner span').text(value);
+            //     contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
+            // }
         });
 
         if(is_loop){

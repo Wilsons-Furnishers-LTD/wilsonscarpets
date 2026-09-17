@@ -1225,9 +1225,12 @@ body.product-refresh #shopify-section-footer {
 body.product-refresh #lengthMetres {
   position: relative;
 }
+body.product-refresh #lengthMetres input {
+  width: 100%;
+}
 body.product-refresh #lengthMetres:before {
   content: "m";
-  display: block;
+  display: flex;
   position: absolute;
   height: 30px;
   width: 30px;
@@ -1237,6 +1240,8 @@ body.product-refresh #lengthMetres:before {
   top: 0;
   bottom: 0;
   margin: auto;
+  align-items: center;
+  justify-content: center;
 }
 body.product-refresh .size-calculator-header {
   display: flex;

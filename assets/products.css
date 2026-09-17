@@ -761,7 +761,8 @@
     font-size: 14px;
   }
   .product-main_sidebar .option-size.option .content .product-price-wrapper {
-    margin-top: 15px;
+    padding-top: 12.5px;
+    margin-top: 12.5px;
     padding-bottom: 5px;
     align-items: center;
   }

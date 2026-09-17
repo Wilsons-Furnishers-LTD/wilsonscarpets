@@ -762,6 +762,7 @@
   }
   .product-main_sidebar .option-size.option .content .product-price-wrapper {
     padding-bottom: 10px;
+    align-items: center;
   }
   .product-main_sidebar .option-size.option .content #product-price {
     font-size: 16px;

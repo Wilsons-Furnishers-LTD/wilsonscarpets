@@ -747,6 +747,12 @@
 .product-main_sidebar .option-size.option input[type=text], .product-main_sidebar .option-size.option select {
   height: 35px;
 }
+@media (max-width: 475px) {
+  .product-main_sidebar .option-size.option .size-calculator-header {
+    padding-top: 10px;
+    padding-bottom: 15px;
+  }
+}
 @media (min-width: 476px) {
   .product-main_sidebar .option-size.option {
     padding-left: 20px;

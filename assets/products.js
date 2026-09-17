@@ -4848,7 +4848,7 @@ class Products {
                     0: {
                         center:true,
                         items: 2,
-                        margin:50
+                        margin:20
                     },
                     768: {
                         items: 3

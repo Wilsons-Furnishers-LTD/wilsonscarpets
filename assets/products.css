@@ -1222,6 +1222,14 @@ body.product-refresh #shopify-section-footer {
   position: relative;
   z-index: 1000;
 }
+body.product-refresh #lengthMetres {
+  position: relative;
+}
+body.product-refresh #lengthMetres:after {
+  content: "m";
+  display: block;
+  position: absolute;
+}
 body.product-refresh .size-calculator-header {
   display: flex;
   align-items: center;
@@ -1229,14 +1237,6 @@ body.product-refresh .size-calculator-header {
   padding-bottom: 25px;
   padding-top: 15px;
   position: relative;
-}
-body.product-refresh .size-calculator-header #lengthMetres {
-  position: relative;
-}
-body.product-refresh .size-calculator-header #lengthMetres:after {
-  content: "m";
-  display: block;
-  position: absolute;
 }
 body.product-refresh .size-calculator-header h2 {
   margin: 0 !important;

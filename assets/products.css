@@ -1315,7 +1315,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 }
 .product-main-details .product-features .feature .text-content h2 {
   font-size: 14px;
-  margin-top: 15px;
+  margin-top: 0;
 }
 .product-main-details__item {
   display: none;

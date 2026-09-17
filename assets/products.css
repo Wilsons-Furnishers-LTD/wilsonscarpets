@@ -1292,6 +1292,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 }
 @media (min-width: 767px) {
   .product-main-details .product-features {
+    align-items: normal;
     grid-template-columns: repeat(4, 1fr);
   }
 }

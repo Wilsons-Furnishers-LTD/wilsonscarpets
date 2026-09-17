@@ -1311,6 +1311,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
 }
 .product-main-details .product-features .feature .text-content {
   padding-left: 20px;
+  flex: 1;
 }
 .product-main-details .product-features .feature .text-content h2 {
   font-size: 14px;

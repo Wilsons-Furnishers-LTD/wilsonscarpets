@@ -1252,10 +1252,10 @@ body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches di
   display: flex;
   position: absolute;
   height: 28px;
-  width: 30px;
+  width: 20px;
   top: 0;
   font-size: 16px;
-  right: 5px;
+  right: 2px;
   top: 0;
   bottom: 0;
   margin: auto;

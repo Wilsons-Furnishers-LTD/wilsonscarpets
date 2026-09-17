@@ -1226,6 +1226,9 @@ body.product-refresh #shopify-section-footer {
   position: relative;
   z-index: 1000;
 }
+body.product-refresh #lengthInches {
+  display: flex;
+}
 body.product-refresh #lengthMetres {
   position: relative;
 }

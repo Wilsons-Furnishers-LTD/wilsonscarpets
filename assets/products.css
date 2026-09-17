@@ -748,11 +748,11 @@
   height: 35px;
 }
 @media (max-width: 475px) {
-  .product-main_sidebar .option-size.option .size-calculator-header {
+  .product-main_sidebar .option-size.option .content .size-calculator-header {
     padding-top: 10px;
     padding-bottom: 15px;
   }
-  .product-main_sidebar .option-size.option .length-qty {
+  .product-main_sidebar .option-size.option .content .length-qty {
     margin-bottom: 10px;
   }
 }

@@ -1270,7 +1270,7 @@ body.product-refresh #lengthInches div.userLengthInches-wrapper:before {
   content: "in";
 }
 body.product-refresh #lengthInches div:before {
-  right: 5px;
+  right: 2px;
   width: 20px;
 }
 body.product-refresh .size-calculator-header {

@@ -1307,7 +1307,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   }
 }
 .product-main-details .product-features .feature img {
-  width: 3.8rem;
+  width: 45px;
 }
 .product-main-details .product-features .feature .text-content {
   padding-left: 20px;

@@ -434,15 +434,15 @@
 
             //jQuery('.product-photo-thumbs a').removeClass('active');
             //jQuery('.product-photo-thumb').eq(currentItem).find('a').addClass('active');
-            jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
+            // jQuery('.product-photo-thumb').eq(currentItem).trigger('click');
 
             var colour_variant = jQuery('.product-photo-thumb').eq(currentItem).data('value');
             
-            if(colour_variant != '') {
-              jQuery('#select-option-colour ul').each(function () {
-                    jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
-                });
-            }
+            // if(colour_variant != '') {
+            //   jQuery('#select-option-colour ul').each(function () {
+            //         jQuery(this).find('li[data-value="' + colour_variant + '"]').trigger('click');
+            //     });
+            // }
         })
 
         jQuery('.product-photo-thumbs li').click(function (e) {

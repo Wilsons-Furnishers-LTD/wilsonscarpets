@@ -326,7 +326,7 @@
         }
     }
 
-    function checkBackgroundContrast(imgSrc, textEl) {
+    function checkBackgroundContrast(imgSrc, textEl, El) {
         
         const img = new Image();
         img.crossOrigin = "anonymous";
@@ -359,6 +359,7 @@
             } else {
                 $(textEl).css('color' , 'white');
             }
+            $(El).css('background-image', imgSrc)
         }
     }
 
@@ -494,12 +495,8 @@
                     img.src = bg;
 
                     $('.colour-selected__inner span').text(value);
-                    contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
+                    contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'), $('.colour-selected'));
 
-                    window.scrollBy(0, -1);
-                    setTimeout(() => {
-                        window.scrollBy(0, 1);
-                    }, 100);
                 }
             }
         });

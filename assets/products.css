@@ -754,9 +754,17 @@
   .product-main_sidebar .option-size.option .colour-selected {
     margin-left: -15px;
     margin-right: -15px;
+    position: relative;
+    background-size: cover;
+  }
+  .product-main_sidebar .option-size.option .colour-selected .colour-selected__bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     background-size: cover;
   }
   .product-main_sidebar .option-size.option .colour-selected .colour-selected__inner {
+    position: relative;
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.25);
     padding-left: 15px;

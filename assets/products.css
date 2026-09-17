@@ -1031,7 +1031,6 @@
 .product-main .related-products-refresh .owl-nav {
   background: transparent;
   position: absolute;
-  right: 5px;
   display: flex;
   gap: 5px;
   height: 0;

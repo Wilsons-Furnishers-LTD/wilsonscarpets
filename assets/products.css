@@ -770,7 +770,7 @@
     padding-top: 3px;
     padding-bottom: 3px;
   }
-  .product-main_sidebar .option-size.option .content input[type=text], .product-main_sidebar .option-size.option .content select {
+  .product-main_sidebar .option-size.option .content input[type=text], .product-main_sidebar .option-size.option .content select, .product-main_sidebar .option-size.option .content .space {
     height: 30px;
   }
   .product-main_sidebar .option-size.option .content #totalAreaM2 {

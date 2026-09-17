@@ -236,7 +236,7 @@
                                                     {% if option == color %}
                                                         {% unless displayedColor contains color %}
                                                             {% assign displayedColor = displayedColor | append: '|' | append: color %}
-                                                            <span class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>{{ color }}</span>
+                                                            <span data-bg="{{ variant.image.src | image_url: width: 40  }}" class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>{{ color }}</span>
                                                         {% endunless %}
                                                         {% break %}
                                                     {% endif %}
@@ -570,7 +570,10 @@
             </script>
                 {% if product.type == 'Carpet' or product.type == 'Carpets' or product.type == 'Vinyl' or product.type == 'Artificial Grass'  %}
                     <div class="option option-size" data-select-option="{{ '#product-select-option-' | append: position_option_size }}">
-                        
+                        <div class="colour-selected">
+                            
+                            Colour: <span></span>
+                        </div>
                         <div class="content">
                             <div class="length-qty metres">
                                 <div class="size-calculator-header">

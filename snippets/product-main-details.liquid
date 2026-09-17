@@ -19,7 +19,7 @@
     <div class="product-main-details__main">
         {% if product.description %}
             <div class="product-main-details__item active" id="tab-description">
-                {{ product.description }}
+                
                 <div class="product-features">
                 {% for tag in product.tags %}
                 {% if tag contains 'Feature_' %}
@@ -63,6 +63,7 @@
                 {% endif %}
                 {% endfor %}
             </div>
+            {{ product.description }}
             </div>
         {% endif %}
         <div class="product-main-details__item" id="tab-specs">

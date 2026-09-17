@@ -326,6 +326,42 @@
         }
     }
 
+    function checkBackgroundContrast(imgSrc, textEl) {
+        
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = imgSrc;
+
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            // Sample a small version of the image
+            canvas.width = 10;
+            canvas.height = 10;
+            ctx.drawImage(img, 0, 0, 10, 10);
+
+            const pixels = ctx.getImageData(0, 0, 10, 10).data;
+
+            let luminance = 0;
+
+            for (let i = 0; i < pixels.length; i += 4) {
+                const [r, g, b] = pixels.slice(i, i + 3);
+
+                // Relative luminance approximation
+                luminance += (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            }
+
+            luminance /= pixels.length / 4;
+            
+            if(luminance > 0.5) {
+                $(textEl).css('color' , '#414b52');
+            } else {
+                $(textEl).css('color' , 'white');
+            }
+        }
+    }
+
     function carouselInit(loop){
         const is_loop = loop ?? true;
         jQuery(".product-photo-container .owl-carousel").owlCarousel({
@@ -414,7 +450,8 @@
             var index = jQuery(this).index(),
                 value = jQuery(this).data('value'),
                 swatch = jQuery('.swatch-colours'),
-                ul = swatch.find('ul');
+                ul = swatch.find('ul'),
+                activeSwatch = swatch.find('.select li[data-value="' + value + '"] span'),
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
 
             if (value && value != '') {
@@ -427,11 +464,25 @@
 
                 //swatchClick(value);
             }
+            
 
+            
+            
             $('#product-colour-text').text(value);
+            
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');
+
+            if($(activeSwatch).length && $(activeSwatch).attr('data-bg')) {
+
+            
+                $('.colour-selected').css('background-image', '');    
+                $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')');
+                $('.colour-selected')[0].offsetHeight;
+                $('.colour-selected span').text(value);
+                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected'));
+            }
         });
 
         if(is_loop){

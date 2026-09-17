@@ -1351,6 +1351,11 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   margin-top: 0;
   margin-bottom: 0;
 }
+@media (min-width: 992pz) {
+  .product-main-details .product-features .feature .text-content h2 {
+    text-align: center;
+  }
+}
 .product-main-details__item {
   display: none;
 }

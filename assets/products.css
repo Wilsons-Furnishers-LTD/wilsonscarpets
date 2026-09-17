@@ -769,6 +769,9 @@
   .product-main_sidebar .option-size.option .content #totalAreaM2 {
     font-size: 12px;
   }
+  .product-main_sidebar .option-size.option .content #totalAreaM2 span {
+    float: none;
+  }
 }
 @media (min-width: 476px) {
   .product-main_sidebar .option-size.option {

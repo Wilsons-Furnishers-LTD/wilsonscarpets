@@ -1225,9 +1225,6 @@ body.product-refresh #shopify-section-footer {
 body.product-refresh #lengthMetres {
   position: relative;
 }
-body.product-refresh #lengthMetres input {
-  width: 100% !important;
-}
 body.product-refresh #lengthMetres:before {
   content: "m";
   display: flex;
@@ -1236,7 +1233,7 @@ body.product-refresh #lengthMetres:before {
   width: 30px;
   top: 0;
   font-size: 16px;
-  right: 0;
+  right: 15px;
   top: 0;
   bottom: 0;
   margin: auto;

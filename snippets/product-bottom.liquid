@@ -355,12 +355,9 @@
             luminance /= pixels.length / 4;
             
             if(luminance > 0.5) {
-                $(textEl).css('color' , 'red');
-                console.log(textEl);
-                // textEl = 'red';
-                return 'black';
+                $(textEl).css('color' , '#414b52');
             } else {
-                return 'white';
+                $(textEl).css('color' , 'white');
             }
         }
     }
@@ -471,7 +468,7 @@
             if($(activeSwatch) && $(activeSwatch).attr('data-bg')) {
                 $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')')
                 $('.colour-selected__inner span').text(value);
-                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner span'));
+                contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
             
             }
             

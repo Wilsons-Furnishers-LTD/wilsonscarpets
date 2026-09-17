@@ -479,6 +479,7 @@
                 setTimeout(() => {
                                     $('.colour-selected').css('background-image', '');    
                 $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')');
+                console.log($('.colour-selected').css('background-image'));
                 $('.colour-selected')[0].offsetHeight;
                 $('.colour-selected__inner span').text(value);
                 contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));

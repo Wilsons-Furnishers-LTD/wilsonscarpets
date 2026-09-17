@@ -1228,7 +1228,7 @@ body.product-refresh #shopify-section-footer {
 }
 body.product-refresh #lengthInches {
   display: flex;
-  grid-area: 10px;
+  gap: 10px;
 }
 body.product-refresh #lengthInches div input {
   width: 100% !important;

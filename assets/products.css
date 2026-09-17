@@ -1037,7 +1037,12 @@
   height: 0;
   padding-top: 25%;
   width: 65px;
-  padding-top: 60%;
+  padding-top: 45%;
+}
+@media (min-width: 992px) {
+  .product-main .related-products-refresh .owl-nav {
+    padding-top: 60%;
+  }
 }
 @media (min-width: 1200px) {
   .product-main .related-products-refresh .owl-nav {

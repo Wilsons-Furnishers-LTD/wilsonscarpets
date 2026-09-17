@@ -416,7 +416,7 @@
                 swatch = jQuery('.swatch-colours'),
                 ul = swatch.find('ul');
                 colour = swatch.find('.select li[data-value="' + value + '"]').html();
-console.log(colour)
+
             if (value && value != '') {
                 swatch.find('label').html(colour);
                 swatch.find('li').removeClass('selected');
@@ -426,6 +426,10 @@ console.log(colour)
                 });
 
                 //swatchClick(value);
+            }
+
+            if(colour && colour.attr('data-bg')) {
+                $('.colour-selected__inner').css('background-image', 'url(' + colour.attr('data-bg') + ')')
             }
             
             $('#product-colour-text').text(value);

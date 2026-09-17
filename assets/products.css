@@ -1289,6 +1289,9 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   gap: 10px;
   flex-wrap: wrap;
 }
+.product-main-details .product-features .text-content {
+  padding-left: 20px;
+}
 .product-main-details .product-features .feature {
   padding: 0;
   width: 100%;

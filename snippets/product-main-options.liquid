@@ -236,7 +236,7 @@
                                                     {% if option == color %}
                                                         {% unless displayedColor contains color %}
                                                             {% assign displayedColor = displayedColor | append: '|' | append: color %}
-                                                            <span data-large-image="{{ variant.image.src | img_url: '800x800', crop: 'center' }}" class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>{{ color }}</span>
+                                                            <span data-bg="{{ variant.image.src | img_url: '800x800', crop: 'center' }}" class="data" data-id="{{variant.id}}" data-quantity="{{ variant.inventory_quantity }}" data-stockLevel="{{ variant.metafields.Juno.lowstock }}" data-deliveryEstimate="{{ variant.metafields.Juno.Delivery_time }}"><img src="{{ variant.image.src | img_url: '40x40', crop: 'center' }}" alt="{{ color }}"/>{{ color }}</span>
                                                         {% endunless %}
                                                         {% break %}
                                                     {% endif %}

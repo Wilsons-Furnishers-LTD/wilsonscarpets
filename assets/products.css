@@ -766,6 +766,10 @@
   .product-main_sidebar .option-size.option .content #product-price {
     font-size: 14px;
   }
+  .product-main_sidebar .option-size.option .content .toggleContainer div {
+    padding-top: 3px;
+    padding-bottom: 3px;
+  }
   .product-main_sidebar .option-size.option .content #totalAreaM2 {
     font-size: 12px;
   }

@@ -497,6 +497,9 @@
                     contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
 
                     window.scrollBy(0, -100);
+                    setTimeout(() => {
+                        window.scrollBy(0, 100);
+                    }, 1000);
                 }
             }
         });

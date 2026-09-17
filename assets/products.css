@@ -1225,7 +1225,7 @@ body.product-refresh #shopify-section-footer {
 body.product-refresh #lengthMetres {
   position: relative;
 }
-body.product-refresh #lengthMetres:after {
+body.product-refresh #lengthMetres:before {
   content: "m";
   display: block;
   position: absolute;

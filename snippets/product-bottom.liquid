@@ -466,6 +466,7 @@
             }
             
             if($(activeSwatch) && $(activeSwatch).attr('data-bg')) {
+                console.log('update bg')
                 $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')')
                 $('.colour-selected__inner span').text(value);
                 contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));

@@ -1243,10 +1243,10 @@ body.product-refresh #lengthInches div input {
   width: 100% !important;
   margin-left: 0 !important;
 }
-body.product-refresh #lengthMetres {
+body.product-refresh #lengthMetres, body.product-refresh #lengthInches div {
   position: relative;
 }
-body.product-refresh #lengthMetres:before {
+body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches div:before {
   line-height: 1.65;
   content: "m";
   display: flex;

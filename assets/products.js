@@ -4874,7 +4874,7 @@ class Products {
                 
 
                 $(event.currentTarget).find('.owl-item .product-name').removeAttr('style');
-                $(event.currentTarget).find('.owl-item.active .product-name').sameHeight();
+                // $(event.currentTarget).find('.owl-item.active .product-name').sameHeight();
 
 
                 $(window).width();

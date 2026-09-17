@@ -429,6 +429,7 @@
             }
 
             $('#product-colour-text').text(value);
+            $('.colour-selected__inner span').text(value);
             jQuery('.product-photo-thumbs a').removeClass('active');
             jQuery(this).find('a').addClass('active');
             jQuery('.owl-dots .owl-dot:nth-child(' + (index + 1) + ')').trigger('click');

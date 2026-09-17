@@ -1263,6 +1263,9 @@ body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches di
   justify-content: center;
   background-color: #fff;
 }
+body.product-refresh #lengthInches div:before {
+  right: 1px;
+}
 body.product-refresh .size-calculator-header {
   display: flex;
   align-items: center;

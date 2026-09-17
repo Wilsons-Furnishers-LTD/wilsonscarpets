@@ -1327,6 +1327,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   padding-left: 15px;
   flex: 1;
   display: flex;
+  align-items: flex-end;
 }
 @media (min-width: 767px) {
   .product-main-details .product-features .feature .text-content {

@@ -752,6 +752,9 @@
     padding-top: 10px;
     padding-bottom: 15px;
   }
+  .product-main_sidebar .option-size.option .length-qty {
+    margin-bottom: 10px;
+  }
 }
 @media (min-width: 476px) {
   .product-main_sidebar .option-size.option {

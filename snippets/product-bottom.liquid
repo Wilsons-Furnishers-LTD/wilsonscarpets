@@ -483,6 +483,9 @@
                 $('.colour-selected__inner span').text(value);
                 contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
                 $('.colour-selected').hide();
+                setTimeout(() => {
+                    $('.colour-selected').show();
+                }, 1000);
             }
         });
 

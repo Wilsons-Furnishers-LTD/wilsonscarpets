@@ -1240,6 +1240,7 @@ body.product-refresh #lengthMetres:before {
   margin: auto;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
 }
 body.product-refresh .size-calculator-header {
   display: flex;

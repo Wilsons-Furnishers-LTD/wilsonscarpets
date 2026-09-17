@@ -4838,7 +4838,7 @@ class Products {
             var $featuredCollection = $('.related-products-refresh .owl-carousel');
             $featuredCollection.owlCarousel({
                 loop: true,
-                center:true,
+                
                 autoplay: false,
                 margin: 20,
                 nav: true,
@@ -4846,7 +4846,8 @@ class Products {
                 dots: false,
                 responsive: {
                     0: {
-                        items: 3
+                        center:true,
+                        items: 2
                     },
                     768: {
                         items: 2.5

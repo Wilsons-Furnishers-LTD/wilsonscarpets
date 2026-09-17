@@ -485,7 +485,7 @@
                     const img = new Image();
 
                     img.onload = function () {
-                        $($selected).prepend('<div style="background-image: ' + url("' + bg + '") +'" class="colour-selected__bg"></div>');
+                        $($selected).prepend('<div style="background-image: url(' + bg + ')" class="colour-selected__bg"></div>');
                     };
 
                     img.onerror = function () {

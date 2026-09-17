@@ -1037,6 +1037,8 @@
   padding-top: 25%;
   width: 100%;
   padding-top: 45%;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 @media (min-width: 992px) {
   .product-main .related-products-refresh .owl-nav {

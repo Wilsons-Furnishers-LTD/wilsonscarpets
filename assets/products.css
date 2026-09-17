@@ -1029,6 +1029,16 @@
   padding-top: 25%;
   width: 65px;
 }
+@media (min-width: 1200px) {
+  .product-main .related-products-refresh .owl-nav {
+    padding-top: 25%;
+  }
+}
+@media (min-width: 1400px) {
+  .product-main .related-products-refresh .owl-nav {
+    padding-top: 25%;
+  }
+}
 .product-main .related-products-refresh .owl-nav .owl-prev, .product-main .related-products-refresh .owl-nav .owl-next {
   background-color: #fff;
   width: 30px;

@@ -1236,6 +1236,9 @@ body.product-refresh #lengthInches {
   display: flex;
   gap: 10px;
 }
+body.product-refresh #lengthInches div {
+  width: 46%;
+}
 body.product-refresh #lengthInches div input {
   width: 100% !important;
   margin-left: 0 !important;

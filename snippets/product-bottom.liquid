@@ -326,6 +326,40 @@
         }
     }
 
+    function checkBackgroundContrast(imgSrc) {
+        
+        const img = new Image();
+        img.crossOrigin = "anonymous";
+        img.src = imgSrc;
+
+        img.onload = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Sample a small version of the image
+        canvas.width = 10;
+        canvas.height = 10;
+        ctx.drawImage(img, 0, 0, 10, 10);
+
+        const pixels = ctx.getImageData(0, 0, 10, 10).data;
+
+        let luminance = 0;
+
+        for (let i = 0; i < pixels.length; i += 4) {
+            const [r, g, b] = pixels.slice(i, i + 3);
+
+            // Relative luminance approximation
+            luminance += (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+        }
+
+        luminance /= pixels.length / 4;
+        if(luminance > 0.5) {
+            return 'black'
+        } else {
+            return 'white';
+        }
+    }
+
     function carouselInit(loop){
         const is_loop = loop ?? true;
         jQuery(".product-photo-container .owl-carousel").owlCarousel({
@@ -432,6 +466,8 @@
             if($(activeSwatch) && $(activeSwatch).attr('data-bg')) {
                 $('.colour-selected').css('background-image', 'url(' + $(activeSwatch).attr('data-bg') + ')')
                 $('.colour-selected__inner span').text(value);
+                let contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'));
+                console.log(contrast)
             }
             
             

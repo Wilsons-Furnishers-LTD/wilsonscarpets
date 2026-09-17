@@ -762,6 +762,8 @@
     background: rgba(255, 255, 255, 0.25);
     padding-left: 15px;
     padding-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   .product-main_sidebar .option-size.option .content .size-calculator-header {
     padding-top: 10px;

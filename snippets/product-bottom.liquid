@@ -1102,30 +1102,30 @@
 <script>
     jQuery(document).ready(function () {
 
-        // if (location.search.indexOf('color') < 0 ) {
-        //     if (jQuery('.product-photo-thumbs-holder').length) {
-        //         setTimeout(function () {
-        //             jQuery('.swatch-colours li').first().trigger('click');
-        //             jQuery('.swatch-colours').attr('data-load', 'true');
-        //         });
-        //     }else{
-        //         if (jQuery('.option-colour .swatch-colours .grid li').length === 1) {
-        //             setTimeout(function () {
-        //                 jQuery('.swatch-colours li').first().trigger('click');
-        //             });
-        //         }
-        //     }
-        // }
-
-        jQuery("body").on("change", ".numberOfOptions2 .option-single #product-select-option-0", function () {
-
-            var whichColourToShow = jQuery(this).val();
-            jQuery('.product-photo-thumbs li').each(function () {
-                if (jQuery(this).attr('data-value') == whichColourToShow) {
-                    jQuery(this).click();
+        if (location.search.indexOf('color') < 0 ) {
+            if (jQuery('.product-photo-thumbs-holder').length) {
+                setTimeout(function () {
+                    jQuery('.swatch-colours li').first().trigger('click');
+                    jQuery('.swatch-colours').attr('data-load', 'true');
+                });
+            }else{
+                if (jQuery('.option-colour .swatch-colours .grid li').length === 1) {
+                    setTimeout(function () {
+                        jQuery('.swatch-colours li').first().trigger('click');
+                    });
                 }
-            });
-        });
+            }
+        }
+
+        // jQuery("body").on("change", ".numberOfOptions2 .option-single #product-select-option-0", function () {
+
+        //     var whichColourToShow = jQuery(this).val();
+        //     jQuery('.product-photo-thumbs li').each(function () {
+        //         if (jQuery(this).attr('data-value') == whichColourToShow) {
+        //             jQuery(this).click();
+        //         }
+        //     });
+        // });
 
 
         // Handle add to cart for laminate and LVT same with each other

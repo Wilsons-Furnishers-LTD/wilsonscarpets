@@ -4847,7 +4847,8 @@ class Products {
                 responsive: {
                     0: {
                         center:true,
-                        items: 2
+                        items: 2,
+                        margin:10
                     },
                     768: {
                         items: 2.5

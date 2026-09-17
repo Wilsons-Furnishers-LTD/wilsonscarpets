@@ -1226,6 +1226,7 @@ body.product-refresh #lengthMetres {
   position: relative;
 }
 body.product-refresh #lengthMetres:before {
+  line-height: 1.65;
   content: "m";
   display: flex;
   position: absolute;

@@ -1289,6 +1289,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   gap: 20px 20px;
   flex-wrap: wrap;
   margin-bottom: 30px;
+  max-width: 650px;
 }
 @media (min-width: 767px) {
   .product-main-details .product-features {

@@ -499,10 +499,6 @@
             }
         });
 
-        $('.product-details .option-colour li').click(function() {
-            console.log('clickkkk')
-        });
-
         if(is_loop){
             jQuery('.product-photo-container .featherlight-gallery').featherlightGallery({
                 variant: "featherlight-product-photo-image",
@@ -651,6 +647,10 @@
     }
 
     jQuery(document).ready(function () {
+
+            $('.product-details .option-colour li').click(function() {
+            console.log('clickkkk')
+        });
         if(jQuery('.product-photo-container .js-product-photo-thumb').length){
             carouselInit(true);
         }else{

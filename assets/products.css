@@ -749,7 +749,7 @@
 }
 @media (max-width: 475px) {
   .product-main_sidebar .option-size.option {
-    border-top: 1px solid rgba(65, 75, 82, 0.2);
+    border-top: 1px solid rgba(65, 75, 82, 0.1);
   }
   .product-main_sidebar .option-size.option .content .size-calculator-header {
     padding-top: 10px;
@@ -779,6 +779,7 @@
   }
   .product-main_sidebar .option-size.option .content input[type=text], .product-main_sidebar .option-size.option .content select, .product-main_sidebar .option-size.option .content .space {
     height: 30px;
+    line-height: 20px;
   }
   .product-main_sidebar .option-size.option .content .space {
     display: flex;

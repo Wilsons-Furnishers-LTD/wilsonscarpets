@@ -1035,16 +1035,16 @@
   gap: 5px;
   height: 0;
   padding-top: 25%;
-  width: 100%;
+  width: calc(100% - 30px);
+  left: 15px;
   padding-top: 45%;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 @media (min-width: 992px) {
   .product-main .related-products-refresh .owl-nav {
     padding-top: 60%;
     width: 65px;
     right: 5px;
+    left: initial;
   }
 }
 @media (min-width: 1200px) {

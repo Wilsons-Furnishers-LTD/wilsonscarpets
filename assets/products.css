@@ -763,6 +763,9 @@
   .product-main_sidebar .option-size.option .content .product-price-wrapper {
     padding-bottom: 10px;
   }
+  .product-main_sidebar .option-size.option .content .totalAreaM2 {
+    font-size: 14px;
+  }
 }
 @media (min-width: 476px) {
   .product-main_sidebar .option-size.option {

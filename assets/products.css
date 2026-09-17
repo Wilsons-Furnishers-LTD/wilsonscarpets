@@ -1263,6 +1263,9 @@ body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches di
   justify-content: center;
   background-color: #fff;
 }
+body.product-refresh #lengthInches div.userLengthFeet-wrapper:before {
+  content: "ft";
+}
 body.product-refresh #lengthInches div:before {
   right: 5px;
   width: 20px;

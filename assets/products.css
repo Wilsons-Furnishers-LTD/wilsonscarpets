@@ -1255,7 +1255,7 @@ body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches di
   width: 30px;
   top: 0;
   font-size: 16px;
-  right: 15px;
+  right: 5px;
   top: 0;
   bottom: 0;
   margin: auto;
@@ -1264,7 +1264,7 @@ body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches di
   background-color: #fff;
 }
 body.product-refresh #lengthInches div input {
-  padding-right: 15px;
+  padding-right: 20px;
 }
 body.product-refresh #lengthInches div.userLengthFeet-wrapper:before {
   content: "ft";

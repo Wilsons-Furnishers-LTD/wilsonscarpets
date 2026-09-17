@@ -1228,7 +1228,7 @@ body.product-refresh #lengthMetres {
 body.product-refresh #lengthMetres:after {
   content: "m";
   display: block;
-  position: absolute;
+  height: 30px;
 }
 body.product-refresh .size-calculator-header {
   display: flex;

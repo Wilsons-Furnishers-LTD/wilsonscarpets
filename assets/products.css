@@ -1299,11 +1299,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   width: 100%;
   float: none;
   padding: 0;
-}
-@media (min-width: 767px) {
-  .product-main-details .product-features .feature {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  display: flex;
 }
 @media (min-width: 1200px) {
   .product-main-details .product-features .feature {

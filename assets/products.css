@@ -1037,12 +1037,14 @@
   padding-top: 40px;
   border-top: none;
 }
-.product-main .related-products-refresh .owl-item {
-  opacity: 0.6;
-  transition: all 0.3s ease;
-}
-.product-main .related-products-refresh .owl-item.active.center {
-  opacity: 1;
+@media (max-width: 991px) {
+  .product-main .related-products-refresh .owl-item {
+    opacity: 0.6;
+    transition: all 0.3s ease;
+  }
+  .product-main .related-products-refresh .owl-item.active.center {
+    opacity: 1;
+  }
 }
 .product-main .related-products-refresh .owl-nav {
   background: transparent;

@@ -755,6 +755,10 @@
   .product-main_sidebar .option-size.option .content .length-qty {
     margin-bottom: 10px;
   }
+  .product-main_sidebar .option-size.option .content button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 }
 @media (min-width: 476px) {
   .product-main_sidebar .option-size.option {

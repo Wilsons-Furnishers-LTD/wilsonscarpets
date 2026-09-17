@@ -1228,9 +1228,11 @@ body.product-refresh #shopify-section-footer {
 }
 body.product-refresh #lengthInches {
   display: flex;
+  grid-area: 10px;
 }
 body.product-refresh #lengthInches div input {
   width: 100% !important;
+  margin-left: 0 !important;
 }
 body.product-refresh #lengthMetres {
   position: relative;

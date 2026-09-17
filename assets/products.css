@@ -1263,6 +1263,9 @@ body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches di
   justify-content: center;
   background-color: #fff;
 }
+body.product-refresh #lengthInches div input {
+  padding-right: 15px;
+}
 body.product-refresh #lengthInches div.userLengthFeet-wrapper:before {
   content: "ft";
 }
@@ -1270,7 +1273,7 @@ body.product-refresh #lengthInches div.userLengthInches-wrapper:before {
   content: "in";
 }
 body.product-refresh #lengthInches div:before {
-  right: 2px;
+  right: 5px;
   width: 20px;
 }
 body.product-refresh .size-calculator-header {

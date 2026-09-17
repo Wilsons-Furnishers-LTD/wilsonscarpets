@@ -996,7 +996,7 @@
 .product-main .related-products-refresh h2.product-name {
   height: initial !important;
   min-height: initial !important;
-  padding-bottom: 10px;
+  margin-bottom: 10px;
 }
 .product-main .related-products-refresh h2.title-section {
   padding-left: 15px;

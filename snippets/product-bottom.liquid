@@ -476,28 +476,28 @@
 
 
 
-            if ($(activeSwatch).length) {
-                const bg = $(activeSwatch).attr('data-bg');
-                const $selected = $('.colour-selected');
+            // if ($(activeSwatch).length) {
+            //     const bg = $(activeSwatch).attr('data-bg');
+            //     const $selected = $('.colour-selected');
 
-                $($selected).find('.colour-selected__bg').remove();
-                if (bg && $selected.length) {
-                    const img = new Image();
+            //     $($selected).find('.colour-selected__bg').remove();
+            //     if (bg && $selected.length) {
+            //         const img = new Image();
 
-                    img.onload = function () {
-                        $($selected).prepend('<div style="background-image: url(' + bg + ')" class="colour-selected__bg"></div>');
-                    };
+            //         img.onload = function () {
+            //             $($selected).prepend('<div style="background-image: url(' + bg + ')" class="colour-selected__bg"></div>');
+            //         };
 
-                    img.onerror = function () {
-                        console.log('Failed to load background:', bg);
-                    };
+            //         img.onerror = function () {
+            //             console.log('Failed to load background:', bg);
+            //         };
 
-                    img.src = bg;
+            //         img.src = bg;
 
-                    $('.colour-selected__inner span').text(value);
-                    contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
-                }
-            }
+            //         $('.colour-selected__inner span').text(value);
+            //         contrast = checkBackgroundContrast($(activeSwatch).attr('data-bg'), $('.colour-selected__inner'));
+            //     }
+            // }
         });
 
         if(is_loop){

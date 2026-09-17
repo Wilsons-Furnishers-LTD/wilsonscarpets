@@ -1286,7 +1286,7 @@ body.product-refresh .toggle-checkbox + .toggleContainer div:last-child {
   grid-template-columns: repeat(2, 1fr);
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 10px;
+  gap: 20px 20px;
   flex-wrap: wrap;
 }
 .product-main-details .product-features .feature {

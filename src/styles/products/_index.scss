@@ -342,8 +342,12 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
             left: 0;
             padding-left: 15px;
             padding-right: 15px;
-            input[type="text"], select {
+            input[type="text"] {
                 height: 35px;
+            }
+            select {
+                height: 33px;
+                line-height: 19px !important;
             }
             .colour-selected {
                 margin-left: -15px;
@@ -402,6 +406,14 @@ $full-height: calc(100vh - $desktop-body-padding - 18px);
                     input[type=text], select, .space {
                         height: 30px;
                         line-height: 20px !important;
+                    }
+                    .selectWrapper {
+                        &:after {
+                            top: 10px;
+                        }
+                    }
+                    select {
+                        height: 28px;
                     }
                     .space {
                         display: flex;
@@ -825,7 +837,57 @@ body.product-refresh {
         position: relative;
         z-index: 1000;
     }
+        #lengthInches {
+            display: flex;
+            gap: 10px;
+            div {
+                width: 44%;
+                input {
+                    width: 100% !important;
+                    margin-left: 0 !important;
+                }
+            }
+        }
+        #lengthMetres, #lengthInches div {
+            position: relative;
 
+            &:before {
+                line-height: 1.65;
+                content: 'm';
+                display: flex;
+                position: absolute;
+                height: 28px;
+                width: 20px;
+                top: 0;
+                font-size: 16px;
+                right: 15px;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                align-items: center;
+                justify-content: center;
+                background-color: #fff;
+            }
+        }
+        #lengthInches div {
+            input {
+                padding-right: 20px;
+            }
+            &.userLengthFeet-wrapper {
+                &:before {
+                    content: 'ft';
+                }    
+            }
+            &.userLengthInches-wrapper {
+                &:before {
+                    content: 'in';
+                }    
+            }
+            &:before {
+                right: 2px;
+                width: 20px;
+            }
+        }
     .size-calculator-header {
         display: flex;
         align-items: center;

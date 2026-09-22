@@ -748,8 +748,12 @@
   padding-left: 15px;
   padding-right: 15px;
 }
-.product-main_sidebar .option-size.option input[type=text], .product-main_sidebar .option-size.option select {
+.product-main_sidebar .option-size.option input[type=text] {
   height: 35px;
+}
+.product-main_sidebar .option-size.option select {
+  height: 33px;
+  line-height: 19px !important;
 }
 .product-main_sidebar .option-size.option .colour-selected {
   margin-left: -15px;
@@ -809,6 +813,12 @@
   .product-main_sidebar .option-size.option .content input[type=text], .product-main_sidebar .option-size.option .content select, .product-main_sidebar .option-size.option .content .space {
     height: 30px;
     line-height: 20px !important;
+  }
+  .product-main_sidebar .option-size.option .content .selectWrapper:after {
+    top: 10px;
+  }
+  .product-main_sidebar .option-size.option .content select {
+    height: 28px;
   }
   .product-main_sidebar .option-size.option .content .space {
     display: flex;
@@ -1221,6 +1231,50 @@ body.product-refresh .breadcrumb a {
 body.product-refresh #shopify-section-footer {
   position: relative;
   z-index: 1000;
+}
+body.product-refresh #lengthInches {
+  display: flex;
+  gap: 10px;
+}
+body.product-refresh #lengthInches div {
+  width: 44%;
+}
+body.product-refresh #lengthInches div input {
+  width: 100% !important;
+  margin-left: 0 !important;
+}
+body.product-refresh #lengthMetres, body.product-refresh #lengthInches div {
+  position: relative;
+}
+body.product-refresh #lengthMetres:before, body.product-refresh #lengthInches div:before {
+  line-height: 1.65;
+  content: "m";
+  display: flex;
+  position: absolute;
+  height: 28px;
+  width: 20px;
+  top: 0;
+  font-size: 16px;
+  right: 15px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+body.product-refresh #lengthInches div input {
+  padding-right: 20px;
+}
+body.product-refresh #lengthInches div.userLengthFeet-wrapper:before {
+  content: "ft";
+}
+body.product-refresh #lengthInches div.userLengthInches-wrapper:before {
+  content: "in";
+}
+body.product-refresh #lengthInches div:before {
+  right: 2px;
+  width: 20px;
 }
 body.product-refresh .size-calculator-header {
   display: flex;

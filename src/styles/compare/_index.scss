@@ -1,0 +1,159 @@
+@use './../variables' as v;
+
+.compare-button {
+    color: v.$wilson-grey;
+	font: inherit;
+	outline: inherit;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    background-color: #fff;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border-radius: 100%;
+    padding: 5px;
+    box-shadow: 0 1px 5px #32323291;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    transition-delay: 0.3s;
+    &:hover {
+        color: v.$wilson-grey;
+        border-color: v.$wilson-grey;
+        background-color: v.$wilson-yellow;
+    }
+}
+
+.compare-modal-container {
+    width: 100dvw;
+    height: 100dvh;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    visibility: hidden;
+    .compare-modal-background {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        opacity: 0;
+        position: absolute;
+        inset: 0;
+        transition: all 0.3s ease;
+    }
+    .compare-modal {
+        position: absolute;
+        z-index: 1;
+        background-color: #fff;
+        width: max-content;
+        height: 100%;
+        inset: 0;
+        left: -50%;
+        transition: all 0.3s ease;
+        padding: 30px;
+    }
+    &.compare-modal-open {
+        left: 0;
+        z-index: 1000000;
+        visibility: visible;
+        .compare-modal {
+            left: 0;
+        }
+        .compare-modal-background {
+            opacity: 0.5;
+        }
+    }
+    .compare-modal__header {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #ddd;
+        &--col {
+            display: flex;
+            align-items: center;
+            gap: 0 10px;
+        }
+        .compare-modal__header--title {
+            font-weight: 700;
+            font-size: 24px;
+            padding-bottom: 5px;
+        }
+        button {
+            background: transparent;
+            padding: 0;
+            color: v.$wilson-grey;
+            border: none;
+            margin: 0;
+        }
+        button#clear-product-ids {
+            white-space: nowrap;
+            font-weight: 400;
+            text-decoration: underline;
+            font-size: 14px;
+        }
+        button#close-compare-modal {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    .compare-modal__product-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        &[hidden] {
+            display: none;
+        }
+        .compare-product-title {
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 26px;
+            padding-bottom: 30px;
+        }
+        .compare-skeleton {
+            border-radius: 4px;
+            background: linear-gradient(90deg, #eee 25%, #f7f7f7 50%, #eee 75%);
+            background-size: 200% 100%;
+            animation: compare-skeleton-shimmer 1.2s ease-in-out infinite;
+        }
+        .compare-skeleton__image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            margin-bottom: 15px;
+        }
+        .compare-skeleton__line {
+            width: 80%;
+            height: 14px;
+            margin: 6px auto;
+        }
+        .compare-product {
+            position: relative;
+            button {
+                background-color: transparent;
+                color: v.$wilson-grey;
+                border: none;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                top: -15px;
+                right: -15px;
+                padding: 0;
+                background: v.$wilson-yellow;
+                transition: all 0.3s ease;
+                padding: 2px;
+            }
+        }
+    }
+}
+
+@keyframes compare-skeleton-shimmer {
+    from {
+        background-position: 200% 0;
+    }
+    to {
+        background-position: -200% 0;
+    }
+}

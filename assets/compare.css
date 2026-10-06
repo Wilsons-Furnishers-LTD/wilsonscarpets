@@ -1,0 +1,157 @@
+.compare-button {
+  color: #414B52;
+  font: inherit;
+  outline: inherit;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  background-color: #fff;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border-radius: 100%;
+  padding: 5px;
+  box-shadow: 0 1px 5px rgba(50, 50, 50, 0.568627451);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  transition-delay: 0.3s;
+}
+.compare-button:hover {
+  color: #414B52;
+  border-color: #414B52;
+  background-color: #F2BF00;
+}
+
+.compare-modal-container {
+  width: 100dvw;
+  height: 100dvh;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  visibility: hidden;
+}
+.compare-modal-container .compare-modal-background {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0;
+  position: absolute;
+  inset: 0;
+  transition: all 0.3s ease;
+}
+.compare-modal-container .compare-modal {
+  position: absolute;
+  z-index: 1;
+  background-color: #fff;
+  width: max-content;
+  height: 100%;
+  inset: 0;
+  left: -50%;
+  transition: all 0.3s ease;
+  padding: 30px;
+}
+.compare-modal-container.compare-modal-open {
+  left: 0;
+  z-index: 1000000;
+  visibility: visible;
+}
+.compare-modal-container.compare-modal-open .compare-modal {
+  left: 0;
+}
+.compare-modal-container.compare-modal-open .compare-modal-background {
+  opacity: 0.5;
+}
+.compare-modal-container .compare-modal__header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #ddd;
+}
+.compare-modal-container .compare-modal__header--col {
+  display: flex;
+  align-items: center;
+  gap: 0 10px;
+}
+.compare-modal-container .compare-modal__header .compare-modal__header--title {
+  font-weight: 700;
+  font-size: 24px;
+  padding-bottom: 5px;
+}
+.compare-modal-container .compare-modal__header button {
+  background: transparent;
+  padding: 0;
+  color: #414B52;
+  border: none;
+  margin: 0;
+}
+.compare-modal-container .compare-modal__header button#clear-product-ids {
+  white-space: nowrap;
+  font-weight: 400;
+  text-decoration: underline;
+  font-size: 14px;
+}
+.compare-modal-container .compare-modal__header button#close-compare-modal {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.compare-modal-container .compare-modal__product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+.compare-modal-container .compare-modal__product-grid[hidden] {
+  display: none;
+}
+.compare-modal-container .compare-modal__product-grid .compare-product-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 26px;
+  padding-bottom: 30px;
+}
+.compare-modal-container .compare-modal__product-grid .compare-skeleton {
+  border-radius: 4px;
+  background: linear-gradient(90deg, #eee 25%, #f7f7f7 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: compare-skeleton-shimmer 1.2s ease-in-out infinite;
+}
+.compare-modal-container .compare-modal__product-grid .compare-skeleton__image {
+  width: 100%;
+  aspect-ratio: 1/1;
+  margin-bottom: 15px;
+}
+.compare-modal-container .compare-modal__product-grid .compare-skeleton__line {
+  width: 80%;
+  height: 14px;
+  margin: 6px auto;
+}
+.compare-modal-container .compare-modal__product-grid .compare-product {
+  position: relative;
+}
+.compare-modal-container .compare-modal__product-grid .compare-product button {
+  background-color: transparent;
+  color: #414B52;
+  border: none;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: -15px;
+  right: -15px;
+  padding: 0;
+  background: #F2BF00;
+  transition: all 0.3s ease;
+  padding: 2px;
+}
+
+@keyframes compare-skeleton-shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

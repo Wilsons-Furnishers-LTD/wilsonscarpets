@@ -8,33 +8,10 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {
+  "layout": "compare",
+    "sections": {
     "main": {
-      "type": "main-content-page",
-      "blocks": {
-        "cms_page_left_kkmBJi": {
-          "type": "cms_page_left",
-          "settings": {
-            "cms_heading": "Information Pages",
-            "cms_linklist": "advice",
-            "cms_linklist_two": "information",
-            "cms_linklist_three": ""
-          }
-        },
-        "cms_sidebar": {
-          "type": "cms_page_left",
-          "settings": {
-            "cms_heading": "Information Pages",
-            "cms_linklist": "",
-            "cms_linklist_two": "",
-            "cms_linklist_three": ""
-          }
-        }
-      },
-      "block_order": [
-        "cms_page_left_kkmBJi",
-        "cms_sidebar"
-      ],
+      "type": "main-content",
       "settings": {}
     }
   },

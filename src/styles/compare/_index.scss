@@ -1,5 +1,42 @@
 @use './../variables' as v;
 
+.comparison-page {
+    &__header {
+        align-items: center;
+        display: flex;
+        gap: 40px;
+        padding-bottom: 80px;
+    }
+    &__share {
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 6px 20px;
+        background-color: v.$wilson-yellow;
+        border: none;
+        color: v.$wilson-grey;
+        margin: 0;
+        svg {
+            width: 15px;
+            path {
+                fill: v.$wilson-grey;
+            }
+        }
+        &:hover {
+            border: none;
+            color: #fff;
+            svg {
+                
+                path {
+                    fill: #fff;
+                }
+            }
+        }
+
+    }
+}
 .compare-button {
     color: v.$wilson-grey;
 	font: inherit;
@@ -50,6 +87,8 @@
         left: -50%;
         transition: all 0.3s ease;
         padding: 30px;
+        display: flex;
+        flex-direction: column;
     }
     &.compare-modal-open {
         left: 0;
@@ -146,6 +185,85 @@
                 padding: 2px;
             }
         }
+    }
+}
+
+.compare-modal__nav {
+    background-color: rgba(#E7E7E7, 0.35);
+    border-bottom: 3px solid #DDDDDD;
+    margin-bottom: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    gap: 20px;
+    font-weight: 700;
+    margin-left: -30px;
+    width: calc(100% + 60px);
+    a {
+        opacity: 0.5;
+        height: 40px;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        padding: 0 20px;
+        transition: all 0.3s ease;
+        &:after {
+            height: 3px;
+            width: 100%;
+            bottom: -3px;
+            content: '';
+            background: v.$wilson-grey;
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        &.active {
+            &:after {
+                opacity: 1;
+                background: v.$wilson-yellow;
+            }
+            opacity: 1;
+        }
+        &:hover {
+            opacity: 1;
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+}
+.compare-modal__grids {
+    flex: 1;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-bottom: 30px;
+    padding-top: 15px;
+    padding-right: 15px;
+}
+
+.compare-modal__footer {
+    padding-top: 30px;
+    position: relative;
+    margin-top: -30px;
+    &:before {
+        position: absolute;
+        height: 30px;
+        width: calc(100% + 10px);
+        display: block;
+        content: '';
+        top: 0;
+        left: -30px;
+        mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        backdrop-filter: blur(3px) !important;
+        transform: scaleY(-1);
+    }
+    a.button {
+        margin-bottom: 0;
     }
 }
 

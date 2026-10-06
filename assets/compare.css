@@ -1,3 +1,35 @@
+.comparison-page__header {
+  align-items: center;
+  display: flex;
+  gap: 40px;
+  padding-bottom: 80px;
+}
+.comparison-page__share {
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 20px;
+  background-color: #F2BF00;
+  border: none;
+  color: #414B52;
+  margin: 0;
+}
+.comparison-page__share svg {
+  width: 15px;
+}
+.comparison-page__share svg path {
+  fill: #414B52;
+}
+.comparison-page__share:hover {
+  border: none;
+  color: #fff;
+}
+.comparison-page__share:hover svg path {
+  fill: #fff;
+}
+
 .compare-button {
   color: #414B52;
   font: inherit;
@@ -49,6 +81,8 @@
   left: -50%;
   transition: all 0.3s ease;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
 }
 .compare-modal-container.compare-modal-open {
   left: 0;
@@ -145,6 +179,86 @@
   background: #F2BF00;
   transition: all 0.3s ease;
   padding: 2px;
+}
+
+.compare-modal__nav {
+  background-color: rgba(231, 231, 231, 0.35);
+  border-bottom: 3px solid #DDDDDD;
+  margin-bottom: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+  gap: 20px;
+  font-weight: 700;
+  margin-left: -30px;
+  width: calc(100% + 60px);
+}
+.compare-modal__nav a {
+  opacity: 0.5;
+  height: 40px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 20px;
+  transition: all 0.3s ease;
+}
+.compare-modal__nav a:after {
+  height: 3px;
+  width: 100%;
+  bottom: -3px;
+  content: "";
+  background: #414B52;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.compare-modal__nav a.active:after {
+  opacity: 1;
+  background: #F2BF00;
+}
+.compare-modal__nav a.active {
+  opacity: 1;
+}
+.compare-modal__nav a:hover {
+  opacity: 1;
+}
+.compare-modal__nav a:hover:after {
+  opacity: 1;
+}
+
+.compare-modal__grids {
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-bottom: 30px;
+  padding-top: 15px;
+  padding-right: 15px;
+}
+
+.compare-modal__footer {
+  padding-top: 30px;
+  position: relative;
+  margin-top: -30px;
+}
+.compare-modal__footer:before {
+  position: absolute;
+  height: 30px;
+  width: calc(100% + 10px);
+  display: block;
+  content: "";
+  top: 0;
+  left: -30px;
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  backdrop-filter: blur(3px) !important;
+  transform: scaleY(-1);
+}
+.compare-modal__footer a.button {
+  margin-bottom: 0;
 }
 
 @keyframes compare-skeleton-shimmer {

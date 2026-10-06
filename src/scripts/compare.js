@@ -9,6 +9,8 @@ class Compare {
         this.nav = document.querySelector('.compare-modal__nav');
         this.activeType = null;
         this.specifications = ['Pile Height', 'Material', 'TOG Rating', 'Backing', 'Style'];
+        this.specificationsLaminate = ['Pack Size', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
+        this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         let compareButtons = document.querySelectorAll('.compare-button')
         compareButtons.forEach(compareButton => {
@@ -162,9 +164,18 @@ class Compare {
 
         this.activeType = type;
 
+        this.updateUrl(products);
         this.updateCount();
         this.renderNav();
         this.renderGrid();
+    }
+
+    updateUrl(products) {
+        const url = new URL(window.location.href);
+
+        url.searchParams.set('compare', JSON.stringify(products));
+
+        window.history.replaceState(window.history.state, '', url);
     }
 
     removeProduct(handle) {
@@ -298,6 +309,17 @@ class Compare {
         return grid;
     }
 
+    getSpecifications(type) {
+        switch (type) {
+            case 'Laminate':
+                return this.specificationsLaminate;
+            case 'Artificial Grass':
+                return this.specificationsArtificialGrass;
+            default:
+                return this.specifications;
+        }
+    }
+
     createSkeletonGrid(type, count) {
         const grid = this.createGrid(type, count);
 
@@ -312,7 +334,7 @@ class Compare {
             grid.appendChild(productCard);
         }
 
-        const rowCount = this.specifications.length + 1;
+        const rowCount = this.getSpecifications(type).length + 1;
 
         for (let row = 0; row < rowCount; row++) {
             const label = document.createElement('div');
@@ -343,7 +365,7 @@ class Compare {
             this.createRow('Price', products, product => this.formatPrice(product.price))
         );
 
-        this.specifications.forEach(specification => {
+        this.getSpecifications(type).forEach(specification => {
             grid.appendChild(
                 this.createRow(specification, products, product => this.getSpecificationValue(product, specification))
             );

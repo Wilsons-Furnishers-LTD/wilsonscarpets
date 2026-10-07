@@ -1,20 +1,36 @@
 class Compare {
-    constructor() {
+    constructor(options = {}) {
         this.storageKey = 'compare_product_handles';
         this.maxProducts = 4;
         this.modalContainerClass = 'compare-modal-container';
         this.modalOpenClass = 'compare-modal-open';
         this.modalContainer = document.querySelector(`.${this.modalContainerClass}`);
-        this.gridsContainer = document.querySelector('.compare-modal__grids');
-        this.nav = document.querySelector('.compare-modal__nav');
+        this.gridsContainer = options.gridsContainer || document.querySelector('.compare-modal__grids');
+        this.nav = options.nav || document.querySelector('.compare-modal__nav');
+        this.viewFullLink = options.products ? null : document.querySelector('.compare-modal__view-full');
+        // When set, these products are shown instead of the ones in local storage
+        this.products = options.products || null;
         this.activeType = null;
         this.specifications = ['Pile Height', 'Material', 'TOG Rating', 'Backing', 'Style'];
-        this.specificationsLaminate = ['Pack Size', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
+        this.specificationsLaminate = ['Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
+        this.specificationsVinyl = ['Thickness', 'Wear Layer', 'Backing', 'Suitability', 'Style'];
+        this.specificationsLVT = ['Thickness', 'Wear Layer', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Installation System', 'Style', 'Usage Class'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
+        if (!this.products) this.bindModalEvents();
+
+        this.renderNav();
+        this.renderGrid();
+    }
+
+    bindModalEvents() {
         let compareButtons = document.querySelectorAll('.compare-button')
+        let that = this
         compareButtons.forEach(compareButton => {
-            compareButton.addEventListener('click', this.handleCompareClick.bind(this, compareButton));
+            compareButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                that.handleCompareClick(compareButton);
+            })
         });
 
         const clearButton = document.getElementById('clear-product-ids');
@@ -31,10 +47,6 @@ class Compare {
         if (modalBackground) {
             modalBackground.addEventListener('click', this.closeModal.bind(this));
         }
-
-        this.updateCount();
-        this.renderNav();
-        this.renderGrid();
     }
 
     clearProducts() {
@@ -44,7 +56,6 @@ class Compare {
             console.warn('Unable to clear compare products', error);
         }
 
-        this.updateCount();
         this.renderNav();
         this.renderGrid();
         this.closeModal();
@@ -55,14 +66,16 @@ class Compare {
 
         if (!countElement) return;
 
-        const count = this.getStoredProducts().length;
+        const count = this.getProducts()
+            .filter(({ type = '' }) => type === this.activeType)
+            .length;
         const label = count === 1 ? 'product' : 'products';
 
         countElement.textContent = `${count} ${label}`;
     }
 
     getTypes() {
-        return [...new Set(this.getStoredProducts().map(({ type = '' }) => type))];
+        return [...new Set(this.getProducts().map(({ type = '' }) => type))];
     }
 
     renderNav() {
@@ -88,7 +101,23 @@ class Compare {
             this.nav.replaceChildren(...links);
         }
 
+        this.updateViewFullLink();
         this.updateActiveType();
+    }
+
+    updateViewFullLink() {
+        if (!this.viewFullLink) return;
+
+        const url = new URL(this.viewFullLink.getAttribute('href'), window.location.origin);
+        const products = this.getProducts();
+
+        if (products.length) {
+            url.searchParams.set('compare', JSON.stringify(products));
+        } else {
+            url.searchParams.delete('compare');
+        }
+
+        this.viewFullLink.href = url.pathname + url.search;
     }
 
     selectType(type) {
@@ -97,6 +126,8 @@ class Compare {
     }
 
     updateActiveType() {
+        this.updateCount();
+
         if (this.nav) {
             this.nav.querySelectorAll('a').forEach(link => {
                 const isActive = link.dataset.type === this.activeType;
@@ -137,9 +168,9 @@ class Compare {
         this.modalContainer.classList.remove(this.modalOpenClass);
     }
 
-    getStoredProducts() {
+    static parseProducts(json) {
         try {
-            const products = JSON.parse(localStorage.getItem(this.storageKey));
+            const products = JSON.parse(json);
             if (!Array.isArray(products)) return [];
 
             // Skip entries saved in the old plain-handle format
@@ -149,9 +180,30 @@ class Compare {
         }
     }
 
+    static getUrlProducts() {
+        const params = new URLSearchParams(window.location.search);
+
+        return Compare.parseProducts(params.get('compare'));
+    }
+
+    getStoredProducts() {
+        try {
+            return Compare.parseProducts(localStorage.getItem(this.storageKey));
+        } catch (error) {
+            return [];
+        }
+    }
+
+    getProducts() {
+        return this.products || this.getStoredProducts();
+    }
+
     addProduct(handle, type) {
         const products = this.getStoredProducts();
-        if (products.some(product => product.handle === handle) || products.length >= this.maxProducts) return;
+        if (products.some(product => product.handle === handle)) return;
+
+        const sameTypeCount = products.filter(product => (product.type || '') === (type || '')).length;
+        if (sameTypeCount >= this.maxProducts) return;
 
         products.push({ type, handle });
 
@@ -165,7 +217,6 @@ class Compare {
         this.activeType = type;
 
         this.updateUrl(products);
-        this.updateCount();
         this.renderNav();
         this.renderGrid();
     }
@@ -173,12 +224,25 @@ class Compare {
     updateUrl(products) {
         const url = new URL(window.location.href);
 
-        url.searchParams.set('compare', JSON.stringify(products));
+        if (products.length) {
+            url.searchParams.set('compare', JSON.stringify(products));
+        } else {
+            url.searchParams.delete('compare');
+        }
 
         window.history.replaceState(window.history.state, '', url);
     }
 
     removeProduct(handle) {
+        if (this.products) {
+            this.products = this.products.filter(product => product.handle !== handle);
+
+            this.updateUrl(this.products);
+            this.renderNav();
+            this.renderGrid();
+            return;
+        }
+
         const products = this.getStoredProducts().filter(product => product.handle !== handle);
 
         try {
@@ -188,7 +252,6 @@ class Compare {
             return;
         }
 
-        this.updateCount();
         this.renderNav();
         this.renderGrid();
     }
@@ -244,10 +307,12 @@ class Compare {
     getSpecificationValue(product, specification) {
         const prefix = `${specification}_`;
 
-        return (product.tags || [])
+        const value = (product.tags || [])
             .filter(tag => tag.startsWith(prefix))
             .map(tag => tag.replace(prefix, ''))
             .join(', ');
+
+        return value || '-';
     }
 
     formatPrice(cents) {
@@ -300,7 +365,7 @@ class Compare {
         const grid = document.createElement('div');
         grid.className = 'compare-modal__product-grid';
         grid.dataset.type = type;
-        grid.style.gridTemplateColumns = `120px repeat(${columns}, 230px)`;
+        grid.style.gridTemplateColumns = `200px repeat(${columns}, 290px)`;
 
         const spacer = document.createElement('div');
         spacer.className = 'compare-product-spacer';
@@ -315,6 +380,10 @@ class Compare {
                 return this.specificationsLaminate;
             case 'Artificial Grass':
                 return this.specificationsArtificialGrass;
+            case 'Vinyl':
+                return this.specificationsVinyl;
+            case 'LVT':
+                return this.specificationsLVT;
             default:
                 return this.specifications;
         }
@@ -357,7 +426,6 @@ class Compare {
         const grid = this.createGrid(type, products.length);
 
         products.forEach(product => {
-            console.log(product)
             grid.appendChild(this.createProductImage(product));
         });
 
@@ -379,7 +447,7 @@ class Compare {
 
         const renderId = this.renderId = (this.renderId || 0) + 1;
 
-        const storedProducts = this.getStoredProducts();
+        const storedProducts = this.getProducts();
         const groups = this.groupByType(storedProducts);
 
         this.gridsContainer.replaceChildren(
@@ -413,3 +481,99 @@ class Compare {
 }
 
 new Compare();
+
+const comparisonPageApp = document.getElementById('comparison-page-app');
+
+if (comparisonPageApp) {
+    const nav = document.createElement('nav');
+    nav.className = 'comparison-page__nav';
+
+    const gridsContainer = document.createElement('div');
+    gridsContainer.className = 'comparison-page__grids';
+
+    comparisonPageApp.append(nav, gridsContainer);
+
+    new Compare({
+        nav,
+        gridsContainer,
+        products: Compare.getUrlProducts(),
+    });
+}
+
+class CompareShare {
+    constructor(shareButton, popup) {
+        this.shareButton = shareButton;
+        this.popup = popup;
+        this.copyButton = popup.querySelector('[data-share="copy"]');
+        this.copyLabel = this.copyButton?.querySelector('.comparison-share__label');
+        this.message = 'Take a look at this product comparison';
+
+        this.handleKeydown = this.handleKeydown.bind(this);
+
+        shareButton.addEventListener('click', event => {
+            event.preventDefault();
+            this.open();
+        });
+
+        popup.querySelector('.comparison-share__close')?.addEventListener('click', this.close.bind(this));
+        popup.querySelector('.comparison-share__background')?.addEventListener('click', this.close.bind(this));
+        this.copyButton?.addEventListener('click', this.copyLink.bind(this));
+    }
+
+    updateLinks() {
+        // The URL changes as products are removed, so build the links on open
+        const url = window.location.href;
+        const text = `${this.message}: ${url}`;
+
+        const links = {
+            whatsapp: `https://wa.me/?text=${encodeURIComponent(text)}`,
+            email: `mailto:?subject=${encodeURIComponent('Product comparison')}&body=${encodeURIComponent(text)}`,
+            sms: `sms:?&body=${encodeURIComponent(text)}`,
+        };
+
+        Object.entries(links).forEach(([type, href]) => {
+            const link = this.popup.querySelector(`[data-share="${type}"]`);
+            if (link) link.href = href;
+        });
+    }
+
+    open() {
+        this.updateLinks();
+        this.popup.hidden = false;
+        document.addEventListener('keydown', this.handleKeydown);
+        this.popup.querySelector('.comparison-share__close')?.focus();
+    }
+
+    close() {
+        this.popup.hidden = true;
+        document.removeEventListener('keydown', this.handleKeydown);
+        this.shareButton.focus();
+    }
+
+    handleKeydown(event) {
+        if (event.key === 'Escape') this.close();
+    }
+
+    async copyLink() {
+        if (!this.copyLabel) return;
+
+        try {
+            await navigator.clipboard.writeText(window.location.href);
+            this.copyLabel.textContent = 'Link copied';
+        } catch (error) {
+            this.copyLabel.textContent = 'Unable to copy';
+        }
+
+        clearTimeout(this.copyTimeout);
+        this.copyTimeout = setTimeout(() => {
+            this.copyLabel.textContent = 'Copy link';
+        }, 2000);
+    }
+}
+
+const comparisonShareButton = document.querySelector('.comparison-page__share');
+const comparisonSharePopup = document.querySelector('.comparison-share');
+
+if (comparisonShareButton && comparisonSharePopup) {
+    new CompareShare(comparisonShareButton, comparisonSharePopup);
+}

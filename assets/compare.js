@@ -480,7 +480,8 @@ class Compare {
     }
 }
 
-new Compare();
+const compare = new Compare();
+let comparisonPage = null;
 
 const comparisonPageApp = document.getElementById('comparison-page-app');
 
@@ -493,7 +494,7 @@ if (comparisonPageApp) {
 
     comparisonPageApp.append(nav, gridsContainer);
 
-    new Compare({
+    comparisonPage = new Compare({
         nav,
         gridsContainer,
         products: Compare.getUrlProducts(),
@@ -501,9 +502,10 @@ if (comparisonPageApp) {
 }
 
 class CompareShare {
-    constructor(shareButton, popup) {
+    constructor(shareButton, popup, getProducts) {
         this.shareButton = shareButton;
         this.popup = popup;
+        this.getProducts = getProducts;
         this.copyButton = popup.querySelector('[data-share="copy"]');
         this.copyLabel = this.copyButton?.querySelector('.comparison-share__label');
         this.message = 'Take a look at this product comparison';
@@ -520,9 +522,19 @@ class CompareShare {
         this.copyButton?.addEventListener('click', this.copyLink.bind(this));
     }
 
+    getShareUrl() {
+        const root = window.Shopify?.routes?.root || '/';
+        const url = new URL(`${root}pages/compare`, window.location.origin);
+        const products = this.getProducts();
+
+        if (products.length) url.searchParams.set('compare', JSON.stringify(products));
+
+        return url.toString();
+    }
+
     updateLinks() {
-        // The URL changes as products are removed, so build the links on open
-        const url = window.location.href;
+        // The products change as they're added and removed, so build the links on open
+        const url = this.getShareUrl();
         const text = `${this.message}: ${url}`;
 
         const links = {
@@ -558,7 +570,7 @@ class CompareShare {
         if (!this.copyLabel) return;
 
         try {
-            await navigator.clipboard.writeText(window.location.href);
+            await navigator.clipboard.writeText(this.getShareUrl());
             this.copyLabel.textContent = 'Link copied';
         } catch (error) {
             this.copyLabel.textContent = 'Unable to copy';
@@ -575,5 +587,9 @@ const comparisonShareButton = document.querySelector('.comparison-page__share');
 const comparisonSharePopup = document.querySelector('.comparison-share');
 
 if (comparisonShareButton && comparisonSharePopup) {
-    new CompareShare(comparisonShareButton, comparisonSharePopup);
+    new CompareShare(
+        comparisonShareButton,
+        comparisonSharePopup,
+        () => (comparisonPage || compare).getProducts()
+    );
 }

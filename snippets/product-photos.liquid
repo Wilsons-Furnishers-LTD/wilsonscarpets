@@ -94,7 +94,9 @@
                                 {% unless displayedColor contains color %}
                                     {% assign displayedColor = displayedColor | append: '|' | append: color %}
                                         <div class="item {{ variant.title }}" data-value="{{ color }}">
+                                            {% render 'compare-button', product: product %}
                                             <a class="featherlight-gallery" href="{{ variant.image | img_url: '1600x1600' }}">
+                                                
                                                 <picture>
                                                     <source media="(min-width: 1024px)" srcset="{{ variant.image | img_url: '600x600' }}">
                                                     <source srcset="{{ variant.image | img_url: '860x860' }}">

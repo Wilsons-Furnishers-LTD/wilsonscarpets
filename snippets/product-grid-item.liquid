@@ -87,7 +87,7 @@
       {% endif %}>
       <div class="product-image-wrap">
 
-
+        {% render 'compare-button', product: product %}
         {% if product.compare_at_price > product.price %}
           {% assign onSaleClass = ' sale' %}
         {% assign beforeText = '<small>Now</small> ' %}

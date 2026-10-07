@@ -374,11 +374,21 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: transparent;
+        background: #fff;
         border: none;
         padding: 0;
         margin: 0;
         color: v.$wilson-grey;
+        svg {
+            stroke: v.$wilson-grey;
+        }
+        &:hover {
+            border: none;
+            background: v.$wilson-grey;
+            svg {
+                stroke: #fff;
+            }
+        }
     }
     &__options {
         display: grid;

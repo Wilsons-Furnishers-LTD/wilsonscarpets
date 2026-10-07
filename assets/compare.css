@@ -356,11 +356,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: #fff;
   border: none;
   padding: 0;
   margin: 0;
   color: #414B52;
+}
+.comparison-share__close svg {
+  stroke: #414B52;
+}
+.comparison-share__close:hover {
+  border: none;
+  background: #414B52;
+}
+.comparison-share__close:hover svg {
+  stroke: #fff;
 }
 .comparison-share__options {
   display: grid;

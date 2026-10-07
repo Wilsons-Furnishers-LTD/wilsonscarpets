@@ -149,6 +149,10 @@
   align-items: center;
   justify-content: center;
 }
+.compare-modal-container .compare-modal__header button#close-compare-modal svg {
+  width: 30px;
+  height: 30px;
+}
 
 .comparison-page__grids {
   padding-bottom: 80px;
@@ -313,6 +317,12 @@
     background-position: -200% 0;
   }
 }
+button.comparison-share__option, button.comparison-share__option:hover, button.comparison-share__option:focus {
+  background-color: transparent;
+  color: #414B52;
+  border: none;
+}
+
 .comparison-share {
   position: fixed;
   inset: 0;
@@ -350,7 +360,7 @@
   font-weight: 700;
   font-size: 20px;
 }
-.comparison-share__close {
+.comparison-share__close, .comparison-share__close:focus {
   width: 35px;
   height: 35px;
   display: flex;
@@ -362,14 +372,15 @@
   margin: 0;
   color: #414B52;
 }
-.comparison-share__close svg {
+.comparison-share__close svg, .comparison-share__close:focus svg {
   stroke: #414B52;
+  width: 30px;
 }
-.comparison-share__close:hover {
+.comparison-share__close:hover, .comparison-share__close:focus:hover {
   border: none;
   background: #414B52;
 }
-.comparison-share__close:hover svg {
+.comparison-share__close:hover svg, .comparison-share__close:focus:hover svg {
   stroke: #fff;
 }
 .comparison-share__options {
@@ -478,6 +489,10 @@
     padding-right: 10px;
   }
   .compare-modal-container .compare-modal__header button#close-compare-modal {
+    width: 25px;
+    height: 25px;
+  }
+  .compare-modal-container .compare-modal__header button#close-compare-modal svg {
     width: 25px;
     height: 25px;
   }

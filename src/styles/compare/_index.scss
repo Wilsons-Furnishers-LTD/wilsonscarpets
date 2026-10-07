@@ -153,6 +153,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            svg {
+                width: 30px;
+                height: 30px;
+            }
         }
     }
     
@@ -332,6 +336,12 @@
     }
 }
 
+button.comparison-share__option, button.comparison-share__option:hover, button.comparison-share__option:focus {
+    background-color: transparent; 
+    color: v.$wilson-grey;   
+    border: none;
+}
+
 .comparison-share {
     position: fixed;
     inset: 0;
@@ -368,7 +378,7 @@
         font-weight: 700;
         font-size: 20px;
     }
-    &__close {
+    &__close, &__close:focus {
         width: 35px;
         height: 35px;
         display: flex;
@@ -381,6 +391,7 @@
         color: v.$wilson-grey;
         svg {
             stroke: v.$wilson-grey;
+            width: 30px;
         }
         &:hover {
             border: none;
@@ -498,6 +509,10 @@
         .compare-modal__header button#close-compare-modal {
             width: 25px;
             height: 25px;
+            svg {
+                width: 25px;
+                height: 25px;
+            }
         }
     }
 

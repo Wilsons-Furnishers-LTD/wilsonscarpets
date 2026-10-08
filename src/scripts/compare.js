@@ -319,19 +319,34 @@ class Compare {
     }
 
     createProductImage(product) {
+        const root = window.Shopify?.routes?.root || '/';
+        const productUrl = product.url || `${root}products/${product.handle}`;
+
         const image = document.createElement('img');
 
         image.src = product.featured_image;
-        image.alt = product.title;
+        // The title link names the product, so the image doesn't need to
+        image.alt = '';
         image.loading = 'lazy';
+
+        // Duplicate of the title link, so keep it out of the tab order and screen readers
+        const imageLink = document.createElement('a');
+        imageLink.href = productUrl;
+        imageLink.tabIndex = -1;
+        imageLink.setAttribute('aria-hidden', 'true');
+        imageLink.appendChild(image);
 
         const wrapper = document.createElement('div');
         wrapper.className = 'compare-product-image';
-        wrapper.appendChild(image);
+        wrapper.appendChild(imageLink);
+
+        const titleLink = document.createElement('a');
+        titleLink.href = productUrl;
+        titleLink.textContent = product.title;
 
         const title = document.createElement('div');
         title.className = 'compare-product-title';
-        title.textContent = product.title;
+        title.appendChild(titleLink);
 
         const removeButton = document.createElement('button');
         removeButton.type = 'button';

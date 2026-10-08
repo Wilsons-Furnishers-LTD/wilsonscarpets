@@ -10,6 +10,7 @@ class Compare {
         this.viewFullLink = options.products ? null : document.querySelector('.compare-modal__view-full');
         // When set, these products are shown instead of the ones in local storage
         this.products = options.products || null;
+        this.emptyMessage = options.emptyMessage || null;
         this.activeType = null;
         this.specifications = ['Pile Height', 'Material', 'TOG Rating', 'Backing', 'Style'];
         this.specificationsLaminate = ['Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
@@ -99,6 +100,7 @@ class Compare {
             });
 
             this.nav.replaceChildren(...links);
+            this.nav.hidden = !types.length;
         }
 
         this.updateViewFullLink();
@@ -448,6 +450,25 @@ class Compare {
         const renderId = this.renderId = (this.renderId || 0) + 1;
 
         const storedProducts = this.getProducts();
+
+        if (!storedProducts.length && this.emptyMessage) {
+            const message = document.createElement('p');
+            message.className = 'comparison-page__empty';
+            message.textContent = this.emptyMessage;
+
+            const browseLink = document.createElement('a');
+            browseLink.className = 'button comparison-page__browse';
+            browseLink.href = window.Shopify?.routes?.root || '/';
+            browseLink.textContent = 'Browse our products';
+
+            const browseWrapper = document.createElement('div');
+            browseWrapper.className = 'comparison-page__browse-wrapper';
+            browseWrapper.appendChild(browseLink);
+
+            this.gridsContainer.replaceChildren(message, browseWrapper);
+            return;
+        }
+
         const groups = this.groupByType(storedProducts);
 
         this.gridsContainer.replaceChildren(
@@ -498,6 +519,7 @@ if (comparisonPageApp) {
         nav,
         gridsContainer,
         products: Compare.getUrlProducts(),
+        emptyMessage: 'No products added',
     });
 }
 

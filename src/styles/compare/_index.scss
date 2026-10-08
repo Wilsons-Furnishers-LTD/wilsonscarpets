@@ -231,6 +231,9 @@
         }
     }
 .compare-modal__nav, .comparison-page__nav {
+    &[hidden] {
+        display: none;
+    }
     background-color: rgba(#E7E7E7, 0.35);
     border-bottom: 3px solid #DDDDDD;
     margin-bottom: 40px;
@@ -340,6 +343,22 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     background-color: transparent; 
     color: v.$wilson-grey;   
     border: none;
+}
+
+.comparison-page__empty {
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    border-top: 3px solid #DDDDDD;
+    padding-top: 60px;
+}
+.comparison-page__browse-wrapper {
+    text-align: center;
+    padding-top: 40px;
+}
+.comparison-page__browse {
+    max-width: max-content;
+    margin: 0 auto;
 }
 
 .comparison-share {

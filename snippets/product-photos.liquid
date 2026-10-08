@@ -98,10 +98,10 @@
                                                 <picture>
                                                     <source media="(min-width: 1024px)" srcset="{{ variant.image | img_url: '600x600' }}">
                                                     <source srcset="{{ variant.image | img_url: '860x860' }}">
-                                                    <img class="product-photo-image" src="{{ variant.image | img_url: '600x600' }}" alt="{{ color }}"/>
+                                                    <img class="product-photo-image" width="600" height="600" src="{{ variant.image | img_url: '600x600' }}" alt="{{ color }}"/>
                                                 </picture>
                                             </a>
-                                            <span class="zoom-mobile"><img src="{{ variant.image | img_url: '600x600' }}" alt="" /></span>
+                                            <span class="zoom-mobile"><img width="600" height="600" src="{{ variant.image | img_url: '600x600' }}" alt="" /></span>
                                         {% assign image_exclude = image_exclude | append: variant.image.src | append: "<|>" %}
                                     {% break %}
                                 {% endunless %}

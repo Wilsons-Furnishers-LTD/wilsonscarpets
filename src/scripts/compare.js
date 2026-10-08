@@ -8,6 +8,11 @@ class Compare {
         this.gridsContainer = options.gridsContainer || document.querySelector('.compare-modal__grids');
         this.nav = options.nav || document.querySelector('.compare-modal__nav');
         this.viewFullLink = options.products ? null : document.querySelector('.compare-modal__view-full');
+        this.addProductContainer = options.products ? null : document.querySelector('.compare-modal__add-product');
+        this.productsByType = new Map();
+        this.labelColumnWidth = 200;
+        this.productColumnWidth = 290;
+        this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
         this.products = options.products || null;
         this.emptyMessage = options.emptyMessage || null;
@@ -47,6 +52,37 @@ class Compare {
         const modalBackground = document.querySelector('.compare-modal-background');
         if (modalBackground) {
             modalBackground.addEventListener('click', this.closeModal.bind(this));
+        }
+
+        this.addProductClose = this.addProductContainer?.querySelector('.compare-modal__add-product--close');
+        this.moreProductsButton = document.querySelector('.compare-modal__more-products');
+
+        if (this.addProductClose) {
+            this.addProductClose.addEventListener('click', () => this.setAddProductVisible(false));
+        }
+
+        if (this.moreProductsButton) {
+            this.moreProductsButton.addEventListener('click', () => this.setAddProductVisible(true));
+        }
+
+        // Under 900px the add product panel is a popup, closed by default
+        this.mobileQuery = window.matchMedia('(max-width: 899px)');
+
+        if (this.addProductContainer) {
+            const applyLayout = () => this.setAddProductVisible(!this.mobileQuery.matches, { focus: false, animate: false });
+
+            // Runs on load and whenever the viewport crosses 900px
+            applyLayout();
+            this.mobileQuery.addEventListener('change', applyLayout);
+
+            document.querySelector('.compare-modal__add-product-backdrop')
+                ?.addEventListener('click', () => this.setAddProductVisible(false));
+
+            document.addEventListener('keydown', event => {
+                if (event.key === 'Escape' && this.mobileQuery.matches && this.isAddProductOpen()) {
+                    this.setAddProductVisible(false);
+                }
+            });
         }
     }
 
@@ -125,10 +161,12 @@ class Compare {
     selectType(type) {
         this.activeType = type;
         this.updateActiveType();
+        this.renderAddProducts();
     }
 
     updateActiveType() {
         this.updateCount();
+        this.updateLimitWarning();
 
         if (this.nav) {
             this.nav.querySelectorAll('a').forEach(link => {
@@ -202,10 +240,13 @@ class Compare {
 
     addProduct(handle, type) {
         const products = this.getStoredProducts();
-        if (products.some(product => product.handle === handle)) return;
+        if (products.some(product => product.handle === handle)) return false;
 
         const sameTypeCount = products.filter(product => (product.type || '') === (type || '')).length;
-        if (sameTypeCount >= this.maxProducts) return;
+        if (sameTypeCount >= this.maxProducts) {
+            this.showLimitReached(type);
+            return false;
+        }
 
         products.push({ type, handle });
 
@@ -213,14 +254,18 @@ class Compare {
             localStorage.setItem(this.storageKey, JSON.stringify(products));
         } catch (error) {
             console.warn('Unable to save compare products', error);
-            return;
+            return false;
         }
 
         this.activeType = type;
+        // Scrolled into view once the grid has been rebuilt
+        this.scrollToHandle = handle;
 
         this.updateUrl(products);
         this.renderNav();
         this.renderGrid();
+
+        return true;
     }
 
     updateUrl(products) {
@@ -301,6 +346,7 @@ class Compare {
 
         const productCard = document.createElement('div');
         productCard.className = 'compare-product';
+        productCard.dataset.handle = product.handle;
         productCard.append(removeButton, wrapper, title);
 
         return productCard;
@@ -367,7 +413,8 @@ class Compare {
         const grid = document.createElement('div');
         grid.className = 'compare-modal__product-grid';
         grid.dataset.type = type;
-        grid.style.gridTemplateColumns = `200px repeat(${columns}, 290px)`;
+        grid.dataset.columns = columns;
+        grid.style.gridTemplateColumns = `${this.labelColumnWidth}px repeat(${columns}, ${this.productColumnWidth}px)`;
 
         const spacer = document.createElement('div');
         spacer.className = 'compare-product-spacer';
@@ -444,6 +491,21 @@ class Compare {
         return grid;
     }
 
+    getCollectionId(collection_id) {
+        switch (collection_id) {
+            case 'laminate':
+                return 'laminate-flooring';
+            case 'vinyl':
+                return 'vinyl-flooring';
+            case 'lvt':
+                return 'lvt-flooring';
+            case 'artificial grass':
+                return 'artificial-grass';
+            default:
+                return collection_id;
+        }
+    }
+
     async renderGrid() {
         if (!this.gridsContainer) return;
 
@@ -474,6 +536,7 @@ class Compare {
         this.gridsContainer.replaceChildren(
             ...[...groups].map(([type, handles]) => this.createSkeletonGrid(type, handles.length))
         );
+        this.updateGridWidths();
         this.updateActiveType();
 
         const results = await Promise.all(storedProducts.map(({ handle }) => this.fetchProduct(handle)));
@@ -497,7 +560,318 @@ class Compare {
         });
 
         this.gridsContainer.replaceChildren(...grids);
+        this.updateGridWidths();
         this.updateActiveType();
+        this.renderAddProducts();
+        this.scrollToAddedProduct();
+    }
+
+    scrollToAddedProduct() {
+        const handle = this.scrollToHandle;
+        this.scrollToHandle = null;
+
+        if (!handle) return;
+
+        const card = [...this.gridsContainer.querySelectorAll('.compare-product')]
+            .find(productCard => productCard.dataset.handle === handle);
+
+        if (!card) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // "nearest" only scrolls when the product isn't already fully in view
+        card.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'nearest',
+            inline: 'nearest',
+        });
+    }
+
+    updateGridWidths() {
+        const grids = [...this.gridsContainer.querySelectorAll('.compare-modal__product-grid')];
+
+        // Hidden grids measure as 0 wide, so work the widths out from their column counts
+        const widths = grids.map(grid => {
+            const columns = Number(grid.dataset.columns) || 0;
+            const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+
+            return this.labelColumnWidth + columns * (this.productColumnWidth + gap);
+        });
+
+        const widest = Math.max(0, ...widths);
+
+        // Keep every grid as wide as the widest so the modal doesn't resize when switching type
+        grids.forEach(grid => {
+            grid.style.minWidth = `${widest}px`;
+        });
+    }
+
+    async fetchProductsByType(type) {
+        if (this.productsByType.has(type)) return this.productsByType.get(type);
+
+        const root = window.Shopify?.routes?.root || '/';
+        // Collection handles are lowercase with hyphens, e.g. "Artificial Grass" -> "artificial-grass"
+        const handle = type.trim().toLowerCase().replace(/\s+/g, '-');
+
+        let collection_id = this.getCollectionId(handle);
+        
+        try {
+            const response = await fetch(`${root}collections/${collection_id}/products.json?limit=10`);
+            
+            if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
+            
+            const data = await response.text();
+            const dataObj = JSON.parse(data)
+
+            const products = (dataObj.products || []).filter(product => product.product_type.toLowerCase() === type.toLowerCase());
+        
+            this.productsByType.set(type, products);
+
+            return products;
+        } catch (error) {
+            console.warn(`Unable to load ${type} products`, error);
+            return [];
+        }
+    }
+
+    getProductImage(product) {
+        // products.json returns an images array rather than a single image
+        return product.images?.[0]?.src || '';
+    }
+
+    // Matches the theme's product grid: "was" price if on sale, otherwise RRP from an RRP_ tag
+    getRrpPrice(product, price) {
+        const compareAtPrices = (product.variants || [])
+            .map(variant => parseFloat(variant.compare_at_price))
+            .filter(compareAt => !Number.isNaN(compareAt));
+
+        const compareAt = compareAtPrices.length ? Math.min(...compareAtPrices) : 0;
+
+        if (compareAt > price) return { label: 'was', amount: `${this.formatPrice(Math.round(compareAt * 100))}m²` };
+
+        const tags = Array.isArray(product.tags) ? product.tags : String(product.tags || '').split(', ');
+        const rrpTag = tags.find(tag => tag.startsWith('RRP_'));
+        const rrp = rrpTag ? parseFloat(rrpTag.replace('RRP_', '')) : 0;
+
+        if (rrp > price) return { label: 'RRP', amount: `${this.formatPrice(Math.round(rrp * 100))}m²` };
+
+        return null;
+    }
+
+    createAddProductItem(product) {
+        const image = document.createElement('img');
+        image.src = this.getProductImage(product);
+        // The button's label already names the product
+        image.alt = '';
+        image.loading = 'lazy';
+
+        const title = document.createElement('span');
+        title.className = 'compare-add-product__title';
+        title.textContent = product.title;
+
+        const details = document.createElement('span');
+        details.className = 'compare-add-product__details';
+        details.appendChild(title);
+
+        // products.json gives variant prices as decimal strings, e.g. "19.99"
+        const prices = (product.variants || [])
+            .map(variant => parseFloat(variant.price))
+            .filter(price => !Number.isNaN(price));
+
+        if (prices.length) {
+            const lowestPrice = Math.min(...prices);
+
+            const price = document.createElement('span');
+            price.className = 'compare-add-product__price';
+            price.textContent = `only ${this.formatPrice(Math.round(lowestPrice * 100))}m²`;
+            details.appendChild(price);
+
+            const rrpPrice = this.getRrpPrice(product, lowestPrice);
+
+            if (rrpPrice) {
+                const rrp = document.createElement('s');
+                rrp.className = 'compare-add-product__rrp';
+                rrp.textContent = `${rrpPrice.label} ${rrpPrice.amount}`;
+                details.appendChild(rrp);
+            }
+        }
+
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'compare-add-product';
+        item.setAttribute('aria-label', `Add ${product.title} to comparison`);
+        item.append(image, details);
+        item.addEventListener('click', () => {
+            const added = this.addProduct(product.handle, product.product_type);
+
+            // Close the popup on smaller screens so the added product can be seen
+            if (added && this.mobileQuery?.matches) this.setAddProductVisible(false);
+        });
+
+        return item;
+    }
+
+    showLimitReached(type) {
+        // The modal slides in when opened from a compare button, so wait for it before shuddering
+        const wasOpen = this.modalContainer?.classList.contains(this.modalOpenClass);
+
+        // Show the warning even if it was dismissed, on the type that's full
+        this.dismissedWarnings.delete(type || '');
+        this.selectType(type || '');
+
+        if (this.addProductContainer?.closest('.compare-modal')?.classList.contains('compare-modal--aside-closed')) {
+            this.setAddProductVisible(true, { focus: false });
+        }
+
+        clearTimeout(this.shudderTimer);
+        this.shudderTimer = setTimeout(() => this.shudderLimitWarning(), wasOpen ? 0 : 300);
+    }
+
+    shudderLimitWarning() {
+        const warning = this.addProductContainer?.querySelector('.compare-modal__limit-warning');
+
+        if (!warning || warning.hidden) return;
+
+        // Restart the animation if it's already running
+        warning.classList.remove('is-shuddering');
+        void warning.offsetWidth;
+        warning.classList.add('is-shuddering');
+
+        warning.addEventListener('animationend', () => warning.classList.remove('is-shuddering'), { once: true });
+    }
+
+    isAddProductOpen() {
+        const modal = this.addProductContainer?.closest('.compare-modal');
+
+        return Boolean(modal) && !modal.classList.contains('compare-modal--aside-closed');
+    }
+
+    setAddProductVisible(isVisible, { focus = true, animate = true } = {}) {
+        if (!this.addProductContainer) return;
+
+        const panel = this.addProductContainer;
+        const modal = panel.closest('.compare-modal');
+
+        clearTimeout(this.addProductTimer);
+
+        if (isVisible) {
+            panel.hidden = false;
+            modal?.classList.remove('compare-modal--no-aside');
+
+            // Apply the closed position first so the slide in animates
+            void panel.offsetWidth;
+            modal?.classList.remove('compare-modal--aside-closed');
+        } else {
+            modal?.classList.add('compare-modal--aside-closed');
+
+            const removePanel = () => {
+                panel.hidden = true;
+                modal?.classList.add('compare-modal--no-aside');
+            };
+
+            // Once the slide out has finished, remove the panel and its column
+            if (animate) {
+                this.addProductTimer = setTimeout(removePanel, 300);
+            } else {
+                removePanel();
+            }
+        }
+
+        if (this.moreProductsButton) {
+            // "More products" is only needed while the panel is hidden
+            this.moreProductsButton.hidden = isVisible;
+            this.moreProductsButton.setAttribute('aria-expanded', String(isVisible));
+        }
+
+        // Move focus to the control that's now visible
+        if (!focus) return;
+
+        if (isVisible) {
+            this.addProductClose?.focus();
+        } else {
+            this.moreProductsButton?.focus();
+        }
+    }
+
+    updateLimitWarning() {
+        if (!this.addProductContainer) return;
+
+        let warning = this.addProductContainer.querySelector('.compare-modal__limit-warning');
+
+        if (!warning) {
+            warning = document.createElement('div');
+            warning.className = 'compare-modal__limit-warning';
+            warning.setAttribute('role', 'status');
+
+            const message = document.createElement('span');
+            message.className = 'compare-modal__limit-warning--text';
+            message.textContent = `You can compare up to ${this.maxProducts} products of the same type. Remove a product to add another.`;
+
+            const closeButton = document.createElement('button');
+            closeButton.type = 'button';
+            closeButton.className = 'compare-modal__limit-warning--close';
+            closeButton.setAttribute('aria-label', 'Dismiss message');
+            closeButton.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M6 6l12 12M18 6L6 18"/>
+                </svg>
+            `;
+            closeButton.addEventListener('click', () => {
+                this.dismissedWarnings.add(this.activeType);
+                warning.hidden = true;
+            });
+
+            warning.append(message, closeButton);
+
+            const header = this.addProductContainer.querySelector('.compare-modal__add-product--header');
+            if (header) {
+                header.after(warning);
+            } else {
+                this.addProductContainer.prepend(warning);
+            }
+        }
+
+        const count = this.getProducts().filter(({ type = '' }) => type === this.activeType).length;
+        const isFull = count >= this.maxProducts;
+
+        // Show the message again the next time this type fills up
+        if (!isFull) this.dismissedWarnings.delete(this.activeType);
+
+        warning.hidden = !isFull || this.dismissedWarnings.has(this.activeType);
+    }
+
+    async renderAddProducts() {
+        if (!this.addProductContainer) return;
+
+        let list = this.addProductContainer.querySelector('.compare-modal__add-product--list');
+
+        if (!list) {
+            list = document.createElement('div');
+            list.className = 'compare-modal__add-product--list';
+            this.addProductContainer.appendChild(list);
+        }
+
+        const listId = this.addProductsId = (this.addProductsId || 0) + 1;
+        const activeType = this.activeType;
+
+        // Products without a type ("Other") can't be searched by type
+        if (!activeType) {
+            list.replaceChildren();
+            return;
+        }
+
+        const products = await this.fetchProductsByType(activeType);
+        
+        // The selection or products changed while this one was fetching
+        if (listId !== this.addProductsId) return;
+
+        const addedHandles = new Set(this.getProducts().map(({ handle }) => handle));
+
+        const items = products
+            .filter(product => this.getProductImage(product) && !addedHandles.has(product.handle))
+            .map(product => this.createAddProductItem(product));
+
+        list.replaceChildren(...items);
     }
 }
 

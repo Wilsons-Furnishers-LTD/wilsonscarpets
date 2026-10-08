@@ -355,6 +355,13 @@
     overflow: scroll;
     padding-top: 15px;
 }
+.compare-modal__product-grid--empty {
+    .compare-modal__type-empty {
+        grid-column: 1 / -1;
+        padding: 40px 0;
+        color: #767676;
+    }
+}
 .compare-modal__product-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);

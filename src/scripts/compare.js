@@ -17,6 +17,8 @@ class Compare {
         this.products = options.products || null;
         this.emptyMessage = options.emptyMessage || null;
         this.activeType = null;
+        // Always shown in the nav, matching the types snippets/compare-button.liquid shows the button for
+        this.productTypes = ['Carpets', 'LVT', 'Vinyl', 'Laminate', 'Artificial Grass'];
         this.specifications = ['Pile Height', 'Material', 'TOG Rating', 'Backing', 'Style'];
         this.specificationsLaminate = ['Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsVinyl = ['Thickness', 'Wear Layer', 'Backing', 'Suitability', 'Style'];
@@ -111,15 +113,20 @@ class Compare {
         countElement.textContent = `${count} ${label}`;
     }
 
-    getTypes() {
+    getProductTypes() {
         return [...new Set(this.getProducts().map(({ type = '' }) => type))];
+    }
+
+    getTypes() {
+        // The fixed types first, then any others found in the stored products
+        return [...new Set([...this.productTypes, ...this.getProductTypes()])];
     }
 
     renderNav() {
         const types = this.getTypes();
 
-        // Fall back to the first type when the selected one has no products left
-        if (!types.includes(this.activeType)) this.activeType = types[0] ?? null;
+        // Default to the first type that has products, otherwise the first type
+        if (!types.includes(this.activeType)) this.activeType = this.getProductTypes()[0] ?? types[0] ?? null;
 
         if (this.nav) {
             const links = types.map(type => {
@@ -549,7 +556,8 @@ class Compare {
         const groups = this.groupByType(storedProducts);
 
         this.gridsContainer.replaceChildren(
-            ...[...groups].map(([type, handles]) => this.createSkeletonGrid(type, handles.length))
+            ...[...groups].map(([type, handles]) => this.createSkeletonGrid(type, handles.length)),
+            ...this.createEmptyTypeGrids([...groups.keys()])
         );
         this.updateGridWidths();
         this.updateActiveType();
@@ -574,11 +582,33 @@ class Compare {
             if (products.length) grids.push(this.createProductGrid(type, products));
         });
 
-        this.gridsContainer.replaceChildren(...grids);
+        const typesWithGrids = grids.map(grid => grid.dataset.type);
+
+        this.gridsContainer.replaceChildren(...grids, ...this.createEmptyTypeGrids(typesWithGrids));
         this.updateGridWidths();
         this.updateActiveType();
         this.renderAddProducts();
         this.scrollToAddedProduct();
+    }
+
+    // A placeholder grid for each nav type that has no products, so selecting it shows a message
+    createEmptyTypeGrids(typesWithGrids) {
+        return this.getTypes()
+            .filter(type => !typesWithGrids.includes(type))
+            .map(type => {
+                const grid = document.createElement('div');
+                grid.className = 'compare-modal__product-grid compare-modal__product-grid--empty';
+                grid.dataset.type = type;
+                grid.dataset.columns = 0;
+
+                const message = document.createElement('p');
+                message.className = 'compare-modal__type-empty';
+                message.textContent = `No ${type || 'other'} products added to compare yet.`;
+
+                grid.appendChild(message);
+
+                return grid;
+            });
     }
 
     scrollToAddedProduct() {

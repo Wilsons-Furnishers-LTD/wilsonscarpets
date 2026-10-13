@@ -10,10 +10,7 @@ class Compare {
         this.viewFullLink = options.products ? null : document.querySelector('.compare-modal__view-full');
         this.addProductContainer = options.products ? null : document.querySelector('.compare-modal__add-product');
         this.productsByType = new Map();
-        this.labelColumnWidth = 200;
-        // Narrower label column under 900px
-        this.labelColumnWidthSmall = 150;
-        this.smallViewportQuery = window.matchMedia('(max-width: 899px)');
+        this.labelColumnWidth = 120;
         this.productColumnWidth = 230;
         this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
@@ -28,8 +25,6 @@ class Compare {
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
-
-        this.smallViewportQuery.addEventListener('change', () => this.updateGridWidths());
 
         this.renderNav();
         this.renderGrid();
@@ -610,25 +605,12 @@ class Compare {
         return groups;
     }
 
-    getLabelColumnWidth() {
-        return this.smallViewportQuery.matches ? this.labelColumnWidthSmall : this.labelColumnWidth;
-    }
-
-    setGridColumns(grid) {
-        const columns = Number(grid.dataset.columns) || 0;
-
-        // Empty type grids just hold a message
-        if (!columns) return;
-
-        grid.style.gridTemplateColumns = `${this.getLabelColumnWidth()}px repeat(${columns}, ${this.productColumnWidth}px)`;
-    }
-
     createGrid(type, columns) {
         const grid = document.createElement('div');
         grid.className = 'compare-modal__product-grid';
         grid.dataset.type = type;
         grid.dataset.columns = columns;
-        this.setGridColumns(grid);
+        grid.style.gridTemplateColumns = `${this.labelColumnWidth}px repeat(${columns}, ${this.productColumnWidth}px)`;
 
         const spacer = document.createElement('div');
         spacer.className = 'compare-product-spacer';
@@ -854,7 +836,7 @@ class Compare {
             const columns = Number(grid.dataset.columns) || 0;
             const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
             
-            return this.getLabelColumnWidth() + columns * (this.productColumnWidth + gap);
+            return this.labelColumnWidth + columns * (this.productColumnWidth + gap);
         });
 
         const widest = Math.max(0, ...widths);
@@ -862,8 +844,6 @@ class Compare {
         // Keep every grid as wide as the widest so the modal doesn't resize when switching type
         grids.forEach(grid => {
             grid.style.minWidth = `${widest}px`;
-            // Also reapplies the label column width when the viewport crosses 900px
-            this.setGridColumns(grid);
         });
     }
 

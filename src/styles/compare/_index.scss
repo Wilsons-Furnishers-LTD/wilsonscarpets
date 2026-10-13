@@ -413,10 +413,12 @@
             // Opaque version of rgba(#E7E7E7, 0.5) on white, so products don't show through when scrolled under it
             background-color: #F3F3F3;
             font-weight: 700;
+            font-size: 14px;
         }
         .specification-value, .specification {
             border-bottom: 2px solid #DDDDDD;
             padding: 10px;
+            font-size: 14px;
         }
         .specification-value {
             text-align: center;
@@ -426,7 +428,7 @@
             color: #767676;
         }
         .compare-product-view-cell {
-            padding: 20px 10px;
+            padding: 20px 12px;
             text-align: center;
         }
         .compare-product-view {
@@ -465,8 +467,8 @@
                 position: absolute;
                 width: 30px;
                 height: 30px;
-                top: -15px;
-                right: -3px;
+                top: 12px;
+                right: 24px;
                 padding: 0;
                 background: v.$wilson-yellow;
                 transition: all 0.3s ease;
@@ -562,14 +564,16 @@
     overflow-x: scroll;
     padding-bottom: 30px;
     padding-top: 15px;
-    padding-right: 30px;
+    padding-right: 0px;
+    margin-left: -30px;
 }
 
 .compare-modal__footer {
     padding-top: 30px;
     position: relative;
     margin-top: -30px;
-    padding-right: 30px;
+    padding-right: 12px;
+    margin-left: -18px;
     // &:before {
     //     position: absolute;
     //     height: 30px;
@@ -812,7 +816,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 .compare-modal-container, .comparison-page {
     #stockLevel {
         color: #28a81a;
-        font-size: 1rem;
+        font-size: 14px;
         font-weight: 700;
         line-height: 1.4;
         display: inline-block;

@@ -17,8 +17,6 @@ class Compare {
         this.products = options.products || null;
         this.emptyMessage = options.emptyMessage || null;
         this.activeType = null;
-        // Always shown in the nav, matching the types snippets/compare-button.liquid shows the button for
-        this.productTypes = ['Carpets', 'LVT', 'Vinyl', 'Laminate', 'Artificial Grass'];
         this.specifications = ['Pile Height', 'Material', 'TOG Rating', 'Backing', 'Style'];
         this.specificationsLaminate = ['Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsVinyl = ['Thickness', 'Wear Layer', 'Backing', 'Suitability', 'Style'];
@@ -118,15 +116,14 @@ class Compare {
     }
 
     getTypes() {
-        // The fixed types first, then any others found in the stored products
-        return [...new Set([...this.productTypes, ...this.getProductTypes()])];
+        // Only types that have products are shown in the nav
+        return this.getProductTypes();
     }
 
     renderNav() {
         const types = this.getTypes();
 
-        // Default to the first type that has products, otherwise the first type
-        if (!types.includes(this.activeType)) this.activeType = this.getProductTypes()[0] ?? types[0] ?? null;
+        if (!types.includes(this.activeType)) this.activeType = types[0] ?? null;
 
         if (this.nav) {
             const links = types.map(type => {
@@ -143,7 +140,8 @@ class Compare {
             });
 
             this.nav.replaceChildren(...links);
-            this.nav.hidden = !types.length;
+            // Nothing to switch between with a single type
+            this.nav.hidden = types.length < 2;
         }
 
         this.updateViewFullLink();
@@ -325,9 +323,14 @@ class Compare {
         }
     }
 
-    createProductImage(product) {
+    getProductUrl(product) {
         const root = window.Shopify?.routes?.root || '/';
-        const productUrl = product.url || `${root}products/${product.handle}`;
+
+        return product.url || `${root}products/${product.handle}`;
+    }
+
+    createProductImage(product) {
+        const productUrl = this.getProductUrl(product);
 
         const image = document.createElement('img');
 
@@ -394,6 +397,28 @@ class Compare {
         }).format(cents / 100);
     }
 
+    createPriceValue(product) {
+        const fragment = document.createDocumentFragment();
+        const rrpPrice = this.getRrpPrice(product, product.price / 100, true);
+
+        if (rrpPrice) {
+            const rrp = document.createElement('s');
+            rrp.className = 'compare-product-rrp';
+            rrp.textContent = `${rrpPrice.label} ${rrpPrice.amount}`;
+            fragment.append(rrp, ' ');
+        }
+
+        const price = document.createElement('span');
+        price.className = 'compare-product-price';
+        const only = document.createElement('span');
+        only.className = 'compare-product-price__only';
+        only.textContent = 'Only';
+        price.append(only, ` ${this.formatPrice(product.price)}m² `);
+        fragment.prepend(price);
+
+        return fragment;
+    }
+
     createRow(labelText, products, getValue) {
         const fragment = document.createDocumentFragment();
 
@@ -406,8 +431,32 @@ class Compare {
             const value = document.createElement('div');
             value.className = 'specification-value';
             value.dataset.handle = product.handle;
-            value.textContent = getValue(product);
+            value.append(getValue(product));
             fragment.appendChild(value);
+        });
+
+        return fragment;
+    }
+
+    createViewProductRow(products) {
+        const fragment = document.createDocumentFragment();
+
+        const spacer = document.createElement('div');
+        spacer.className = 'compare-product-view-spacer';
+        fragment.appendChild(spacer);
+
+        products.forEach(product => {
+            const link = document.createElement('a');
+            link.className = 'button compare-product-view';
+            link.href = this.getProductUrl(product);
+            link.textContent = 'View product';
+            link.setAttribute('aria-label', `View ${product.title}`);
+
+            const cell = document.createElement('div');
+            cell.className = 'compare-product-view-cell';
+            cell.dataset.handle = product.handle;
+            cell.appendChild(link);
+            fragment.appendChild(cell);
         });
 
         return fragment;
@@ -501,7 +550,7 @@ class Compare {
         });
 
         grid.appendChild(
-            this.createRow('Price', products, product => this.formatPrice(product.price))
+            this.createRow('Price', products, product => this.createPriceValue(product))
         );
 
         this.getSpecifications(type).forEach(specification => {
@@ -509,6 +558,8 @@ class Compare {
                 this.createRow(specification, products, product => this.getSpecificationValue(product, specification))
             );
         });
+
+        grid.appendChild(this.createViewProductRow(products));
 
         return grid;
     }
@@ -685,10 +736,12 @@ class Compare {
     }
 
     // Matches the theme's product grid: "was" price if on sale, otherwise RRP from an RRP_ tag
-    getRrpPrice(product, price) {
+    // products.json gives compare_at_price as a decimal string, products/{handle}.js in cents
+    getRrpPrice(product, price, compareAtInCents = false) {
         const compareAtPrices = (product.variants || [])
             .map(variant => parseFloat(variant.compare_at_price))
-            .filter(compareAt => !Number.isNaN(compareAt));
+            .filter(compareAt => !Number.isNaN(compareAt))
+            .map(compareAt => compareAtInCents ? compareAt / 100 : compareAt);
 
         const compareAt = compareAtPrices.length ? Math.min(...compareAtPrices) : 0;
 
@@ -899,14 +952,14 @@ class Compare {
         const listId = this.addProductsId = (this.addProductsId || 0) + 1;
         const activeType = this.activeType;
 
-        // Products without a type ("Other") can't be searched by type
+        // Products without a type ("Other") can't be listed by type
         if (!activeType) {
             list.replaceChildren();
             return;
         }
 
         const products = await this.fetchProductsByType(activeType);
-        
+
         // The selection or products changed while this one was fetching
         if (listId !== this.addProductsId) return;
 

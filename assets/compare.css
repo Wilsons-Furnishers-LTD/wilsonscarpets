@@ -384,6 +384,18 @@
 .compare-modal__product-grid .specification-value {
   text-align: center;
 }
+.compare-modal__product-grid .compare-product-rrp {
+  font-size: 12px;
+  color: #767676;
+}
+.compare-modal__product-grid .compare-product-view-cell {
+  padding: 20px 10px;
+  text-align: center;
+}
+.compare-modal__product-grid .compare-product-view {
+  width: 100%;
+  margin: 0 auto;
+}
 .compare-modal__product-grid .compare-product-image {
   margin-left: 30px;
   margin-right: 30px;
@@ -701,6 +713,13 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     left: -15px;
     width: calc(100% + 30px);
   }
+}
+
+.compare-product-price {
+  font-weight: 700;
+}
+.compare-product-price .compare-product-price__only {
+  font-size: 12px;
 }
 
 @media screen and (max-width: 768px) {

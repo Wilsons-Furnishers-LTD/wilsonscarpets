@@ -1,0 +1,628 @@
+@use './../variables' as v;
+
+.finance-page {
+    .wc-large {
+        font-weight: 900;
+        font-size: 22px;
+        line-height: 30px;
+    }
+    .wc-banner {
+        padding-bottom: 0;
+        position: relative;
+        &__image-mobile {
+            display: none;
+        }
+        &__image, &__image-mobile {
+            position: relative;
+            height: 0;
+            padding-bottom: 50%;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            inset: 0;
+            object-fit: cover;
+        }
+        &__text {
+            text-shadow: 0px 0px 12px #295242;
+              position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            font-weight: 900;
+            color: #fff;
+            text-align: center;
+            font-size: 65px;
+            line-height: 75px;
+        }
+    }
+    .wc-intro {
+        h2 {
+            border-top: none;
+            text-align: center;
+            margin: 0 auto;
+            font-size: 35px;
+            line-height: 50px;
+            max-width: 770px;
+        }
+        p {
+            text-align: center;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 30px;
+            max-width: 870px;
+        }
+    }
+    .wc-paypal {
+        text-align: center;
+        border-top: 1px solid #e8eaee;
+        padding-top: 30px;
+        margin-top: 20px;
+        .wc-large {
+            padding-bottom: 20px;
+        }
+        p {
+            max-width: 880px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        &__logo {
+            text-align: center;
+            img {
+                width: 300px;
+                height: auto;
+                margin: 0 auto;
+            }
+        }
+        h3 {
+            font-size: 18px;
+            font-size: 55px;
+            line-height: 70px;
+        }
+        &__content {
+            padding-bottom: 0px;
+        }
+        &__main {
+            background: #303E49;
+            color: #fff;
+            border-radius: 70px;
+            margin-top: 20px;
+            padding: 80px;
+            &--text {
+                text-align: center;
+                padding-top: 20px;
+                padding-bottom: 0px !important;
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 30px;;
+            }
+        }
+        &__carousel {
+            // display: grid;
+            // grid-template-columns: repeat(3, 1fr);
+            // grid-template-rows: 1fr;
+            // grid-column-gap: 50px;
+            // grid-row-gap: 0px;
+            &-item {
+                position: relative;
+                text-align: center;
+                &--title {
+                    font-weight: 700;
+                    font-size: 40px;
+                    max-width: 170px;
+                    margin: 0 auto;
+                    line-height: 45px;
+                    padding-bottom: 15px;
+                }
+                p {
+                    margin-bottom: 10px;
+                }
+                &:after {
+                    height: 5px;
+                    width: 80%;
+                    background: #fff;
+                    content: '';
+                    display: block;
+                    position: absolute;
+                    bottom: 0;
+                    left: 10%;
+                }
+                &.pay-in-thirty {
+                    &:after {
+                        background: #6089E1;
+                    }
+                }
+                &.pay-in-three {
+                    &:after {
+                        background: #3E4E95;
+                    }
+                }
+                &.credit {
+                    &:after {
+                        background: #222052;
+                    }
+                }
+            }
+        }
+    }
+    .wc-paypal-banner {
+        background: #F0F2F4;
+        border-radius: 70px;
+        margin-top: 50px;
+        padding: 80px;
+        display: flex;
+        gap: 50px;
+        overflow: hidden;
+        h4 {
+            font-size: 40px;
+        }
+        &__content {
+            width: 45%;
+            padding-top: 80px;
+        }
+        &__image {
+            flex: 1;
+            margin-right: -50px;
+            margin-top: -40px;
+            margin-bottom: -400px;
+        }
+    }
+    .wc-novuna {
+        padding-top: 40px;
+        margin-top: 40px;
+        border-top: 1px solid #e8eaee;
+        &__logo {
+            width: 200px;
+            margin: 0 auto;
+        }
+        h4 {
+            font-size: 50px;
+            text-align: center;
+            padding-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 0;
+            padding-bottom: 20px;
+        }
+        p {
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+    .wc-columns {
+        display: flex;
+        padding-top: 40px;
+        &__content, &__image {
+            width: 50%;
+        }
+        &__content {
+            text-align: center;
+            padding-right: 60px;
+            padding-top: 100px;
+        }
+        h5 {
+            font-size: 40px;
+            line-height: 50px;
+            padding-bottom: 20px;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 40px;
+        }
+    }
+    .wc-novuna-info {
+        text-align: center;
+        padding-bottom: 80px;
+        padding-top: 40px;
+        h5 {
+            font-size: 30px;
+        }
+        &__main {
+            display: flex;
+            &-col {
+                width: 50%;
+                padding: 0 65px;
+                flex: 1;
+                &:first-of-type {
+                    border-right: 1px solid #e8eaee;
+                }
+            }
+        }
+    }
+    .wc-tcs {
+        text-align: center;
+        h5 {
+            font-size: 60px;
+            text-align: center;
+            span {color: v.$wilson-yellow;}
+        }
+
+        &__top {
+            p {
+                max-width: 950px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        &__main {
+            p {
+                font-size: 12px;
+            }
+            h6 {
+                font-size: 25px;
+                font-weight: 400;
+                padding-bottom: 20px;
+                a {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+    .wc-accordion {
+        margin-top: 20px;
+        .wc-accordion-item {
+            padding-bottom: 0;
+            &:last-of-type {
+                
+                .wc-accordion-item__title {
+                    border-bottom: 1px solid #e8eaee;
+                }
+            }
+            &__content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease-in-out;
+                &-inner {
+                    padding-top: 30px;
+                    padding-bottom: 20px;
+                }
+                h6 {
+                    font-size: 20px;
+                    font-weight: 600;
+                    padding-bottom: 0;
+                    margin-bottom: 10px;
+                }
+                div {
+                    padding-bottom: 0;
+                    font-size: 14px;
+                }
+            }
+            &__title {
+                
+                border-top: 1px solid #e8eaee;
+                padding-bottom: 20px;
+                padding-top: 20px;
+                font-weight: 700;
+                padding-right: 70px;
+                position: relative;
+                &.is-open {
+                    span {
+                        &:after {
+                            opacity: 0;
+                        }
+                    }
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+                span {
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    bottom: 0;
+                    margin: auto;
+                    &:after, &:before {
+                        content: '';
+                        display: block;
+                        height: 2px;
+                        width: 100%;
+                        background-color: v.$wilson-grey;
+                        position: absolute;
+                        inset: 0;
+                        margin: auto;
+                        opacity: 1;
+                        transition: all 0.5s ease;
+                    }
+                    &:after {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 1150px) {
+        .wc-paypal__main, .wc-paypal-banner {
+            padding: 60px;
+        }
+         .wc-paypal__carousel-item--title {
+            font-size: 30px;
+            line-height: 40px;;
+         }
+         .wc-paypal__carousel .owl-stage .owl-item p {
+            font-size: 16px;
+            line-height: 24px;;
+         }
+                 .wc-paypal-banner__content {
+                padding-top: 50px;
+                h4 {
+                    font-size: 25px;
+                }
+        }
+    }
+    @media screen and (max-width: 1023px) {
+        .wc-intro p {
+            font-size: 16px;
+        }
+        .wc-paypal-banner, .wc-paypal__main {
+            padding: 40px;
+        }
+        .wc-paypal-banner {
+            h4 {
+                font-size: 30px;
+            }
+        }
+        .wc-tcs {
+            h5 {
+                font-size: 40px;
+                line-height: 55px;
+            }
+        }
+        .wc-novuna-info {
+            &__main-col {
+                padding: 0 20px;
+            }
+        }
+        .wc-novuna {
+            h4 {
+                font-size: 40px;
+            }
+        }
+        .wc-intro {
+            h2 {
+                font-size: 25px;
+                line-height: 35px;
+            }
+        }
+        .wc-paypal {
+            &__logo {
+                padding-bottom: 15px;
+                img {
+                    width: 200px;
+                }
+            }
+            h3 {
+                font-size: 45px;
+                line-height: 55px;
+            }
+            .wc-large {
+                font-size: 18px;;
+            }
+        }
+        .wc-paypal__main {
+            &--text {
+                font-size: 20px;;
+            }
+            .wc-paypal__carousel {
+                gap: 30px;
+            }
+            .wc-paypal__carousel-item {
+                &--title {
+                    font-size: 30px;
+                    line-height: 35px;
+                }
+                p {
+                    font-size: 16px;
+                }
+            }
+        }
+        .wc-columns {
+            display: block;
+            &__content {
+                padding-right: 0;
+                padding-top: 0;
+                padding-bottom: 40px;
+                width: 100%;
+                h5 {
+                    max-width: initial;
+                    font-size: 35px;
+                    padding-bottom: 20px;
+                }
+            }
+            &__image {
+                width: 100%;
+                padding-top: 50%;
+                position: relative;
+                overflow: hidden;
+                img {
+                    object-fit: cover;
+                    object-position: 0 -220px;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                    height: 100%;
+                    inset: 0;
+                }
+            }
+        }
+        .wc-paypal-banner {
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .wc-paypal {
+            &__main {
+                max-width: 650px;
+                margin: 0 auto;
+                padding-left: 0;
+                padding-right: 0;
+                margin-top: 20px;
+                &--text {
+                    padding-left: 40px;
+                    padding-right: 40px;
+                }
+            }
+            &__carousel {
+                display: block;
+                padding-bottom: 0;
+                .owl-stage-outer {
+                    padding-bottom: 0;
+                }
+                .owl-nav {
+                    display: none;
+                }
+                .owl-item {
+                    padding-bottom: 0;
+                }
+                .wc-paypal__carousel-item {
+                    scale: 0.8;
+                    opacity: 0.4;
+                    transition: all 0.3s ease;
+                    img {
+                        width: 100%;
+                    }
+                    // .wc-paypal__carousel-item--title, p, &:after {
+                    //     opacity: 0;
+                    //     transition: all 0.5s ease;
+                    // }
+                    p {
+                        padding-bottom: 40px;
+                    }
+                }
+                .owl-item.active {
+                    .wc-paypal__carousel-item {
+                        scale: 1;
+                        opacity: 1;
+                        .wc-paypal__carousel-item--title, p, &:after {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media screen and (max-width: 768px) {
+        .wc-paypal__main, .wc-paypal-banner {
+            border-radius: 40px;
+        }
+        .wc-banner {
+            &__text {
+                font-size: 28px;
+                line-height: 38px;
+            }
+            &__image {
+                display: none;
+            }
+            &__image-mobile {
+                display: block;
+                padding-bottom: 100%;
+            }
+        }
+        .wc-intro  {
+            h2 {
+                font-size: 20px;
+                line-height: 30px;
+            }
+        }
+        .wc-paypal {
+            h3 {
+                font-size: 35px;
+                line-height: 45px;
+            }
+            &__main {
+                padding-left: 0;
+                padding-right: 0;
+                max-width: 600px;
+                margin: 0 auto;
+                &--text {
+                    max-width: 400px;
+                    margin: 0 auto;
+                    padding-left: 20px;
+                    padding-right: 20px;
+                    font-size: 18px;
+                    line-height: 26px;
+                }
+            }
+        }
+        .wc-paypal__carousel .wc-paypal__carousel-item {
+            p {
+                padding-bottom: 30px;
+            }
+        }
+        .wc-columns__content h5 {
+           font-size: 25px;
+            line-height: 35px;
+        }
+        .wc-novuna h4 {
+            font-size: 25px;
+            line-height: 35px;
+        }
+        .wc-tcs h5 {
+            font-size: 35px;
+            line-height: 45px;
+            padding-top: 10px;
+        }
+        .wc-paypal-banner {
+            display: block;
+            margin-top: 40px;
+            &__content {
+                width: 100%;
+                padding-top: 0;
+                padding-bottom: 60px;
+            }
+        }
+        .wc-columns__image img {
+            object-position: 0 -90px;
+        }
+        .wc-novuna-info {
+            padding-bottom: 40px;
+            padding-top: 40px;
+            &__main {
+                display: block;
+                &-col {
+                    
+                    width: 100%;
+                    &:first-of-type {
+                        border: none;
+                        border-bottom: 1px solid #e8eaee;
+                        padding-bottom: 30px;
+                        margin-bottom: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
+    @media screen and (min-width: 1024px) {
+        .klevu-container .cms-two-columns .col-main {
+            width: 80.8% !important;
+        }
+        .finance-page {
+            .wc-paypal__carousel {
+                padding-bottom: 0;
+                .owl-stage-outer {
+                    display: flex;
+                    flex-direction: column;
+                    padding-bottom: 0;
+                }
+                .owl-stage {
+                    display: flex;
+                    .owl-item {
+                        display: flex;
+                        p {
+                            padding-bottom: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }

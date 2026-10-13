@@ -20,6 +20,7 @@
         height: 100%;
         object-fit: cover;
     }
+
 </style>
 {% assign products_per_page = settings.products_per_row | times: settings.number_of_rows %}
 {% assign numbers = 'zero, one, two, three, four, five, six' | split: ',' %}
@@ -70,9 +71,6 @@
                 <div class="toolbar toolbar-product">
                     <div class="row">
 						<div class="wrap-filter-sorter">
-							<div class="filter-by">
-								<span class="js-filter-by">Filter by <i class="icon-chevron-right"></i></span>
-							</div>
 							<div class="sorter">
 								<label for="sorter">Sort by</label>
 								<div class="selectWrapper">
@@ -116,7 +114,7 @@
 						</p>
 						{% endcomment %}
 
-						{% render 'product-grid-item', product: product with products_per_row %}
+						{% render 'product-grid-item', product: product %}
 					{% else %}
     					<p id="noProducts">
     						There are no products in this view.
@@ -128,17 +126,17 @@
     					</p>
                     {% endfor %}
                 </div>
-                <div class="toolbar bottom toolbar-product">
-                    <div class="row">
-                        {% if paginate.pages > 1 %}
-                        <div class="wrap-pagi">
-                            <div class="collection-pagination">
-                                {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                {% if paginate.pages > 1 %}
+                    <div class="toolbar bottom toolbar-product">
+                        <div class="row">
+                            <div class="wrap-pagi">
+                                <div class="collection-pagination">
+                                    {{ paginate | default_pagination: next: 'Next <i class="icon-chevron-right"></i>', previous: '<i class="icon-chevron-left"></i> Prev' }}
+                                </div>
                             </div>
                         </div>
-                        {% endif %}
                     </div>
-                </div>
+                {% endif %}
                 {% endpaginate %}
             </div>
         </div>
@@ -203,4 +201,13 @@
 
 {% comment %} {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
 {{ 'filters.js' | asset_url | script_tag }}
-{% endif %} {% endcomment %}
+{% endif %} {% endcomment %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-grid-item', product: product with products_per_row %}"
+  to: "{% render 'product-grid-item', product: product %}"
+  position: 4995..5045
+{%- endcomment -%}

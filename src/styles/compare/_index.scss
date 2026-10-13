@@ -1,5 +1,10 @@
 @use './../variables' as v;
 
+.product-photos {
+    .compare-button {
+        z-index: 2;
+    }
+}
 .comparison-page {
     &__header {
         align-items: center;
@@ -92,7 +97,7 @@
         grid-template-areas: "header  aside" "nav aside" "content aside " "footer  aside ";
         
         grid-template-columns: 1fr 300px;
-        max-width: calc(100dvw - 30px);
+        max-width: 100dvw;
         display: grid;
         // Clips the add product panel while it slides out
         overflow: hidden;
@@ -125,6 +130,16 @@
     }
     .compare-modal__footer {
         grid-area: footer;
+        .button {
+            background-color: v.$wilson-yellow;
+            color: v.$wilson-grey;
+            border-color: v.$wilson-yellow;
+            &:hover {
+                color: #fff;
+                background-color: v.$wilson-grey;
+                border-color: v.$wilson-grey;
+            }
+        }
     }
     .compare-modal__add-product {
         grid-area: aside;
@@ -137,8 +152,8 @@
         transition: transform 0.3s ease, opacity 0.3s ease;
         .compare-modal__add-product--title {
             font-weight: 700;
-            font-size: 20px;
-            padding: 20px 10px 10px 20px;
+            font-size: 24px;
+            padding: 30px 10px 10px 20px;
         }
         .compare-modal__add-product--header {
             display: flex;
@@ -153,15 +168,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 10px 0 0;
+            margin: 20px 0 0;
             padding: 0;
             border: none;
             background: transparent;
             color: v.$wilson-grey;
             cursor: pointer;
             svg {
-                width: 24px;
-                height: 24px;
+                width: 30px;
+                height: 30px;
             }
         }
         &[hidden] {
@@ -270,7 +285,6 @@
         justify-content: flex-start;
         padding-bottom: 30px;
         margin-right: 30px;
-        margin-bottom: 20px;
         align-items: center;
         .compare-modal__header--main-col {
             padding-right: 30px;
@@ -280,6 +294,7 @@
             align-items: center;
             justify-content: end;
             gap: 0 10px;
+            margin-top: -22px;
         }
         .compare-modal__more-products-wrapper button {
             font-size: 14px;
@@ -384,9 +399,19 @@
                 }
             }
         }
+        // The label column stays in view while the products scroll sideways
+        .compare-product-spacer, .specification, .compare-product-view-spacer {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            background-color: #fff;
+        }
+        .compare-product-spacer {
+            background-color: transparent;
+        }
         .specification {
-            background-color: rgba(#E7E7E7, 0.5);
-            
+            // Opaque version of rgba(#E7E7E7, 0.5) on white, so products don't show through when scrolled under it
+            background-color: #F3F3F3;
             font-weight: 700;
         }
         .specification-value, .specification {
@@ -409,8 +434,8 @@
             margin: 0 auto;
         }
         .compare-product-image {
-            margin-left: 30px;
-            margin-right: 30px;
+            margin-left: 12px;
+            margin-right: 12px;
             a {
                 display: block;
             }
@@ -441,7 +466,7 @@
                 width: 30px;
                 height: 30px;
                 top: -15px;
-                right: 20px;
+                right: -3px;
                 padding: 0;
                 background: v.$wilson-yellow;
                 transition: all 0.3s ease;
@@ -782,8 +807,21 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             }
         }
     }
-
 }
+
+.compare-modal-container, .comparison-page {
+    #stockLevel {
+        color: #28a81a;
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.4;
+        display: inline-block;
+        &.outofstock {
+            color: #a9a9a9;
+        }
+    }
+}
+
 
 @media screen and (max-width: 475px) {
     .compare-modal-container {
@@ -844,6 +882,9 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 
 // Under 900px the add product panel becomes a popup
 @media screen and (max-width: 899px) {
+    .compare-modal-container .compare-modal__header--col {
+        margin-top: 0;
+    }
     .compare-modal-container {
         .compare-modal,
         .compare-modal.compare-modal--aside-closed {
@@ -881,6 +922,58 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             inset: 0;
             z-index: 2;
             background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+.compare-open-button {
+    position: fixed;
+    left: 0;
+    bottom: 10px;
+    // Below the modal (1000000) so it's covered while the modal is open
+    z-index: 999999;
+    display: inline-flex;
+    // A vertical tab, so the text runs bottom to top
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 8px;
+    width: 30px;
+    padding: 10px 0;
+    border: none;
+    background-color: v.$wilson-yellow;
+    color: v.$wilson-grey;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    &[hidden] {
+        display: none;
+    }
+    svg {
+        flex-shrink: 0;
+        width: 18px;
+        height: 18px;
+    }
+    > span:not(.compare-open-button__count) {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+    }
+    .compare-open-button__count {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 4px;
+        border-radius: 10px;
+        background-color: v.$wilson-grey;
+        color: #fff;
+        font-size: 11px;
+    }
+    &:hover {
+        .compare-open-button__count {
+            background-color: v.$wilson-yellow;
+            color: #414b52;
         }
     }
 }

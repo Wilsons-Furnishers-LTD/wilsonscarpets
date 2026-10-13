@@ -11,7 +11,10 @@ class Compare {
         this.addProductContainer = options.products ? null : document.querySelector('.compare-modal__add-product');
         this.productsByType = new Map();
         this.labelColumnWidth = 200;
-        this.productColumnWidth = 290;
+        // Narrower label column under 900px
+        this.labelColumnWidthSmall = 150;
+        this.smallViewportQuery = window.matchMedia('(max-width: 899px)');
+        this.productColumnWidth = 230;
         this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
         this.products = options.products || null;
@@ -21,15 +24,22 @@ class Compare {
         this.specificationsLaminate = ['Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsVinyl = ['Thickness', 'Wear Layer', 'Backing', 'Suitability', 'Style'];
         this.specificationsLVT = ['Thickness', 'Wear Layer', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Installation System', 'Style', 'Usage Class'];
+        this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
+
+        this.smallViewportQuery.addEventListener('change', () => this.updateGridWidths());
 
         this.renderNav();
         this.renderGrid();
     }
 
     bindModalEvents() {
+        // Fixed button to reopen the modal, shown once a product has been added
+        this.openButton = document.querySelector('.compare-open-button');
+        this.openButton?.addEventListener('click', () => this.openModal());
+
         let compareButtons = document.querySelectorAll('.compare-button')
         let that = this
         compareButtons.forEach(compareButton => {
@@ -65,11 +75,11 @@ class Compare {
             this.moreProductsButton.addEventListener('click', () => this.setAddProductVisible(true));
         }
 
-        // Under 900px the add product panel is a popup, closed by default
+        // Under 900px the add product panel is a popup. Closed by default at all sizes, opened with "Add products"
         this.mobileQuery = window.matchMedia('(max-width: 899px)');
 
         if (this.addProductContainer) {
-            const applyLayout = () => this.setAddProductVisible(!this.mobileQuery.matches, { focus: false, animate: false });
+            const applyLayout = () => this.setAddProductVisible(false, { focus: false, animate: false });
 
             // Runs on load and whenever the viewport crosses 900px
             applyLayout();
@@ -145,7 +155,20 @@ class Compare {
         }
 
         this.updateViewFullLink();
+        this.updateOpenButton();
         this.updateActiveType();
+    }
+
+    updateOpenButton() {
+        if (!this.openButton) return;
+
+        const count = this.getProducts().length;
+
+        this.openButton.hidden = !count;
+        this.openButton.setAttribute('aria-label', `Compare products (${count})`);
+
+        const countElement = this.openButton.querySelector('.compare-open-button__count');
+        if (countElement) countElement.textContent = count;
     }
 
     updateViewFullLink() {
@@ -195,9 +218,9 @@ class Compare {
     }
 
     handleCompareClick(button) {
-        const { handle, type } = button.dataset;
+        const { handle, type, variantId } = button.dataset;
 
-        this.addProduct(handle, type);
+        this.addProduct(handle, type, variantId ? Number(variantId) : null);
         this.openModal();
     }
 
@@ -243,9 +266,16 @@ class Compare {
         return this.products || this.getStoredProducts();
     }
 
-    addProduct(handle, type) {
+    // Identifies an entry, so different variants of the same product can be compared
+    static getEntryKey({ handle, variant = null }) {
+        return variant ? `${handle}:${variant}` : handle;
+    }
+
+    addProduct(handle, type, variantId = null) {
         const products = this.getStoredProducts();
-        if (products.some(product => product.handle === handle)) return false;
+        const key = Compare.getEntryKey({ handle, variant: variantId });
+
+        if (products.some(product => Compare.getEntryKey(product) === key)) return false;
 
         const sameTypeCount = products.filter(product => (product.type || '') === (type || '')).length;
         if (sameTypeCount >= this.maxProducts) {
@@ -253,7 +283,8 @@ class Compare {
             return false;
         }
 
-        products.push({ type, handle });
+        // Buttons on the product page are per colour, so save which variant was picked
+        products.push(variantId ? { type, handle, variant: variantId } : { type, handle });
 
         try {
             localStorage.setItem(this.storageKey, JSON.stringify(products));
@@ -264,7 +295,7 @@ class Compare {
 
         this.activeType = type;
         // Scrolled into view once the grid has been rebuilt
-        this.scrollToHandle = handle;
+        this.scrollToKey = key;
 
         this.updateUrl(products);
         this.renderNav();
@@ -285,9 +316,9 @@ class Compare {
         window.history.replaceState(window.history.state, '', url);
     }
 
-    removeProduct(handle) {
+    removeProduct(key) {
         if (this.products) {
-            this.products = this.products.filter(product => product.handle !== handle);
+            this.products = this.products.filter(product => Compare.getEntryKey(product) !== key);
 
             this.updateUrl(this.products);
             this.renderNav();
@@ -295,7 +326,7 @@ class Compare {
             return;
         }
 
-        const products = this.getStoredProducts().filter(product => product.handle !== handle);
+        const products = this.getStoredProducts().filter(product => Compare.getEntryKey(product) !== key);
 
         try {
             localStorage.setItem(this.storageKey, JSON.stringify(products));
@@ -312,15 +343,86 @@ class Compare {
         const root = window.Shopify?.routes?.root || '/';
 
         try {
-            const response = await fetch(`${root}products/${handle}.js`);
+            // templates/product.compare.liquid: the products/{handle}.js data plus the Juno metafields
+            const response = await fetch(`${root}products/${handle}?view=compare`);
 
             if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
 
-            return await response.json();
+            const { product, metafields: { variants: variantMetafields = [], ...metafields } } = await response.json();
+            const metafieldsByVariantId = new Map(variantMetafields.map(({ id, ...fields }) => [id, fields]));
+
+            return {
+                ...product,
+                metafields,
+                variants: (product.variants || []).map(variant => ({
+                    ...variant,
+                    metafields: metafieldsByVariantId.get(variant.id) || {},
+                })),
+            };
         } catch (error) {
             console.warn(`Unable to load product ${handle}`, error);
             return null;
         }
+    }
+
+    // The variant saved when it was added, otherwise the first available one
+    getSelectedVariant(product, variantId) {
+        const variants = product.variants || [];
+
+        return variants.find(variant => variant.id === variantId)
+            || variants.find(variant => variant.available)
+            || variants[0]
+            || null;
+    }
+
+    // The variant's option values without the size, e.g. "Grey / 4m" -> "Grey"
+    getVariantName(product, variant) {
+        if (!variant) return '';
+
+        // Products without options have a single "Default Title" variant
+        if (variant.title === 'Default Title') return '';
+
+        // products/{handle}.js gives options as objects, the Liquid json filter may give plain names
+        const optionNames = (product.options || []).map(option => (typeof option === 'string' ? option : option.name) || '');
+        const values = variant.options || [variant.option1, variant.option2, variant.option3].filter(Boolean);
+
+        return values
+            .filter((value, index) => !this.isSizeOption(optionNames[index]))
+            .join(' / ');
+    }
+
+    // Matches the option names snippets/product-details.liquid treats as sizes
+    isSizeOption(name = '') {
+        const optionName = name.trim().toLowerCase();
+
+        return optionName === 'width' || optionName.includes('size');
+    }
+
+    // From the variant's Juno is_in_stock metafield (templates/product.compare.liquid)
+    getStockStatus(variant) {
+        const inStock = variant?.metafields?.is_in_stock;
+
+        if (inStock === '1') {
+            return 'In stock';
+        }
+        return 'Out of stock';
+    }
+
+    createStockValue(variant) {
+        const status = this.getStockStatus(variant);
+
+        if (status === '-') return status;
+
+        const stockLevel = document.createElement('p');
+        stockLevel.id = 'stockLevel';
+        stockLevel.className = status === 'In stock' ? 'instock' : 'outofstock';
+        stockLevel.textContent = status;
+
+        const icon = document.createElement('i');
+        icon.className = status === 'In stock' ? 'icon-instock' : 'icon-outofstock';
+        stockLevel.prepend(icon, ' ');
+
+        return stockLevel;
     }
 
     getProductUrl(product) {
@@ -334,7 +436,8 @@ class Compare {
 
         const image = document.createElement('img');
 
-        image.src = product.featured_image;
+        // Variants without their own image have featured_image set to null
+        image.src = product.selectedVariant?.featured_image?.src || product.featured_image;
         // The title link names the product, so the image doesn't need to
         image.alt = '';
         image.loading = 'lazy';
@@ -354,6 +457,15 @@ class Compare {
         titleLink.href = productUrl;
         titleLink.textContent = product.title;
 
+        const variantTitle = this.getVariantName(product, product.selectedVariant);
+
+        if (variantTitle) {
+            const variantName = document.createElement('span');
+            variantName.className = 'compare-product-title__variant';
+            variantName.textContent = variantTitle;
+            titleLink.append(' - ', variantName);
+        }
+
         const title = document.createElement('div');
         title.className = 'compare-product-title';
         title.appendChild(titleLink);
@@ -367,11 +479,11 @@ class Compare {
                 <path d="M6 6l12 12M18 6L6 18"/>
             </svg>
         `;
-        removeButton.addEventListener('click', () => this.removeProduct(product.handle));
+        removeButton.addEventListener('click', () => this.removeProduct(product.compareKey));
 
         const productCard = document.createElement('div');
         productCard.className = 'compare-product';
-        productCard.dataset.handle = product.handle;
+        productCard.dataset.key = product.compareKey;
         productCard.append(removeButton, wrapper, title);
 
         return productCard;
@@ -397,11 +509,27 @@ class Compare {
         }).format(cents / 100);
     }
 
+    // From the "Pack Size (M²)_" tag, e.g. "Pack Size (M²)_2.22m²" -> 2.22, matching snippets/product-details-top.liquid
+    getPackSize(product) {
+        const prefix = 'Pack Size (M²)_';
+        const tag = (product.tags || []).find(tag => tag.includes(prefix));
+        const packSize = tag ? parseFloat(tag.replace(prefix, '').split('m')[0]) : NaN;
+
+        return packSize > 0 ? packSize : null;
+    }
+
     createPriceValue(product) {
         const fragment = document.createDocumentFragment();
-        const rrpPrice = this.getRrpPrice(product, product.price / 100, true);
 
-        if (rrpPrice) {
+        const isPackPriced = ['Laminate', 'LVT', 'Real Wood'].includes(product.type);
+
+        // These are priced per pack, so show them per m² like the product page
+        const packSize = (isPackPriced && this.getPackSize(product)) || 1;
+        const priceCents = Math.round(product.price / packSize);
+        const rrpPrice = this.getRrpPrice(product, priceCents / 100, true, packSize);
+
+        // Pack priced products don't show an RRP, only a "was" price when on sale
+        if (rrpPrice && !(isPackPriced && rrpPrice.label === 'RRP')) {
             const rrp = document.createElement('s');
             rrp.className = 'compare-product-rrp';
             rrp.textContent = `${rrpPrice.label} ${rrpPrice.amount}`;
@@ -413,7 +541,7 @@ class Compare {
         const only = document.createElement('span');
         only.className = 'compare-product-price__only';
         only.textContent = 'Only';
-        price.append(only, ` ${this.formatPrice(product.price)}m² `);
+        price.append(only, ` ${this.formatPrice(priceCents)}m² `);
         fragment.prepend(price);
 
         return fragment;
@@ -430,7 +558,7 @@ class Compare {
         products.forEach(product => {
             const value = document.createElement('div');
             value.className = 'specification-value';
-            value.dataset.handle = product.handle;
+            value.dataset.key = product.compareKey;
             value.append(getValue(product));
             fragment.appendChild(value);
         });
@@ -454,7 +582,7 @@ class Compare {
 
             const cell = document.createElement('div');
             cell.className = 'compare-product-view-cell';
-            cell.dataset.handle = product.handle;
+            cell.dataset.key = product.compareKey;
             cell.appendChild(link);
             fragment.appendChild(cell);
         });
@@ -472,12 +600,27 @@ class Compare {
     groupByType(storedProducts) {
         const groups = new Map();
 
-        storedProducts.forEach(({ type = '', handle }) => {
+        storedProducts.forEach(entry => {
+            const type = entry.type || '';
+
             if (!groups.has(type)) groups.set(type, []);
-            groups.get(type).push(handle);
+            groups.get(type).push(entry);
         });
 
         return groups;
+    }
+
+    getLabelColumnWidth() {
+        return this.smallViewportQuery.matches ? this.labelColumnWidthSmall : this.labelColumnWidth;
+    }
+
+    setGridColumns(grid) {
+        const columns = Number(grid.dataset.columns) || 0;
+
+        // Empty type grids just hold a message
+        if (!columns) return;
+
+        grid.style.gridTemplateColumns = `${this.getLabelColumnWidth()}px repeat(${columns}, ${this.productColumnWidth}px)`;
     }
 
     createGrid(type, columns) {
@@ -485,7 +628,7 @@ class Compare {
         grid.className = 'compare-modal__product-grid';
         grid.dataset.type = type;
         grid.dataset.columns = columns;
-        grid.style.gridTemplateColumns = `${this.labelColumnWidth}px repeat(${columns}, ${this.productColumnWidth}px)`;
+        this.setGridColumns(grid);
 
         const spacer = document.createElement('div');
         spacer.className = 'compare-product-spacer';
@@ -504,6 +647,8 @@ class Compare {
                 return this.specificationsVinyl;
             case 'LVT':
                 return this.specificationsLVT;
+            case 'Real Wood':
+                return this.specificationsRealWood;
             default:
                 return this.specifications;
         }
@@ -523,7 +668,8 @@ class Compare {
             grid.appendChild(productCard);
         }
 
-        const rowCount = this.getSpecifications(type).length + 1;
+        // Price and Stock rows, then the specifications
+        const rowCount = this.getSpecifications(type).length + 2;
 
         for (let row = 0; row < rowCount; row++) {
             const label = document.createElement('div');
@@ -553,11 +699,18 @@ class Compare {
             this.createRow('Price', products, product => this.createPriceValue(product))
         );
 
-        this.getSpecifications(type).forEach(specification => {
-            grid.appendChild(
-                this.createRow(specification, products, product => this.getSpecificationValue(product, specification))
-            );
-        });
+        grid.appendChild(
+            this.createRow('Stock', products, product => this.createStockValue(product.selectedVariant))
+        );
+
+        this.getSpecifications(type)
+            // Skip specifications none of the products have
+            .filter(specification => products.some(product => this.getSpecificationValue(product, specification) !== '-'))
+            .forEach(specification => {
+                grid.appendChild(
+                    this.createRow(specification, products, product => this.getSpecificationValue(product, specification))
+                );
+            });
 
         grid.appendChild(this.createViewProductRow(products));
 
@@ -607,13 +760,15 @@ class Compare {
         const groups = this.groupByType(storedProducts);
 
         this.gridsContainer.replaceChildren(
-            ...[...groups].map(([type, handles]) => this.createSkeletonGrid(type, handles.length)),
+            ...[...groups].map(([type, entries]) => this.createSkeletonGrid(type, entries.length)),
             ...this.createEmptyTypeGrids([...groups.keys()])
         );
         this.updateGridWidths();
         this.updateActiveType();
 
-        const results = await Promise.all(storedProducts.map(({ handle }) => this.fetchProduct(handle)));
+        // Variants of the same product share one request
+        const handles = [...new Set(storedProducts.map(({ handle }) => handle))];
+        const results = await Promise.all(handles.map(handle => this.fetchProduct(handle)));
         const productsByHandle = new Map();
 
         results.forEach(product => {
@@ -625,10 +780,18 @@ class Compare {
 
         const grids = [];
 
-        groups.forEach((handles, type) => {
-            const products = handles
-                .map(handle => productsByHandle.get(handle))
-                .filter(Boolean);
+        groups.forEach((entries, type) => {
+            const products = entries
+                .filter(entry => productsByHandle.has(entry.handle))
+                .map(entry => {
+                    const product = productsByHandle.get(entry.handle);
+
+                    return {
+                        ...product,
+                        compareKey: Compare.getEntryKey(entry),
+                        selectedVariant: this.getSelectedVariant(product, entry.variant),
+                    };
+                });
 
             if (products.length) grids.push(this.createProductGrid(type, products));
         });
@@ -663,13 +826,13 @@ class Compare {
     }
 
     scrollToAddedProduct() {
-        const handle = this.scrollToHandle;
-        this.scrollToHandle = null;
+        const key = this.scrollToKey;
+        this.scrollToKey = null;
 
-        if (!handle) return;
+        if (!key) return;
 
         const card = [...this.gridsContainer.querySelectorAll('.compare-product')]
-            .find(productCard => productCard.dataset.handle === handle);
+            .find(productCard => productCard.dataset.key === key);
 
         if (!card) return;
 
@@ -690,8 +853,8 @@ class Compare {
         const widths = grids.map(grid => {
             const columns = Number(grid.dataset.columns) || 0;
             const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
-
-            return this.labelColumnWidth + columns * (this.productColumnWidth + gap);
+            
+            return this.getLabelColumnWidth() + columns * (this.productColumnWidth + gap);
         });
 
         const widest = Math.max(0, ...widths);
@@ -699,6 +862,8 @@ class Compare {
         // Keep every grid as wide as the widest so the modal doesn't resize when switching type
         grids.forEach(grid => {
             grid.style.minWidth = `${widest}px`;
+            // Also reapplies the label column width when the viewport crosses 900px
+            this.setGridColumns(grid);
         });
     }
 
@@ -737,11 +902,12 @@ class Compare {
 
     // Matches the theme's product grid: "was" price if on sale, otherwise RRP from an RRP_ tag
     // products.json gives compare_at_price as a decimal string, products/{handle}.js in cents
-    getRrpPrice(product, price, compareAtInCents = false) {
+    // packSize divides the "was" price to per m², as price should already be. The RRP_ tag is already per m².
+    getRrpPrice(product, price, compareAtInCents = false, packSize = 1) {
         const compareAtPrices = (product.variants || [])
             .map(variant => parseFloat(variant.compare_at_price))
             .filter(compareAt => !Number.isNaN(compareAt))
-            .map(compareAt => compareAtInCents ? compareAt / 100 : compareAt);
+            .map(compareAt => (compareAtInCents ? compareAt / 100 : compareAt) / packSize);
 
         const compareAt = compareAtPrices.length ? Math.min(...compareAtPrices) : 0;
 
@@ -817,10 +983,7 @@ class Compare {
         this.dismissedWarnings.delete(type || '');
         this.selectType(type || '');
 
-        if (this.addProductContainer?.closest('.compare-modal')?.classList.contains('compare-modal--aside-closed')) {
-            this.setAddProductVisible(true, { focus: false });
-        }
-
+        // The add product panel stays closed; the warning shows inside it once it's opened
         clearTimeout(this.shudderTimer);
         this.shudderTimer = setTimeout(() => this.shudderLimitWarning(), wasOpen ? 0 : 300);
     }

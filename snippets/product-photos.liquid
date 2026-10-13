@@ -94,7 +94,9 @@
                                 {% unless displayedColor contains color %}
                                     {% assign displayedColor = displayedColor | append: '|' | append: color %}
                                         <div class="item {{ variant.title }}" data-value="{{ color }}">
+                                            {% render 'compare-button', product: product, variant: variant %}
                                             <a class="featherlight-gallery" href="{{ variant.image | img_url: '1600x1600' }}">
+                                                
                                                 <picture>
                                                     <source media="(min-width: 1024px)" srcset="{{ variant.image | img_url: '600x600' }}">
                                                     <source srcset="{{ variant.image | img_url: '860x860' }}">
@@ -125,6 +127,7 @@
                 {% if product_option_name == 'color' or product_option_name == 'colour' or product_option_name == 'quantity' or product_option_name == 'width' or product_option_name == 'rug size' %}
                     {% unless image.attached_to_variant? %}
                         <div class="item">
+                            {% render 'compare-button', product: product, variant: variant %}
                             <a class="featherlight-gallery" href="{{ image | img_url: '1600x1600' }}">
                                 <picture>
                                     <source media="(min-width: 1024px)" srcset="{{ image | img_url: '600x600' }}">
@@ -152,7 +155,7 @@
             {% endunless %}
         {% endfor %}
         {% endcapture %}
-
+        
         <div class="product-photo-container" data-photoui="{{ usedPhotoUI | json }}">
             <div class="owl-carousel">
                 {{product_images}}

@@ -493,7 +493,6 @@
 }
 .compare-modal__nav, .comparison-page__nav {
   background-color: rgba(231, 231, 231, 0.35);
-  border-bottom: 3px solid #DDDDDD;
   margin-bottom: 40px;
   height: 43px;
   display: flex;
@@ -505,6 +504,23 @@
   width: calc(100% + 30px);
   overflow-y: hidden;
   overflow-x: scroll;
+  position: relative;
+}
+.compare-modal__nav:after, .comparison-page__nav:after {
+  height: 3px;
+  width: calc(100% + 30px);
+  background: #DDDDDD;
+  content: "";
+  display: block;
+  position: absolute;
+  left: -30px;
+  bottom: 0;
+}
+@media screen and (max-width: 475px) {
+  .compare-modal__nav:after, .comparison-page__nav:after {
+    left: 0;
+    width: 100%;
+  }
 }
 .compare-modal__nav a, .comparison-page__nav a {
   opacity: 0.5;
@@ -515,11 +531,12 @@
   align-items: center;
   padding: 0 20px;
   transition: all 0.3s ease;
+  z-index: 2;
 }
 .compare-modal__nav a:after, .comparison-page__nav a:after {
   height: 3px;
   width: 100%;
-  bottom: -3px;
+  bottom: -2px;
   content: "";
   background: #414B52;
   position: absolute;
@@ -528,6 +545,11 @@
   margin: auto;
   opacity: 0;
   transition: all 0.3s ease;
+}
+@media screen and (max-width: 475px) {
+  .compare-modal__nav a:after, .comparison-page__nav a:after {
+    bottom: -1px;
+  }
 }
 .compare-modal__nav a.active:after, .comparison-page__nav a.active:after {
   opacity: 1;
@@ -757,6 +779,16 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 .comparison-page__nav a {
   position: relative;
 }
+@media screen and (max-width: 767px) {
+  .comparison-page__nav a:after {
+    bottom: -1px;
+  }
+}
+@media screen and (max-width: 475px) {
+  .comparison-page__nav a:after {
+    bottom: -2px;
+  }
+}
 @media screen and (max-width: 1354px) {
   .comparison-page__nav {
     background: rgba(231, 231, 231, 0.35);
@@ -765,9 +797,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     width: calc(100% + 40px);
     overflow-x: scroll;
     overflow-y: hidden;
-  }
-  .comparison-page__nav a:after {
-    bottom: 0;
   }
 }
 @media screen and (max-width: 475px) {
@@ -825,7 +854,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     height: 25px;
   }
 }
-.compare-modal-container #stockLevel, .comparison-page #stockLevel {
+.compare-modal-container #stockLevel, #comparison-page-app #stockLevel {
   color: #28a81a;
   font-size: 14px;
   font-weight: 700;
@@ -834,7 +863,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   align-items: center;
   gap: 5px;
 }
-.compare-modal-container #stockLevel.outofstock, .comparison-page #stockLevel.outofstock {
+.compare-modal-container #stockLevel.outofstock, #comparison-page-app #stockLevel.outofstock {
   color: #a9a9a9;
 }
 

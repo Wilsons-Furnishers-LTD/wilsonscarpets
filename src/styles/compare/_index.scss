@@ -502,7 +502,7 @@
         display: none;
     }
     background-color: rgba(#E7E7E7, 0.35);
-    border-bottom: 3px solid #DDDDDD;
+    
     margin-bottom: 40px;
     height: 43px;
     display: flex;
@@ -514,6 +514,21 @@
     width: calc(100% + 30px);
     overflow-y: hidden;
     overflow-x: scroll;
+    position: relative;
+    &:after {
+        height: 3px;
+        width: calc(100% + 30px);
+        background: #DDDDDD;
+        content: '';
+        display: block;
+        position: absolute;
+        left: -30px;
+        bottom: 0;
+        @media screen and (max-width: 475px) {
+            left: 0;
+            width: 100%;
+        }
+    }
     a {
         opacity: 0.5;
         height: 40px;
@@ -523,10 +538,11 @@
         align-items: center;
         padding: 0 20px;
         transition: all 0.3s ease;
+        z-index: 2;
         &:after {
             height: 3px;
             width: 100%;
-            bottom: -3px;
+            bottom: -2px;
             content: '';
             background: v.$wilson-grey;
             position: absolute;
@@ -535,6 +551,9 @@
             margin: auto;
             opacity: 0;
             transition: all 0.3s ease;
+            @media screen and (max-width: 475px) {
+                bottom: -1px;
+            }
         }
         &.active {
             &:after {
@@ -768,6 +787,16 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
     a {
         position: relative;
+        @media screen and (max-width: 767px) {
+            &:after {
+                bottom: -1px;
+            }
+        }
+        @media screen and (max-width: 475px) {
+            &:after {
+                bottom: -2px;
+            }
+        }
     }
     @media screen and (max-width: 1354px) {
         background: rgba(231, 231, 231, 0.35);
@@ -776,12 +805,8 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         width: calc(100% + 40px);
         overflow-x: scroll;
         overflow-y: hidden;
-        a {
-            &:after {
-                bottom: 0;
-            }
-        }
     }
+
     @media screen and (max-width: 475px) {
         left: -15px;
         width: calc(100% + 30px);
@@ -839,7 +864,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
 }
 
-.compare-modal-container, .comparison-page {
+.compare-modal-container, #comparison-page-app {
     #stockLevel {
         color: #28a81a;
         font-size: 14px;

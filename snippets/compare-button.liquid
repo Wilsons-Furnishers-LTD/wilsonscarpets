@@ -1,4 +1,5 @@
-{% if product.type == 'Carpets' or product.type == 'LVT' or product.type == 'Vinyl' or product.type == 'Laminate' or product.type == 'Artificial Grass' or product.type == 'Real Wood' %}
+
+{% if product.type == 'Carpets' or product.type == 'LVT' or product.type == 'Vinyl' or product.type == 'Laminate' or product.type == 'Artificial Grass' or product.type == 'Real Wood' or product.type == 'Accessories & Underlay' %}
     <button data-handle="{{ product.handle }}" data-type="{{ product.type }}"{% if variant %} data-variant-id="{{ variant.id }}"{% endif %} aria-label="Compare this product" class="compare-button" title="Compare this product">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
         fill="none" stroke="currentColor" stroke-width="2"

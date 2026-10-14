@@ -22,7 +22,8 @@ class Compare {
         this.specificationsVinyl = ['Thickness', 'Wear Layer', 'Backing', 'Suitability', 'Style'];
         this.specificationsLVT = ['Thickness', 'Wear Layer', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Installation System', 'Style', 'Usage Class'];
         this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
-        this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style'];
+        this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style', 'Door Bar Length'];
+        this.specificationsRugs = ['Material', 'Pile Height', 'Style', 'Door Bar Length'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
@@ -634,6 +635,8 @@ class Compare {
                 return this.specificationsRealWood;
             case 'Accessories & Underlay':
                 return this.specificationsAccessories;
+            case 'Rugs':
+                return this.specificationsRugs;
             default:
                 return this.specifications;
         }
@@ -887,9 +890,9 @@ class Compare {
     // Matches the theme's product grid: "was" price if on sale, otherwise RRP from an RRP_ tag
     // products.json gives compare_at_price as a decimal string, products/{handle}.js in cents
     // packSize divides the "was" price to per m², as price should already be. The RRP_ tag is already per m².
-    // Accessories & Underlay are sold per item, so have no per m² unit
+    // Sold per item, so have no per m² unit
     getPriceUnit(type) {
-        return type === 'Accessories & Underlay' ? '' : 'm²';
+        return ['Accessories & Underlay', 'Rugs'].includes(type) ? '' : 'm²';
     }
 
     getRrpPrice(product, price, compareAtInCents = false, packSize = 1) {
@@ -973,13 +976,13 @@ class Compare {
         this.dismissedWarnings.delete(type || '');
         this.selectType(type || '');
 
-        // The add product panel stays closed; the warning shows inside it once it's opened
+        // The warning sits on the modal, so it shows whether or not the add product panel is open
         clearTimeout(this.shudderTimer);
         this.shudderTimer = setTimeout(() => this.shudderLimitWarning(), wasOpen ? 0 : 300);
     }
 
     shudderLimitWarning() {
-        const warning = this.addProductContainer?.querySelector('.compare-modal__limit-warning');
+        const warning = this.limitWarning;
 
         if (!warning || warning.hidden) return;
 
@@ -1047,10 +1050,10 @@ class Compare {
     updateLimitWarning() {
         if (!this.addProductContainer) return;
 
-        let warning = this.addProductContainer.querySelector('.compare-modal__limit-warning');
+        let warning = this.limitWarning;
 
         if (!warning) {
-            warning = document.createElement('div');
+            warning = this.limitWarning = document.createElement('div');
             warning.className = 'compare-modal__limit-warning';
             warning.setAttribute('role', 'status');
 
@@ -1074,12 +1077,8 @@ class Compare {
 
             warning.append(message, closeButton);
 
-            const header = this.addProductContainer.querySelector('.compare-modal__add-product--header');
-            if (header) {
-                header.after(warning);
-            } else {
-                this.addProductContainer.prepend(warning);
-            }
+            // On the modal rather than in the add product panel, so it's visible while the panel is closed
+            (this.addProductContainer.closest('.compare-modal') || this.addProductContainer).appendChild(warning);
         }
 
         const count = this.getProducts().filter(({ type = '' }) => type === this.activeType).length;

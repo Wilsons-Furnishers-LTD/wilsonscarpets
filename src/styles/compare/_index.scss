@@ -141,6 +141,44 @@
             }
         }
     }
+    .compare-modal__limit-warning {
+        &.is-shuddering {
+            animation: compare-shudder 0.5s ease-in-out;
+        }
+        // On the modal, so it shows whether or not the add product panel is open
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        z-index: 2;
+        width: 300px;
+        margin: 15px 15px 0;
+        padding: 10px 15px;
+        background-color: #fff4c9;
+        border-left: 4px solid v.$wilson-yellow;
+        color: v.$wilson-grey;
+        font-size: 14px;
+        line-height: 1.4;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        &[hidden] {
+            display: none;
+        }
+    }
+    .compare-modal__limit-warning--text {
+        flex: 1;
+    }
+    .compare-modal__limit-warning--close {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        background: transparent;
+        color: v.$wilson-grey;
+        cursor: pointer;
+    }
     .compare-modal__add-product {
         grid-area: aside;
         border-left:3px solid #DDDDDD;
@@ -181,42 +219,6 @@
         }
         &[hidden] {
             display: none;
-        }
-        .compare-modal__limit-warning {
-            &.is-shuddering {
-                animation: compare-shudder 0.5s ease-in-out;
-            }
-            position: absolute;
-            bottom: 20px;
-            right: 0;
-            width: 300px;
-            margin: 15px 15px 0;
-            padding: 10px 15px;
-            background-color: #fff4c9;
-            border-left: 4px solid v.$wilson-yellow;
-            color: v.$wilson-grey;
-            font-size: 14px;
-            line-height: 1.4;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            &[hidden] {
-                display: none;
-            }
-        }
-        .compare-modal__limit-warning--text {
-            flex: 1;
-        }
-        .compare-modal__limit-warning--close {
-            flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            padding: 0;
-            margin: 0;
-            border: none;
-            background: transparent;
-            color: v.$wilson-grey;
-            cursor: pointer;
         }
         .compare-modal__add-product--list {
             display: flex;
@@ -440,6 +442,10 @@
             margin-right: 12px;
             a {
                 display: block;
+            }
+            img {
+                display: block;
+                border: 1px solid #EEEEEE;
             }
         }
         .compare-skeleton {
@@ -918,11 +924,14 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             background-color: #fff;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
             transform: translate(-50%, -50%);
-            .compare-modal__limit-warning {
-                position: static;
-                width: auto;
-                margin: 0 15px;
-            }
+        }
+        .compare-modal__limit-warning {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            left: 16px;
+            width: auto;
+            margin: 0;
         }
         .compare-modal.compare-modal--aside-closed .compare-modal__add-product {
             transform: translate(-50%, -45%);

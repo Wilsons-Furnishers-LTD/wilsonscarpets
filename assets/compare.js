@@ -22,6 +22,7 @@ class Compare {
         this.specificationsVinyl = ['Thickness', 'Wear Layer', 'Backing', 'Suitability', 'Style'];
         this.specificationsLVT = ['Thickness', 'Wear Layer', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Installation System', 'Style', 'Usage Class'];
         this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
+        this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
@@ -536,7 +537,7 @@ class Compare {
         const only = document.createElement('span');
         only.className = 'compare-product-price__only';
         only.textContent = 'Only';
-        price.append(only, ` ${this.formatPrice(priceCents)}m² `);
+        price.append(only, ` ${this.formatPrice(priceCents)}${this.getPriceUnit(product.type)} `);
         fragment.prepend(price);
 
         return fragment;
@@ -631,6 +632,8 @@ class Compare {
                 return this.specificationsLVT;
             case 'Real Wood':
                 return this.specificationsRealWood;
+            case 'Accessories & Underlay':
+                return this.specificationsAccessories;
             default:
                 return this.specifications;
         }
@@ -652,7 +655,7 @@ class Compare {
 
         // Price and Stock rows, then the specifications
         const rowCount = this.getSpecifications(type).length + 2;
-
+        
         for (let row = 0; row < rowCount; row++) {
             const label = document.createElement('div');
             label.className = 'specification';
@@ -851,8 +854,9 @@ class Compare {
         if (this.productsByType.has(type)) return this.productsByType.get(type);
 
         const root = window.Shopify?.routes?.root || '/';
-        // Collection handles are lowercase with hyphens, e.g. "Artificial Grass" -> "artificial-grass"
-        const handle = type.trim().toLowerCase().replace(/\s+/g, '-');
+        // Collection handles are lowercase with hyphens, like Shopify's handleize,
+        // e.g. "Artificial Grass" -> "artificial-grass", "Accessories & Underlay" -> "accessories-underlay"
+        const handle = type.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
         let collection_id = this.getCollectionId(handle);
         
@@ -883,7 +887,13 @@ class Compare {
     // Matches the theme's product grid: "was" price if on sale, otherwise RRP from an RRP_ tag
     // products.json gives compare_at_price as a decimal string, products/{handle}.js in cents
     // packSize divides the "was" price to per m², as price should already be. The RRP_ tag is already per m².
+    // Accessories & Underlay are sold per item, so have no per m² unit
+    getPriceUnit(type) {
+        return type === 'Accessories & Underlay' ? '' : 'm²';
+    }
+
     getRrpPrice(product, price, compareAtInCents = false, packSize = 1) {
+        const unit = this.getPriceUnit(product.type ?? product.product_type);
         const compareAtPrices = (product.variants || [])
             .map(variant => parseFloat(variant.compare_at_price))
             .filter(compareAt => !Number.isNaN(compareAt))
@@ -891,13 +901,13 @@ class Compare {
 
         const compareAt = compareAtPrices.length ? Math.min(...compareAtPrices) : 0;
 
-        if (compareAt > price) return { label: 'was', amount: `${this.formatPrice(Math.round(compareAt * 100))}m²` };
+        if (compareAt > price) return { label: 'was', amount: `${this.formatPrice(Math.round(compareAt * 100))}${unit}` };
 
         const tags = Array.isArray(product.tags) ? product.tags : String(product.tags || '').split(', ');
         const rrpTag = tags.find(tag => tag.startsWith('RRP_'));
         const rrp = rrpTag ? parseFloat(rrpTag.replace('RRP_', '')) : 0;
 
-        if (rrp > price) return { label: 'RRP', amount: `${this.formatPrice(Math.round(rrp * 100))}m²` };
+        if (rrp > price) return { label: 'RRP', amount: `${this.formatPrice(Math.round(rrp * 100))}${unit}` };
 
         return null;
     }
@@ -927,7 +937,7 @@ class Compare {
 
             const price = document.createElement('span');
             price.className = 'compare-add-product__price';
-            price.textContent = `only ${this.formatPrice(Math.round(lowestPrice * 100))}m²`;
+            price.textContent = `only ${this.formatPrice(Math.round(lowestPrice * 100))}${this.getPriceUnit(product.product_type)}`;
             details.appendChild(price);
 
             const rrpPrice = this.getRrpPrice(product, lowestPrice);

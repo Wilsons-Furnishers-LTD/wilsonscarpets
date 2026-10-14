@@ -403,7 +403,7 @@
 }
 .compare-modal__product-grid .specification-value, .compare-modal__product-grid .specification {
   border-bottom: 2px solid #DDDDDD;
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 14px;
 }
 .compare-modal__product-grid .specification-value {
@@ -554,6 +554,11 @@
   padding-right: 0px;
   margin-left: -30px;
 }
+@media screen and (max-width: 475px) {
+  .compare-modal__grids, .compare-page__grids {
+    margin-left: -15px;
+  }
+}
 
 .compare-modal__footer {
   padding-top: 30px;
@@ -561,6 +566,11 @@
   margin-top: -30px;
   padding-right: 12px;
   margin-left: -18px;
+}
+@media screen and (max-width: 475px) {
+  .compare-modal__footer {
+    margin-left: 0px;
+  }
 }
 .compare-modal__footer a.button {
   margin-bottom: 0;
@@ -816,8 +826,12 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   }
   .compare-modal-container .compare-modal__nav {
     margin-left: -15px;
-    padding: 0 15px;
+    padding: 0px;
+    gap: 0;
     width: calc(100% + 15px);
+  }
+  .compare-modal-container .compare-modal__nav a {
+    padding: 0 15px;
   }
   .compare-modal-container .compare-modal__header {
     margin-right: 15px;

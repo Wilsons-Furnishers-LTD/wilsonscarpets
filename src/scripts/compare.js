@@ -525,8 +525,7 @@ class Compare {
         const priceCents = Math.round(product.price / packSize);
         const rrpPrice = this.getRrpPrice(product, priceCents / 100, true, packSize);
 
-        // Pack priced products don't show an RRP, only a "was" price when on sale
-        if (rrpPrice && !(isPackPriced && rrpPrice.label === 'RRP')) {
+        if (rrpPrice) {
             const rrp = document.createElement('s');
             rrp.className = 'compare-product-rrp';
             rrp.textContent = `${rrpPrice.label} ${rrpPrice.amount}`;

@@ -22,7 +22,7 @@ class Compare {
         this.specificationsVinyl = ['Thickness', 'Wear Layer', 'Backing', 'Suitability', 'Style'];
         this.specificationsLVT = ['Thickness', 'Wear Layer', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Installation System', 'Style', 'Usage Class'];
         this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
-        this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style'];
+        this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style', 'Door Bar Length'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();

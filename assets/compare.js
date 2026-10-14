@@ -1032,8 +1032,8 @@ class Compare {
         }
 
         if (this.moreProductsButton) {
-            // "More products" is only needed while the panel is hidden
-            this.moreProductsButton.hidden = isVisible;
+            // "More products" is only needed while the panel is hidden, and when there's something to add
+            this.moreProductsButton.hidden = isVisible || !this.hasProductsToAdd;
             this.moreProductsButton.setAttribute('aria-expanded', String(isVisible));
         }
 
@@ -1077,8 +1077,12 @@ class Compare {
 
             warning.append(message, closeButton);
 
-            // On the modal rather than in the add product panel, so it's visible while the panel is closed
-            (this.addProductContainer.closest('.compare-modal') || this.addProductContainer).appendChild(warning);
+            // Under the nav rather than in the add product panel, so it's visible while the panel is closed
+            if (this.nav) {
+                this.nav.after(warning);
+            } else {
+                (this.addProductContainer.closest('.compare-modal') || this.addProductContainer).appendChild(warning);
+            }
         }
 
         const count = this.getProducts().filter(({ type = '' }) => type === this.activeType).length;
@@ -1107,6 +1111,7 @@ class Compare {
         // Products without a type ("Other") can't be listed by type
         if (!activeType) {
             list.replaceChildren();
+            this.setHasProductsToAdd(false);
             return;
         }
 
@@ -1122,6 +1127,15 @@ class Compare {
             .map(product => this.createAddProductItem(product));
 
         list.replaceChildren(...items);
+        this.setHasProductsToAdd(items.length > 0);
+    }
+
+    setHasProductsToAdd(hasProducts) {
+        this.hasProductsToAdd = hasProducts;
+
+        if (this.moreProductsButton && !this.isAddProductOpen()) {
+            this.moreProductsButton.hidden = !hasProducts;
+        }
     }
 }
 

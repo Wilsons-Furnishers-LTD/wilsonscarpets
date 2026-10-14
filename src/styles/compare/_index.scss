@@ -94,8 +94,9 @@
         transition: all 0.3s ease;
         padding: 30px;
         padding-right: 0;
-        grid-template-areas: "header  aside" "nav aside" "content aside " "footer  aside ";
-        
+        grid-template-areas: "header aside" "nav aside" "warning aside" "content aside" "footer aside";
+        // The table takes the remaining height, so the empty warning row doesn't stretch
+        grid-template-rows: auto auto auto minmax(0, 1fr) auto;
         grid-template-columns: 1fr 300px;
         max-width: 100dvw;
         display: grid;
@@ -111,7 +112,7 @@
         }
         // Add product panel hidden: single column layout
         &.compare-modal--no-aside {
-            grid-template-areas: "header" "nav" "content" "footer";
+            grid-template-areas: "header" "nav" "warning" "content" "footer";
             grid-template-columns: 1fr;
         }
         @media screen and (max-width: 899px) {
@@ -145,13 +146,9 @@
         &.is-shuddering {
             animation: compare-shudder 0.5s ease-in-out;
         }
-        // On the modal, so it shows whether or not the add product panel is open
-        position: absolute;
-        bottom: 20px;
-        right: 0;
-        z-index: 2;
-        width: 300px;
-        margin: 15px 15px 0;
+        // Under the nav, so it shows whether or not the add product panel is open
+        grid-area: warning;
+        margin: 15px 30px 0 0;
         padding: 10px 15px;
         background-color: #fff4c9;
         border-left: 4px solid v.$wilson-yellow;
@@ -161,6 +158,14 @@
         display: flex;
         align-items: flex-start;
         gap: 10px;
+        margin-top: -20px;
+        margin-bottom: 20px;
+        margin-left: -18px;
+        margin-right: 12px;
+                @media screen and (max-width: 475px) {
+            margin-left: 0px;
+            margin-right: 15px;
+        }
         &[hidden] {
             display: none;
         }
@@ -286,8 +291,13 @@
         display: flex;
         justify-content: flex-start;
         padding-bottom: 30px;
-        margin-right: 30px;
+        margin-right: 12px;
+        margin-left: -18px;
         align-items: center;
+        @media screen and (max-width: 475px) {
+            margin-left: 0px;
+            margin-right: 15px;
+        }
         .compare-modal__header--main-col {
             padding-right: 30px;
         }
@@ -389,9 +399,11 @@
             text-align: center;
             font-weight: 700;
             font-size: 16px;
-            line-height: 26px;
+            line-height: 22px;
             padding-bottom: 30px;
             padding-top: 10px;
+            padding-left: 12px;
+            padding-right: 12px;
             a {
                 color: inherit;
                 text-decoration: none;
@@ -419,8 +431,11 @@
         }
         .specification-value, .specification {
             border-bottom: 2px solid #DDDDDD;
-            padding: 10px 15px;
+            padding: 10px 12px;
             font-size: 14px;
+            @media screen and (max-width: 475px) {
+                padding: 10px 15px;
+            }
         }
         .specification-value {
             text-align: center;
@@ -830,7 +845,9 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         font-size: 14px;
         font-weight: 700;
         line-height: 1.4;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
         &.outofstock {
             color: #a9a9a9;
         }
@@ -907,7 +924,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     .compare-modal-container {
         .compare-modal,
         .compare-modal.compare-modal--aside-closed {
-            grid-template-areas: "header" "nav" "content" "footer";
+            grid-template-areas: "header" "nav" "warning" "content" "footer";
             grid-template-columns: 1fr;
         }
         .compare-modal__add-product {
@@ -924,14 +941,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             background-color: #fff;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
             transform: translate(-50%, -50%);
-        }
-        .compare-modal__limit-warning {
-            position: fixed;
-            right: 16px;
-            bottom: 16px;
-            left: 16px;
-            width: auto;
-            margin: 0;
         }
         .compare-modal.compare-modal--aside-closed .compare-modal__add-product {
             transform: translate(-50%, -45%);

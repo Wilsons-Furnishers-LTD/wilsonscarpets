@@ -93,13 +93,16 @@
         padding: 0 40px 0px 40px;
         padding-right: 0;
         grid-template-areas: "header aside" "nav aside" "warning aside" "content aside";
-        // The table takes the remaining height, so the empty warning row doesn't stretch
-        grid-template-rows: auto auto auto minmax(0, 1fr);
+        // Rows take their content height and sit at the top, so the empty warning row doesn't stretch
+        grid-template-rows: auto auto auto auto;
+        align-content: start;
         grid-template-columns: 1fr 300px;
         max-width: 100dvw;
         display: grid;
-        // Clips the add product panel while it slides out
-        overflow: hidden;
+        // The whole modal scrolls vertically when the table is taller than the screen.
+        // Horizontally it still clips the add product panel while it slides out
+        overflow-x: hidden;
+        overflow-y: auto;
         // Add product panel sliding out: shrink its column to 0
         &.compare-modal--aside-closed {
             grid-template-columns: 1fr 0px;
@@ -126,6 +129,10 @@
     }
     .compare-modal__grids {
         grid-area: content;
+        // Full height, so only the modal scrolls vertically. Still scrolls sideways
+        overflow-y: hidden;
+        overflow-x: auto;
+        flex: none;
     }
     .compare-modal__limit-warning {
         &.is-shuddering {
@@ -133,7 +140,7 @@
         }
         // Under the nav, so it shows whether or not the add product panel is open
         grid-area: warning;
-        margin: 15px 30px 0 0;
+        margin: 0px 30px 0 0;
         padding: 10px 15px;
         background-color: #fff4c9;
         border-left: 4px solid v.$wilson-yellow;
@@ -430,7 +437,7 @@
             gap: 15px;
             margin-right: 12px;
             
-            padding: 15px 40px 20px 0px;
+            padding: 15px 40px 15px 0px;
             width: 100%;
             background-color: #fff;
             color: v.$wilson-grey;
@@ -530,7 +537,7 @@
             font-size: 14px;
         }
         .specification {
-            padding: 10px 10px 10px 40px;
+            padding: 10px 10px 10px 15px;
         }
         .specification-value {
             text-align: center;

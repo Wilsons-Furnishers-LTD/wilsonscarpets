@@ -10,7 +10,7 @@ class Compare {
         this.viewFullLink = options.products ? null : document.querySelector('.compare-modal__view-full');
         this.addProductContainer = options.products ? null : document.querySelector('.compare-modal__add-product');
         this.productsByType = new Map();
-        this.labelColumnWidth = 120;
+        this.labelColumnWidth = 160;
         this.productColumnWidth = 230;
         this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
@@ -113,9 +113,8 @@ class Compare {
         const count = this.getProducts()
             .filter(({ type = '' }) => type === this.activeType)
             .length;
-        const label = count === 1 ? 'product' : 'products';
 
-        countElement.textContent = `${count} ${label}`;
+        countElement.textContent = `(${count})`;
     }
 
     getProductTypes() {
@@ -166,6 +165,10 @@ class Compare {
 
         const countElement = this.openButton.querySelector('.compare-open-button__count');
         if (countElement) countElement.textContent = count;
+
+        // Total across all types, next to "Clear all"
+        const totalElement = document.querySelector('.compare-modal__total-count');
+        if (totalElement) totalElement.textContent = `(${count})`;
     }
 
     updateViewFullLink() {
@@ -562,30 +565,6 @@ class Compare {
         return fragment;
     }
 
-    createViewProductRow(products) {
-        const fragment = document.createDocumentFragment();
-
-        const spacer = document.createElement('div');
-        spacer.className = 'compare-product-view-spacer';
-        fragment.appendChild(spacer);
-
-        products.forEach(product => {
-            const link = document.createElement('a');
-            link.className = 'button compare-product-view';
-            link.href = this.getProductUrl(product);
-            link.textContent = 'View product';
-            link.setAttribute('aria-label', `View ${product.title}`);
-
-            const cell = document.createElement('div');
-            cell.className = 'compare-product-view-cell';
-            cell.dataset.key = product.compareKey;
-            cell.appendChild(link);
-            fragment.appendChild(cell);
-        });
-
-        return fragment;
-    }
-
     createSkeletonLine() {
         const line = document.createElement('div');
         line.className = 'compare-skeleton compare-skeleton__line';
@@ -682,11 +661,19 @@ class Compare {
             grid.appendChild(this.createProductImage(product));
         });
 
-        grid.appendChild(
+        // The cells sit directly in the grid, so mark every even row for its background colour
+        let rowCount = 0;
+        const appendRow = row => {
+            rowCount += 1;
+            if (rowCount % 2 === 0) row.childNodes.forEach(cell => cell.classList.add('compare-row--even'));
+            grid.appendChild(row);
+        };
+
+        appendRow(
             this.createRow('Price', products, product => this.createPriceValue(product))
         );
 
-        grid.appendChild(
+        appendRow(
             this.createRow('Stock', products, product => this.createStockValue(product.selectedVariant))
         );
 
@@ -694,12 +681,10 @@ class Compare {
             // Skip specifications none of the products have
             .filter(specification => products.some(product => this.getSpecificationValue(product, specification) !== '-'))
             .forEach(specification => {
-                grid.appendChild(
+                appendRow(
                     this.createRow(specification, products, product => this.getSpecificationValue(product, specification))
                 );
             });
-
-        grid.appendChild(this.createViewProductRow(products));
 
         return grid;
     }

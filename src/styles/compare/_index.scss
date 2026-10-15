@@ -17,16 +17,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
-        padding: 6px 20px;
-        background-color: v.$wilson-yellow;
+        gap: 7px;
         border: none;
-        color: v.$wilson-grey;
+        color: #fff;
         margin: 0;
         svg {
             width: 15px;
             path {
-                fill: v.$wilson-grey;
+                fill:  #fff;
             }
         }
         &:hover, &:focus {
@@ -92,7 +90,7 @@
         inset: 0;
         left: -50%;
         transition: all 0.3s ease;
-        padding: 30px;
+        padding: 0 40px 0px 40px;
         padding-right: 0;
         grid-template-areas: "header aside" "nav aside" "warning aside" "content aside" "footer aside";
         // The table takes the remaining height, so the empty warning row doesn't stretch
@@ -131,14 +129,26 @@
     }
     .compare-modal__footer {
         grid-area: footer;
+        text-align: center;
         .button {
-            background-color: v.$wilson-yellow;
-            color: v.$wilson-grey;
-            border-color: v.$wilson-yellow;
+            background-color: v.$wilson-grey;
+            color:#fff;
+            border-color: v.$wilson-grey;
+            max-width: 400px;
+            margin: 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            svg {
+                width: 18px;
+                height: 18px;
+                margin-bottom: -2px;
+            }
             &:hover {
-                color: #fff;
-                background-color: v.$wilson-grey;
-                border-color: v.$wilson-grey;
+                color: v.$wilson-grey;
+                background-color: v.$wilson-yellow;
+                border-color: v.$wilson-yellow;
             }
         }
     }
@@ -158,10 +168,10 @@
         display: flex;
         align-items: flex-start;
         gap: 10px;
-        margin-top: -20px;
-        margin-bottom: 20px;
-        margin-left: -18px;
-        margin-right: 12px;
+        
+        
+        
+        margin-right: 40px;
                 @media screen and (max-width: 475px) {
             margin-left: 0px;
             margin-right: 15px;
@@ -187,22 +197,25 @@
     .compare-modal__add-product {
         grid-area: aside;
         border-left:3px solid #DDDDDD;
-        margin-top: -30px;
+        
         height: calc(100% + 60px);
         overflow-y: auto;
         // Fixed width so the content doesn't squash while its column shrinks
         width: 300px;
         transition: transform 0.3s ease, opacity 0.3s ease;
         .compare-modal__add-product--title {
-            font-weight: 700;
-            font-size: 24px;
-            padding: 30px 10px 10px 20px;
+            font-weight: 900;
+            font-size: 20px;
+            padding: 20px 0px 20px 40px;
         }
         .compare-modal__add-product--header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-right: 10px;
+            padding-right: 40px;
+            background-color: v.$wilson-grey;
+            color: #fff;
+            min-height: 86px;
         }
         .compare-modal__add-product--close {
             flex-shrink: 0;
@@ -211,15 +224,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 20px 0 0;
+            margin-bottom: 0;
             padding: 0;
             border: none;
             background: transparent;
             color: v.$wilson-grey;
             cursor: pointer;
-            svg {
+            &:before {
+                content: "\f00d";
+                color: #fff;
+                display: block;
                 width: 30px;
                 height: 30px;
+                font-family: icomoon !important;
+                font-size: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
         &[hidden] {
@@ -290,23 +311,42 @@
     .compare-modal__header {
         display: flex;
         justify-content: flex-start;
-        padding-bottom: 30px;
+        padding-bottom: 20px;
         margin-right: 12px;
-        margin-left: -18px;
+        margin-left: -40px;
+        padding-left: 40px;
+        padding-top: 20px;
         align-items: center;
+        background-color: v.$wilson-grey;
+        color: #fff;
+        width: calc(100% + 40px);
         @media screen and (max-width: 475px) {
             margin-left: 0px;
             margin-right: 15px;
         }
         .compare-modal__header--main-col {
             padding-right: 30px;
+            flex: 1;
         }
         &--col {
             display: flex;
             align-items: center;
             justify-content: end;
             gap: 0 10px;
-            margin-top: -22px;
+            position: relative;
+            
+            padding-left: 20px;
+            margin-left: 20px;
+            &:before {
+                position: absolute;
+                width: 1px;
+                height: 100%;
+                background-color: #fff;
+                content: '';
+                opacity: 0.5;
+                display: block;
+                left: 0;
+            }
         }
         .compare-modal__more-products-wrapper button {
             font-size: 14px;
@@ -317,24 +357,33 @@
             padding-bottom: 6px;
             margin-bottom: 0;
             min-height: 35px;
+            &:hover {
+                border-color: v.$wilson-yellow;
+                background-color: v.$wilson-yellow;
+                color: v.$wilson-grey;
+                svg {
+                    stroke: v.$wilson-grey;
+                }
+            }
         }
         .comparison-page__share  {
             font-size: 14px;
-                margin-top: -10px;
+                
                 min-height: 35px;
             svg {
                 width: 13px;
+                margin-top: -2px;
             }
         }
         .compare-modal__header--title {
-            font-weight: 700;
-            font-size: 24px;
+            font-weight: 900;
+            font-size: 20px;
             padding-bottom: 5px;
         }
         button:not(.compare-modal__more-products) {
             background: transparent;
             padding: 0;
-            color: v.$wilson-grey;
+            color: #fff;
             border: none;
             margin: 0;
             width: initial;
@@ -358,10 +407,10 @@
         }
         button#clear-product-ids {
             white-space: nowrap;
-            font-weight: 700;
+            font-weight: 400;
             text-decoration: underline;
             font-size: 14px;
-            color: v.$wilson-red;
+            color: #fff;
         }
         button#close-compare-modal {
             width: 35px;
@@ -369,10 +418,21 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            svg {
+            margin-right: 40px;
+            margin-left: 20px;
+            &:before {
+                content: "\f00d";
+                color: #fff;
+                display: block;
                 width: 30px;
                 height: 30px;
+                font-family: icomoon !important;
+                font-size: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
+
         }
     }
     
@@ -414,7 +474,7 @@
             }
         }
         // The label column stays in view while the products scroll sideways
-        .compare-product-spacer, .specification, .compare-product-view-spacer {
+        .compare-product-spacer, .specification {
             position: sticky;
             left: 0;
             z-index: 1;
@@ -425,36 +485,39 @@
         }
         .specification {
             // Opaque version of rgba(#E7E7E7, 0.5) on white, so products don't show through when scrolled under it
-            background-color: #F3F3F3;
+            background-color: rgba(#F3F3F3, 0.7);
             font-weight: 700;
             font-size: 14px;
         }
         .specification-value, .specification {
-            border-bottom: 2px solid #DDDDDD;
-            padding: 10px 12px;
+            border-bottom: 1px solid rgba(#DDDDDD, 0.4);
             font-size: 14px;
+        }
+        .specification {
+            padding: 10px 10px 10px 40px;
+        }
+        .specification-value {
+            text-align: center;
+            padding: 10px 12px;
             @media screen and (max-width: 475px) {
                 padding: 10px 15px;
             }
         }
-        .specification-value {
-            text-align: center;
+        // A border on the left of each product column, so there's one between every column
+        .compare-product, .specification-value {
+            border-left: 1px solid rgba(#DDDDDD, 0.4);
+        }
+        .specification-value.compare-row--even {
+            background-color: rgba(#F3F3F3, 0.4);
         }
         .compare-product-rrp {
             font-size: 12px;
             color: #767676;
         }
-        .compare-product-view-cell {
-            padding: 20px 12px;
-            text-align: center;
-        }
-        .compare-product-view {
-            width: 100%;
-            margin: 0 auto;
-        }
         .compare-product-image {
             margin-left: 12px;
             margin-right: 12px;
+            margin-top: 12px;
             a {
                 display: block;
             }
@@ -488,10 +551,10 @@
                 position: absolute;
                 width: 30px;
                 height: 30px;
-                top: 12px;
+                top: 22px;
                 right: 24px;
                 padding: 0;
-                background: v.$wilson-yellow;
+                background: #fff;
                 transition: all 0.3s ease;
                 padding: 2px;
             }
@@ -503,15 +566,15 @@
     }
     background-color: rgba(#E7E7E7, 0.35);
     
-    margin-bottom: 40px;
+    margin-bottom: 0;
     height: 43px;
     display: flex;
     align-items: center;
     padding: 0 30px;
     gap: 20px;
     font-weight: 700;
-    margin-left: -30px;
-    width: calc(100% + 30px);
+    margin-left: -40px;
+    width: calc(100% + 40px);
     overflow-y: hidden;
     overflow-x: scroll;
     position: relative;
@@ -542,7 +605,7 @@
         &:after {
             height: 3px;
             width: 100%;
-            bottom: -2px;
+            bottom: -1px;
             content: '';
             background: v.$wilson-grey;
             position: absolute;
@@ -558,7 +621,7 @@
         &.active {
             &:after {
                 opacity: 1;
-                background: v.$wilson-yellow;
+                background: v.$wilson-red;
             }
             opacity: 1;
         }
@@ -571,15 +634,11 @@
     }
 }
 .compare-modal__more-products-wrapper {
-    flex: 1;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     padding-left: 10px;
     padding-right: 20px;
-    button {
-        margin-top: -10px;
-    }
 }
 .comparison-page__nav {
     width: 100%;
@@ -604,18 +663,21 @@
     overflow-x: scroll;
     padding-bottom: 30px;
     padding-right: 0px;
-    margin-left: -30px;
+    margin-left: -40px;
     @media screen and (max-width: 475px) {
         margin-left: -15px;
     }
 }
 
 .compare-modal__footer {
-    padding-top: 30px;
+    padding-top: 20px;
     position: relative;
     margin-top: -30px;
-    padding-right: 12px;
-    margin-left: -18px;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-bottom: 20px;
+    margin-left: -40px;
+    background-color: #F3F3F3;
     @media screen and (max-width: 475px) {
         margin-left: 0px;
     }
@@ -689,20 +751,25 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         position: relative;
         width: 100%;
         max-width: 420px;
-        background-color: #fff;
+        background-color: v.$wilson-grey;
+        color: #fff;
         padding: 30px;
     }
     &__header {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
         padding-bottom: 20px;
-        margin-bottom: 20px;
-        border-bottom: 2px solid #ddd;
     }
     &__title {
-        font-weight: 700;
+        font-weight: 900;
         font-size: 20px;
+        span {
+            display: block;
+            font-weight: 400;
+            font-size: 14px;
+            padding-top: 5px;
+        }
     }
     &__close, &__close:focus {
         width: 35px;
@@ -710,11 +777,23 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #fff;
+        background: transparent;
         border: none;
         padding: 0;
         margin: 0;
         color: v.$wilson-grey;
+        &:after {
+            content: "\f00d";
+            color: #fff;
+            display: block;
+            width: 30px;
+            height: 30px;
+            font-family: icomoon !important;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         svg {
             stroke: v.$wilson-grey;
             width: 30px;
@@ -728,36 +807,77 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         }
     }
     &__options {
+        // One option per row
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+        grid-template-columns: 1fr 1fr;
+        
+        // Texting is for phones, so larger screens show the other three options
+        @media screen and (min-width: 769px) {
+            margin: 0 auto;
+            [data-share="sms"] {
+                display: none;
+            }
+        }
+    }
+    button {
+        color: #fff;
+    }
+    .comparison-share__option--email {
+        flex-shrink: 0;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        // Same colour as the label: white, yellow on hover
+        color: currentColor;
+        font-size: 20px;
+        i {
+                margin-top: -3px;
+        }
     }
     &__option {
+        // Icon on the left, label next to it
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 8px;
+        
         background: transparent;
         border: none;
         padding: 0;
         margin: 0;
-        font: inherit;
-        font-size: 13px;
-        color: v.$wilson-grey;
+        font-weight: 700;
+        font-size: 16px;
+        color: #fff;
         text-decoration: none;
         cursor: pointer;
+        justify-content: flex-start;
         svg {
+            flex-shrink: 0;
             width: 50px;
             height: 50px;
             padding: 13px;
-            border-radius: 100%;
-            background-color: v.$wilson-yellow;
-            fill: v.$wilson-grey;
+            background-color: transparent;
+            // Same colour as the label: white, yellow on hover
+            fill: currentColor;
             transition: all 0.3s ease;
         }
+        // The WhatsApp icon's lines are thinner than the others, so outline it in the same colour to thicken them
+        &[data-share="whatsapp"] svg {
+            stroke: currentColor;
+            stroke-width: 20px;
+            stroke-linejoin: round;
+        }
+        // A little smaller than the others. More padding keeps the same 50px space so the labels stay lined up
+        &[data-share="copy"] svg {
+            padding: 15px;
+        }
+        &:hover {
+            color: v.$wilson-yellow !important;
+        }
         &:hover svg {
-            background-color: v.$wilson-grey;
-            fill: #fff;
+            background-color: transparent;
         }
     }
 }

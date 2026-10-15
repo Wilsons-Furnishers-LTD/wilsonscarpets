@@ -10,7 +10,8 @@ class Compare {
         this.viewFullLink = options.products ? null : document.querySelector('.compare-modal__view-full');
         this.addProductContainer = options.products ? null : document.querySelector('.compare-modal__add-product');
         this.productsByType = new Map();
-        this.labelColumnWidth = 120;
+        // The label column is narrower below 769px, see the labelColumnWidth getter
+        this.smallScreenQuery = window.matchMedia('(max-width: 768px)');
         this.productColumnWidth = 230;
         this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
@@ -27,6 +28,16 @@ class Compare {
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
+
+        // Resize the label column of the tables already shown when crossing 769px
+        this.smallScreenQuery.addEventListener('change', () => {
+            if (!this.gridsContainer) return;
+
+            this.gridsContainer
+                .querySelectorAll('.compare-modal__product-grid:not(.compare-modal__product-grid--empty)')
+                .forEach(grid => this.setGridColumns(grid));
+            this.updateGridWidths();
+        });
 
         this.renderNav();
         this.renderGrid();
@@ -61,6 +72,8 @@ class Compare {
             modalBackground.addEventListener('click', this.closeModal.bind(this));
         }
 
+        this.bindHeaderActions();
+
         this.addProductClose = this.addProductContainer?.querySelector('.compare-modal__add-product--close');
         this.moreProductsButton = document.querySelector('.compare-modal__more-products');
 
@@ -93,6 +106,31 @@ class Compare {
         }
     }
 
+    // Below 769px "Add products" and "Share" move out of the header into their own row.
+    // Moving the elements keeps their event listeners
+    bindHeaderActions() {
+        const actions = document.querySelector('.compare-modal__actions');
+        const headerCol = document.querySelector('.compare-modal__header--col');
+        const buttons = [
+            document.querySelector('.compare-modal__more-products-wrapper'),
+            document.querySelector('.compare-modal__header .comparison-page__share'),
+        ].filter(Boolean);
+
+        if (!actions || !headerCol || !buttons.length) return;
+
+        const smallQuery = window.matchMedia('(max-width: 768px)');
+        const placeButtons = () => {
+            if (smallQuery.matches) {
+                actions.append(...buttons);
+            } else {
+                headerCol.before(...buttons);
+            }
+        };
+
+        placeButtons();
+        smallQuery.addEventListener('change', placeButtons);
+    }
+
     clearProducts() {
         try {
             localStorage.removeItem(this.storageKey);
@@ -113,9 +151,8 @@ class Compare {
         const count = this.getProducts()
             .filter(({ type = '' }) => type === this.activeType)
             .length;
-        const label = count === 1 ? 'product' : 'products';
 
-        countElement.textContent = `${count} ${label}`;
+        countElement.textContent = `(${count})`;
     }
 
     getProductTypes() {
@@ -166,6 +203,10 @@ class Compare {
 
         const countElement = this.openButton.querySelector('.compare-open-button__count');
         if (countElement) countElement.textContent = count;
+
+        // Total across all types, next to "Clear all"
+        const totalElement = document.querySelector('.compare-modal__total-count');
+        if (totalElement) totalElement.textContent = `(${count})`;
     }
 
     updateViewFullLink() {
@@ -362,14 +403,12 @@ class Compare {
         }
     }
 
-    // The variant saved when it was added, otherwise the first available one
+    // The variant saved when it was added from the product page. Collection and related product
+    // compare buttons add the whole product, so have no variant and show the product's own details
     getSelectedVariant(product, variantId) {
-        const variants = product.variants || [];
+        if (!variantId) return null;
 
-        return variants.find(variant => variant.id === variantId)
-            || variants.find(variant => variant.available)
-            || variants[0]
-            || null;
+        return (product.variants || []).find(variant => variant.id === variantId) || null;
     }
 
     // The variant's option values without the size, e.g. "Grey / 4m" -> "Grey"
@@ -405,8 +444,17 @@ class Compare {
         return 'Out of stock';
     }
 
-    createStockValue(variant) {
-        const status = this.getStockStatus(variant);
+    // The selected variant's stock, or for a whole product, in stock if any of its variants are
+    getProductStockStatus(product) {
+        if (product.selectedVariant) return this.getStockStatus(product.selectedVariant);
+
+        const anyInStock = (product.variants || []).some(variant => this.getStockStatus(variant) === 'In stock');
+
+        return anyInStock ? 'In stock' : 'Out of stock';
+    }
+
+    createStockValue(product) {
+        const status = this.getProductStockStatus(product);
 
         if (status === '-') return status;
 
@@ -562,30 +610,6 @@ class Compare {
         return fragment;
     }
 
-    createViewProductRow(products) {
-        const fragment = document.createDocumentFragment();
-
-        const spacer = document.createElement('div');
-        spacer.className = 'compare-product-view-spacer';
-        fragment.appendChild(spacer);
-
-        products.forEach(product => {
-            const link = document.createElement('a');
-            link.className = 'button compare-product-view';
-            link.href = this.getProductUrl(product);
-            link.textContent = 'View product';
-            link.setAttribute('aria-label', `View ${product.title}`);
-
-            const cell = document.createElement('div');
-            cell.className = 'compare-product-view-cell';
-            cell.dataset.key = product.compareKey;
-            cell.appendChild(link);
-            fragment.appendChild(cell);
-        });
-
-        return fragment;
-    }
-
     createSkeletonLine() {
         const line = document.createElement('div');
         line.className = 'compare-skeleton compare-skeleton__line';
@@ -606,12 +630,20 @@ class Compare {
         return groups;
     }
 
+    get labelColumnWidth() {
+        return this.smallScreenQuery.matches ? 120 : 160;
+    }
+
+    setGridColumns(grid) {
+        grid.style.gridTemplateColumns = `${this.labelColumnWidth}px repeat(${grid.dataset.columns}, ${this.productColumnWidth}px)`;
+    }
+
     createGrid(type, columns) {
         const grid = document.createElement('div');
         grid.className = 'compare-modal__product-grid';
         grid.dataset.type = type;
         grid.dataset.columns = columns;
-        grid.style.gridTemplateColumns = `${this.labelColumnWidth}px repeat(${columns}, ${this.productColumnWidth}px)`;
+        this.setGridColumns(grid);
 
         const spacer = document.createElement('div');
         spacer.className = 'compare-product-spacer';
@@ -682,24 +714,30 @@ class Compare {
             grid.appendChild(this.createProductImage(product));
         });
 
-        grid.appendChild(
+        // The cells sit directly in the grid, so mark every even row for its background colour
+        let rowCount = 0;
+        const appendRow = row => {
+            rowCount += 1;
+            if (rowCount % 2 === 0) row.childNodes.forEach(cell => cell.classList.add('compare-row--even'));
+            grid.appendChild(row);
+        };
+
+        appendRow(
             this.createRow('Price', products, product => this.createPriceValue(product))
         );
 
-        grid.appendChild(
-            this.createRow('Stock', products, product => this.createStockValue(product.selectedVariant))
+        appendRow(
+            this.createRow('Stock', products, product => this.createStockValue(product))
         );
 
         this.getSpecifications(type)
             // Skip specifications none of the products have
             .filter(specification => products.some(product => this.getSpecificationValue(product, specification) !== '-'))
             .forEach(specification => {
-                grid.appendChild(
+                appendRow(
                     this.createRow(specification, products, product => this.getSpecificationValue(product, specification))
                 );
             });
-
-        grid.appendChild(this.createViewProductRow(products));
 
         return grid;
     }

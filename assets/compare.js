@@ -61,6 +61,8 @@ class Compare {
             modalBackground.addEventListener('click', this.closeModal.bind(this));
         }
 
+        this.bindHeaderActions();
+
         this.addProductClose = this.addProductContainer?.querySelector('.compare-modal__add-product--close');
         this.moreProductsButton = document.querySelector('.compare-modal__more-products');
 
@@ -91,6 +93,31 @@ class Compare {
                 }
             });
         }
+    }
+
+    // Below 769px "Add products" and "Share" move out of the header into their own row.
+    // Moving the elements keeps their event listeners
+    bindHeaderActions() {
+        const actions = document.querySelector('.compare-modal__actions');
+        const headerCol = document.querySelector('.compare-modal__header--col');
+        const buttons = [
+            document.querySelector('.compare-modal__more-products-wrapper'),
+            document.querySelector('.compare-modal__header .comparison-page__share'),
+        ].filter(Boolean);
+
+        if (!actions || !headerCol || !buttons.length) return;
+
+        const smallQuery = window.matchMedia('(max-width: 768px)');
+        const placeButtons = () => {
+            if (smallQuery.matches) {
+                actions.append(...buttons);
+            } else {
+                headerCol.before(...buttons);
+            }
+        };
+
+        placeButtons();
+        smallQuery.addEventListener('change', placeButtons);
     }
 
     clearProducts() {
@@ -365,14 +392,12 @@ class Compare {
         }
     }
 
-    // The variant saved when it was added, otherwise the first available one
+    // The variant saved when it was added from the product page. Collection and related product
+    // compare buttons add the whole product, so have no variant and show the product's own details
     getSelectedVariant(product, variantId) {
-        const variants = product.variants || [];
+        if (!variantId) return null;
 
-        return variants.find(variant => variant.id === variantId)
-            || variants.find(variant => variant.available)
-            || variants[0]
-            || null;
+        return (product.variants || []).find(variant => variant.id === variantId) || null;
     }
 
     // The variant's option values without the size, e.g. "Grey / 4m" -> "Grey"
@@ -408,8 +433,17 @@ class Compare {
         return 'Out of stock';
     }
 
-    createStockValue(variant) {
-        const status = this.getStockStatus(variant);
+    // The selected variant's stock, or for a whole product, in stock if any of its variants are
+    getProductStockStatus(product) {
+        if (product.selectedVariant) return this.getStockStatus(product.selectedVariant);
+
+        const anyInStock = (product.variants || []).some(variant => this.getStockStatus(variant) === 'In stock');
+
+        return anyInStock ? 'In stock' : 'Out of stock';
+    }
+
+    createStockValue(product) {
+        const status = this.getProductStockStatus(product);
 
         if (status === '-') return status;
 
@@ -674,7 +708,7 @@ class Compare {
         );
 
         appendRow(
-            this.createRow('Stock', products, product => this.createStockValue(product.selectedVariant))
+            this.createRow('Stock', products, product => this.createStockValue(product))
         );
 
         this.getSpecifications(type)

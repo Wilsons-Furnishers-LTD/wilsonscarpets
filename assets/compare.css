@@ -86,11 +86,13 @@
   padding: 0 40px 0px 40px;
   padding-right: 0;
   grid-template-areas: "header aside" "nav aside" "warning aside" "content aside";
-  grid-template-rows: auto auto auto minmax(0, 1fr);
+  grid-template-rows: auto auto auto auto;
+  align-content: start;
   grid-template-columns: 1fr 300px;
   max-width: 100dvw;
   display: grid;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .compare-modal-container .compare-modal.compare-modal--aside-closed {
   grid-template-columns: 1fr 0px;
@@ -117,13 +119,16 @@
 }
 .compare-modal-container .compare-modal__grids {
   grid-area: content;
+  overflow-y: hidden;
+  overflow-x: auto;
+  flex: none;
 }
 .compare-modal-container .compare-modal__limit-warning.is-shuddering {
   animation: compare-shudder 0.5s ease-in-out;
 }
 .compare-modal-container .compare-modal__limit-warning {
   grid-area: warning;
-  margin: 15px 30px 0 0;
+  margin: 0px 30px 0 0;
   padding: 10px 15px;
   background-color: #fff4c9;
   border-left: 4px solid #F2BF00;
@@ -412,7 +417,7 @@
     align-items: stretch;
     gap: 15px;
     margin-right: 12px;
-    padding: 15px 40px 20px 0px;
+    padding: 15px 40px 15px 0px;
     width: 100%;
     background-color: #fff;
     color: #414B52;
@@ -507,7 +512,7 @@
   font-size: 14px;
 }
 .compare-modal__product-grid .specification {
-  padding: 10px 10px 10px 40px;
+  padding: 10px 10px 10px 15px;
 }
 .compare-modal__product-grid .specification-value {
   text-align: center;

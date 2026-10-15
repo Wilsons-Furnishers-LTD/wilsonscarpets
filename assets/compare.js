@@ -10,7 +10,8 @@ class Compare {
         this.viewFullLink = options.products ? null : document.querySelector('.compare-modal__view-full');
         this.addProductContainer = options.products ? null : document.querySelector('.compare-modal__add-product');
         this.productsByType = new Map();
-        this.labelColumnWidth = 160;
+        // The label column is narrower below 769px, see the labelColumnWidth getter
+        this.smallScreenQuery = window.matchMedia('(max-width: 768px)');
         this.productColumnWidth = 230;
         this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
@@ -27,6 +28,16 @@ class Compare {
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
+
+        // Resize the label column of the tables already shown when crossing 769px
+        this.smallScreenQuery.addEventListener('change', () => {
+            if (!this.gridsContainer) return;
+
+            this.gridsContainer
+                .querySelectorAll('.compare-modal__product-grid:not(.compare-modal__product-grid--empty)')
+                .forEach(grid => this.setGridColumns(grid));
+            this.updateGridWidths();
+        });
 
         this.renderNav();
         this.renderGrid();
@@ -619,12 +630,20 @@ class Compare {
         return groups;
     }
 
+    get labelColumnWidth() {
+        return this.smallScreenQuery.matches ? 120 : 160;
+    }
+
+    setGridColumns(grid) {
+        grid.style.gridTemplateColumns = `${this.labelColumnWidth}px repeat(${grid.dataset.columns}, ${this.productColumnWidth}px)`;
+    }
+
     createGrid(type, columns) {
         const grid = document.createElement('div');
         grid.className = 'compare-modal__product-grid';
         grid.dataset.type = type;
         grid.dataset.columns = columns;
-        grid.style.gridTemplateColumns = `${this.labelColumnWidth}px repeat(${columns}, ${this.productColumnWidth}px)`;
+        this.setGridColumns(grid);
 
         const spacer = document.createElement('div');
         spacer.className = 'compare-product-spacer';

@@ -65,9 +65,9 @@
 
 
 
-<script src="{{ 'jquery.min.js' | asset_url }}" defer></script>
-<script src="{{ 'jquery-ui.min.js' | asset_url }}" defer></script>
-
+<script src="{{ 'jquery.min.js' | asset_url }}"></script>
+<script src="{{ 'jquery-ui.min.js' | asset_url }}"></script>
+<script src="{{ 'owl.carousel.js' | asset_url }}"></script>
 
 <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
 
@@ -180,6 +180,7 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 <script src="{{ 'main.js' | asset_url }}" type="module"></script>
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
+{{ 'compare.css' | asset_url | stylesheet_tag }}
 {{ 'search.css' | asset_url | stylesheet_tag }}
 
 
@@ -271,10 +272,10 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 </div>
 
 
-
+{% section 'compare-modal' %}
 {% section 'footer-scripts' %}
 
-<script src="{{ 'owl.carousel.js' | asset_url }}" defer></script>
+
 
 <script>
 document.documentElement.classList.remove('no-js');

@@ -93,9 +93,9 @@
         padding: 0 40px 0px 40px;
         padding-right: 0;
         grid-template-areas: "header aside" "nav aside" "warning aside" "content aside";
-        // Rows take their content height and sit at the top, so the empty warning row doesn't stretch
-        grid-template-rows: auto auto auto auto;
-        align-content: start;
+        // The table row takes the remaining height, so the empty warning row doesn't stretch.
+        // 1fr rather than minmax(0, 1fr) lets it grow past the screen, and the modal scrolls
+        grid-template-rows: auto auto auto 1fr;
         grid-template-columns: 1fr 300px;
         max-width: 100dvw;
         display: grid;
@@ -132,7 +132,8 @@
         // Full height, so only the modal scrolls vertically. Still scrolls sideways
         overflow-y: hidden;
         overflow-x: auto;
-        flex: none;
+        // Under 900px the modal is a flex column: fill the remaining height, but don't shrink below the table
+        flex: 1 0 auto;
     }
     .compare-modal__limit-warning {
         &.is-shuddering {
@@ -179,8 +180,8 @@
     .compare-modal__add-product {
         grid-area: aside;
         border-left:3px solid #DDDDDD;
-        
-        height: calc(100% + 60px);
+        // Stretches to fill its grid area, the full height of the modal
+        align-self: stretch;
         overflow-y: auto;
         // Fixed width so the content doesn't squash while its column shrinks
         width: 300px;
@@ -231,18 +232,20 @@
         .compare-modal__add-product--list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
             padding: 15px;
         }
         .compare-add-product {
             display: grid;
-            grid-template-columns: 60px 1fr;
+            // Image, details, then the plus button
+            grid-template-columns: 60px 1fr auto;
             align-items: flex-start;
             gap: 10px;
             width: 100%;
             margin: 0;
-            padding: 5px;
-            border: 2px solid transparent;
+            padding: 10px 0;
+            border: 1px solid transparent;
+            // A line under each product. Turns yellow with the rest of the border on hover
+            border-bottom-color: rgba(221, 221, 221, 0.4);
             background: transparent;
             color: v.$wilson-grey;
             font: inherit;
@@ -258,6 +261,20 @@
             &:focus-visible {
                 border-color: v.$wilson-yellow;
                 background-color: rgba(v.$wilson-yellow, 0.15);
+            }
+        }
+        .compare-add-product__plus {
+            align-self: center;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: v.$wilson-red;
+            color: #fff;
+            svg {
+                width: 18px;
+                height: 18px;
             }
         }
         .compare-add-product__details {

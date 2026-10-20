@@ -86,8 +86,7 @@
   padding: 0 40px 0px 40px;
   padding-right: 0;
   grid-template-areas: "header aside" "nav aside" "warning aside" "content aside";
-  grid-template-rows: auto auto auto auto;
-  align-content: start;
+  grid-template-rows: auto auto auto 1fr;
   grid-template-columns: 1fr 300px;
   max-width: 100dvw;
   display: grid;
@@ -121,7 +120,7 @@
   grid-area: content;
   overflow-y: hidden;
   overflow-x: auto;
-  flex: none;
+  flex: 1 0 auto;
 }
 .compare-modal-container .compare-modal__limit-warning.is-shuddering {
   animation: compare-shudder 0.5s ease-in-out;
@@ -166,7 +165,7 @@
 .compare-modal-container .compare-modal__add-product {
   grid-area: aside;
   border-left: 3px solid #DDDDDD;
-  height: calc(100% + 60px);
+  align-self: stretch;
   overflow-y: auto;
   width: 300px;
   transition: transform 0.3s ease, opacity 0.3s ease;
@@ -217,18 +216,18 @@
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   padding: 15px;
 }
 .compare-modal-container .compare-modal__add-product .compare-add-product {
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 60px 1fr auto;
   align-items: flex-start;
   gap: 10px;
   width: 100%;
   margin: 0;
-  padding: 5px;
-  border: 2px solid transparent;
+  padding: 10px 0;
+  border: 1px solid transparent;
+  border-bottom-color: rgba(221, 221, 221, 0.4);
   background: transparent;
   color: #414B52;
   font: inherit;
@@ -244,6 +243,20 @@
 .compare-modal-container .compare-modal__add-product .compare-add-product:hover, .compare-modal-container .compare-modal__add-product .compare-add-product:focus-visible {
   border-color: #F2BF00;
   background-color: rgba(242, 191, 0, 0.15);
+}
+.compare-modal-container .compare-modal__add-product .compare-add-product__plus {
+  align-self: center;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ba3c3d;
+  color: #fff;
+}
+.compare-modal-container .compare-modal__add-product .compare-add-product__plus svg {
+  width: 18px;
+  height: 18px;
 }
 .compare-modal-container .compare-modal__add-product .compare-add-product__details {
   display: flex;

@@ -746,6 +746,8 @@ class Compare {
         switch (collection_id) {
             case 'laminate':
                 return 'laminate-flooring';
+            case 'accessories-underlay':
+                return 'accessories';
             case 'vinyl':
                 return 'vinyl-flooring';
             case 'lvt':
@@ -990,11 +992,21 @@ class Compare {
             }
         }
 
+        // The whole item is the button, so this only shows the plus. A button can't contain another button
+        const plus = document.createElement('span');
+        plus.className = 'compare-add-product__plus';
+        plus.setAttribute('aria-hidden', 'true');
+        plus.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M12 5V19M5 12H19"/>
+            </svg>
+        `;
+
         const item = document.createElement('button');
         item.type = 'button';
         item.className = 'compare-add-product';
         item.setAttribute('aria-label', `Add ${product.title} to comparison`);
-        item.append(image, details);
+        item.append(image, details, plus);
         item.addEventListener('click', () => {
             const added = this.addProduct(product.handle, product.product_type);
 

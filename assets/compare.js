@@ -530,10 +530,10 @@ class Compare {
         const variantTitle = this.getVariantName(product, product.selectedVariant);
 
         if (variantTitle) {
-            const variantName = document.createElement('span');
+            const variantName = document.createElement('div');
             variantName.className = 'compare-product-title__variant';
             variantName.textContent = variantTitle;
-            titleLink.append(' - ', variantName);
+            titleLink.append(' ', variantName);
         }
 
         const title = document.createElement('div');

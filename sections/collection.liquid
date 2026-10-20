@@ -103,6 +103,7 @@
                     {% assign loopCounter = 1 %}
 					{% for product in collection.products %}
 						{% comment %}
+                        
                         {% render 'product-grid-item' with products_per_row %}
                         {% assign loopCount = loopCounter | modulo: 3 %}
                         {% if loopCount == 0 and loopCounter != forloop.length %}

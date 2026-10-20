@@ -189,13 +189,13 @@
         .compare-modal__add-product--title {
             font-weight: 900;
             font-size: 20px;
-            padding: 20px 0px 20px 40px;
+            padding: 20px 0px 20px 15px;
         }
         .compare-modal__add-product--header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-right: 40px;
+            padding-right: 15px;
             background-color: v.$wilson-grey;
             color: #fff;
             min-height: 86px;
@@ -231,10 +231,21 @@
         }
         .compare-modal__add-product--search {
             padding: 15px 15px 0;
+            position: relative;
+            // Sits over the right of the input, which can't contain it
+            .icon-search {
+                position: absolute;
+                right: 27px;
+                top: calc(50% + 7.5px);
+                transform: translateY(-50%);
+                font-size: 16px;
+                color: v.$wilson-grey;
+                pointer-events: none;
+            }
             input {
                 width: 100%;
                 margin: 0;
-                padding: 10px 12px;
+                padding: 10px 38px 10px 12px;
                 border: none;
                 border-radius: 0;
                 font: inherit;
@@ -244,6 +255,11 @@
                 &:focus {
                     outline: none;
                     border-color: v.$wilson-yellow;
+                }
+                // Chrome and Safari's clear button would sit on top of the icon. Escape still clears the search
+                &::-webkit-search-cancel-button {
+                    -webkit-appearance: none;
+                    appearance: none;
                 }
             }
         }
@@ -581,6 +597,9 @@
             padding: 10px 10px 10px 15px;
             display: flex;
             align-items: center;
+            @media screen and (min-width: 476px) {
+                padding-left: 40px;
+            }
         }
         .specification-value {
             text-align: center;

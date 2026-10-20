@@ -173,13 +173,13 @@
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--title {
   font-weight: 900;
   font-size: 20px;
-  padding: 20px 0px 20px 40px;
+  padding: 20px 0px 20px 15px;
 }
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 40px;
+  padding-right: 15px;
   background-color: #414B52;
   color: #fff;
   min-height: 86px;
@@ -215,11 +215,21 @@
 }
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--search {
   padding: 15px 15px 0;
+  position: relative;
+}
+.compare-modal-container .compare-modal__add-product .compare-modal__add-product--search .icon-search {
+  position: absolute;
+  right: 27px;
+  top: calc(50% + 7.5px);
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #414B52;
+  pointer-events: none;
 }
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--search input {
   width: 100%;
   margin: 0;
-  padding: 10px 12px;
+  padding: 10px 38px 10px 12px;
   border: none;
   border-radius: 0;
   font: inherit;
@@ -230,6 +240,10 @@
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--search input:focus {
   outline: none;
   border-color: #F2BF00;
+}
+.compare-modal-container .compare-modal__add-product .compare-modal__add-product--search input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
 }
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--empty {
   margin: 0;
@@ -550,6 +564,11 @@
   padding: 10px 10px 10px 15px;
   display: flex;
   align-items: center;
+}
+@media screen and (min-width: 476px) {
+  .compare-modal__product-grid .specification {
+    padding-left: 40px;
+  }
 }
 .compare-modal__product-grid .specification-value {
   text-align: center;

@@ -89,6 +89,13 @@ class Compare {
             this.moreProductsButton.addEventListener('click', () => this.setAddProductVisible(true));
         }
 
+        // Filters the add product list by title, waiting for a pause in typing
+        this.addProductSearch = this.addProductContainer?.querySelector('#compare-add-product-search');
+        this.addProductSearch?.addEventListener('input', () => {
+            clearTimeout(this.addProductSearchTimer);
+            this.addProductSearchTimer = setTimeout(() => this.renderAddProducts(), 250);
+        });
+
         // Under 900px the add product panel is a popup. Closed by default at all sizes, opened with "Add products"
         this.mobileQuery = window.matchMedia('(max-width: 899px)');
 
@@ -229,6 +236,9 @@ class Compare {
     }
 
     selectType(type) {
+        // A search is for one collection, so start the next type with its full list
+        if (this.addProductSearch && type !== this.activeType) this.addProductSearch.value = '';
+
         this.activeType = type;
         this.updateActiveType();
         this.renderAddProducts();
@@ -913,8 +923,11 @@ class Compare {
         });
     }
 
-    async fetchProductsByType(type) {
-        if (this.productsByType.has(type)) return this.productsByType.get(type);
+    // The list shows the first 10. Searching loads up to 250, the most products.json returns at once
+    async fetchProductsByType(type, limit = 10) {
+        const cacheKey = `${type}:${limit}`;
+
+        if (this.productsByType.has(cacheKey)) return this.productsByType.get(cacheKey);
 
         const root = window.Shopify?.routes?.root || '/';
         // Collection handles are lowercase with hyphens, like Shopify's handleize,
@@ -924,7 +937,7 @@ class Compare {
         let collection_id = this.getCollectionId(handle);
         
         try {
-            const response = await fetch(`${root}collections/${collection_id}/products.json?limit=10`);
+            const response = await fetch(`${root}collections/${collection_id}/products.json?limit=${limit}`);
             
             if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
             
@@ -933,7 +946,7 @@ class Compare {
 
             const products = (dataObj.products || []).filter(product => product.product_type.toLowerCase() === type.toLowerCase());
         
-            this.productsByType.set(type, products);
+            this.productsByType.set(cacheKey, products);
 
             return products;
         } catch (error) {
@@ -1185,16 +1198,31 @@ class Compare {
             return;
         }
 
-        const products = await this.fetchProductsByType(activeType);
+        const query = (this.addProductSearch?.value || '').trim().toLowerCase();
+        const products = await this.fetchProductsByType(activeType, query ? 250 : 10);
 
-        // The selection or products changed while this one was fetching
+        // The selection, search or products changed while this one was fetching
         if (listId !== this.addProductsId) return;
 
         const addedHandles = new Set(this.getProducts().map(({ handle }) => handle));
 
         const items = products
             .filter(product => this.getProductImage(product) && !addedHandles.has(product.handle))
+            .filter(product => !query || product.title.toLowerCase().includes(query))
             .map(product => this.createAddProductItem(product));
+
+        if (query) {
+            // No matches only means nothing fits the search, so keep the panel open with a message
+            if (!items.length) {
+                const message = document.createElement('p');
+                message.className = 'compare-modal__add-product--empty';
+                message.textContent = 'No products match your search.';
+                items.push(message);
+            }
+
+            list.replaceChildren(...items);
+            return;
+        }
 
         list.replaceChildren(...items);
         this.setHasProductsToAdd(items.length > 0);

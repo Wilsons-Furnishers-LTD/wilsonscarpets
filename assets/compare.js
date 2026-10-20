@@ -12,7 +12,8 @@ class Compare {
         this.productsByType = new Map();
         // The label column is narrower below 769px, see the labelColumnWidth getter
         this.smallScreenQuery = window.matchMedia('(max-width: 768px)');
-        this.productColumnWidth = 230;
+        // The product columns are narrower below 500px, see the productColumnWidth getter
+        this.extraSmallScreenQuery = window.matchMedia('(max-width: 499px)');
         this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
         this.products = options.products || null;
@@ -29,15 +30,18 @@ class Compare {
 
         if (!this.products) this.bindModalEvents();
 
-        // Resize the label column of the tables already shown when crossing 769px
-        this.smallScreenQuery.addEventListener('change', () => {
+        // Resize the columns of the tables already shown when crossing 769px or 500px
+        const resizeColumns = () => {
             if (!this.gridsContainer) return;
 
             this.gridsContainer
                 .querySelectorAll('.compare-modal__product-grid:not(.compare-modal__product-grid--empty)')
                 .forEach(grid => this.setGridColumns(grid));
             this.updateGridWidths();
-        });
+        };
+
+        this.smallScreenQuery.addEventListener('change', resizeColumns);
+        this.extraSmallScreenQuery.addEventListener('change', resizeColumns);
 
         this.renderNav();
         this.renderGrid();
@@ -494,6 +498,17 @@ class Compare {
         imageLink.setAttribute('aria-hidden', 'true');
         imageLink.appendChild(image);
 
+        // Show the loading skeleton until the image has loaded. Images already in the browser's cache
+        // are complete straight away, so products already in the table don't flash the skeleton when it re-renders
+        if (!(image.complete && image.naturalWidth)) {
+            imageLink.classList.add('compare-skeleton', 'compare-product-image--loading');
+
+            const showImage = () => imageLink.classList.remove('compare-skeleton', 'compare-product-image--loading');
+            image.addEventListener('load', showImage, { once: true });
+            // Don't leave the skeleton shimmering if the image fails
+            image.addEventListener('error', showImage, { once: true });
+        }
+
         const wrapper = document.createElement('div');
         wrapper.className = 'compare-product-image';
         wrapper.appendChild(imageLink);
@@ -631,7 +646,13 @@ class Compare {
     }
 
     get labelColumnWidth() {
+        if (this.extraSmallScreenQuery.matches) return 100;
+
         return this.smallScreenQuery.matches ? 120 : 160;
+    }
+
+    get productColumnWidth() {
+        return this.extraSmallScreenQuery.matches ? 130 : 230;
     }
 
     setGridColumns(grid) {
@@ -746,6 +767,8 @@ class Compare {
         switch (collection_id) {
             case 'laminate':
                 return 'laminate-flooring';
+            case 'accessories-underlay':
+                return 'accessories';
             case 'vinyl':
                 return 'vinyl-flooring';
             case 'lvt':
@@ -990,11 +1013,21 @@ class Compare {
             }
         }
 
+        // The whole item is the button, so this only shows the plus. A button can't contain another button
+        const plus = document.createElement('span');
+        plus.className = 'compare-add-product__plus';
+        plus.setAttribute('aria-hidden', 'true');
+        plus.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M12 5V19M5 12H19"/>
+            </svg>
+        `;
+
         const item = document.createElement('button');
         item.type = 'button';
         item.className = 'compare-add-product';
         item.setAttribute('aria-label', `Add ${product.title} to comparison`);
-        item.append(image, details);
+        item.append(image, details, plus);
         item.addEventListener('click', () => {
             const added = this.addProduct(product.handle, product.product_type);
 
@@ -1169,6 +1202,14 @@ class Compare {
 
     setHasProductsToAdd(hasProducts) {
         this.hasProductsToAdd = hasProducts;
+
+        // Nothing left to add from this collection, e.g. its last product was just added or
+        // the selected type's collection has none, so close the panel instead of showing it empty.
+        // Not focusing "Add products", as it's hidden too
+        if (!hasProducts && this.isAddProductOpen()) {
+            this.setAddProductVisible(false, { focus: false });
+            return;
+        }
 
         if (this.moreProductsButton && !this.isAddProductOpen()) {
             this.moreProductsButton.hidden = !hasProducts;

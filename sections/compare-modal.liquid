@@ -40,6 +40,9 @@
                     
                 </button>
             </div>
+            <div class="compare-modal__add-product--search">
+                <input type="search" id="compare-add-product-search" placeholder="Search products" aria-label="Search products" autocomplete="off">
+            </div>
         </div>
         <div class="compare-modal__add-product-backdrop"></div>
     </div>
@@ -54,7 +57,7 @@
         <path d="m8 12-4 4 4 4"/>
     </svg>
     <span>Compare</span>
-    <span class="compare-open-button__count"></span>
+    <div class="compare-open-button__count--container"><span class="compare-open-button__count"></span></div>
 </button>
 
 {% render 'compare-share' %}

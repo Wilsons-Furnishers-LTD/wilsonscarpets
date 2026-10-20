@@ -93,9 +93,9 @@
         padding: 0 40px 0px 40px;
         padding-right: 0;
         grid-template-areas: "header aside" "nav aside" "warning aside" "content aside";
-        // Rows take their content height and sit at the top, so the empty warning row doesn't stretch
-        grid-template-rows: auto auto auto auto;
-        align-content: start;
+        // The table row takes the remaining height, so the empty warning row doesn't stretch.
+        // 1fr rather than minmax(0, 1fr) lets it grow past the screen, and the modal scrolls
+        grid-template-rows: auto auto auto 1fr;
         grid-template-columns: 1fr 300px;
         max-width: 100dvw;
         display: grid;
@@ -132,7 +132,8 @@
         // Full height, so only the modal scrolls vertically. Still scrolls sideways
         overflow-y: hidden;
         overflow-x: auto;
-        flex: none;
+        // Under 900px the modal is a flex column: fill the remaining height, but don't shrink below the table
+        flex: 1 0 auto;
     }
     .compare-modal__limit-warning {
         &.is-shuddering {
@@ -179,8 +180,8 @@
     .compare-modal__add-product {
         grid-area: aside;
         border-left:3px solid #DDDDDD;
-        
-        height: calc(100% + 60px);
+        // Stretches to fill its grid area, the full height of the modal
+        align-self: stretch;
         overflow-y: auto;
         // Fixed width so the content doesn't squash while its column shrinks
         width: 300px;
@@ -228,21 +229,46 @@
         &[hidden] {
             display: none;
         }
+        .compare-modal__add-product--search {
+            padding: 15px 15px 0;
+            input {
+                width: 100%;
+                margin: 0;
+                padding: 10px 12px;
+                border: none;
+                border-radius: 0;
+                font: inherit;
+                font-size: 14px;
+                color: v.$wilson-grey;
+                background-color: rgba(231, 231, 231, 0.35);
+                &:focus {
+                    outline: none;
+                    border-color: v.$wilson-yellow;
+                }
+            }
+        }
+        .compare-modal__add-product--empty {
+            margin: 0;
+            font-size: 14px;
+            color: #767676;
+        }
         .compare-modal__add-product--list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            padding: 15px;
+            padding: 10px 15px 15px 15px;
         }
         .compare-add-product {
             display: grid;
-            grid-template-columns: 60px 1fr;
+            // Image, details, then the plus button
+            grid-template-columns: 60px 1fr auto;
             align-items: flex-start;
             gap: 10px;
             width: 100%;
             margin: 0;
-            padding: 5px;
-            border: 2px solid transparent;
+            padding: 10px 0;
+            border: 1px solid transparent;
+            // A line under each product. Turns yellow with the rest of the border on hover
+            border-bottom-color: rgba(221, 221, 221, 0.4);
             background: transparent;
             color: v.$wilson-grey;
             font: inherit;
@@ -256,8 +282,23 @@
             }
             &:hover,
             &:focus-visible {
-                border-color: v.$wilson-yellow;
-                background-color: rgba(v.$wilson-yellow, 0.15);
+                .compare-add-product__plus {
+                    background-color: v.$wilson-grey;
+                }
+            }
+        }
+        .compare-add-product__plus {
+            align-self: center;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: v.$wilson-red;
+            color: #fff;
+            svg {
+                width: 18px;
+                height: 18px;
             }
         }
         .compare-add-product__details {
@@ -538,12 +579,17 @@
         }
         .specification {
             padding: 10px 10px 10px 15px;
+            display: flex;
+            align-items: center;
         }
         .specification-value {
             text-align: center;
             padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             @media screen and (max-width: 475px) {
-                padding: 10px 15px;
+                padding: 10px 10px;
             }
         }
         // A border on the left of each product column, so there's one between every column
@@ -567,6 +613,19 @@
             img {
                 display: block;
                 border: 1px solid #EEEEEE;
+            }
+            // Square skeleton while the image loads. The image stays in the page, invisible,
+            // because a lazy loading image that isn't displayed never loads
+            a.compare-product-image--loading {
+                position: relative;
+                aspect-ratio: 1 / 1;
+                img {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                }
             }
         }
         .compare-skeleton {
@@ -601,6 +660,12 @@
                 transition: all 0.3s ease;
                 padding: 2px;
             }
+            button.compare-product-remove {
+                @media screen and (max-width: 499px) {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
         }
     }
 .compare-modal__nav, .comparison-page__nav {
@@ -610,7 +675,7 @@
     background-color: rgba(#E7E7E7, 0.35);
     
     margin-bottom: 0;
-    height: 43px;
+    min-height: 43px;
     display: flex;
     align-items: center;
     padding: 0 30px;
@@ -637,7 +702,7 @@
     }
     a {
         opacity: 0.5;
-        height: 40px;
+        height: 52px;
         position: relative;
         display: inline-flex;
         white-space: nowrap;
@@ -645,10 +710,13 @@
         padding: 0 20px;
         transition: all 0.3s ease;
         z-index: 2;
+        @media screen and (max-width: 475px) {
+            height: 40px;
+        }
         &:after {
             height: 3px;
             width: 100%;
-            bottom: -1px;
+            bottom: 0px;
             content: '';
             background: v.$wilson-grey;
             position: absolute;
@@ -724,7 +792,7 @@
 
 button.comparison-share__option, button.comparison-share__option:hover, button.comparison-share__option:focus {
     background-color: transparent; 
-    color: v.$wilson-grey;   
+    color: v.$wilson-yellow;   
     border: none;
 }
 
@@ -1134,11 +1202,11 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         width: 18px;
         height: 18px;
     }
-    > span:not(.compare-open-button__count) {
+    > span:not(.compare-open-button__count--container) {
         writing-mode: vertical-rl;
         transform: rotate(180deg);
     }
-    .compare-open-button__count {
+    .compare-open-button__count--container {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -1150,8 +1218,11 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         color: #fff;
         font-size: 11px;
     }
+    .compare-open-button__count {
+        padding-top: 2px;
+    }
     &:hover {
-        .compare-open-button__count {
+        .compare-open-button__count--container {
             background-color: v.$wilson-yellow;
             color: #414b52;
         }

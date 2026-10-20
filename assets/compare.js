@@ -12,7 +12,8 @@ class Compare {
         this.productsByType = new Map();
         // The label column is narrower below 769px, see the labelColumnWidth getter
         this.smallScreenQuery = window.matchMedia('(max-width: 768px)');
-        this.productColumnWidth = 230;
+        // The product columns are narrower below 500px, see the productColumnWidth getter
+        this.extraSmallScreenQuery = window.matchMedia('(max-width: 499px)');
         this.dismissedWarnings = new Set();
         // When set, these products are shown instead of the ones in local storage
         this.products = options.products || null;
@@ -29,15 +30,18 @@ class Compare {
 
         if (!this.products) this.bindModalEvents();
 
-        // Resize the label column of the tables already shown when crossing 769px
-        this.smallScreenQuery.addEventListener('change', () => {
+        // Resize the columns of the tables already shown when crossing 769px or 500px
+        const resizeColumns = () => {
             if (!this.gridsContainer) return;
 
             this.gridsContainer
                 .querySelectorAll('.compare-modal__product-grid:not(.compare-modal__product-grid--empty)')
                 .forEach(grid => this.setGridColumns(grid));
             this.updateGridWidths();
-        });
+        };
+
+        this.smallScreenQuery.addEventListener('change', resizeColumns);
+        this.extraSmallScreenQuery.addEventListener('change', resizeColumns);
 
         this.renderNav();
         this.renderGrid();
@@ -84,6 +88,13 @@ class Compare {
         if (this.moreProductsButton) {
             this.moreProductsButton.addEventListener('click', () => this.setAddProductVisible(true));
         }
+
+        // Filters the add product list by title, waiting for a pause in typing
+        this.addProductSearch = this.addProductContainer?.querySelector('#compare-add-product-search');
+        this.addProductSearch?.addEventListener('input', () => {
+            clearTimeout(this.addProductSearchTimer);
+            this.addProductSearchTimer = setTimeout(() => this.renderAddProducts(), 250);
+        });
 
         // Under 900px the add product panel is a popup. Closed by default at all sizes, opened with "Add products"
         this.mobileQuery = window.matchMedia('(max-width: 899px)');
@@ -225,6 +236,9 @@ class Compare {
     }
 
     selectType(type) {
+        // A search is for one collection, so start the next type with its full list
+        if (this.addProductSearch && type !== this.activeType) this.addProductSearch.value = '';
+
         this.activeType = type;
         this.updateActiveType();
         this.renderAddProducts();
@@ -494,6 +508,17 @@ class Compare {
         imageLink.setAttribute('aria-hidden', 'true');
         imageLink.appendChild(image);
 
+        // Show the loading skeleton until the image has loaded. Images already in the browser's cache
+        // are complete straight away, so products already in the table don't flash the skeleton when it re-renders
+        if (!(image.complete && image.naturalWidth)) {
+            imageLink.classList.add('compare-skeleton', 'compare-product-image--loading');
+
+            const showImage = () => imageLink.classList.remove('compare-skeleton', 'compare-product-image--loading');
+            image.addEventListener('load', showImage, { once: true });
+            // Don't leave the skeleton shimmering if the image fails
+            image.addEventListener('error', showImage, { once: true });
+        }
+
         const wrapper = document.createElement('div');
         wrapper.className = 'compare-product-image';
         wrapper.appendChild(imageLink);
@@ -631,7 +656,13 @@ class Compare {
     }
 
     get labelColumnWidth() {
+        if (this.extraSmallScreenQuery.matches) return 100;
+
         return this.smallScreenQuery.matches ? 120 : 160;
+    }
+
+    get productColumnWidth() {
+        return this.extraSmallScreenQuery.matches ? 130 : 230;
     }
 
     setGridColumns(grid) {
@@ -746,6 +777,8 @@ class Compare {
         switch (collection_id) {
             case 'laminate':
                 return 'laminate-flooring';
+            case 'accessories-underlay':
+                return 'accessories';
             case 'vinyl':
                 return 'vinyl-flooring';
             case 'lvt':
@@ -890,8 +923,11 @@ class Compare {
         });
     }
 
-    async fetchProductsByType(type) {
-        if (this.productsByType.has(type)) return this.productsByType.get(type);
+    // The list shows the first 10. Searching loads up to 250, the most products.json returns at once
+    async fetchProductsByType(type, limit = 10) {
+        const cacheKey = `${type}:${limit}`;
+
+        if (this.productsByType.has(cacheKey)) return this.productsByType.get(cacheKey);
 
         const root = window.Shopify?.routes?.root || '/';
         // Collection handles are lowercase with hyphens, like Shopify's handleize,
@@ -901,7 +937,7 @@ class Compare {
         let collection_id = this.getCollectionId(handle);
         
         try {
-            const response = await fetch(`${root}collections/${collection_id}/products.json?limit=10`);
+            const response = await fetch(`${root}collections/${collection_id}/products.json?limit=${limit}`);
             
             if (!response.ok) throw new Error(`Request failed with status ${response.status}`);
             
@@ -910,7 +946,7 @@ class Compare {
 
             const products = (dataObj.products || []).filter(product => product.product_type.toLowerCase() === type.toLowerCase());
         
-            this.productsByType.set(type, products);
+            this.productsByType.set(cacheKey, products);
 
             return products;
         } catch (error) {
@@ -990,11 +1026,21 @@ class Compare {
             }
         }
 
+        // The whole item is the button, so this only shows the plus. A button can't contain another button
+        const plus = document.createElement('span');
+        plus.className = 'compare-add-product__plus';
+        plus.setAttribute('aria-hidden', 'true');
+        plus.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <path d="M12 5V19M5 12H19"/>
+            </svg>
+        `;
+
         const item = document.createElement('button');
         item.type = 'button';
         item.className = 'compare-add-product';
         item.setAttribute('aria-label', `Add ${product.title} to comparison`);
-        item.append(image, details);
+        item.append(image, details, plus);
         item.addEventListener('click', () => {
             const added = this.addProduct(product.handle, product.product_type);
 
@@ -1152,16 +1198,31 @@ class Compare {
             return;
         }
 
-        const products = await this.fetchProductsByType(activeType);
+        const query = (this.addProductSearch?.value || '').trim().toLowerCase();
+        const products = await this.fetchProductsByType(activeType, query ? 250 : 10);
 
-        // The selection or products changed while this one was fetching
+        // The selection, search or products changed while this one was fetching
         if (listId !== this.addProductsId) return;
 
         const addedHandles = new Set(this.getProducts().map(({ handle }) => handle));
 
         const items = products
             .filter(product => this.getProductImage(product) && !addedHandles.has(product.handle))
+            .filter(product => !query || product.title.toLowerCase().includes(query))
             .map(product => this.createAddProductItem(product));
+
+        if (query) {
+            // No matches only means nothing fits the search, so keep the panel open with a message
+            if (!items.length) {
+                const message = document.createElement('p');
+                message.className = 'compare-modal__add-product--empty';
+                message.textContent = 'No products match your search.';
+                items.push(message);
+            }
+
+            list.replaceChildren(...items);
+            return;
+        }
 
         list.replaceChildren(...items);
         this.setHasProductsToAdd(items.length > 0);
@@ -1169,6 +1230,14 @@ class Compare {
 
     setHasProductsToAdd(hasProducts) {
         this.hasProductsToAdd = hasProducts;
+
+        // Nothing left to add from this collection, e.g. its last product was just added or
+        // the selected type's collection has none, so close the panel instead of showing it empty.
+        // Not focusing "Add products", as it's hidden too
+        if (!hasProducts && this.isAddProductOpen()) {
+            this.setAddProductVisible(false, { focus: false });
+            return;
+        }
 
         if (this.moreProductsButton && !this.isAddProductOpen()) {
             this.moreProductsButton.hidden = !hasProducts;

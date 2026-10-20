@@ -177,6 +177,10 @@
         color: v.$wilson-grey;
         cursor: pointer;
     }
+    .compare-product-title__variant {
+        font-weight: 400;
+        font-size: 14px;
+    }
     .compare-modal__add-product {
         grid-area: aside;
         border-left:3px solid #DDDDDD;
@@ -560,7 +564,7 @@
             font-weight: 700;
             font-size: 16px;
             line-height: 22px;
-            padding-bottom: 30px;
+            padding-bottom: 12px;
             padding-top: 10px;
             padding-left: 12px;
             padding-right: 12px;
@@ -607,6 +611,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
             @media screen and (max-width: 475px) {
                 padding: 10px 10px;
             }
@@ -911,7 +916,8 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         // One option per row
         display: grid;
         grid-template-columns: 1fr 1fr;
-        
+        gap: 20px 0;
+        padding-top: 10px;
         // Texting is for phones, so larger screens show the other three options
         @media screen and (min-width: 769px) {
             margin: 0 auto;
@@ -925,8 +931,9 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
     .comparison-share__option--email {
         flex-shrink: 0;
-        width: 50px;
-        height: 50px;
+        // Same 24px space as the other icons
+        width: 24px;
+        height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -940,10 +947,10 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
     &__option {
         // Icon on the left, label next to it
-        display: flex;
+        display: inline-flex;
         flex-direction: row;
         align-items: center;
-        
+            width: max-content;
         background: transparent;
         border: none;
         padding: 0;
@@ -954,14 +961,14 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         text-decoration: none;
         cursor: pointer;
         justify-content: flex-start;
-        span {
-            margin-left: -3px;
-        }
+        // Space between the icon and label, now the icons have no padding
+        gap: 10px;
         svg {
             flex-shrink: 0;
-            width: 50px;
-            height: 50px;
-            padding: 13px;
+            // The icon's own size, without padding around it
+            width: 24px;
+            height: 24px;
+            padding: 0;
             background-color: transparent;
             // Same colour as the label: white, yellow on hover
             fill: currentColor;
@@ -973,9 +980,11 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             stroke-width: 20px;
             stroke-linejoin: round;
         }
-        // A little smaller than the others. More padding keeps the same 50px space so the labels stay lined up
+        // A little smaller than the others. The margin keeps the same 24px space so the labels stay lined up
         &[data-share="copy"] svg {
-            padding: 15px;
+            width: 20px;
+            height: 20px;
+            margin: 2px;
         }
         &:hover {
             color: v.$wilson-yellow !important;
@@ -1039,6 +1048,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 
 .compare-product-price {
     font-weight: 700;
+    padding-bottom: 5px;
     .compare-product-price__only {
         font-size: 12px;
     }

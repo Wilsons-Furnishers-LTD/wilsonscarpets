@@ -84,6 +84,10 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
   overflow: initial;
 }
 
+#mastHeadTop {
+  position: initial;
+}
+
 @media only screen and (min-width: 64em) {
   body {
     overflow-anchor: none;

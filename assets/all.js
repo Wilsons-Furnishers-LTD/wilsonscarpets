@@ -107,14 +107,14 @@ jQuery(document).ready(function () {
   }
 
     var $mastHead = jQuery('body');
-    var stickyHeader = function() {
-        var winTop = jQuery(window).scrollTop();
-        if (winTop > 100) {
-            $mastHead.addClass('header-sticky');
-        } else {
-            $mastHead.removeClass('header-sticky');
-        }
-    };
+    // var stickyHeader = function() {
+    //     var winTop = jQuery(window).scrollTop();
+    //     if (winTop > 100) {
+    //         $mastHead.addClass('header-sticky');
+    //     } else {
+    //         $mastHead.removeClass('header-sticky');
+    //     }
+    // };
     stickyHeader();
     jQuery(window).scroll(function() {
         stickyHeader();

@@ -83,6 +83,10 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
   .header-sticky #mastHead .nav-primary {
     display: none;
   }
+  .nav-sticky #navigation {
+    max-height: 0;
+    overflow: hidden;
+  }
 }
 #wrapper {
   overflow: initial;

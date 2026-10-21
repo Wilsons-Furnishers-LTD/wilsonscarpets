@@ -136,8 +136,3 @@ header .wrapper .row {
   transition: all 0.3s ease;
   overflow: hidden;
 }
-
-.header-sticky #mastHead .wrapper .row {
-  min-height: 0;
-  max-height: 0;
-}

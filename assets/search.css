@@ -60,3 +60,43 @@
     width: 90% !important;
   }
 }
+
+body {
+  padding-top: 0px !important;
+}
+
+#shopify-section-top-links {
+  position: initial;
+}
+
+.offCanvasSearch .header-sticky #mastHead #search-container .search {
+  margin: 0 auto;
+}
+
+img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
+  width: 1px !important;
+  height: 1px !important;
+  position: absolute !important;
+}
+
+#shopify-section-header {
+  position: sticky;
+  top: 0;
+}
+
+#offCanvasWrapper {
+  overflow: initial;
+}
+
+#mastHeadTop {
+  position: initial;
+}
+
+@media only screen and (min-width: 64em) {
+  body {
+    overflow-anchor: none;
+  }
+}
+#wrapper {
+  overflow: initial;
+}

@@ -17,3 +17,10 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 #shopify-section-top-links {
     position: initial;
 }
+
+.banner-one .slideshow img {
+    position: absolute;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}

@@ -16,11 +16,11 @@ class Search {
     handleIntersection(entries) {
         
         entries.forEach(entry => {
-            console.log(entry);   
+            
             if (!entry.isIntersecting) {
-                document.body.classList.remove('header-sticky');
-            } else {
                 document.body.classList.add('header-sticky');
+            } else {
+                document.body.classList.remove('header-sticky');
             }
         });
     }

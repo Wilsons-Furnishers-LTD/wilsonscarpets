@@ -1,0 +1,310 @@
+{%- comment -%}
+  !!!! - PLEASE DO NOT EDIT - !!!!
+  THIS FILE IS DEPLOYED AUTOMATICALLY BY GITHUB.
+{%- endcomment -%}
+
+<!doctype html>
+<html
+  class="no-js"
+  lang="{{ shop.locale }}"
+  itemscope
+  itemtype="https://schema.org/WebPage">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+<title>
+{{ page_title | replace: ' -tag:Sample', '' }}
+{% if current_tags %}
+&ndash; tagged "{{ current_tags | join: ', ' }}"
+{% endif %}
+{% if current_page != 1 %}
+&ndash; Page {{ current_page }}
+{% endif %}
+{% unless page_title contains shop.name %}
+&ndash; {{ shop.name }}
+{% endunless %}
+</title>
+
+
+{% if page_description %}
+<meta name="description" content="{{ page_description | escape }}">
+{% elsif template.name == 'product' %}
+<meta name="description" content="Shop {{ product.title }} {{ product.type }} at {{ shop.name }}">
+{% elsif template.name == 'collection' %}
+<meta name="description" content="Discover {{ collection.title }} at {{ shop.name }}">
+{% elsif shop.description %}
+<meta name="description" content="{{ shop.description }}">
+{% endif %}
+
+
+{% render 'robots-canonical-url' %}
+
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<link rel="preconnect" href="//cdn.shopify.com">
+
+{% if template contains 'noindex' %}
+<meta name="robots" content="noindex">
+{% endif %}
+
+
+
+{% liquid
+  render 'open-graph-tags'
+  render 'twitter-card'
+%}
+
+
+{{ content_for_header }}
+
+
+
+<script src="{{ 'jquery.min.js' | asset_url }}"></script>
+<script src="{{ 'jquery-ui.min.js' | asset_url }}"></script>
+<script src="{{ 'owl.carousel.js' | asset_url }}"></script>
+
+<script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
+
+
+{% if template.name contains 'customers' %}
+{{ 'customer_area.js' | shopify_asset_url | script_tag }}
+{% endif %}
+
+
+<script src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
+
+
+
+<link rel="apple-touch-icon"
+href="{{ 'wc-logo.png' | asset_url }}">
+
+<link rel="shortcut icon"
+href="{{ 'medichecks_favicon_256x256.png' | asset_url }}">
+
+
+<link rel="manifest"
+href="{{ 'site.webmanifest' | asset_url }}">
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900%7CMaterial+Icons&display=swap"
+rel="stylesheet">
+
+
+<link rel="stylesheet"
+href="https://use.typekit.net/yay0ohu.css">
+
+
+<meta name="google-site-verification"
+content="iFZf-C-RcT5jTo819oqNN5divbHwKSobCyIXDV45jEU">
+
+
+
+<style>
+
+{% liquid
+
+assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
+assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
+assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
+
+%}
+
+
+{{ settings.type_body_font | font_face: font_display: 'swap' }}
+{{ body_font_bold | font_face: font_display: 'swap' }}
+{{ body_font_italic | font_face: font_display: 'swap' }}
+{{ body_font_bold_italic | font_face: font_display: 'swap' }}
+{{ settings.type_header_font | font_face: font_display: 'swap' }}
+
+
+:root {
+
+--font-body-family:
+{{ settings.type_body_font.family }},
+{{ settings.type_body_font.fallback_families }};
+
+--font-body-style:
+{{ settings.type_body_font.style }};
+
+--font-body-weight:
+{{ settings.type_body_font.weight }};
+
+
+--font-heading-family:
+{{ settings.type_header_font.family }},
+{{ settings.type_header_font.fallback_families }};
+
+--font-heading-style:
+{{ settings.type_header_font.style }};
+
+--font-heading-weight:
+{{ settings.type_header_font.weight }};
+
+}
+
+
+.contactusbutton {
+padding:5px 10px;
+border:none;
+text-align:center;
+display:inline-block;
+cursor:pointer;
+width:140px;
+height:50px;
+}
+
+.contactusbutton:hover a {
+color:white;
+}
+
+</style>
+
+
+{{ settings.head_scripts }}
+
+
+<script id="themeAssets"
+type="application/json"
+data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/">
+{}
+</script>
+
+
+<script src="{{ 'main.js' | asset_url }}" type="module"></script>
+
+{{ 'main.css' | asset_url | stylesheet_tag }}
+{{ 'products.css' | asset_url | stylesheet_tag }}
+
+
+</head>
+
+
+<body
+id="{{ page_title | handle }}"
+class=" product-refresh
+{% if customer %}customer-logged-in{% endif %}
+template-{{ template.name }}
+{% if request.host == 'wilsons-beds.myshopify.com'
+or request.host == 'wilsonsbeds.com' or request.host == 'www.wilsonsbeds.com' %}
+wilsons-beds-body
+{% endif %}
+">
+
+
+<script>
+
+window.KlarnaThemeGlobals={};
+
+{% case template.name %}
+
+{% when 'product' %}
+
+{% if product.first_available_variant.price %}
+window.KlarnaThemeGlobals.data_purchase_amount =
+{{ product.first_available_variant.price }};
+{% endif %}
+
+window.KlarnaThemeGlobals.productVariants =
+{{ product.variants | json }};
+
+
+{% when 'cart' %}
+
+window.KlarnaThemeGlobals.data_purchase_amount =
+{{ cart.total_price }};
+
+{% endcase %}
+
+</script>
+
+
+
+{{ settings.body_scripts }}
+
+
+
+<div id="wrapper">
+
+<div id="offCanvasWrapper">
+
+
+{% section 'top-links' %}
+{% section 'header' %}
+{% section 'promo-bar' %}
+
+<!--- START: Refresh work --->
+
+<main>
+    <div class="product-page" itemscope itemtype="https://schema.org/Product">
+    {%- include 'product-top' -%}
+    {%- include 'product-meta' -%}
+    {{ content_for_layout }}
+    </div>
+</main>
+
+<!--- END: Refresh work --->
+
+<main class="main-content {% if request.page_type == 'cart' %} shopping-bag  {% endif %}" id="MainContent">
+    {% if request.page_type == 'index' or request.page_type == '404' or request.page_type == 'search' %}
+        <div class="cms-homepage">
+    {% endif %}
+
+
+    {%- include 'product-top' -%}
+    <div class="wrapper">
+        <div class="product-page" itemscope itemtype="https://schema.org/Product">
+           
+
+
+            
+        </div>
+    </div>
+    {% if request.page_type == 'index' or request.page_type == '404' or request.page_type == 'search' %}
+        </div>
+    {% endif %}
+    {%- render 'product-form-timeout' -%}
+    {%- render 'product-bottom' -%}
+    {%- render 'quick-view-ajaxify-cart' -%}
+    {%- render 'gtm-product' -%}
+    <script src="{{ 'VariantUrlChange.js' | asset_url }}" defer="defer"></script>
+</main>
+
+
+
+{% section 'section-cookie-popup' %}
+{% section 'footer' %}
+{% section 'newsletter' %}
+
+
+
+</div>
+
+</div>
+
+
+
+{% section 'footer-scripts' %}
+
+
+
+<script>
+document.documentElement.classList.remove('no-js');
+document.documentElement.classList.add('js');
+</script>
+
+
+
+{{ 'https://js.klevu.com/klevu-js-v1/customizations/klevu-user-customization-167888826575414734.js' | script_tag }}
+
+
+</body>
+<script  src="{{ 'products.js' |  asset_url}}"></script>
+</html>

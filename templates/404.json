@@ -13,8 +13,8 @@
       "type": "404",
       "settings": {
         "title": "Oops, sorry 😥 page not found.",
-        "description": "Something has gone wrong at our end and we are fixing this now. Please feel free to search the search bar, click the button below to go to the home page or <a href=\"/pages/stores\" style=\"font-weight: 700\">Contact Us</a>.",
-        "btn_link": "/",
+        "description": "Something has gone wrong at our end and we are fixing this now. Please feel free to search again in the search bar, click the button below to go to the home page, feel free to Contact Us.",
+        "btn_link": "https://www.wilsonscarpets.com/",
         "btn_text": "Visit Homepage"
       }
     },
@@ -22,7 +22,7 @@
       "type": "featured-collection",
       "settings": {
         "title": "Browse our best selling products",
-        "collection": "mattresses",
+        "collection": "carpets",
         "grid": "4",
         "add_border_top": "add_border_top_no",
         "add_border_bottom": "add_border_bottom_no"
@@ -31,6 +31,28 @@
     "bannergrid-two": {
       "type": "bannergrid-two",
       "blocks": {
+        "image_EjTJRx": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner-2.jpg",
+            "text_color": "text-dark",
+            "title": "Shop Carpets",
+            "subheading": "",
+            "link": "shopify://pages/carpets",
+            "button_text": "Shop Now"
+          }
+        },
+        "image_hGbWmM": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner-4.jpg",
+            "text_color": "text-dark",
+            "title": "Shop Laminate",
+            "subheading": "",
+            "link": "shopify://collections/laminate-flooring",
+            "button_text": "Shop Now"
+          }
+        },
         "image_7BiTDL": {
           "type": "image",
           "settings": {
@@ -38,7 +60,7 @@
             "text_color": "text-dark",
             "title": "Need help? Visit our advice centre",
             "subheading": "",
-            "link": "shopify://pages/contact",
+            "link": "https://www.wilsonscarpets.com/pages/contact",
             "button_text": "Read more"
           }
         },
@@ -55,6 +77,8 @@
         }
       },
       "block_order": [
+        "image_EjTJRx",
+        "image_hGbWmM",
         "image_7BiTDL",
         "image_pP7pt6"
       ],

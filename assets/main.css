@@ -32,8 +32,10 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
     height: 100%;
     top: 0;
 }
-
-.banner-one.slideshow .col-img {
+.banner-one .owl-carousel {
+    height: 70vh;
+}
+.banner-one.slideshow .col-img, {
     position: relative;
     width: 100%;
     height: 0;

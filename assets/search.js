@@ -16,7 +16,7 @@ class Search {
     handleIntersection(entries) {
         
         entries.forEach(entry => {
-            
+            console.log(!entry.isIntersecting);
             if (!entry.isIntersecting) {
                 document.body.classList.add('header-sticky');
             } else {

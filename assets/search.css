@@ -137,7 +137,7 @@ header .wrapper .row {
   overflow: hidden;
 }
 
-.header-sticky header .wrapper .row {
+.header-sticky #mastHead .wrapper .row {
   min-height: 0;
   max-height: 0;
 }

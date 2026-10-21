@@ -136,3 +136,10 @@ header .wrapper .row {
   transition: all 0.3s ease;
   overflow: hidden;
 }
+
+.header-sticky #navigation {
+  position: absolute;
+  top: 0;
+  inset: 0;
+  background: transparent;
+}

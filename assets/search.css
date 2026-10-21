@@ -69,6 +69,10 @@ body {
   position: initial;
 }
 
+.offCanvasSearch .header-sticky #mastHead #search-container .search {
+  margin: 0 auto;
+}
+
 img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
   width: 1px !important;
   height: 1px !important;

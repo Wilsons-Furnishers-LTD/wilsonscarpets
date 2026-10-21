@@ -197,14 +197,6 @@ wilsons-beds-body
 {% endif %}
 ">
 
-{%- comment -%}
-  Watched by src/scripts/search.js to toggle header-sticky. Pinned to the top of the page and outside the header,
-  so the header collapsing when the class is added can't move it and toggle the class back (the flicker).
-  Its height is how far the page scrolls before the header goes sticky: the top bar's height.
-  Needs <body> to stay unpositioned, so it's placed against the top of the document.
-{%- endcomment -%}
-<div id="headerSentinel" aria-hidden="true" style="position: absolute; top: 0; left: 0; width: 1px; height: 55px; pointer-events: none; visibility: hidden;"></div>
-
 
 <script>
 

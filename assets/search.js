@@ -5,7 +5,7 @@ class Search {
 
         if (mastHeadTop) {
             const observer = new IntersectionObserver(([entry]) => {
-                document.body.classList.toggle('mast-head-top-hidden', !entry.isIntersecting);
+                document.body.classList.toggle('header-sticky', !entry.isIntersecting);
             });
             observer.observe(mastHeadTop);
         }

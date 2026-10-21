@@ -143,3 +143,7 @@ header .wrapper .row {
   inset: 0;
   background: transparent;
 }
+.header-sticky #search-container {
+  visible: hidden;
+  opacity: 0;
+}

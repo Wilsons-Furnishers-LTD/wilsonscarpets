@@ -74,3 +74,10 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
   height: 1px !important;
   position: absolute !important;
 }
+
+@media only screen and (min-width: 64em) {
+  #shopify-section-header {
+    position: sticky;
+    top: 0;
+  }
+}

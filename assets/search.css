@@ -147,3 +147,6 @@ header .wrapper .row {
   visible: hidden;
   opacity: 0;
 }
+.header-sticky #mastHead .wrapper .row {
+  min-height: 80px;
+}

@@ -65,6 +65,7 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 }
 
 .header-sticky #navigation {
+    transition: all 0.3s ease;
     background: #fff;
     box-shadow: none;
     color: #000;

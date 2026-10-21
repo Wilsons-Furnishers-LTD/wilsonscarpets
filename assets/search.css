@@ -105,9 +105,3 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 #wrapper {
   overflow: initial;
 }
-
-@media screen and (max-width: 475px) {
-  .wrapper {
-    padding: 0 15px;
-  }
-}

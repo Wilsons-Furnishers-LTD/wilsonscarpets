@@ -42,10 +42,12 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
     padding-top: 70vh;
 }
 
-#mastHeadTop {
-    min-height: 55px;
-}
+@media only screen and (min-width: 64em) {
+    #mastHeadTop {
+        min-height: 55px;
+    }
 
-#mastHead .wrapper .row {
-    min-height: 102px;
+    #mastHead .wrapper .row {
+        min-height: 102px;
+    }
 }

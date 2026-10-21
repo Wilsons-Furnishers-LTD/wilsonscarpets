@@ -236,7 +236,7 @@
 
 
                        
-                        {% render 'product-grid-item', product: product with products_per_row %}
+                        {% render 'product-grid-item', product: product %}
 
                         {% assign loopCounter = loopCounter | plus: 1 %}
 
@@ -428,3 +428,13 @@
     ]
   }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-grid-item', product: product with products_per_row %}"
+  to: "{% render 'product-grid-item', product: product %}"
+  position: 12504..12554
+{% endcomment %}

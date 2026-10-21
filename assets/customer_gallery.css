@@ -1,0 +1,220 @@
+.masonry-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 14px;
+  gap: 12px;
+}
+
+.masonry-item {
+  grid-row-end: span var(--row-span, 1);
+}
+
+.masonry-item img {
+  width: 100%;
+  height: auto; /* IMPORTANT: not 100% */
+  display: block;
+  border-radius: 8px;
+}
+
+/* Optional polish */
+.masonry-item {
+  overflow: hidden;
+}
+
+.masonry-item img:hover {
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 84.625em;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0 1.25em;
+}
+
+.pagecontents {
+width: 100%;
+box-sizing: border-box;
+margin: 0 auto;
+color: #414B52;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+}
+
+.ab3 {
+font-size: 28px;
+font-weight: 700;
+line-height: 1.25;
+padding: 30px 0 20px 0;
+}
+.ab4 {
+font-size: 24px;
+word-spacing: -1px;
+color: #414b52bf;
+padding: 20px 0 30px 0;
+}
+button.downbutton {
+background-color: #ba3c3d;
+border: 1px solid #ba3c3d;
+text-decoration: none;
+font-size: 15px;
+padding: 10px;
+border: none;
+max-width: 200px;
+width: 100%;
+text-decoration:none;
+color:#fff;
+letter-spacing:.6px;
+font-weight: 700;
+padding-left: 15px;
+padding-right: 15px;
+padding-top: 15px;
+padding-bottom: 15px!important;
+margin-bottom: 35px;
+font-size: 14px;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+}
+button.downbutton:hover {
+background-color: #414b52;
+border: 1px solid #414b52;
+text-decoration: none;
+font-size: 15px;
+padding: 10px;
+border: none;
+max-width: 200px;
+width: 100%;
+text-decoration:none;
+color:#fff;
+letter-spacing:.6px;
+font-weight: 700;
+padding-left: 15px;
+padding-right: 15px;
+padding-top: 15px;
+padding-bottom: 15px!important;
+font-size: 14px;
+font-family: 'gill-sans-nova','Gill Sans Nova', sans-serif;
+}
+.cust-gallery {
+display: grid;
+grid-template-columns: 1fr 1fr;
+justify-items: stretch;
+gap: 20px;
+width: 100%;
+margin: 0 auto;
+}
+.cust-gallery div {
+max-width: 400px;
+width: 100%;
+padding: 0;
+}
+.cust-gallery div img {
+max-width: 400px;
+width: 100%;
+padding: 0;
+}
+@media only screen and (min-width: 700px) {
+.storebanner1 {
+display: block;
+margin-top: 15px;
+}
+.storebanner2 {
+display: none;
+}
+}
+@media only screen and (max-width: 700px) {
+.storebanner1 {
+display: none;
+}
+.storebanner2 {
+display: block;
+}
+}
+.inspir {
+text-align: center;
+}
+@media only screen and (max-width: 500px) {
+.inspiration-grid {
+display: grid;
+grid-template-rows: 1fr 1fr 1fr;
+grid-template-columns: 1fr;
+justify-items: stretch;
+gap: 1px;
+width: 95%;
+margin: 0 auto;
+}
+.inspiration-box {
+width: 100%;
+overflow: hidden;
+}
+.inspiration-box img {
+width: 100%;
+}
+}
+@media only screen and (min-width: 500px) and (max-width: 700px) {
+.inspiration-grid {
+display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: 1fr 1fr 1fr;
+justify-items: stretch;
+gap: 10px;
+width: 95%;
+margin: 0 auto;
+}
+.inspiration-box {
+width: 100%;
+max-width: 500px;
+overflow: hidden;
+}
+.inspiration-box img {
+width: 100%;
+}
+}
+@media only screen and (min-width: 700px) {
+.inspiration-grid {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+justify-items: stretch;
+gap: 10px;
+width: 95%;
+margin: 0 auto;
+}
+.inspiration-box {
+width: 100%;
+max-width: 500px;
+overflow: hidden;
+}
+.inspiration-box img {
+width: 100%;
+}
+}
+
+.roomsflex {
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-evenly;
+margin: 10px auto 30px auto;
+gap: 15px;
+}    
+.roomsfl img {
+width: 200px;
+}
+.desc {
+margin-top: 15px;
+font-size:18px;
+color:#414b52;
+display:block;
+font-weight:600;
+text-align: left;
+}
+.zoombox {
+overflow: hidden;
+padding: 0;
+}
+.zoombox img {
+transition: all .6s ease;
+}
+.zoombox:hover img {
+transform: scale(1.05);
+}

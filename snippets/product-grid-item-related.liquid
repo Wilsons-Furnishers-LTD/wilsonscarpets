@@ -16,7 +16,6 @@
 {% endif %}
 
 
-
 {% if itemIsShown %}
   {% unless product.tags contains "clone product" or product.type == "Sample" %}
     {% assign value_colors = '' %}
@@ -43,8 +42,6 @@
 
     <div class="item">
       <div class="product-image-wrap">
-
-        {% render 'compare-button', product: product %}
         {% assign iconsFlag = '' %}
         {% assign productTag = '' %}
         {% assign productPromo = '' %}

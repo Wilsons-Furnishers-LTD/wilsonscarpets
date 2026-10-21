@@ -1,9 +1,9 @@
 class Search {
     constructor() {
         const mastHeadTop = document.querySelector('#mastHeadTop');
-        console.log(mastHeadTop);
+        
         const observer = new IntersectionObserver(this.handleIntersection, {
-                root: null,
+                root: mastHeadTop,
                 rootMargin: "0px 0px 500px 0px",
                 threshold: 0
             });

@@ -3,3 +3,9 @@
 body {
     padding-top: 0;
 }
+
+img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
+    width: 1px !important;
+    height: 1px !important;
+    position: absolute !important;
+}

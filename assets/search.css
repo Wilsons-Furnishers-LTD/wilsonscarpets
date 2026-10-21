@@ -86,6 +86,9 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
   body {
     overflow-anchor: none;
   }
+  #mastHead {
+    transition: all 0.3s ease;
+  }
   .mast-head-top-hidden #navigation {
     opacity: 0;
   }

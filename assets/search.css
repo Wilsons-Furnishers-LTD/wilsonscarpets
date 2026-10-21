@@ -91,6 +91,8 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
   }
   .mast-head-top-hidden #navigation {
     background-color: #fff;
+    box-shadow: none;
+    color: #414B52;
   }
 }
 #wrapper {

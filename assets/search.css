@@ -80,9 +80,6 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
     position: sticky;
     top: 0;
   }
-  .header-sticky #mastHead .nav-primary {
-    display: none;
-  }
   body {
     overflow-anchor: none;
   }

@@ -18,9 +18,9 @@ class Search {
         entries.forEach(entry => {
             console.log(!entry.isIntersecting);
             if (!entry.isIntersecting) {
-                document.body.classList.add('header-sticky-dfggfd');
+                document.body.classList.add('header-sticky');
             } else {
-                document.body.classList.remove('header-sticky-dfggfd');
+                document.body.classList.remove('header-sticky');
             }
         });
     }

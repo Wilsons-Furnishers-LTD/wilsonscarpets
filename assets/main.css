@@ -50,6 +50,9 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
     #mastHead .wrapper .row {
         min-height: 102px;
     }
+    .header-sticky #shopify-section-top-links {
+        max-height: initial;
+    }
 }
 
 #wrapper {

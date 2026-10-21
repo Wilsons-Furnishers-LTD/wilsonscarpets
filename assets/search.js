@@ -20,14 +20,14 @@ class Search {
 	toggleStickyNav() {
 		const offset = window.pageYOffset || document.documentElement.scrollTop;
 		if (offset > this.lastScrollTop) {
-			this.header.classList.remove('header--scroll-active');
+			this.header.classList.add('header--scroll-active');
 			if (offset > 150) {
-				this.header.classList.remove('header--scroll-active');
+				this.header.classList.add('header--scroll-active');
 			} else {
-				this.header.classList.remove('header--scroll-active');
+				this.header.classList.add('header--scroll-active');
 			}
 		} else {
-			this.header.classList.add('header--scroll-active');
+			this.header.classList.remove('header--scroll-active');
 		}
 		this.lastScrollTop = offset <= 0 ? 0 : offset;
 	}

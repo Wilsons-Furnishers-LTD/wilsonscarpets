@@ -18,7 +18,7 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
     position: initial;
 }
 
-.banner-one .slideshow img {
+.banner-one.slideshow img {
     position: absolute;
     object-fit: cover;
     width: 100%;

@@ -90,7 +90,7 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
     transition: all 0.3s ease;
   }
   .mast-head-top-hidden #navigation {
-    height: 0px;
+    max-height: 0px;
     overflow: hidden;
   }
 }

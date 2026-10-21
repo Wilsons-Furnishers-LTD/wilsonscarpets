@@ -33,8 +33,7 @@
   <script src="{{ 'jquery.js' |  asset_url}}"></script>
   <script src="{{ 'moment.min.js' |  asset_url}}" ></script>
   <script src="{{ 'moment-timezone-with-data-10-year-range.min.js' |  asset_url}}" defer></script>
-  
-  {% if template == "product" or template == "product.refresh" %}
+  {% if template == "product" %}
 	<script src="{{ 'jquery.zoom.min.js' |  asset_url}}" defer></script>
 	<script src="{{ 'pinch-zoom.min.js' |  asset_url}}" defer></script>
 	<script src="{{ 'hammer.min.js' |  asset_url}}" defer></script>
@@ -65,4 +64,3 @@
     jQuery('html').removeClass('no-js').addClass('js');
   </script>
 <script src="{{ 'search.js' |  asset_url}}"></script>
-<script src="{{ 'compare.js' |  asset_url}}"></script>

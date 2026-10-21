@@ -179,7 +179,6 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 <script src="{{ 'main.js' | asset_url }}" type="module"></script>
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
-{{ 'compare.css' | asset_url | stylesheet_tag }}
 {{ 'search.css' | asset_url | stylesheet_tag }}
 
 </head>
@@ -314,7 +313,7 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 </div>
 
 
-{% section 'compare-modal' %}
+
 {% section 'footer-scripts' %}
 
 <script src="{{ 'owl.carousel.js' | asset_url }}" defer></script>

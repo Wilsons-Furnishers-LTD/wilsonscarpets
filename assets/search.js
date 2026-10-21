@@ -1,6 +1,7 @@
 class Search {
     constructor() {
         const mastHeadTop = document.querySelector('#mastHeadTop');
+        console.log(mastHeadTop);
         const observer = new IntersectionObserver(this.handleIntersection);
         observer.observe(mastHeadTop);
 
@@ -13,11 +14,13 @@ class Search {
     }
 
     handleIntersection(entries) {
+        
         entries.forEach(entry => {
+            console.log(!entry.isIntersecting);
             if (!entry.isIntersecting) {
-                document.body.classList.remove('header-sticky');
-            } else {
                 document.body.classList.add('header-sticky');
+            } else {
+                document.body.classList.remove('header-sticky');
             }
         });
     }

@@ -25,10 +25,10 @@ jQuery(document).ready(function () {
     jQuery('.newsletter-popup').removeClass('active');
   });
 
-  stickyHeader();
-  jQuery('body').scroll(function() {
-    stickyHeader();
-  });
+//   stickyHeader();
+//   jQuery('body').scroll(function() {
+//     stickyHeader();
+//   });
 });
 
 function stickyHeader() {

@@ -131,3 +131,12 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
   box-shadow: none;
   color: #414b52;
 }
+
+header .wrapper .row {
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.header-sticky header .wrapper .row {
+  max-height: 0;
+}

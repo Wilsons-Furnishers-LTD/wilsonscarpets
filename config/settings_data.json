@@ -251,8 +251,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      ".banner-one {width: 100vw; overflow: hidden;}"
-    ]
+    "custom_css": []
   }
 }

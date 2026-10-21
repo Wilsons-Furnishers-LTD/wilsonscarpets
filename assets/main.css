@@ -17,7 +17,3 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 #shopify-section-top-links {
     position: initial;
 }
-
-.header-sticky #shopify-section-header {
-    position: fixed;
-}

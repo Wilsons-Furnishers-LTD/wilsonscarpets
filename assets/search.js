@@ -2,7 +2,9 @@ class Search {
     constructor() {
         const mastHeadTop = document.querySelector('#mastHeadTop');
         console.log(mastHeadTop);
-        const observer = new IntersectionObserver(this.handleIntersection);
+        const observer = new IntersectionObserver(this.handleIntersection, {
+        rootMargin: "0px 0px 200px 0px",
+        });
         observer.observe(mastHeadTop);
 
         window.addEventListener("scroll", () => {

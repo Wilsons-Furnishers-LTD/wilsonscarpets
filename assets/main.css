@@ -66,4 +66,6 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 
 .header-sticky #navigation {
     background: #fff;
+    box-shadow: none;
+    color: #000;
 }

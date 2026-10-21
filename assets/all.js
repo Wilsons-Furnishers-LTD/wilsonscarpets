@@ -115,7 +115,7 @@ jQuery(document).ready(function () {
             $mastHead.removeClass('header-sticky');
         }
     };
-    //stickyHeader();
+    stickyHeader();
     jQuery(window).scroll(function() {
         stickyHeader();
     });

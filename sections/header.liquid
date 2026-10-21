@@ -142,50 +142,7 @@
 
             </div>
         </div>
-        
-
-        {% if section.settings.show_announcement %}
-
-
-
-            {% if section.settings.text_color == 'custom' %}
-            <style>
-                #announcement{
-                    color: {{section.settings.custom_text_color}};
-                    stroke: {{section.settings.custom_text_color}};
-                    fill: {{section.settings.custom_text_color}};
-                }
-            </style>
-            {% endif %}
-
-            {% assign max_announcement = 5 %}
-            {%- capture announcement_html -%}
-                {% for i in (1..max_announcement) %}
-                    {% assign b_message = 'message_' | append: forloop.index %}
-                    {% assign b_show_message = 'show_message_' | append: forloop.index %}
-
-                    {% if section.settings[b_show_message] %}
-                    <div class="item">{{ section.settings[b_message] }}</div>
-                    {% endif %}
-                {% endfor %}
-            {%- endcapture -%}
-
-            {% if  announcement_html contains 'class="item' %}
-            <div id="announcement" class="{% if section.settings.text_color == 'custom' %}{{ section.settings.text_color }}{% endif %}" style="background-color: {{section.settings.background_color}};">
-                <div class="wrapper">
-                    <div class="owl-carousel">
-                        {{announcement_html}}
-                    </div>
-                </div>
-            </div>
-            {% endif %}
-        {% endif %}
-
-      </header>
-      
-</div>
-
-      <div id="navigation">
+        <div id="navigation">
             <div class="container">
                 <nav class="nav-inner wrapper">
                     <ul class="nav-primary">
@@ -309,6 +266,46 @@
                 </nav>
             </div>
         </div>
+
+        {% if section.settings.show_announcement %}
+
+
+
+            {% if section.settings.text_color == 'custom' %}
+            <style>
+                #announcement{
+                    color: {{section.settings.custom_text_color}};
+                    stroke: {{section.settings.custom_text_color}};
+                    fill: {{section.settings.custom_text_color}};
+                }
+            </style>
+            {% endif %}
+
+            {% assign max_announcement = 5 %}
+            {%- capture announcement_html -%}
+                {% for i in (1..max_announcement) %}
+                    {% assign b_message = 'message_' | append: forloop.index %}
+                    {% assign b_show_message = 'show_message_' | append: forloop.index %}
+
+                    {% if section.settings[b_show_message] %}
+                    <div class="item">{{ section.settings[b_message] }}</div>
+                    {% endif %}
+                {% endfor %}
+            {%- endcapture -%}
+
+            {% if  announcement_html contains 'class="item' %}
+            <div id="announcement" class="{% if section.settings.text_color == 'custom' %}{{ section.settings.text_color }}{% endif %}" style="background-color: {{section.settings.background_color}};">
+                <div class="wrapper">
+                    <div class="owl-carousel">
+                        {{announcement_html}}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% endif %}
+
+      </header>
+</div>
 
 <script>
     jQuery(document).ready(function() {

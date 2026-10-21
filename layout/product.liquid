@@ -67,7 +67,6 @@
 
 <script src="{{ 'jquery.min.js' | asset_url }}"></script>
 <script src="{{ 'jquery-ui.min.js' | asset_url }}"></script>
-<script src="{{ 'owl.carousel.js' | asset_url }}"></script>
 
 <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
 
@@ -104,7 +103,7 @@ href="https://use.typekit.net/yay0ohu.css">
 <meta name="google-site-verification"
 content="iFZf-C-RcT5jTo819oqNN5divbHwKSobCyIXDV45jEU">
 
-{{ 'search.css' | asset_url | stylesheet_tag }}
+
 
 <style>
 
@@ -181,7 +180,7 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
 {{ 'compare.css' | asset_url | stylesheet_tag }}
-
+{{ 'search.css' | asset_url | stylesheet_tag }}
 
 </head>
 
@@ -318,7 +317,7 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 {% section 'compare-modal' %}
 {% section 'footer-scripts' %}
 
-
+<script src="{{ 'owl.carousel.js' | asset_url }}" defer></script>
 
 <script>
 document.documentElement.classList.remove('no-js');

@@ -138,5 +138,6 @@ header .wrapper .row {
 }
 
 .header-sticky header .wrapper .row {
+  min-height: 0;
   max-height: 0;
 }

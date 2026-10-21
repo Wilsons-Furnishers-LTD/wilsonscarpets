@@ -223,6 +223,8 @@
     }
   },
   "platform_customizations": {
-    "custom_css": []
+    "custom_css": [
+      ".main-content {width: 100vw; overflow: hidden;}"
+    ]
   }
 }

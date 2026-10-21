@@ -81,3 +81,6 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
     top: 0;
   }
 }
+#wrapper {
+  overflow: initial;
+}

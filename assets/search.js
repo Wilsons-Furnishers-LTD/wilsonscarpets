@@ -14,8 +14,9 @@ class Search {
     }
 
     handleIntersection(entries) {
-        console.log(entries);   
+        
         entries.forEach(entry => {
+            console.log(entry);   
             if (!entry.isIntersecting) {
                 document.body.classList.remove('header-sticky');
             } else {

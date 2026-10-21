@@ -4,7 +4,7 @@ class Search {
         
         const observer = new IntersectionObserver(this.handleIntersection, {
                 root: mastHeadTop,
-                rootMargin: "0px 0px 500px 0px",
+                
                 threshold: 0
             });
         observer.observe(mastHeadTop);

@@ -150,3 +150,7 @@ header .wrapper .row {
 .header-sticky #mastHead .wrapper .row {
   min-height: 80px;
 }
+
+.header-sticky #mastHead .logo {
+  max-height: 60px;
+}

@@ -43,3 +43,7 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 #mastHeadTop {
     min-height: 55px;
 }
+
+#mastHead {
+    min-height: 102px;
+}

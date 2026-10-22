@@ -1,3 +1,4 @@
+{% if shop.metafields.comparison.feature == 1 %}
 <div class="compare-modal-container">
     <div class="compare-modal compare-modal--aside-closed compare-modal--no-aside">
         <div class="compare-modal__header">
@@ -62,3 +63,4 @@
 </button>
 
 {% render 'compare-share' %}
+{% endif %}

@@ -64,6 +64,10 @@
   padding-top: 1px;
 }
 
+body.compare-modal-is-open {
+  overflow: hidden;
+}
+
 .compare-modal-container {
   width: 100dvw;
   height: 100dvh;
@@ -99,6 +103,7 @@
   display: grid;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .compare-modal-container .compare-modal.compare-modal--aside-closed {
   grid-template-columns: 1fr 0px;

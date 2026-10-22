@@ -281,12 +281,15 @@ class Compare {
         if (!this.modalContainer) return;
 
         this.modalContainer.classList.add(this.modalOpenClass);
+        // Stops the page behind the modal from scrolling
+        document.body.classList.add('compare-modal-is-open');
     }
 
     closeModal() {
         if (!this.modalContainer) return;
 
         this.modalContainer.classList.remove(this.modalOpenClass);
+        document.body.classList.remove('compare-modal-is-open');
     }
 
     static parseProducts(json) {

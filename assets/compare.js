@@ -164,7 +164,10 @@ class Compare {
             .filter(({ type = '' }) => type === this.activeType)
             .length;
 
-        countElement.textContent = `(${count}/${this.maxProducts})`;
+        const inner = document.createElement('span');
+        inner.className = 'compare-count__inner';
+        inner.textContent = `(${count}/${this.maxProducts})`;
+        countElement.replaceChildren(inner);
     }
 
     getProductTypes() {

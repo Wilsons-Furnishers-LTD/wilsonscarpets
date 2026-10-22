@@ -1062,7 +1062,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   }
   .compare-modal-container .compare-modal__header {
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
   }
   .compare-modal-container .compare-modal__header .compare-modal__header--col {
     flex: 1;

@@ -216,9 +216,6 @@ class Compare {
         const countElement = this.openButton.querySelector('.compare-open-button__count');
         if (countElement) countElement.textContent = count;
 
-        // Total across all types, next to "Clear all"
-        const totalElement = document.querySelector('.compare-modal__total-count');
-        if (totalElement) totalElement.textContent = `(${count})`;
     }
 
     updateViewFullLink() {

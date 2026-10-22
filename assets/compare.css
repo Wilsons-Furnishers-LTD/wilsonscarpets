@@ -372,7 +372,7 @@ html.compare-modal-is-open {
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: 0 10px;
+  gap: 0 30px;
   position: relative;
   padding-left: 20px;
   margin-left: 20px;

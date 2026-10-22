@@ -64,6 +64,10 @@
   padding-top: 1px;
 }
 
+html.compare-modal-is-open {
+  overflow: hidden;
+}
+
 .compare-modal-container {
   width: 100dvw;
   height: 100dvh;
@@ -71,6 +75,7 @@
   inset: 0;
   z-index: -1;
   visibility: hidden;
+  transition: visibility 0s linear 0.3s, z-index 0s linear 0.3s;
 }
 .compare-modal-container .compare-modal-background {
   width: 100%;
@@ -88,7 +93,7 @@
   width: max-content;
   height: 100%;
   inset: 0;
-  left: -50%;
+  transform: translateX(-100%);
   transition: all 0.3s ease;
   padding: 0 40px 0px 40px;
   padding-right: 0;
@@ -99,6 +104,7 @@
   display: grid;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .compare-modal-container .compare-modal.compare-modal--aside-closed {
   grid-template-columns: 1fr 0px;
@@ -115,6 +121,11 @@
   .compare-modal-container .compare-modal {
     display: flex;
     flex-direction: column;
+  }
+}
+@media screen and (max-width: 475px) {
+  .compare-modal-container .compare-modal {
+    width: 100dvw;
   }
 }
 .compare-modal-container .compare-modal__header {
@@ -327,9 +338,11 @@
   left: 0;
   z-index: 1000000;
   visibility: visible;
+  transition: none;
 }
 .compare-modal-container.compare-modal-open .compare-modal {
   left: 0;
+  transform: none;
 }
 .compare-modal-container.compare-modal-open .compare-modal-background {
   opacity: 0.5;
@@ -361,7 +374,7 @@
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: 0 10px;
+  gap: 0 30px;
   position: relative;
   padding-left: 20px;
   margin-left: 20px;
@@ -410,6 +423,7 @@
 @media screen and (max-width: 475px) {
   .compare-modal-container .compare-modal__header button#close-compare-modal {
     margin-left: 10px;
+    margin-right: 50px;
   }
 }
 .compare-modal-container .compare-modal__header button#close-compare-modal:before {
@@ -571,7 +585,7 @@
   background-color: transparent;
 }
 .compare-modal__product-grid .specification {
-  background-color: rgba(243, 243, 243, 0.7);
+  background-color: #f3f3f3;
   font-weight: 700;
   font-size: 14px;
 }
@@ -1051,7 +1065,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   }
   .compare-modal-container .compare-modal__header {
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
   }
   .compare-modal-container .compare-modal__header .compare-modal__header--col {
     flex: 1;

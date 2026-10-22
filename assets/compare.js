@@ -166,7 +166,7 @@ class Compare {
 
         const inner = document.createElement('span');
         inner.className = 'compare-count__inner';
-        inner.textContent = `(${count}/${this.maxProducts})`;
+        inner.textContent = `${count}/${this.maxProducts}`;
         countElement.replaceChildren(inner);
     }
 

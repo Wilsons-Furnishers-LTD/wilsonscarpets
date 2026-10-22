@@ -64,7 +64,18 @@
         background-color: v.$wilson-yellow;
     }
 }
-
+.compare-modal__header--amount {
+    display: flex;
+    #compare-count {
+        padding-top: 1px;
+    }
+}
+// Set by compare.js while the modal is open, so the page behind it doesn't scroll.
+// On <html> rather than <body>: the theme gives <html> overflow-x: hidden, which makes <html> the page's
+// scroller, so overflow: hidden on <body> only clipped the body and the page still scrolled
+html.compare-modal-is-open {
+    overflow: hidden;
+}
 .compare-modal-container {
     width: 100dvw;
     height: 100dvh;
@@ -72,6 +83,8 @@
     inset: 0;
     z-index: -1;
     visibility: hidden;
+    // On close, stay visible until the modal has slid out (0.3s), then hide
+    transition: visibility 0s linear 0.3s, z-index 0s linear 0.3s;
     .compare-modal-background {
         width: 100%;
         height: 100%;
@@ -88,7 +101,8 @@
         width: max-content;
         height: 100%;
         inset: 0;
-        left: -50%;
+        // Closed: fully off the left of the screen, whatever the modal's width
+        transform: translateX(-100%);
         transition: all 0.3s ease;
         padding: 0 40px 0px 40px;
         padding-right: 0;
@@ -103,6 +117,8 @@
         // Horizontally it still clips the add product panel while it slides out
         overflow-x: hidden;
         overflow-y: auto;
+        // Reaching the top or bottom of the modal doesn't carry on scrolling the page behind it
+        overscroll-behavior: contain;
         // Add product panel sliding out: shrink its column to 0
         &.compare-modal--aside-closed {
             grid-template-columns: 1fr 0px;
@@ -119,6 +135,10 @@
         @media screen and (max-width: 899px) {
             display: flex;
             flex-direction: column;
+        }
+        @media screen and (max-width: 475px) {
+            // Full width of the viewport, rather than as wide as its content
+            width: 100dvw;
         }
     }
     .compare-modal__header {
@@ -249,11 +269,11 @@
             input {
                 width: 100%;
                 margin: 0;
-                padding: 10px 38px 10px 12px;
+                padding: 9px 38px 9px 12px;
                 border: none;
                 border-radius: 0;
                 font: inherit;
-                font-size: 14px;
+                font-size: 16px;
                 color: v.$wilson-grey;
                 background-color: rgba(231, 231, 231, 0.35);
                 &:focus {
@@ -344,8 +364,11 @@
         left: 0;
         z-index: 1000000;
         visibility: visible;
+        // On open, show straight away so the slide in can be seen
+        transition: none;
         .compare-modal {
             left: 0;
+            transform: none;
         }
         .compare-modal-background {
             opacity: 0.5;
@@ -375,7 +398,7 @@
             display: flex;
             align-items: center;
             justify-content: end;
-            gap: 0 10px;
+            gap: 0 30px;
             position: relative;
             
             padding-left: 20px;
@@ -423,6 +446,7 @@
             margin-left: 20px;
             @media screen and (max-width: 475px) {
                 margin-left: 10px;
+                margin-right: 50px;
             }
             &:before {
                 content: "\f00d";
@@ -451,6 +475,14 @@
             padding-bottom: 6px;
             margin-bottom: 0;
             min-height: 35px;
+            span {
+                margin-bottom: -1px;
+            }
+            &:focus {
+                border-color: v.$wilson-red;
+                background-color: v.$wilson-red;
+                color: #fff;
+            }
             &:hover {
                 border-color: v.$wilson-yellow;
                 background-color: v.$wilson-yellow;
@@ -589,7 +621,7 @@
         }
         .specification {
             // Opaque version of rgba(#E7E7E7, 0.5) on white, so products don't show through when scrolled under it
-            background-color: rgba(#F3F3F3, 0.7);
+            background-color: rgba(#F3F3F3, 1);
             font-weight: 700;
             font-size: 14px;
         }
@@ -1063,7 +1095,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     .compare-modal-container {
         .compare-modal__header {
             flex-wrap: wrap;
-            align-items: flex-start;
+            align-items: center;
             .compare-modal__header--col {
                 flex: 1;
                 min-width: calc(100% - 300px);

@@ -14,7 +14,8 @@ class Compare {
         this.smallScreenQuery = window.matchMedia('(max-width: 768px)');
         // The product columns are narrower below 500px, see the productColumnWidth getter
         this.extraSmallScreenQuery = window.matchMedia('(max-width: 499px)');
-        this.dismissedWarnings = new Set();
+        // Types where someone tried to add a product past the limit, which shows the limit warning
+        this.limitReachedTypes = new Set();
         // When set, these products are shown instead of the ones in local storage
         this.products = options.products || null;
         this.emptyMessage = options.emptyMessage || null;
@@ -163,7 +164,10 @@ class Compare {
             .filter(({ type = '' }) => type === this.activeType)
             .length;
 
-        countElement.textContent = `(${count})`;
+        const inner = document.createElement('span');
+        inner.className = 'compare-count__inner';
+        inner.textContent = `${count}/${this.maxProducts}`;
+        countElement.replaceChildren(inner);
     }
 
     getProductTypes() {
@@ -215,9 +219,6 @@ class Compare {
         const countElement = this.openButton.querySelector('.compare-open-button__count');
         if (countElement) countElement.textContent = count;
 
-        // Total across all types, next to "Clear all"
-        const totalElement = document.querySelector('.compare-modal__total-count');
-        if (totalElement) totalElement.textContent = `(${count})`;
     }
 
     updateViewFullLink() {
@@ -280,12 +281,15 @@ class Compare {
         if (!this.modalContainer) return;
 
         this.modalContainer.classList.add(this.modalOpenClass);
+        // Stops the page behind the modal from scrolling. Set on <html>, as that's what scrolls the page
+        document.documentElement.classList.add('compare-modal-is-open');
     }
 
     closeModal() {
         if (!this.modalContainer) return;
 
         this.modalContainer.classList.remove(this.modalOpenClass);
+        document.documentElement.classList.remove('compare-modal-is-open');
     }
 
     static parseProducts(json) {
@@ -1055,8 +1059,8 @@ class Compare {
         // The modal slides in when opened from a compare button, so wait for it before shuddering
         const wasOpen = this.modalContainer?.classList.contains(this.modalOpenClass);
 
-        // Show the warning even if it was dismissed, on the type that's full
-        this.dismissedWarnings.delete(type || '');
+        // Show the warning on the type that's full, even if it was dismissed before
+        this.limitReachedTypes.add(type || '');
         this.selectType(type || '');
 
         // The warning sits on the modal, so it shows whether or not the add product panel is open
@@ -1154,7 +1158,7 @@ class Compare {
                 </svg>
             `;
             closeButton.addEventListener('click', () => {
-                this.dismissedWarnings.add(this.activeType);
+                this.limitReachedTypes.delete(this.activeType);
                 warning.hidden = true;
             });
 
@@ -1171,10 +1175,11 @@ class Compare {
         const count = this.getProducts().filter(({ type = '' }) => type === this.activeType).length;
         const isFull = count >= this.maxProducts;
 
-        // Show the message again the next time this type fills up
-        if (!isFull) this.dismissedWarnings.delete(this.activeType);
+        // Once a product is removed there's room again, so wait for the next attempt to add a 5th
+        if (!isFull) this.limitReachedTypes.delete(this.activeType);
 
-        warning.hidden = !isFull || this.dismissedWarnings.has(this.activeType);
+        // Only after trying to add one more than the limit, not as soon as the type is full
+        warning.hidden = !isFull || !this.limitReachedTypes.has(this.activeType);
     }
 
     async renderAddProducts() {

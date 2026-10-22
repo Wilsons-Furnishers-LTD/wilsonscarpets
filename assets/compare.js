@@ -163,7 +163,7 @@ class Compare {
             .filter(({ type = '' }) => type === this.activeType)
             .length;
 
-        countElement.textContent = `(${count}/${this.maxProducts})`;
+        countElement.textContent = `(${count} / ${this.maxProducts})`;
     }
 
     getProductTypes() {

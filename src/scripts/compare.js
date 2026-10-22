@@ -1267,7 +1267,10 @@ if (comparisonPageApp) {
     comparisonPage = new Compare({
         nav,
         gridsContainer,
-        products: Compare.getUrlProducts(),
+        // Without a shared link, show what's been added to the compare table on this device
+        products: new URLSearchParams(window.location.search).has('compare')
+            ? Compare.getUrlProducts()
+            : compare.getStoredProducts(),
         emptyMessage: 'No products added',
     });
 }

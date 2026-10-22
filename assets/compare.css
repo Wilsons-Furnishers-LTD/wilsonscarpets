@@ -117,6 +117,12 @@
     flex-direction: column;
   }
 }
+@media screen and (max-width: 475px) {
+  .compare-modal-container .compare-modal {
+    width: 100dvw;
+    left: -100%;
+  }
+}
 .compare-modal-container .compare-modal__header {
   grid-area: header;
 }

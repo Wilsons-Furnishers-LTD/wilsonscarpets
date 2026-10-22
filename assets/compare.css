@@ -421,6 +421,7 @@ html.compare-modal-is-open {
 @media screen and (max-width: 475px) {
   .compare-modal-container .compare-modal__header button#close-compare-modal {
     margin-left: 10px;
+    margin-right: 50px;
   }
 }
 .compare-modal-container .compare-modal__header button#close-compare-modal:before {

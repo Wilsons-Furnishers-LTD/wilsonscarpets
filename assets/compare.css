@@ -57,6 +57,10 @@
   background-color: #F2BF00;
 }
 
+.compare-modal__header--amount {
+  display: flex;
+}
+
 .compare-modal-container {
   width: 100dvw;
   height: 100dvh;

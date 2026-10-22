@@ -1046,10 +1046,10 @@ class Compare {
         item.setAttribute('aria-label', `Add ${product.title} to comparison`);
         item.append(image, details, plus);
         item.addEventListener('click', () => {
-            const added = this.addProduct(product.handle, product.product_type);
+            this.addProduct(product.handle, product.product_type);
 
-            // Close the popup on smaller screens so the added product can be seen
-            if (added && this.mobileQuery?.matches) this.setAddProductVisible(false);
+            // Close the popup on smaller screens so the added product, or the limit warning, can be seen
+            if (this.mobileQuery?.matches) this.setAddProductVisible(false);
         });
 
         return item;

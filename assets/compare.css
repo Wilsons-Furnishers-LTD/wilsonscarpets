@@ -75,6 +75,7 @@ html.compare-modal-is-open {
   inset: 0;
   z-index: -1;
   visibility: hidden;
+  transition: visibility 0s linear 0.3s, z-index 0s linear 0.3s;
 }
 .compare-modal-container .compare-modal-background {
   width: 100%;
@@ -92,7 +93,7 @@ html.compare-modal-is-open {
   width: max-content;
   height: 100%;
   inset: 0;
-  left: -50%;
+  transform: translateX(-100%);
   transition: all 0.3s ease;
   padding: 0 40px 0px 40px;
   padding-right: 0;
@@ -125,7 +126,6 @@ html.compare-modal-is-open {
 @media screen and (max-width: 475px) {
   .compare-modal-container .compare-modal {
     width: 100dvw;
-    left: -100%;
   }
 }
 .compare-modal-container .compare-modal__header {
@@ -338,9 +338,11 @@ html.compare-modal-is-open {
   left: 0;
   z-index: 1000000;
   visibility: visible;
+  transition: none;
 }
 .compare-modal-container.compare-modal-open .compare-modal {
   left: 0;
+  transform: none;
 }
 .compare-modal-container.compare-modal-open .compare-modal-background {
   opacity: 0.5;

@@ -64,6 +64,10 @@
   padding-top: 1px;
 }
 
+html.compare-modal-is-open {
+  overflow: hidden;
+}
+
 .compare-modal-container {
   width: 100dvw;
   height: 100dvh;
@@ -99,6 +103,7 @@
   display: grid;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
 }
 .compare-modal-container .compare-modal.compare-modal--aside-closed {
   grid-template-columns: 1fr 0px;
@@ -115,6 +120,12 @@
   .compare-modal-container .compare-modal {
     display: flex;
     flex-direction: column;
+  }
+}
+@media screen and (max-width: 475px) {
+  .compare-modal-container .compare-modal {
+    width: 100dvw;
+    left: -100%;
   }
 }
 .compare-modal-container .compare-modal__header {
@@ -361,7 +372,7 @@
   display: flex;
   align-items: center;
   justify-content: end;
-  gap: 0 10px;
+  gap: 0 30px;
   position: relative;
   padding-left: 20px;
   margin-left: 20px;
@@ -410,6 +421,7 @@
 @media screen and (max-width: 475px) {
   .compare-modal-container .compare-modal__header button#close-compare-modal {
     margin-left: 10px;
+    margin-right: 50px;
   }
 }
 .compare-modal-container .compare-modal__header button#close-compare-modal:before {
@@ -571,7 +583,7 @@
   background-color: transparent;
 }
 .compare-modal__product-grid .specification {
-  background-color: rgba(243, 243, 243, 0.7);
+  background-color: #f3f3f3;
   font-weight: 700;
   font-size: 14px;
 }
@@ -1051,7 +1063,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   }
   .compare-modal-container .compare-modal__header {
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: center;
   }
   .compare-modal-container .compare-modal__header .compare-modal__header--col {
     flex: 1;

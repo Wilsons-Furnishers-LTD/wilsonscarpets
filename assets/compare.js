@@ -281,12 +281,15 @@ class Compare {
         if (!this.modalContainer) return;
 
         this.modalContainer.classList.add(this.modalOpenClass);
+        // Stops the page behind the modal from scrolling. Set on <html>, as that's what scrolls the page
+        document.documentElement.classList.add('compare-modal-is-open');
     }
 
     closeModal() {
         if (!this.modalContainer) return;
 
         this.modalContainer.classList.remove(this.modalOpenClass);
+        document.documentElement.classList.remove('compare-modal-is-open');
     }
 
     static parseProducts(json) {

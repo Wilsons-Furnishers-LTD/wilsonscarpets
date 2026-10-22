@@ -427,6 +427,9 @@
   margin-bottom: 0;
   min-height: 35px;
 }
+.compare-modal-container .compare-modal__header .compare-modal__more-products-wrapper button span, .compare-modal-container .compare-modal__actions .compare-modal__more-products-wrapper button span {
+  margin-bottom: -1px;
+}
 .compare-modal-container .compare-modal__header .compare-modal__more-products-wrapper button:focus, .compare-modal-container .compare-modal__actions .compare-modal__more-products-wrapper button:focus {
   border-color: #ba3c3d;
   background-color: #ba3c3d;

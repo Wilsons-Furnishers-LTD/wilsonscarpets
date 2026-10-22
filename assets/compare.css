@@ -64,7 +64,7 @@
   padding-top: 1px;
 }
 
-body.compare-modal-is-open {
+html.compare-modal-is-open {
   overflow: hidden;
 }
 

@@ -233,11 +233,11 @@
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--search input {
   width: 100%;
   margin: 0;
-  padding: 10px 38px 10px 12px;
+  padding: 9px 38px 9px 12px;
   border: none;
   border-radius: 0;
   font: inherit;
-  font-size: 14px;
+  font-size: 16px;
   color: #414B52;
   background-color: rgba(231, 231, 231, 0.35);
 }

@@ -57,6 +57,13 @@
   background-color: #F2BF00;
 }
 
+.compare-modal__header--amount {
+  display: flex;
+}
+.compare-modal__header--amount #compare-count {
+  padding-top: 1px;
+}
+
 .compare-modal-container {
   width: 100dvw;
   height: 100dvh;
@@ -233,11 +240,11 @@
 .compare-modal-container .compare-modal__add-product .compare-modal__add-product--search input {
   width: 100%;
   margin: 0;
-  padding: 10px 38px 10px 12px;
+  padding: 9px 38px 9px 12px;
   border: none;
   border-radius: 0;
   font: inherit;
-  font-size: 14px;
+  font-size: 16px;
   color: #414B52;
   background-color: rgba(231, 231, 231, 0.35);
 }
@@ -426,6 +433,14 @@
   padding-bottom: 6px;
   margin-bottom: 0;
   min-height: 35px;
+}
+.compare-modal-container .compare-modal__header .compare-modal__more-products-wrapper button span, .compare-modal-container .compare-modal__actions .compare-modal__more-products-wrapper button span {
+  margin-bottom: -1px;
+}
+.compare-modal-container .compare-modal__header .compare-modal__more-products-wrapper button:focus, .compare-modal-container .compare-modal__actions .compare-modal__more-products-wrapper button:focus {
+  border-color: #ba3c3d;
+  background-color: #ba3c3d;
+  color: #fff;
 }
 .compare-modal-container .compare-modal__header .compare-modal__more-products-wrapper button:hover, .compare-modal-container .compare-modal__actions .compare-modal__more-products-wrapper button:hover {
   border-color: #F2BF00;

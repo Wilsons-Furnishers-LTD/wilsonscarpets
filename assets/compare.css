@@ -582,7 +582,7 @@ html.compare-modal-is-open {
   background-color: transparent;
 }
 .compare-modal__product-grid .specification {
-  background-color: rgba(243, 243, 243, 0.7);
+  background-color: #f3f3f3;
   font-weight: 700;
   font-size: 14px;
 }

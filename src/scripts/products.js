@@ -59,6 +59,12 @@ class Products {
             variantInput.value = variant.id;
         }
         
+        // Carpets are priced by width x length, so recalculate from the new variant rather than showing its unit price
+        if (this.productType == 'Carpets' || this.productType == 'Vinyl' || this.productType == 'Artificial Grass') {
+            updatePrice();
+            return;
+        }
+
         // Update price
         let productPrice = document.querySelector('#product-price .product-price')
         if (productPrice) {

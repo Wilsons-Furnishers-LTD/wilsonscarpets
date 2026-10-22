@@ -4664,6 +4664,10 @@ class Products {
             detailTitle.addEventListener('click', this.changeProductDetailView.bind(this, detailTitle));
         });
         
+        
+        document.addEventListener('measurement:changed', (event) => {
+            this.updateVariant();
+        });
     }
 
     changeProductDetailView(detailTitle) {
@@ -4716,6 +4720,12 @@ class Products {
             variantInput.value = variant.id;
         }
         
+        // Carpets are priced by width x length, so recalculate from the new variant rather than showing its unit price
+        if (this.productType == 'Carpets' || this.productType == 'Vinyl' || this.productType == 'Artificial Grass') {
+            updatePrice();
+            return;
+        }
+
         // Update price
         let productPrice = document.querySelector('#product-price .product-price');
         if (productPrice) {
@@ -4760,7 +4770,6 @@ class Products {
                 updateSampleAvailability();    
             }
 
-
             if(jQuery('#first_load').val() != 'false' || !jQuery('.option-colour #select-option-colour').length) {
                 var selectedOption = jQuery('#product-select').find('option:selected'),
                     stock_level = selectedOption.data('stocklevel'),
@@ -4769,6 +4778,7 @@ class Products {
                     var is_in_stock = selectedOption.data('instock'),
                     variantid = selectedOption.attr('value');
                 
+                    
                 if(is_in_stock > 0 ) {
                     if(stock_level == 'Yes') {
                         jQuery('#stockLevel').removeClass().addClass('limitedStock').html('<i class="icon-instock"></i> Order Now');

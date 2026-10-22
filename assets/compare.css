@@ -60,6 +60,9 @@
 .compare-modal__header--amount {
   display: flex;
 }
+.compare-modal__header--amount #compare-count {
+  padding-top: 1px;
+}
 
 .compare-modal-container {
   width: 100dvw;

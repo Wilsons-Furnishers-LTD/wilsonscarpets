@@ -51,7 +51,7 @@
           {% assign collection_image = collection.image | img_url: 'master' %}
           {% assign collection_image_mobile = collection.image | img_url: '640x600', crop: 'center' %}
             <picture>
-                <img fetchpriority="high" src="{{ collection_image_mobile }}" alt="{{ collection.title }}" />
+                <img src="{{ collection_image_mobile }}" alt="{{ collection.title }}" />
             </picture>
         </div>
       </div>
@@ -114,7 +114,7 @@
 						</p>
 						{% endcomment %}
 
-						{% render 'product-grid-item', product: product %}
+						{% render 'product-grid-item', product: product with products_per_row %}
 					{% else %}
     					<p id="noProducts">
     						There are no products in this view.
@@ -201,13 +201,4 @@
 
 {% comment %} {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
 {{ 'filters.js' | asset_url | script_tag }}
-{% endif %} {% endcomment %}{%- comment -%}
-
-This file has been rewritten to preserve the original behavior.
-
----
-Changes:
-- from: "{% render 'product-grid-item', product: product with products_per_row %}"
-  to: "{% render 'product-grid-item', product: product %}"
-  position: 4995..5045
-{%- endcomment -%}
+{% endif %} {% endcomment %}

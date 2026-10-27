@@ -1,0 +1,18 @@
+<div data-section-id="{{ section.id }}" data-section-type="store-information-banner" class="wrapper">
+	{% if section.settings.content != blank %}
+		{{ section.settings.content }}
+	{% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Store Information Banner",
+    "class": "index-section",
+    "presets": [
+      {
+        "name": "Store Information Banner",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %}

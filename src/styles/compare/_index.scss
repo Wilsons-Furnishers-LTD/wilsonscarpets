@@ -5,11 +5,16 @@
         z-index: 2;
     }
 }
+
+.compare-open-button span {
+  caret-color: transparent;
+}
+
 .comparison-page {
     &__header {
         align-items: center;
         display: flex;
-        gap: 40px;
+        gap: 25px;
         padding-bottom: 80px;
     }
     &__share {
@@ -819,9 +824,46 @@ html.compare-modal-is-open {
         padding-bottom: 5px;
     }
 }
-.comparison-page__share {
-    &.button {
-        margin-top: 5px;
+// The "Comparing (n)" count with the Share button beside it
+.comparison-page__header--meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+// Matches the Share button in the compare modal's mobile actions row
+.comparison-page__header .comparison-page__share {
+    position: relative;
+    font-size: 14px;
+    min-height: 35px;
+    padding-left: 0px;
+    padding-right: 10px;
+    padding-top: 2px;
+    // Divider between the count and the button, centred in the 20px gap
+    &:before {
+        position: absolute;
+        top: 50%;
+        left: -10px;
+        width: 1px;
+        height: 20px;
+        transform: translateY(-50%);
+        background-color: v.$wilson-grey;
+        content: '';
+        opacity: 0.5;
+        display: block;
+    }
+    color: v.$wilson-grey;
+    svg {
+        width: 13px;
+        margin-top: -1px;
+        path {
+            fill: v.$wilson-grey;
+        }
+    }
+    &:hover, &:focus {
+        color: v.$wilson-grey;
+        svg path {
+            fill: v.$wilson-grey;
+        }
     }
 }
 .compare-modal__grids, .compare-page__grids {

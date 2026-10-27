@@ -184,6 +184,9 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 {{ 'compare.css' | asset_url | stylesheet_tag }}
 {% endif  %}
 {{ 'search.css' | asset_url | stylesheet_tag }}
+{% if request.path contains '/store-page/' %}
+{{ 'storepage.css' | asset_url | stylesheet_tag }}
+{% endif %}
 
 
 </head>

@@ -4,6 +4,8 @@
 {% assign email = metaobject.email %}
 {% assign opening_times = metaobject.store_opening_times %}
 {% assign store_details = metaobject.store_details %}
+{% assign banner_image = metaobject.store_banner_image %}
+{{banner_image}}
 {%- comment -%} Assumed field names for the photo and the button to another store's page {%- endcomment -%}
 {% assign image = metaobject.image %}
 {% assign other_store = metaobject.other_store.value %}

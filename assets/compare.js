@@ -51,7 +51,10 @@ class Compare {
     bindModalEvents() {
         // Fixed button to reopen the modal, shown once a product has been added
         this.openButton = document.querySelector('.compare-open-button');
-        this.openButton?.addEventListener('click', () => this.openModal());
+        this.openButton?.addEventListener('click', () => {
+            Compare.track('compare_open', { compare_count: this.getProducts().length });
+            this.openModal();
+        });
 
         let compareButtons = document.querySelectorAll('.compare-button');
         let that = this;
@@ -143,7 +146,15 @@ class Compare {
         smallQuery.addEventListener('change', placeButtons);
     }
 
+    // Sent to Google Analytics through Google Tag Manager, see the GA4 tag triggered by "compare_" events
+    static track(event, params = {}) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event, ...params });
+    }
+
     clearProducts() {
+        Compare.track('compare_clear', { compare_count: this.getProducts().length });
+
         try {
             localStorage.removeItem(this.storageKey);
         } catch (error) {
@@ -228,7 +239,7 @@ class Compare {
         const products = this.getProducts();
 
         if (products.length) {
-            url.searchParams.set('compare', JSON.stringify(products));
+            url.searchParams.set('compare', Compare.toUrlParam(products));
         } else {
             url.searchParams.delete('compare');
         }
@@ -304,10 +315,28 @@ class Compare {
         }
     }
 
-    static getUrlProducts() {
-        const params = new URLSearchParams(window.location.search);
+    // Links list each product as "handle" or "handle:variant", e.g. ?compare=oxford-twist:123,berber-loop
+    // The type isn't in the link, the comparison page gets it from the product data
+    static toUrlParam(products) {
+        return products
+            .map(({ handle, variant }) => (variant ? `${handle}:${variant}` : handle))
+            .join(',');
+    }
 
-        return Compare.parseProducts(params.get('compare'));
+    static getUrlProducts() {
+        const value = new URLSearchParams(window.location.search).get('compare') || '';
+
+        // Links shared before the short format list the products as JSON
+        if (value.startsWith('[')) return Compare.parseProducts(value);
+
+        return value
+            .split(',')
+            .filter(Boolean)
+            .map(entry => {
+                const [handle, variant] = entry.split(':');
+
+                return variant ? { handle, variant: Number(variant) } : { handle };
+            });
     }
 
     getStoredProducts() {
@@ -327,7 +356,8 @@ class Compare {
         return variant ? `${handle}:${variant}` : handle;
     }
 
-    addProduct(handle, type, variantId = null) {
+    // source is where it was added from, "button" for compare buttons or "add_panel" for the add product panel
+    addProduct(handle, type, variantId = null, source = 'button') {
         const products = this.getStoredProducts();
         const key = Compare.getEntryKey({ handle, variant: variantId });
 
@@ -349,6 +379,14 @@ class Compare {
             return false;
         }
 
+        Compare.track('compare_add', {
+            product_type: type,
+            product_handle: handle,
+            variant_id: variantId,
+            source,
+            compare_count: products.length,
+        });
+
         this.activeType = type;
         // Scrolled into view once the grid has been rebuilt
         this.scrollToKey = key;
@@ -364,7 +402,7 @@ class Compare {
         const url = new URL(window.location.href);
 
         if (products.length) {
-            url.searchParams.set('compare', JSON.stringify(products));
+            url.searchParams.set('compare', Compare.toUrlParam(products));
         } else {
             url.searchParams.delete('compare');
         }
@@ -373,6 +411,15 @@ class Compare {
     }
 
     removeProduct(key) {
+        const removed = this.getProducts().find(product => Compare.getEntryKey(product) === key);
+
+        if (removed) {
+            Compare.track('compare_remove', {
+                product_type: removed.type,
+                product_handle: removed.handle,
+            });
+        }
+
         if (this.products) {
             this.products = this.products.filter(product => Compare.getEntryKey(product) !== key);
 
@@ -395,7 +442,18 @@ class Compare {
         this.renderGrid();
     }
 
-    async fetchProduct(handle) {
+    // Shared between the modal and the comparison page, so a product is only fetched once
+    static productRequests = new Map();
+
+    fetchProduct(handle) {
+        if (!Compare.productRequests.has(handle)) {
+            Compare.productRequests.set(handle, this.requestProduct(handle));
+        }
+
+        return Compare.productRequests.get(handle);
+    }
+
+    async requestProduct(handle) {
         const root = window.Shopify?.routes?.root || '/';
 
         try {
@@ -530,6 +588,13 @@ class Compare {
         const titleLink = document.createElement('a');
         titleLink.href = productUrl;
         titleLink.textContent = product.title;
+
+        const trackClick = () => Compare.track('compare_product_click', {
+            product_type: product.type,
+            product_handle: product.handle,
+        });
+        imageLink.addEventListener('click', trackClick);
+        titleLink.addEventListener('click', trackClick);
 
         const variantTitle = this.getVariantName(product, product.selectedVariant);
 
@@ -1046,7 +1111,7 @@ class Compare {
         item.setAttribute('aria-label', `Add ${product.title} to comparison`);
         item.append(image, details, plus);
         item.addEventListener('click', () => {
-            this.addProduct(product.handle, product.product_type);
+            this.addProduct(product.handle, product.product_type, null, 'add_panel');
 
             // Close the popup on smaller screens so the added product, or the limit warning, can be seen
             if (this.mobileQuery?.matches) this.setAddProductVisible(false);
@@ -1056,6 +1121,8 @@ class Compare {
     }
 
     showLimitReached(type) {
+        Compare.track('compare_limit_reached', { product_type: type });
+
         // The modal slides in when opened from a compare button, so wait for it before shuddering
         const wasOpen = this.modalContainer?.classList.contains(this.modalOpenClass);
 
@@ -1264,14 +1331,30 @@ if (comparisonPageApp) {
 
     comparisonPageApp.append(nav, gridsContainer);
 
-    comparisonPage = new Compare({
-        nav,
-        gridsContainer,
-        // Without a shared link, show what's been added to the compare table on this device
-        products: new URLSearchParams(window.location.search).has('compare')
-            ? Compare.getUrlProducts()
-            : compare.getStoredProducts(),
-        emptyMessage: 'No products added',
+    const isSharedLink = new URLSearchParams(window.location.search).has('compare');
+
+    // Shared links don't include the type, so look it up from each product before showing the tables.
+    // Products that can't be loaded are left out. Without a shared link, show what's been added on this device
+    const loadProducts = isSharedLink
+        ? Promise.all(Compare.getUrlProducts().map(async entry => {
+            const product = await compare.fetchProduct(entry.handle);
+
+            return product ? { type: product.type || '', ...entry } : null;
+        })).then(products => products.filter(Boolean))
+        : Promise.resolve(compare.getStoredProducts());
+
+    loadProducts.then(products => {
+        comparisonPage = new Compare({
+            nav,
+            gridsContainer,
+            products,
+            emptyMessage: 'No products added',
+        });
+
+        Compare.track('compare_page_view', {
+            shared_link: isSharedLink,
+            compare_count: products.length,
+        });
     });
 }
 
@@ -1294,27 +1377,40 @@ class CompareShare {
         popup.querySelector('.comparison-share__close')?.addEventListener('click', this.close.bind(this));
         popup.querySelector('.comparison-share__background')?.addEventListener('click', this.close.bind(this));
         this.copyButton?.addEventListener('click', this.copyLink.bind(this));
+
+        popup.querySelectorAll('a[data-share]').forEach(link => {
+            link.addEventListener('click', () => this.trackShare(link.dataset.share));
+        });
     }
 
-    getShareUrl() {
+    trackShare(method) {
+        Compare.track('compare_share', { method, compare_count: this.getProducts().length });
+    }
+
+    // method is added as the UTM medium, so visits from shared links show in Google Analytics by how they were shared
+    getShareUrl(method) {
         const root = window.Shopify?.routes?.root || '/';
         const url = new URL(`${root}pages/compare`, window.location.origin);
         const products = this.getProducts();
+        const params = [];
 
-        if (products.length) url.searchParams.set('compare', JSON.stringify(products));
+        // Written out rather than with searchParams, which would encode the commas and colons and make the link harder to read.
+        // Handles only contain lowercase letters, numbers and hyphens, so are safe as they are
+        if (products.length) params.push(`compare=${Compare.toUrlParam(products)}`);
+        params.push('utm_source=compare_share', `utm_medium=${method}`);
 
-        return url.toString();
+        return `${url}?${params.join('&')}`;
     }
 
     updateLinks() {
-        // The products change as they're added and removed, so build the links on open
-        const url = this.getShareUrl();
-        const text = `${this.message}: ${url}`;
+        // The products change as they're added and removed, so build the links on open.
+        // The link goes on its own line, as these messages are plain text and can't link words
+        const text = method => `${this.message}:\n${this.getShareUrl(method)}`;
 
         const links = {
-            whatsapp: `https://wa.me/?text=${encodeURIComponent(text)}`,
-            email: `mailto:?subject=${encodeURIComponent('Product comparison')}&body=${encodeURIComponent(text)}`,
-            sms: `sms:?&body=${encodeURIComponent(text)}`,
+            whatsapp: `https://wa.me/?text=${encodeURIComponent(text('whatsapp'))}`,
+            email: `mailto:?subject=${encodeURIComponent('Product comparison')}&body=${encodeURIComponent(text('email'))}`,
+            sms: `sms:?&body=${encodeURIComponent(text('sms'))}`,
         };
 
         Object.entries(links).forEach(([type, href]) => {
@@ -1344,8 +1440,9 @@ class CompareShare {
         if (!this.copyLabel) return;
 
         try {
-            await navigator.clipboard.writeText(this.getShareUrl());
+            await navigator.clipboard.writeText(this.getShareUrl('copy'));
             this.copyLabel.textContent = 'Link copied';
+            this.trackShare('copy');
         } catch (error) {
             this.copyLabel.textContent = 'Unable to copy';
         }

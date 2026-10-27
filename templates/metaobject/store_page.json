@@ -8,6 +8,14 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "store_information_banner_RgLAYg": {
+      "type": "store-information-banner",
+      "name": "Store Information Banner",
+      "settings": {}
+    }
+  },
+  "order": [
+    "store_information_banner_RgLAYg"
+  ]
 }

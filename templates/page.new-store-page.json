@@ -11,24 +11,16 @@
   "sections": {
     "main": {
       "type": "main-content-page",
-      "blocks": {
-        "cms_page_left_kkmBJi": {
-          "type": "cms_page_left",
-          "settings": {
-            "cms_heading": "Information Pages",
-            "cms_linklist": "advice",
-            "cms_linklist_two": "information",
-            "cms_linklist_three": ""
-          }
-        }
-      },
-      "block_order": [
-        "cms_page_left_kkmBJi"
-      ],
+      "settings": {}
+    },
+    "store_information_banner_gHPYBx": {
+      "type": "store-information-banner",
+      "name": "Store Information Banner",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "store_information_banner_gHPYBx"
   ]
 }

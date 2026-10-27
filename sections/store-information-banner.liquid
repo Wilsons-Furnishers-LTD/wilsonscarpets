@@ -3,9 +3,17 @@
 {% assign telephone = metaobject.telephone %}
 {% assign email = metaobject.email %}
 {% assign opening_times = metaobject.store_opening_times %}
+{% assign store_details = metaobject.store_details %}
+
+
 
 <div data-section-id="{{ section.id }}" data-section-type="store-information-banner" class="wrapper">
-    store page
+{{name}}<br>
+{{address}}<br>
+{{telephone}}<br>
+{{email}}<br>
+{{opening_times}}<br>
+{{store_details}}<br>
 </div>
 
 {% schema %}

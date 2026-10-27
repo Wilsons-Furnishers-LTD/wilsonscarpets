@@ -8,7 +8,9 @@
 
 
 <div data-section-id="{{ section.id }}" data-section-type="store-information-banner" class="wrapper">
-
+    {% if name != blank %}
+        <h1 class="store-information-banner__title">{{ name.value | escape }}</h1>
+    {% endif %}
 </div>
 
 {% schema %}

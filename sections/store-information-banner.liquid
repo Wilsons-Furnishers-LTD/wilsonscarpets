@@ -1,5 +1,9 @@
 {% assign name = metaobject.name %}
-{{name | json}}
+{% assign address = metaobject.address %}
+{% assign telephone = metaobject.telephone %}
+{% assign email = metaobject.email %}
+{% assign opening_times = metaobject.store_opening_times %}
+
 <div data-section-id="{{ section.id }}" data-section-type="store-information-banner" class="wrapper">
     store page
 </div>

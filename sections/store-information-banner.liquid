@@ -8,7 +8,7 @@
 {%- comment -%} Assumed field name for the button to another store's page {%- endcomment -%}
 {% assign other_store = metaobject.other_store.value %}
 
-{{store_details[0].name | json}}
+
 {%- liquid
   assign address_text = address.value | strip
   # "Wheatley Hall Road\nDoncaster" -> "Wilsons Carpets, Wheatley Hall Road, Doncaster" for Google Maps
@@ -47,6 +47,7 @@
                 {% if store_details.type contains 'list.' %}
                     <ul class="store-information-banner__details-list">
                         {% for detail in store_details.value %}
+                            {{detail}}
                             {%- comment -%} Links the details that match a collection, e.g. "Carpets" -> /collections/carpets {%- endcomment -%}
                             {% comment %} {% assign detail_collection = collections[detail | handleize] %}
                             <li>

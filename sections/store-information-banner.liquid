@@ -47,16 +47,8 @@
                 {% if store_details.type contains 'list.' %}
                     <ul class="store-information-banner__details-list">
                         {% for detail in store_details.value %}
-                            {{detail}}
-                            {%- comment -%} Links the details that match a collection, e.g. "Carpets" -> /collections/carpets {%- endcomment -%}
-                            {% comment %} {% assign detail_collection = collections[detail | handleize] %}
-                            <li>
-                                {% if detail_collection != blank and detail_collection.products_count > 0 %}
-                                    <a href="{{ detail_collection.url }}">{{ detail | escape }}</a>
-                                {% else %}
-                                    {{ detail | escape }}
-                                {% endif %}
-                            </li> {% endcomment %}
+                            <li>{{detail}}</li>
+
                         {% endfor %}
                     </ul>
                 {% else %}

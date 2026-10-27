@@ -2,10 +2,14 @@
   z-index: 2;
 }
 
+.compare-open-button span {
+  caret-color: transparent;
+}
+
 .comparison-page__header {
   align-items: center;
   display: flex;
-  gap: 40px;
+  gap: 25px;
   padding-bottom: 80px;
 }
 .comparison-page__share {
@@ -792,8 +796,47 @@ html.compare-modal-is-open {
   padding-bottom: 5px;
 }
 
-.comparison-page__share.button {
-  margin-top: 5px;
+.comparison-page__header--meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.comparison-page__header .comparison-page__share {
+  position: relative;
+  font-size: 14px;
+  min-height: 35px;
+  padding-left: 0px;
+  padding-right: 10px;
+  padding-top: 2px;
+}
+.comparison-page__header .comparison-page__share:before {
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  width: 1px;
+  height: 20px;
+  transform: translateY(-50%);
+  background-color: #414B52;
+  content: "";
+  opacity: 0.5;
+  display: block;
+}
+.comparison-page__header .comparison-page__share {
+  color: #414B52;
+}
+.comparison-page__header .comparison-page__share svg {
+  width: 13px;
+  margin-top: -1px;
+}
+.comparison-page__header .comparison-page__share svg path {
+  fill: #414B52;
+}
+.comparison-page__header .comparison-page__share:hover, .comparison-page__header .comparison-page__share:focus {
+  color: #414B52;
+}
+.comparison-page__header .comparison-page__share:hover svg path, .comparison-page__header .comparison-page__share:focus svg path {
+  fill: #414B52;
 }
 
 .compare-modal__grids, .compare-page__grids {

@@ -5,9 +5,7 @@
 {% assign opening_times = metaobject.store_opening_times %}
 {% assign store_details = metaobject.store_details %}
 {% assign banner_image = metaobject.store_banner_image %}
-{{banner_image}}
-{%- comment -%} Assumed field names for the photo and the button to another store's page {%- endcomment -%}
-{% assign image = metaobject.image %}
+{%- comment -%} Assumed field name for the button to another store's page {%- endcomment -%}
 {% assign other_store = metaobject.other_store.value %}
 
 {%- liquid
@@ -92,9 +90,9 @@
         </div>
     </div>
 
-    {% if image != blank %}
+    {% if banner_image != blank %}
         <div class="store-information-banner__image">
-            {{ image.value | image_url: width: 1600 | image_tag: loading: 'eager', sizes: '(min-width: 900px) 60vw, 100vw', widths: '600, 900, 1200, 1600', alt: name.value }}
+            {{ banner_image.value | image_url: width: 1600 | image_tag: loading: 'eager', sizes: '(min-width: 900px) 60vw, 100vw', widths: '600, 900, 1200, 1600', alt: name.value }}
         </div>
     {% endif %}
 </div>

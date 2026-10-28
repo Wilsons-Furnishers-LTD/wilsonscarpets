@@ -211,6 +211,10 @@
       "footer-scripts": {
         "type": "footer-scripts",
         "settings": {}
+      },
+      "compare-modal": {
+        "type": "compare-modal",
+        "settings": {}
       }
     },
     "content_for_index": [],
@@ -221,5 +225,10 @@
         "settings": {}
       }
     }
+  },
+  "platform_customizations": {
+    "custom_css": [
+      ".compare-open-button span {caret-color: transparent;}"
+    ]
   }
 }

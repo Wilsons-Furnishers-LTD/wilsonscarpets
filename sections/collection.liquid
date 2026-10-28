@@ -39,7 +39,7 @@
           {% assign collection_image = collection.image | img_url: 'master' %}
           {% assign collection_image_mobile = collection.image | img_url: '640x600', crop: 'center' %}
             <picture>
-                <img src="{{ collection_image_mobile }}" alt="{{ collection.title }}" />
+                <img fetchpriority="high" src="{{ collection_image_mobile }}" alt="{{ collection.title }}" />
             </picture>
         </div>
       </div>

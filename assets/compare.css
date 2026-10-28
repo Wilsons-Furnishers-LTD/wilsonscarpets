@@ -1404,9 +1404,10 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     float: none;
     position: absolute;
     top: 50%;
-    right: calc(50% + 40px);
+    right: initial;
     transform: translateY(-50%);
     margin: 0;
+    left: 50px;
   }
 }
 

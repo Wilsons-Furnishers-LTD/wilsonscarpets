@@ -1313,8 +1313,9 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 }
 #mastHead .header-compare {
   float: right;
-  position: relative;
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin: 0.6875rem 0 0;
   padding: 0.625rem;
   color: #414B52;
@@ -1339,10 +1340,21 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   color: #F2BF00;
 }
 
+#mastHead .header-compare__icon {
+  position: relative;
+  display: block;
+}
+
+#mastHead .header-compare__label {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
 #mastHead .header-compare__count {
   position: absolute;
-  top: 0;
-  right: 2px;
+  top: -8px;
+  right: -10px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1359,12 +1371,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 }
 #mastHead .header-compare__count[hidden] {
   display: none;
-}
-@media only screen and (min-width: 64em) {
-  #mastHead .header-compare__count {
-    top: -6px;
-    right: 10px;
-  }
 }
 
 .header-sticky #mastHead .header-compare {

@@ -77,13 +77,16 @@
                 {%- comment -%} After the basket so it floats to its left. compare.js opens the compare modal from here and fills in the count {%- endcomment -%}
                 {% if shop.metafields.comparison.feature == 1 %}
                   <a href="/pages/compare" class="header-compare" aria-label="Compare products" title="Compare products">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M4 8h16"/>
-                      <path d="m16 4 4 4-4 4"/>
-                      <path d="M20 16H4"/>
-                      <path d="m8 12-4 4 4 4"/>
-                    </svg>
-                    <span class="header-compare__count" hidden></span>
+                    <span class="header-compare__icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4 8h16"/>
+                        <path d="m16 4 4 4-4 4"/>
+                        <path d="M20 16H4"/>
+                        <path d="m8 12-4 4 4 4"/>
+                      </svg>
+                      <span class="header-compare__count" hidden></span>
+                    </span>
+                    <span class="header-compare__label">Compare</span>
                   </a>
                 {% endif %}
 

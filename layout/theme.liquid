@@ -180,6 +180,9 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 <script src="{{ 'main.js' | asset_url }}" type="module"></script>
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
+{% if shop.metafields.comparison.feature == 1 %}
+{{ 'compare.css' | asset_url | stylesheet_tag }}
+{% endif  %}
 {{ 'search.css' | asset_url | stylesheet_tag }}
 
 
@@ -271,7 +274,7 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 </div>
 
 
-
+{% section 'compare-modal' %}
 {% section 'footer-scripts' %}
 
 

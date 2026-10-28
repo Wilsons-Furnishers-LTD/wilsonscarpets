@@ -408,11 +408,21 @@ class Compare {
         const button = document.querySelector('.product-grid .compare-button');
         if (!button) return;
 
+        const product = button.closest('.item') || button;
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        (button.closest('.item') || button).scrollIntoView({
-            behavior: reduceMotion ? 'auto' : 'smooth',
-            block: 'center',
-        });
+
+        // The header is fixed and covers the top of the page, and it gets shorter once scrolled
+        const getHeaderBottom = () => Math.max(0, ...['shopify-section-header', 'mastHeadTop']
+            .map(id => document.getElementById(id)?.getBoundingClientRect().bottom || 0));
+
+        // Puts the top of the product, where the compare button is, just below the header.
+        // Centring it instead pushed the button off the top below 1024px, where products are taller than the screen
+        const scrollToProduct = behavior => {
+            const top = product.getBoundingClientRect().top + window.scrollY - getHeaderBottom() - 16;
+            window.scrollTo({ top: Math.max(0, top), behavior });
+        };
+
+        scrollToProduct(reduceMotion ? 'auto' : 'smooth');
 
         // Wait for the scroll to finish so the tooltip's animation isn't missed. The timeout covers
         // browsers without scrollend, and pages that didn't need to scroll
@@ -420,6 +430,10 @@ class Compare {
         const showTooltip = () => {
             if (shown) return;
             shown = true;
+
+            // The header shrinking or images loading above can move the product while scrolling, so correct for it
+            const { top, bottom } = button.getBoundingClientRect();
+            if (top < getHeaderBottom() || bottom > window.innerHeight) scrollToProduct('auto');
 
             button.classList.add('compare-button--show-tooltip');
             setTimeout(() => button.classList.remove('compare-button--show-tooltip'), 4000);

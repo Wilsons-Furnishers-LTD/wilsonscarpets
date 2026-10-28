@@ -86,7 +86,7 @@
       data-price="{{ product.price | divided_by: packSizePerSQM | round }}"
       {% endif %}>
       <div class="product-image-wrap">
-
+        {% render 'compare-button', product: product %}
 
         {% if product.compare_at_price > product.price %}
           {% assign onSaleClass = ' sale' %}

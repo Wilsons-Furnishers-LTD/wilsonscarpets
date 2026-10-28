@@ -154,24 +154,6 @@ class Compare {
         window.dataLayer.push({ event, ...params });
     }
 
-    // Sent once per browser, the first time any compare button is clicked
-    static trackFirstClick(button, source) {
-        const storageKey = 'compare_first_click_tracked';
-
-        try {
-            if (localStorage.getItem(storageKey)) return;
-            localStorage.setItem(storageKey, '1');
-        } catch (error) {
-            return;
-        }
-
-        Compare.track('compare_first_click', {
-            product_type: button.dataset.type,
-            product_handle: button.dataset.handle,
-            source,
-        });
-    }
-
     clearProducts() {
         Compare.track('compare_clear', { compare_count: this.getProducts().length });
 
@@ -304,7 +286,6 @@ class Compare {
     handleCompareClick(button) {
         const { handle, type, variantId } = button.dataset;
 
-        Compare.trackFirstClick(button, 'button');
         this.addProduct(handle, type, variantId ? Number(variantId) : null);
         this.openModal();
     }
@@ -391,8 +372,6 @@ class Compare {
             return false;
         }
 
-        const isNewCategory = sameTypeCount === 0;
-
         // Buttons on the product page are per colour, so save which variant was picked
         products.push(variantId ? { type, handle, variant: variantId } : { type, handle });
 
@@ -414,16 +393,6 @@ class Compare {
             source,
             compare_count: products.length,
         });
-
-        // The first product of a type starts a new table in the comparison
-        if (isNewCategory) {
-            Compare.track('compare_category_add', {
-                product_type: type,
-                product_handle: handle,
-                source,
-                category_count: new Set(products.map(product => product.type || '')).size,
-            });
-        }
 
         this.activeType = type;
         // Scrolled into view once the grid has been rebuilt
@@ -1489,7 +1458,6 @@ if (comparisonPageApp) {
     const addRecentProduct = button => {
         const { handle, type } = button.dataset;
 
-        Compare.trackFirstClick(button, 'recently_viewed');
         comparisonPage.addProduct(handle, type, null, 'recently_viewed');
     };
 

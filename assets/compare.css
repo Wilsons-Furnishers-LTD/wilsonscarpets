@@ -1410,6 +1410,11 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   font-weight: 700;
   line-height: 1;
 }
+@media only screen and (max-width: 1079px) {
+  #mastHead .header-compare__label {
+    display: none;
+  }
+}
 
 #mastHead .header-compare__count {
   position: absolute;

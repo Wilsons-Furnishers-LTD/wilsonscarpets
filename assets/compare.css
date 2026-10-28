@@ -71,14 +71,14 @@
 }
 .compare-button[data-tooltip]::before {
   content: "";
-  right: calc(100% + 3px);
+  right: calc(100% + 4px);
   border: 7px solid transparent;
   border-right-width: 0;
   border-left-color: #F2BF00;
 }
 .compare-button[data-tooltip]::after {
   content: attr(data-tooltip);
-  right: calc(100% + 10px);
+  right: calc(100% + 12px);
   padding: 5px 10px;
   border-radius: 4px;
   background-color: #F2BF00;

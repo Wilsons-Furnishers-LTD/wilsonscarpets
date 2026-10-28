@@ -71,24 +71,23 @@
 }
 .compare-button[data-tooltip]::before {
   content: "";
-  right: calc(100% + 7px);
-  border: 7px solid transparent;
+  right: calc(100% + 3px);
+  border: 5px solid transparent;
   border-right-width: 0;
   border-left-color: #F2BF00;
 }
 .compare-button[data-tooltip]::after {
   content: attr(data-tooltip);
-  right: calc(100% + 12px);
+  right: calc(100% + 8px);
   padding: 5px 10px;
   border-radius: 4px;
   background-color: #F2BF00;
   color: #414B52;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 1.2;
-  font-weight: 700;
   white-space: nowrap;
 }
-.compare-button[data-tooltip]:hover::before, .compare-button[data-tooltip]:hover::after, .compare-button[data-tooltip]:focus-visible::before, .compare-button[data-tooltip]:focus-visible::after {
+.compare-button[data-tooltip]:hover::before, .compare-button[data-tooltip]:hover::after, .compare-button[data-tooltip]:focus-visible::before, .compare-button[data-tooltip]:focus-visible::after, .compare-button--show-tooltip[data-tooltip]::before, .compare-button--show-tooltip[data-tooltip]::after {
   opacity: 1;
   visibility: visible;
   transform: translate(0, -50%);
@@ -111,7 +110,9 @@
   .compare-button[data-tooltip]:hover::before,
   .compare-button[data-tooltip]:hover::after,
   .compare-button[data-tooltip]:focus-visible::before,
-  .compare-button[data-tooltip]:focus-visible::after {
+  .compare-button[data-tooltip]:focus-visible::after,
+  .compare-button--show-tooltip[data-tooltip]::before,
+  .compare-button--show-tooltip[data-tooltip]::after {
     animation: none;
   }
 }

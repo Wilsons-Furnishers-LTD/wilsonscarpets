@@ -1,6 +1,8 @@
 class Compare {
     constructor(options = {}) {
         this.storageKey = 'compare_product_handles';
+        // Set when the header link sends someone to the carpets collection with nothing to compare
+        this.hintStorageKey = 'compare_show_hint';
         this.maxProducts = 4;
         this.modalContainerClass = 'compare-modal-container';
         this.modalOpenClass = 'compare-modal-open';
@@ -58,10 +60,24 @@ class Compare {
             this.openModal();
         });
 
-        // Header icon, which links to the comparison page when there's no modal or nothing to compare yet
+        // Header icon. With nothing to compare yet it goes to the carpets collection and points at the first
+        // product's compare button, and without the modal it links to the comparison page
         this.headerButton = document.querySelector('.header-compare');
         this.headerButton?.addEventListener('click', event => {
-            if (!this.modalContainer || !this.getProducts().length) return;
+            if (!this.getProducts().length) {
+                event.preventDefault();
+
+                try {
+                    sessionStorage.setItem(this.hintStorageKey, '1');
+                } catch (error) {
+                    // Still go to the collection, just without the tooltip
+                }
+
+                window.location.href = '/collections/carpets';
+                return;
+            }
+
+            if (!this.modalContainer) return;
 
             event.preventDefault();
             Compare.track('compare_open', { compare_count: this.getProducts().length, source: 'header' });
@@ -378,6 +394,39 @@ class Compare {
 
                 return variant ? { handle, variant: Number(variant) } : { handle };
             });
+    }
+
+    // After the header link sent someone here, scrolls to the first product and shows its compare tooltip
+    showCompareHint() {
+        try {
+            if (!sessionStorage.getItem(this.hintStorageKey)) return;
+            sessionStorage.removeItem(this.hintStorageKey);
+        } catch (error) {
+            return;
+        }
+
+        const button = document.querySelector('.product-grid .compare-button');
+        if (!button) return;
+
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        (button.closest('.item') || button).scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'center',
+        });
+
+        // Wait for the scroll to finish so the tooltip's animation isn't missed. The timeout covers
+        // browsers without scrollend, and pages that didn't need to scroll
+        let shown = false;
+        const showTooltip = () => {
+            if (shown) return;
+            shown = true;
+
+            button.classList.add('compare-button--show-tooltip');
+            setTimeout(() => button.classList.remove('compare-button--show-tooltip'), 4000);
+        };
+
+        window.addEventListener('scrollend', showTooltip, { once: true });
+        setTimeout(showTooltip, 1000);
     }
 
     getStoredProducts() {
@@ -1478,6 +1527,7 @@ const recentlyViewed = new RecentlyViewed();
 recentlyViewed.recordProductPage();
 
 const compare = new Compare();
+compare.showCompareHint();
 let comparisonPage = null;
 
 const comparisonPageApp = document.getElementById('comparison-page-app');

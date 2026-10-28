@@ -391,6 +391,8 @@ class Compare {
             return false;
         }
 
+        const isNewCategory = sameTypeCount === 0;
+
         // Buttons on the product page are per colour, so save which variant was picked
         products.push(variantId ? { type, handle, variant: variantId } : { type, handle });
 
@@ -412,6 +414,15 @@ class Compare {
             source,
             compare_count: products.length,
         });
+
+        // The first product of a type starts a new table in the comparison
+        if (isNewCategory) {
+            Compare.track('compare_category_add', {
+                product_type: type,
+                source,
+                category_count: new Set(products.map(product => product.type || '')).size,
+            });
+        }
 
         this.activeType = type;
         // Scrolled into view once the grid has been rebuilt

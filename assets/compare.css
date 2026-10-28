@@ -83,8 +83,26 @@
   visibility: visible;
   transform: translate(0, -50%);
   transition-delay: 0.3s, 0.3s, 0.3s;
+  animation: compare-tooltip-nudge 2s ease-in-out 0.3s both;
 }
 
+@keyframes compare-tooltip-nudge {
+  0% {
+    transform: translate(4px, -50%);
+  }
+  15%, 50%, 85%, 100% {
+    transform: translate(0, -50%);
+  }
+  32%, 67% {
+    transform: translate(-3px, -50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .compare-button[data-tooltip]:hover::after,
+  .compare-button[data-tooltip]:focus-visible::after {
+    animation: none;
+  }
+}
 .compare-modal__header--amount {
   display: flex;
 }

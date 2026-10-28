@@ -1489,9 +1489,12 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
 }
 
-// Hidden once the page is scrolled and the header shrinks (body.header-sticky, from all.min.js)
+// Hidden once the page is scrolled and the header shrinks (body.header-sticky, from all.min.js).
+// Always shown below 1024px, where it sits beside the logo
 .header-sticky #mastHead .header-compare {
-    display: none;
+    @media only screen and (min-width: 64em) {
+        display: none;
+    }
 }
 
 .compare-open-button {

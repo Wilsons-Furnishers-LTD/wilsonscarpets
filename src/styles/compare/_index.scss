@@ -1489,10 +1489,9 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
 }
 
+// Hidden once the page is scrolled and the header shrinks (body.header-sticky, from all.min.js)
 .header-sticky #mastHead .header-compare {
-    @media only screen and (min-width: 64em) {
-        margin-top: 1.5625rem;
-    }
+    display: none;
 }
 
 .compare-open-button {

@@ -419,6 +419,7 @@ class Compare {
         if (isNewCategory) {
             Compare.track('compare_category_add', {
                 product_type: type,
+                product_handle: handle,
                 source,
                 category_count: new Set(products.map(product => product.type || '')).size,
             });

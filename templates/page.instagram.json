@@ -11,16 +11,29 @@
   "sections": {
     "main": {
       "type": "main-content-page",
+      "blocks": {
+        "cms_page_left_kkmBJi": {
+          "type": "cms_page_left",
+          "settings": {
+            "cms_heading": "Information Pages",
+            "cms_linklist": "advice",
+            "cms_linklist_two": "",
+            "cms_linklist_three": ""
+          }
+        }
+      },
+      "block_order": [
+        "cms_page_left_kkmBJi"
+      ],
       "settings": {}
     },
-    "store_information_banner_gHPYBx": {
-      "type": "store-information-banner",
-      "name": "Store Information Banner",
+    "17926749099c9cb735": {
+      "type": "apps",
       "settings": {}
     }
   },
   "order": [
     "main",
-    "store_information_banner_gHPYBx"
+    "17926749099c9cb735"
   ]
 }

@@ -10,10 +10,6 @@
     "@rollup/plugin-terser": "^1.0.0",
     "rollup": "^4.0.0",
     "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-scss": "^4.0.0",
     "sass": "^1.100.0"
-  },
-  "dependencies": {
-    "rollup-plugin-delete": "^3.0.2"
   }
 }

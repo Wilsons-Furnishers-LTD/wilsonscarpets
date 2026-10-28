@@ -1,0 +1,1 @@
+import './styles/storepage/_index.scss';

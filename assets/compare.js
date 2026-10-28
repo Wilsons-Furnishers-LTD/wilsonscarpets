@@ -58,6 +58,16 @@ class Compare {
             this.openModal();
         });
 
+        // Header icon, which links to the comparison page when there's no modal or nothing to compare yet
+        this.headerButton = document.querySelector('.header-compare');
+        this.headerButton?.addEventListener('click', event => {
+            if (!this.modalContainer || !this.getProducts().length) return;
+
+            event.preventDefault();
+            Compare.track('compare_open', { compare_count: this.getProducts().length, source: 'header' });
+            this.openModal();
+        });
+
         let compareButtons = document.querySelectorAll('.compare-button');
         let that = this;
         compareButtons.forEach(compareButton => {
@@ -240,9 +250,19 @@ class Compare {
     }
 
     updateOpenButton() {
-        if (!this.openButton) return;
-
         const count = this.getProducts().length;
+
+        if (this.headerButton) {
+            this.headerButton.setAttribute('aria-label', `Compare products (${count})`);
+
+            const headerCount = this.headerButton.querySelector('.header-compare__count');
+            if (headerCount) {
+                headerCount.textContent = count;
+                headerCount.hidden = !count;
+            }
+        }
+
+        if (!this.openButton) return;
 
         this.openButton.hidden = !count;
         this.openButton.setAttribute('aria-label', `Compare products (${count})`);

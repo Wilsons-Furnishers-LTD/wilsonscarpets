@@ -1449,8 +1449,10 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   display: none;
 }
 
-.header-sticky #mastHead .header-compare {
-  display: none;
+@media only screen and (min-width: 64em) {
+  .header-sticky #mastHead .header-compare {
+    display: none;
+  }
 }
 
 .compare-open-button {

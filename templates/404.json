@@ -13,7 +13,7 @@
       "type": "404",
       "settings": {
         "title": "Oops, sorry 😥 page not found.",
-        "description": "Something has gone wrong at our end and we are fixing this now. Please feel free to search the search bar, click the button below to go to the home page or <a href=\"/pages/stores\" style=\"font-weight: 700\">Contact Us</a>.",
+        "description": "Something has gone wrong at our end and we are fixing this now. Please feel free to search again in the search bar, click the button below to go to the home page, feel free to Contact Us.",
         "btn_link": "https://www.wilsonscarpets.com/",
         "btn_text": "Visit Homepage"
       }

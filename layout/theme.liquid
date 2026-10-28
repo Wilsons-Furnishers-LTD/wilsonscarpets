@@ -67,7 +67,7 @@
 
 <script src="{{ 'jquery.min.js' | asset_url }}"></script>
 <script src="{{ 'jquery-ui.min.js' | asset_url }}"></script>
-<script src="{{ 'owl.carousel.js' | asset_url }}"></script>
+
 
 <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer></script>
 
@@ -227,14 +227,6 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 
 </script>
 
-<style>
-img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
-    width: 1px !important;
-    height: 1px !important;
-    
-}
-</style>
-
 {{ settings.body_scripts }}
 
 
@@ -277,7 +269,7 @@ img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"] {
 {% section 'compare-modal' %}
 {% section 'footer-scripts' %}
 
-
+<script src="{{ 'owl.carousel.js' | asset_url }}" defer></script>
 
 <script>
 document.documentElement.classList.remove('no-js');

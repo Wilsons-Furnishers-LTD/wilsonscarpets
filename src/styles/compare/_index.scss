@@ -910,6 +910,78 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     margin: 0 auto;
 }
 
+// Recently viewed products under the comparison, using the collection grid cards
+.comparison-page__recent {
+    margin-top: 60px;
+    padding-bottom: 60px;
+    .title-section {
+        padding-bottom: 30px;
+        font-size: 22px;
+    }
+    &[hidden] {
+        display: none;
+    }
+    @media screen and (max-width: 768px) {
+        padding: 0 30px 30px 30px;
+    }
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 30px 2%;
+        @media only screen and (max-width: 71.99em) {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        // The theme floats the cards with widths and margins, the grid places them instead
+        .item {
+            width: auto;
+            margin: 0;
+        }
+    }
+}
+
+// The comparison page's limit warning, shown when a recently viewed product is added to a type that's full.
+// Matches the modal's, without its grid placement
+#comparison-page-app .compare-modal__limit-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 0 20px;
+    padding: 10px 15px;
+    background-color: #fff4c9;
+    border-left: 4px solid v.$wilson-yellow;
+    color: v.$wilson-grey;
+    font-size: 14px;
+    line-height: 1.4;
+    &.is-shuddering {
+        animation: compare-shudder 0.5s ease-in-out;
+    }
+    &[hidden] {
+        display: none;
+    }
+    .compare-modal__limit-warning--text {
+        flex: 1;
+    }
+    .compare-modal__limit-warning--close {
+        flex-shrink: 0;
+        width: 20px;
+        height: 20px;
+        padding: 0;
+        margin: 0;
+        border: none;
+        background: transparent;
+        color: v.$wilson-grey;
+        cursor: pointer;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        &.is-shuddering {
+            animation: none;
+        }
+    }
+}
+
 .comparison-share {
     position: fixed;
     inset: 0;

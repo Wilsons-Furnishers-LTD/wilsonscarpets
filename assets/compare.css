@@ -60,6 +60,30 @@
   border-color: #414B52;
   background-color: #F2BF00;
 }
+.compare-button[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 8px);
+  transform: translate(4px, -50%);
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: #414B52;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+}
+.compare-button[data-tooltip]:hover::after, .compare-button[data-tooltip]:focus-visible::after {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(0, -50%);
+  transition-delay: 0.3s, 0.3s, 0.3s;
+}
 
 .compare-modal__header--amount {
   display: flex;

@@ -60,6 +60,9 @@
   border-color: #414B52;
   background-color: #F2BF00;
 }
+.compare-button--show-tooltip {
+  background-color: #F2BF00;
+}
 .compare-button[data-tooltip]::before, .compare-button[data-tooltip]::after {
   position: absolute;
   top: 50%;

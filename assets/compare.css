@@ -85,6 +85,7 @@
   color: #414B52;
   font-size: 14px;
   line-height: 1.2;
+  font-weight: 700;
   white-space: nowrap;
 }
 .compare-button[data-tooltip]:hover::before, .compare-button[data-tooltip]:hover::after, .compare-button[data-tooltip]:focus-visible::before, .compare-button[data-tooltip]:focus-visible::after {

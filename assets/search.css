@@ -1,1 +1,62 @@
-.klevu-fluid .klevu-pt-rs-hover{border-radius:20px;box-shadow:0 1px 5px rgba(50,50,50,.149);padding:30px 0}.klevu-fluid .klevu-pt-rs-hover strong{font-family:gill-sans-nova,Gill Sans Nova,sans-serif;font-size:20px;font-weight:700;margin-bottom:15px;padding-left:20px;padding-right:20px;width:100%}.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords{display:block;font-size:0;margin-left:0;width:100%}.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords a{display:block;font-size:16px;margin-bottom:-15px;padding:10px 20px;transition:all .3s ease}.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords a:hover{background-color:#d7d7d7;text-decoration:none}.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords a:before{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;content:"\f002";font-family:icomoon!important;font-size:14px;font-style:normal;font-variant:normal;font-weight:400;line-height:1;opacity:.6;padding-right:10px;text-transform:none}.klevu-fluid .klevu-pt-rs-hover .klevu-rs-hover-box strong{padding-top:40px}@media screen and (max-width:1024px){.klevu-fluid .klevu-pt-rs-hover{padding:30px 0!important;width:70%!important}}@media screen and (max-width:700px){.klevu-fluid .klevu-pt-rs-hover{width:90%!important}}body{padding-top:0!important}#shopify-section-top-links{position:static}.offCanvasSearch .header-sticky #mastHead #search-container .search{margin:0 auto}img[src^="https://audioxi-22-adswizz.attribution.adswizz.com"]{height:1px!important;position:absolute!important;width:1px!important}#shopify-section-header{position:sticky;top:0}#offCanvasWrapper{overflow:initial}#mastHeadTop{position:static}@media only screen and (min-width:64em){body{overflow-anchor:none}}.banner-one{overflow:hidden;width:100vw}#wrapper{overflow:initial}@media screen and (max-width:475px){.wrapper{padding:0 15px}}.main-content{overflow:hidden;width:100vw}
+.klevu-fluid .klevu-pt-rs-hover {
+  border-radius: 20px;
+  padding: 30px 0px;
+  box-shadow: 0 1px 5px rgba(50, 50, 50, 0.1490196078);
+}
+.klevu-fluid .klevu-pt-rs-hover strong {
+  font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  width: 100%;
+  margin-bottom: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords {
+  display: block;
+  width: 100%;
+  margin-left: 0;
+  font-size: 0;
+}
+.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords a {
+  font-size: 16px;
+  display: block;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: -15px;
+  transition: all 0.3s ease;
+}
+.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords a:hover {
+  text-decoration: none;
+  background-color: #d7d7d7;
+}
+.klevu-fluid .klevu-pt-rs-hover .klevu-pt-rs-keywords a:before {
+  padding-right: 10px;
+  content: "\f002";
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  font-family: icomoon !important;
+  opacity: 0.6;
+  font-size: 14px;
+}
+.klevu-fluid .klevu-pt-rs-hover .klevu-rs-hover-box strong {
+  padding-top: 40px;
+}
+@media screen and (max-width: 1024px) {
+  .klevu-fluid .klevu-pt-rs-hover {
+    padding: 30px 0px !important;
+    width: 70% !important;
+  }
+}
+@media screen and (max-width: 700px) {
+  .klevu-fluid .klevu-pt-rs-hover {
+    width: 90% !important;
+  }
+}

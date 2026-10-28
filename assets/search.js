@@ -1,1 +1,12 @@
-new class{constructor(){const e=document.getElementById("mastHeadTop");e&&new IntersectionObserver(([e])=>{document.body.classList.toggle("header-sticky",!e.isIntersecting)}).observe(e),window.addEventListener("scroll",()=>{const e=document.getElementById("klevu-pt-rs-hover");e&&"block"===e.style.display&&(e.style.display="none")})}};
+class Search {
+    constructor() {
+                
+        window.addEventListener("scroll", () => {
+            const hoverBox = document.getElementById('klevu-pt-rs-hover');
+            if(hoverBox && hoverBox.style.display === 'block') {
+                hoverBox.style.display = 'none';
+            }
+        });
+    }
+}
+new Search();

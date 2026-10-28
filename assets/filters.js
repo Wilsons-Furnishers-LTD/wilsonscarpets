@@ -1,1 +1,291 @@
-new class{constructor(){this.filtersForm=document.getElementById("CollectionFiltersForm"),this.setFilters=[],this.filtersObject={},this.gridElId="product-grid",this.filterWrapper=document.getElementById("filters-wrapper"),this.filterMainSection="filters-wrapper-main-section",this.ajaxTargetEl=document.getElementById(this.gridElId),this.ajaxFilterEl=document.getElementById(this.filterMainSection),this.filterButtonTitle=document.getElementById("filter-button-title"),this.checkboxes=this.filtersForm.querySelectorAll('input[type="checkbox"]'),this.mobileFilterBtns=document.querySelectorAll(".filter-by"),this.mobileCloseBtns=document.querySelectorAll(".filters-wrapper__close"),this.filterApply=document.getElementById("filter-apply"),this.filterClear=document.getElementById("filter-clear"),self=this,document.addEventListener("change",function(e){e.target.closest(".wc-checkbox-container input")&&self.getCheckedFilters()}),document.addEventListener("click",function(e){const t=e.target.closest(".filters-wrapper__selected__list-item");t&&self.uncheckFilter(t)}),document.addEventListener("click",function(e){e.target.closest("#product-grid .filter-by")&&self.toggleMobileFilter("open")}),document.addEventListener("click",function(e){const t=e.target.closest(".filters-wrapper__section--header");t&&self.toggleSection(t)}),document.addEventListener("change",function(e){event.target.matches("#product-grid #sorter")&&self.getCheckedFilters()}),this.mobileCloseBtns.forEach(e=>{e.addEventListener("click",function(){self.toggleMobileFilter()})}),this.filterApply.addEventListener("click",function(e){self.toggleMobileFilter()}),this.filterClear.addEventListener("click",function(e){self.clearFilters()})}toggleMobileFilter(e="close"){"open"==e?this.filterWrapper.classList.add("filters-open"):this.filterWrapper.classList.remove("filters-open")}uncheckFilter(e){document.querySelector('input[name="'+e.dataset.name+'"][value="'+e.dataset.value+'"]').checked=!1,e.remove(),this.getCheckedFilters()}clearFilters(){const e=new URL(window.location.href);e.search="",history.replaceState({},"",e),this.filtersForm.querySelectorAll('input[type="checkbox"]').forEach(e=>{e.checked=!1}),this.getCheckedFilters()}getCheckedFilters(){this.filtersObject={};const e=this.filtersForm.querySelectorAll('input[type="checkbox"]:checked'),t=document.getElementById("filter-button-area");t.innerHTML="",this.filtersObject.filters=[];let i=0;for(const l of e){let e=l.name,r=l.value;l.title,this.filtersObject.filters[e]||(this.filtersObject.filters[e]=[]),this.filtersObject.filters[e].push(r),t.innerHTML+=this.createFilterButton(l),i++}const l=this.buildURL();this.fetchGridItems(l),this.toggleSelectedFilterSection(i)}toggleSelectedFilterSection(e){e>0?this.filterButtonTitle.classList.add("show-wrapper"):this.filterButtonTitle.classList.remove("show-wrapper")}createFilterButton(e){let t=e.value;return e.dataset.buttonValue&&(t=e.dataset.buttonValue),`<div class="filters-wrapper__selected__list-item" data-name="${e.name}" data-value="${e.value}">\n                <div class="filters-wrapper__selected__list-item-key">${e.title}:</div>\n                <div class="filters-wrapper__selected__list-item-value">${t}</div>\n                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">\n                    <path d="M18 6L6 18M6 6l12 12"></path>\n                </svg>\n            </div>\n            `}buildURL(){new URLSearchParams(window.location.search);const e=document.getElementById("sorter").value,t=window.location.origin+window.location.pathname;let i="";for(const[e,[t,l]]of Object.entries(this.filtersObject.filters).entries())this.filtersObject.filters[t].forEach((e,l)=>{i+=t+"="+e,this.filtersObject.filters[t].length!==l+1&&(i+="&")}),Object.keys(this.filtersObject.filters).length!==Number(e)+1&&(i+="&");e&&(i+="&sort_by="+e);let l=t+"?"+i;return history.pushState({},"",l),l}fetchGridItems(e){this.abortController instanceof AbortController&&this.abortController.abort();const t=new AbortController;this.abortController=t,this.currentFetch=window.fetch(e,{signal:t.signal}).then(e=>e.text()).then(this.updateFromFetch.bind(this)).finally(()=>{delete this.abortController})}updateFromFetch(e){const t=(new window.DOMParser).parseFromString(e,"text/html"),i=t.querySelector(`#${this.gridElId}`),l=t.querySelector(`#${this.filterMainSection}`);i instanceof window.HTMLElement&&(this.ajaxTargetEl.innerHTML=i.innerHTML),l instanceof window.HTMLElement&&(this.ajaxFilterEl.innerHTML=l.innerHTML);const r=document.querySelectorAll("#sorter option"),s=(o="sort_by",new URLSearchParams(window.location.search).get(o));var o;r.forEach(e=>{e.value==s&&(e.selected=!0)})}toggleSection(e){let t=document.getElementById(e.dataset.container);"none"===getComputedStyle(t).display?(this.slideDown(t,300),e.classList.remove("active")):(this.slideUp(t,300),e.classList.add("active"))}slideUp(e,t=300){e.style.height=`${e.offsetHeight}px`,e.offsetHeight,e.style.transition=`height ${t}ms ease`,e.style.overflow="hidden",e.style.height="0",setTimeout(()=>{e.style.display="none",e.style.removeProperty("height"),e.style.removeProperty("overflow"),e.style.removeProperty("transition")},t)}slideDown(e,t=300){e.style.removeProperty("display"),"none"===getComputedStyle(e).display&&(e.style.display="block");const i=e.scrollHeight;e.style.height="0",e.style.overflow="hidden",e.offsetHeight,e.style.transition=`height ${t}ms ease`,e.style.height=`${i}px`,setTimeout(()=>{e.style.removeProperty("height"),e.style.removeProperty("overflow"),e.style.removeProperty("transition")},t)}};
+class Filters {
+    constructor() {
+        this.filtersForm = document.getElementById('CollectionFiltersForm'),
+        this.setFilters = [],
+        this.filtersObject = {},
+        this.gridElId = 'product-grid',
+        this.filterWrapper = document.getElementById('filters-wrapper'),
+        this.filterMainSection = 'filters-wrapper-main-section',
+        this.ajaxTargetEl = document.getElementById(this.gridElId),
+        this.ajaxFilterEl = document.getElementById(this.filterMainSection),
+        this.filterButtonTitle = document.getElementById('filter-button-title');
+        this.checkboxes = this.filtersForm.querySelectorAll('input[type="checkbox"]'),
+        this.mobileFilterBtns = document.querySelectorAll('.filter-by'),
+        this.mobileCloseBtns = document.querySelectorAll('.filters-wrapper__close'),
+        this.filterApply = document.getElementById('filter-apply'),
+        this.filterClear = document.getElementById('filter-clear');
+        self = this;
+
+        
+        document.addEventListener('change', function(e){
+            const target = e.target.closest(".wc-checkbox-container input"); 
+            if(target){
+                self.getCheckedFilters();
+            }
+        });
+
+        document.addEventListener('click', function(e){
+            const target = e.target.closest(".filters-wrapper__selected__list-item"); 
+            if(target){
+                self.uncheckFilter(target);
+            }
+        });
+
+        document.addEventListener('click', function(e){
+            const target = e.target.closest("#product-grid .filter-by"); 
+            if(target){
+                self.toggleMobileFilter('open');
+            }
+        });
+
+        document.addEventListener('click', function(e){
+            const target = e.target.closest(".filters-wrapper__section--header"); 
+            if(target){
+                self.toggleSection(target);
+            }
+        });
+
+        document.addEventListener('change', function(e){
+            if (event.target.matches('#product-grid #sorter')) {
+                
+                self.getCheckedFilters();
+            }
+        });
+
+        this.mobileCloseBtns.forEach(mobileCloseBtn => {
+            mobileCloseBtn.addEventListener('click', function() {
+                self.toggleMobileFilter();
+            });
+        });
+
+        this.filterApply.addEventListener('click', function(e){
+            self.toggleMobileFilter();
+        });
+
+        this.filterClear.addEventListener('click', function(e){
+            self.clearFilters();
+        });
+    }
+
+    toggleMobileFilter(state = 'close') {
+        if(state == 'open') {
+            this.filterWrapper.classList.add('filters-open');
+        } else {
+            this.filterWrapper.classList.remove('filters-open');
+        }
+    }
+
+    uncheckFilter(button) {
+        document.querySelector('input[name="'+ button.dataset.name +'"][value="'+ button.dataset.value +'"]').checked = false;
+        button.remove();
+        this.getCheckedFilters();
+    }
+
+    clearFilters() {
+        const url = new URL(window.location.href);
+        url.search = '';
+
+        history.replaceState({}, '', url);
+
+        this.filtersForm.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+
+        this.getCheckedFilters();
+    }
+
+    getCheckedFilters() {
+        
+        this.filtersObject = {};
+        const checkedCheckboxes = this.filtersForm.querySelectorAll('input[type="checkbox"]:checked');
+        const filterButtonArea = document.getElementById('filter-button-area');
+
+        filterButtonArea.innerHTML = '';
+
+        this.filtersObject.filters = [];
+        let checkCount = 0;
+        for (const checkbox of checkedCheckboxes) {
+            let checkboxName = checkbox.name;
+            let checkboxValue = checkbox.value;
+            checkbox.title;
+            if (!this.filtersObject.filters[checkboxName]) {
+                this.filtersObject.filters[checkboxName] = [];
+            }
+            
+            this.filtersObject.filters[checkboxName].push(checkboxValue);
+            filterButtonArea.innerHTML += this.createFilterButton(checkbox);
+            checkCount++;
+        }
+        
+        const newUrl = this.buildURL();
+        this.fetchGridItems(newUrl);
+        this.toggleSelectedFilterSection(checkCount);
+
+    }
+
+    toggleSelectedFilterSection(count) {
+        if(count > 0) {
+            this.filterButtonTitle.classList.add('show-wrapper');
+        } else {
+            this.filterButtonTitle.classList.remove('show-wrapper');
+        }
+    }
+    createFilterButton(checkbox) {
+        let value = checkbox.value;
+        
+        if(checkbox.dataset.buttonValue) {
+            value = checkbox.dataset.buttonValue;
+        } 
+        return `<div class="filters-wrapper__selected__list-item" data-name="${checkbox.name}" data-value="${checkbox.value}">
+                <div class="filters-wrapper__selected__list-item-key">${checkbox.title}:</div>
+                <div class="filters-wrapper__selected__list-item-value">${value}</div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <path d="M18 6L6 18M6 6l12 12"></path>
+                </svg>
+            </div>
+            `;
+    }
+
+    buildURL() {
+
+        new URLSearchParams(window.location.search);
+        const sortBy = document.getElementById('sorter').value;
+        
+        const url = window.location.origin + window.location.pathname;
+        let queryString = '';
+        for (const [index, [filterName, values]] of Object.entries(this.filtersObject.filters).entries()) {
+            
+            this.filtersObject.filters[filterName].forEach((value, i) => {
+                queryString += filterName + '=' + value;
+                if(this.filtersObject.filters[filterName].length !== i + 1) {
+                    queryString += '&';
+                }
+            });
+            if(Object.keys(this.filtersObject.filters).length !== Number(index) + 1) {
+                queryString += '&';
+            }
+        }
+        if(sortBy) {
+            queryString += '&sort_by=' + sortBy;
+        }
+        
+        let newUrl = url + '?' + queryString;
+
+        history.pushState({}, '', newUrl);
+
+
+
+        return newUrl;
+    }
+
+    fetchGridItems(url) {
+        // Abort in-progress fetch
+        if (this.abortController instanceof AbortController) {
+            this.abortController.abort();
+        }
+
+        // Create an abort signal
+        const controller = new AbortController();
+        this.abortController = controller;
+
+        // Fetch
+        this.currentFetch = window
+            .fetch(url, { signal: controller.signal })
+            .then((response) => response.text())
+            .then(this.updateFromFetch.bind(this))
+            .finally(() => {
+                delete this.abortController;
+            });
+    }
+
+
+    updateFromFetch(remoteSource) {
+        // Parse the remote markup
+        const parser = new window.DOMParser();
+        const remoteDocument = parser.parseFromString(
+            remoteSource,
+            'text/html'
+        );
+        // Replace content
+        const remoteajaxTargetEl = remoteDocument.querySelector(
+            `#${this.gridElId}`
+        );
+
+        const remoteajaxFilterEl = remoteDocument.querySelector(
+            `#${this.filterMainSection}`
+        );
+
+
+        if (remoteajaxTargetEl instanceof window.HTMLElement) {
+            this.ajaxTargetEl.innerHTML = remoteajaxTargetEl.innerHTML;
+        }
+        
+
+        if (remoteajaxFilterEl instanceof window.HTMLElement) {
+            this.ajaxFilterEl.innerHTML = remoteajaxFilterEl.innerHTML;
+        }
+
+        const sortByOptions = document.querySelectorAll('#sorter option');
+        const getParam = (name) => new URLSearchParams(window.location.search).get(name);
+        const sortBy = getParam('sort_by');
+
+        sortByOptions.forEach(option => {
+            if(option.value == sortBy) {
+                option.selected = true;
+            }
+        });
+    }
+
+    toggleSection(header) {
+        let el = document.getElementById(header.dataset.container);
+        let duration = 300;
+        if (getComputedStyle(el).display === "none") {
+            this.slideDown(el, duration);
+            header.classList.remove('active');
+        } else {
+            this.slideUp(el, duration);
+            header.classList.add('active');
+        }
+    }
+
+    slideUp(el, duration = 300) {
+        el.style.height = `${el.offsetHeight}px`;
+        el.offsetHeight; // force reflow
+
+        el.style.transition = `height ${duration}ms ease`;
+        el.style.overflow = "hidden";
+        el.style.height = "0";
+
+        setTimeout(() => {
+            el.style.display = "none";
+            el.style.removeProperty("height");
+            el.style.removeProperty("overflow");
+            el.style.removeProperty("transition");
+        }, duration);
+    }
+
+    slideDown(el, duration = 300) {
+        el.style.removeProperty("display");
+        if (getComputedStyle(el).display === "none") {
+            el.style.display = "block";
+        }
+
+        const height = el.scrollHeight;
+
+        el.style.height = "0";
+        el.style.overflow = "hidden";
+        el.offsetHeight; // force reflow
+
+        el.style.transition = `height ${duration}ms ease`;
+        el.style.height = `${height}px`;
+
+        setTimeout(() => {
+            el.style.removeProperty("height");
+            el.style.removeProperty("overflow");
+            el.style.removeProperty("transition");
+        }, duration);
+    }
+
+}
+
+new Filters();

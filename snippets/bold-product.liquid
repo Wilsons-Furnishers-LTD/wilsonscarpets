@@ -423,7 +423,7 @@ ASSIGN LIQUID VARIABLES
         "name": {{- opt | json -}},
         {%- if bold_product_endpoint == 'json' -%}"product_id":{{- bold_product.id | json -}},{%- endif -%}
         "position":{{-  forloop.index | json -}},
-        "values":{{- self[option_name] | json -}}
+        "values":{{- [option_name] | json -}}
         } {%- unless forloop.last -%},{%- endunless -%}
     {%- endfor -%}
     ]
@@ -550,13 +550,4 @@ ASSIGN LIQUID VARIABLES
         {%- break -%}
     {%- endif -%}
 
-{%- endif -%}{%- comment -%}
-
-This file has been rewritten to preserve the original behavior.
-
----
-Changes:
-- from: "{{- [option_name] | json -}}"
-  to: "{{- self[option_name] | json -}}"
-  position: 27300..27332
-{%- endcomment -%}
+{%- endif -%}

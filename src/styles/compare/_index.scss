@@ -68,6 +68,70 @@
         border-color: v.$wilson-grey;
         background-color: v.$wilson-yellow;
     }
+    // Added by compare.js to point at the button, along with its tooltip below
+    &--show-tooltip {
+        background-color: v.$wilson-yellow;
+    }
+    // Tooltip from data-tooltip, shown to the left as the button sits in the card's top-right corner.
+    // ::after is the label, ::before the arrow pointing at the button
+    &[data-tooltip]::before,
+    &[data-tooltip]::after {
+        position: absolute;
+        top: 50%;
+        transform: translate(4px, -50%);
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    }
+    &[data-tooltip]::before {
+        content: '';
+        right: calc(100% + 7px);
+        border: 7px solid transparent;
+        border-right-width: 0;
+        border-left-color: v.$wilson-yellow;
+    }
+    &[data-tooltip]::after {
+        content: attr(data-tooltip);
+        right: calc(100% + 12px);
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: v.$wilson-yellow;
+        color: v.$wilson-grey;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+    // --show-tooltip is added by compare.js to point at the button
+    &[data-tooltip]:hover::before,
+    &[data-tooltip]:hover::after,
+    &[data-tooltip]:focus-visible::before,
+    &[data-tooltip]:focus-visible::after,
+    &--show-tooltip[data-tooltip]::before,
+    &--show-tooltip[data-tooltip]::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, -50%);
+        transition-delay: 0.3s, 0.3s, 0.3s;
+        // Slides in, then nudges towards the button for the first 2 seconds before settling
+        animation: compare-tooltip-nudge 2s ease-in-out 0.3s both;
+    }
+}
+@keyframes compare-tooltip-nudge {
+    0% { transform: translate(4px, -50%); }
+    15%, 50%, 85%, 100% { transform: translate(0, -50%); }
+    32%, 67% { transform: translate(-3px, -50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .compare-button[data-tooltip]:hover::before,
+    .compare-button[data-tooltip]:hover::after,
+    .compare-button[data-tooltip]:focus-visible::before,
+    .compare-button[data-tooltip]:focus-visible::after,
+    .compare-button--show-tooltip[data-tooltip]::before,
+    .compare-button--show-tooltip[data-tooltip]::after {
+        animation: none;
+    }
 }
 .compare-modal__header--amount {
     display: flex;
@@ -1346,6 +1410,88 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             z-index: 2;
             background-color: rgba(0, 0, 0, 0.5);
         }
+    }
+}
+
+// Sits to the left of the basket in the site header, sized to match it
+#mastHead .header-compare {
+    float: right;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: .6875rem 0 0;
+    padding: .625rem;
+    color: v.$wilson-grey;
+    @media only screen and (max-width: 24.99em) {
+        margin-top: .875rem;
+    }
+    @media only screen and (min-width: 64em) {
+        // Divides it from "Find your local store", matching the basket's divider
+        border-left: 1px solid #36476e;
+        margin-top: 35px;
+        padding: .1875rem 1.25rem;
+    }
+    svg {
+        display: block;
+        width: 26px;
+        height: 26px;
+    }
+    &:hover {
+        color: v.$wilson-yellow;
+    }
+    // Below 1024px the logo is centred (main.css), so sit just to its left.
+    // 40px clears half the 100px wide logo link, whose image is centred in it
+    @media only screen and (max-width: 63.99em) {
+        float: none;
+        position: absolute;
+        top: 50%;
+        right: initial;
+        transform: translateY(-50%);
+        margin: 0;
+        left: 60px;
+    }
+}
+
+#mastHead .header-compare__icon {
+    position: relative;
+    display: block;
+}
+
+#mastHead .header-compare__label {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    // Icon only on smaller screens. The link's aria-label still names it
+    @media only screen and (max-width: 1079px) {
+        display: none;
+    }
+}
+
+#mastHead .header-compare__count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    box-sizing: border-box;
+    border-radius: 9px;
+    background-color: v.$wilson-yellow;
+    color: v.$wilson-grey;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    &[hidden] {
+        display: none;
+    }
+}
+
+.header-sticky #mastHead .header-compare {
+    @media only screen and (min-width: 64em) {
+        margin-top: 1.5625rem;
     }
 }
 

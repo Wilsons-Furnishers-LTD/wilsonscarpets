@@ -1399,6 +1399,16 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 #mastHead .header-compare:hover {
   color: #F2BF00;
 }
+@media only screen and (max-width: 63.99em) {
+  #mastHead .header-compare {
+    float: none;
+    position: absolute;
+    top: 50%;
+    right: calc(50% + 40px);
+    transform: translateY(-50%);
+    margin: 0;
+  }
+}
 
 #mastHead .header-compare__icon {
   position: relative;
@@ -1438,9 +1448,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   display: none;
 }
 
-.header-sticky #mastHead .header-compare {
-  margin-top: 0.75rem;
-}
 @media only screen and (min-width: 64em) {
   .header-sticky #mastHead .header-compare {
     margin-top: 1.5625rem;

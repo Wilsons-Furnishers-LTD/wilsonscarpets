@@ -1328,7 +1328,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 @media only screen and (min-width: 64em) {
   #mastHead .header-compare {
     border-left: 1px solid #36476e;
-    margin-top: 1.5625rem;
+    margin-top: 35px;
     padding: 0.1875rem 1.25rem;
   }
 }

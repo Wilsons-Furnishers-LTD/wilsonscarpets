@@ -25,14 +25,11 @@
 
 </script>
 
-{% assign store_pages = shop.metaobjects.store_page %}
+{% assign store_pages = shop.metaobjects.store_page['hillsborough-sheffield'] %}
 
 <pre>
-    data
-{% for store in store_pages %}
-    {{store | json}}
+    {{store_pages | json}}
 
-{% endfor %}
 </pre>
 <div class="cms-two-columns cw-storelocator">
     <div class="row">

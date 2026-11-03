@@ -27,8 +27,11 @@
 
 {% assign store_pages = shop.metaobjects.store_page %}
 
-{{ store_pages | json }}
 
+{% for store in store_pages %}
+    {{store | json}}
+
+{% endfor %}
 <div class="cms-two-columns cw-storelocator">
     <div class="row">
       <div class="col-main">

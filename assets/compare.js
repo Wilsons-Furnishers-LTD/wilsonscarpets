@@ -58,6 +58,26 @@ class Compare {
             this.openModal();
         });
 
+        // Link above collection grids. Delegated, as filtering replaces the grid's HTML.
+        // With nothing added yet it points at the first product's compare button instead,
+        // and without the modal it links to the comparison page
+        document.addEventListener('click', event => {
+            if (!event.target.closest('.collection-compare__link')) return;
+
+            const count = this.getProducts().length;
+            if (count && !this.modalContainer) return;
+
+            event.preventDefault();
+
+            if (!count) {
+                this.showCompareHint();
+                return;
+            }
+
+            Compare.track('compare_open', { compare_count: count, origin: 'collection' });
+            this.openModal();
+        });
+
         let compareButtons = document.querySelectorAll('.compare-button');
         let that = this;
         compareButtons.forEach(compareButton => {
@@ -240,9 +260,9 @@ class Compare {
     }
 
     updateOpenButton() {
-        if (!this.openButton) return;
-
         const count = this.getProducts().length;
+
+        if (!this.openButton) return;
 
         this.openButton.hidden = !count;
         this.openButton.setAttribute('aria-label', `Compare products (${count})`);
@@ -358,6 +378,46 @@ class Compare {
 
                 return variant ? { handle, variant: Number(variant) } : { handle };
             });
+    }
+
+    // Scrolls to the first product on the page and shows its compare tooltip
+    showCompareHint() {
+        const button = document.querySelector('.product-grid .compare-button');
+        if (!button) return;
+
+        const product = button.closest('.item') || button;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // The header is fixed and covers the top of the page, and it gets shorter once scrolled
+        const getHeaderBottom = () => Math.max(0, ...['shopify-section-header', 'mastHeadTop']
+            .map(id => document.getElementById(id)?.getBoundingClientRect().bottom || 0));
+
+        // Puts the top of the product, where the compare button is, just below the header.
+        // Centring it instead pushed the button off the top below 1024px, where products are taller than the screen
+        const scrollToProduct = behavior => {
+            const top = product.getBoundingClientRect().top + window.scrollY - getHeaderBottom() - 16;
+            window.scrollTo({ top: Math.max(0, top), behavior });
+        };
+
+        scrollToProduct(reduceMotion ? 'auto' : 'smooth');
+
+        // Wait for the scroll to finish so the tooltip's animation isn't missed. The timeout covers
+        // browsers without scrollend, and pages that didn't need to scroll
+        let shown = false;
+        const showTooltip = () => {
+            if (shown) return;
+            shown = true;
+
+            // The header shrinking or images loading above can move the product while scrolling, so correct for it
+            const { top, bottom } = button.getBoundingClientRect();
+            if (top < getHeaderBottom() || bottom > window.innerHeight) scrollToProduct('auto');
+
+            button.classList.add('compare-button--show-tooltip');
+            setTimeout(() => button.classList.remove('compare-button--show-tooltip'), 4000);
+        };
+
+        window.addEventListener('scrollend', showTooltip, { once: true });
+        setTimeout(showTooltip, 1000);
     }
 
     getStoredProducts() {
@@ -480,6 +540,9 @@ class Compare {
 
         this.renderNav();
         this.renderGrid();
+
+        // Nothing left to compare, so close the modal as clearing does
+        if (!products.length) this.closeModal();
     }
 
     // Shared between the modal and the comparison page, so a product is only fetched once

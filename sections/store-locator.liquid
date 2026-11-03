@@ -19,13 +19,17 @@
         default_marker: "{{ 'default-marker.png' | asset_url }}",
         bed_marker: "{{ 'bed-marker.png' | asset_url }}",
         bed_flag: "{{ 'bed-flag.png' | asset_url }}",
-        
-        store_data: {{ shop.metaobjects.store_page.values | json }}
+        store_data: {{ page.metafields.store | json }},
     };
 
-
+    console.log(window.themeAssets.store_data)
 </script>
+{{ page.metafields.store | json }}
+{% assign store_pages = shop.metaobjects.store_page.values %}
 
+<pre>
+{{store_pages | json}}
+</pre>
 <div class="cms-two-columns cw-storelocator">
     <div class="row">
       <div class="col-main">

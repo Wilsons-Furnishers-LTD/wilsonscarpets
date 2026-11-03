@@ -1,58 +1,316 @@
 {%- comment -%}
-    Uses the same markup as sections/banner.liquid, so it picks up the theme's banner styles.
+    Store page banner: store info on the left, store photo on the right.
     Content comes from the current store_page metaobject (templates/metaobject/store_page.json), not section settings.
+
+    Fields used: store_finder_name / name, address, telephone, store_opening_times (HTML table),
+    store_finder_place_id (Google Maps URL), store_finder_thumbnail.
+    Assumed field keys - change these if your store_page definition uses different ones:
+      email         - single line text
+      store_details - list of text, or rich text
+      linked_store  - metaobject reference to another store_page (e.g. the Hillsborough bed store)
 {%- endcomment -%}
 {%- assign store = metaobject -%}
 {%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
 {%- assign store_image = store.store_finder_thumbnail.value -%}
-{%- assign store_url = store.system.url -%}
-{%- if store_url == request.path -%}
-    {%- assign store_url = blank -%}
-{%- endif -%}
-<div data-section-id="{{ section.id }}" data-section-type="store-banner" class="banner-one store-banner">
-    <div class="row">
-        <div class="col-wide-12 col-img text-light">
-            {% if store_url != blank %}
-                <a class="image" href="{{ store_url }}">
+{%- assign store_phone = store.telephone.value -%}
+{%- assign store_email = store.email.value -%}
+{%- assign store_directions = store.store_finder_place_id.value -%}
+{%- assign store_details = store.store_details -%}
+{%- assign linked_store = store.linked_store.value -%}
+
+<div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner">
+    <div class="store-banner__info">
+        <div class="store-banner__inner">
+            <nav class="store-banner__breadcrumb" aria-label="Breadcrumb">
+                <a href="{{ routes.root_url }}">Home</a>
+                <span aria-hidden="true">&gt;</span>
+                <a href="/pages/stores">Stores</a>
+            </nav>
+
+            {% if store_name != blank %}
+                <h1 class="store-banner__title">{{ store_name | escape }}</h1>
             {% endif %}
-            {% if store_image != blank %}
-                <picture>
-                    <source media="(min-width: 1440px)" srcset="{{ store_image | image_url }}">
-                    <source media="(min-width: 1390px)" srcset="{{ store_image | image_url: width: 1440 }}">
-                    <source media="(min-width: 1340px)" srcset="{{ store_image | image_url: width: 1390 }}">
-                    <source media="(min-width: 1280px)" srcset="{{ store_image | image_url: width: 1340 }}">
-                    <source media="(min-width: 1024px)" srcset="{{ store_image | image_url: width: 1280 }}">
-                    <source media="(min-width: 768px)" srcset="{{ store_image | image_url: width: 1024, height: 640, crop: 'center' }}">
-                    <source media="(min-width: 540px)" srcset="{{ store_image | image_url: width: 640, height: 600, crop: 'center' }}">
-                    <source srcset="{{ store_image | image_url: width: 540, height: 506, crop: 'center' }}">
-                    <img width="1600" height="533" src="{{ store_image | image_url }}" alt="{{ store_image.alt | default: store_name | escape }}" />
-                </picture>
-            {% else %}
-                <span class="placeholder-background">
-                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                </span>
+
+            {% if store.address.value != blank or store.store_opening_times.value != blank %}
+                <div class="store-banner__card store-banner__card--split">
+                    {% if store.address.value != blank %}
+                        <div>
+                            <h2 class="store-banner__heading">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+                                Address
+                            </h2>
+                            <address class="store-banner__text">{{ store.address.value | escape | newline_to_br }}</address>
+                        </div>
+                    {% endif %}
+                    {% if store.store_opening_times.value != blank %}
+                        <div>
+                            <h2 class="store-banner__heading">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+                                Opening hours
+                            </h2>
+                            <div class="store-banner__text store-banner__hours">{{ store.store_opening_times.value }}</div>
+                        </div>
+                    {% endif %}
+                </div>
             {% endif %}
-            {% if store_url != blank %}
-                </a>
-            {% endif %}
-            <div class="text-wrap overlay">
-                <div class="wrapper">
-                    <div class="text-content">
-                        {% unless store_name == blank %}
-                            <h2 class="title">{{ store_name | escape }}</h2>
-                        {% endunless %}
-                        {% unless store.address.value == blank %}
-                            <p class="subtitle">{{ store.address.value | escape }}</p>
-                        {% endunless %}
-                        {% if store_url != blank %}
-                            <a class="button" href="{{ store_url }}">Find out more</a>
+
+            {% if store_details.value != blank %}
+                <div class="store-banner__card">
+                    <h2 class="store-banner__heading">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 4h18l1 5a3 3 0 0 1-5 2.2A3 3 0 0 1 12 12a3 3 0 0 1-5-.8A3 3 0 0 1 2 9l1-5Zm1 9.5V20a1 1 0 0 0 1 1h5v-5h4v5h5a1 1 0 0 0 1-1v-6.5a4.9 4.9 0 0 1-4-.6 4.9 4.9 0 0 1-5 .5 4.9 4.9 0 0 1-5-.5 4.9 4.9 0 0 1-2 .6Z"/></svg>
+                        Store Details
+                    </h2>
+                    <div class="store-banner__text store-banner__details">
+                        {% if store_details.type contains 'list' %}
+                            <ul>
+                                {% for detail in store_details.value %}
+                                    <li>{{ detail }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            {{ store_details | metafield_tag }}
                         {% endif %}
                     </div>
                 </div>
+            {% endif %}
+
+            <div class="store-banner__buttons">
+                {% if store_phone != blank %}
+                    <a class="store-banner__button" href="tel:{{ store_phone | remove: ' ' }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+                        {{ store_phone | escape }}
+                    </a>
+                {% endif %}
+                {% if store_email != blank %}
+                    <a class="store-banner__button" href="mailto:{{ store_email | escape }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v.4l-10 6.25L2 6.4V6a1 1 0 0 1 1-1Zm-1 3.75V18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8.75l-10 6.25L2 8.75Z"/></svg>
+                        Email
+                    </a>
+                {% endif %}
+                {% if store_directions != blank %}
+                    <a class="store-banner__button" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3 3 5.5v15.5l6-2.5 6 2.5 6-2.5V3l-6 2.5L9 3Zm1 2.6 4 1.65v11.15l-4-1.65V5.6Z"/></svg>
+                        Get Directions
+                    </a>
+                {% endif %}
+                {% if linked_store != blank %}
+                    {%- assign linked_name = linked_store.store_finder_name.value | default: linked_store.name.value -%}
+                    <a class="store-banner__button store-banner__button--alt" href="{{ linked_store.system.url }}">
+                        View {{ linked_name | escape }} Store
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
+
+    <div class="store-banner__image">
+        {% if store_image != blank %}
+            {{ store_image | image_url: width: 1600 | image_tag:
+                widths: '540, 768, 1024, 1280, 1600',
+                sizes: '(min-width: 990px) 50vw, 100vw',
+                alt: store_image.alt | default: store_name,
+                loading: 'eager'
+            }}
+        {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+    </div>
 </div>
+
+{% stylesheet %}
+    .store-banner {
+        --store-red: #ba3c3d;
+        --store-dark: #414b52;
+        --store-yellow: #f2bf00;
+        display: grid;
+        grid-template-columns: 1fr;
+        background: #f7f7f7;
+        color: var(--store-dark);
+        font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
+    }
+    .store-banner__info {
+        display: flex;
+        justify-content: center;
+        padding: 24px 16px 32px;
+    }
+    .store-banner__inner {
+        width: 100%;
+        max-width: 310px;
+    }
+    .store-banner__breadcrumb {
+        display: flex;
+        gap: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 24px;
+    }
+    .store-banner__breadcrumb a {
+        color: inherit;
+        text-decoration: none;
+    }
+    .store-banner__breadcrumb a:last-child {
+        font-weight: 700;
+    }
+    .store-banner__title {
+        margin: 0 0 22px;
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 700;
+        color: var(--store-dark);
+        text-transform: none;
+    }
+    .store-banner__card {
+        background: #fff;
+        border-radius: 8px;
+        padding: 14px 14px 16px;
+        margin-bottom: 16px;
+    }
+    .store-banner__card--split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+    .store-banner__heading {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0 0 10px;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--store-red);
+        text-transform: none;
+        letter-spacing: 0;
+    }
+    .store-banner__heading svg {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+    }
+    .store-banner__text {
+        padding-left: 30px;
+        font-size: 10.5px;
+        line-height: 1.4;
+        font-style: normal;
+    }
+    .store-banner__hours {
+        padding-left: 18px;
+    }
+    .store-banner__hours table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+    .store-banner__hours td {
+        padding: 0;
+        border: 0;
+        font-size: inherit;
+    }
+    .store-banner__hours td:first-child {
+        font-weight: 700;
+    }
+    .store-banner__hours td:last-child {
+        text-align: right;
+    }
+    .store-banner__details ul {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    .store-banner__details li::before {
+        content: '\2713\00a0';
+    }
+    .store-banner__details a {
+        color: inherit;
+        text-decoration: underline;
+    }
+    .store-banner__buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 10px;
+        margin-top: 24px;
+    }
+    .store-banner__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 20px;
+        padding: 0 8px;
+        background: var(--store-red);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color .2s;
+    }
+    .store-banner__button:hover,
+    .store-banner__button:focus-visible {
+        background: var(--store-dark);
+        color: #fff;
+    }
+    .store-banner__button svg {
+        width: 11px;
+        height: 11px;
+        flex-shrink: 0;
+    }
+    .store-banner__button--alt {
+        background: var(--store-yellow);
+        color: var(--store-dark);
+    }
+    .store-banner__image {
+        position: relative;
+        min-height: 260px;
+        overflow: hidden;
+    }
+    .store-banner__image img,
+    .store-banner__image .placeholder-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    @media (min-width: 990px) {
+        .store-banner {
+            grid-template-columns: 1fr 1fr;
+            min-height: 400px;
+        }
+        .store-banner__info {
+            padding: 16px 32px 20px;
+        }
+        .store-banner__inner {
+            max-width: 310px;
+        }
+        .store-banner__button {
+            min-height: 20px;
+        }
+    }
+    @media (max-width: 989px) {
+        .store-banner__inner {
+            max-width: 480px;
+        }
+        .store-banner__title {
+            font-size: 22px;
+        }
+        .store-banner__text {
+            font-size: 13px;
+        }
+        .store-banner__button {
+            min-height: 40px;
+            font-size: 13px;
+        }
+    }
+    @media (max-width: 400px) {
+        .store-banner__card--split,
+        .store-banner__details ul {
+            grid-template-columns: 1fr;
+        }
+    }
+{% endstylesheet %}
 
 {% schema %}
     {

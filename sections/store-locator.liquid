@@ -21,6 +21,9 @@
         bed_flag: "{{ 'bed-flag.png' | asset_url }}",
         store_data: {{ page.metafields.store | json }}
     };
+
+    {% assign store_pages = shop.metaobjects.store_page.values %}
+    {{store_pages | json}}
 </script>
 
 
@@ -30,7 +33,6 @@
         <div class="container">
           
             <div class="pagecontents">
-                here
             <div class="bootstrap-storeifyapps storeifyapps-storelocator-layout-2 storeifyapps-storelocator-shortcode">
 
 

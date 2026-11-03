@@ -103,7 +103,6 @@
         line-height: 1.2;
         white-space: nowrap;
     }
-    // --show-tooltip is added by compare.js to point at the button
     &[data-tooltip]:hover::before,
     &[data-tooltip]:hover::after,
     &[data-tooltip]:focus-visible::before,
@@ -1413,87 +1412,76 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
 }
 
-// Sits to the left of the basket in the site header, sized to match it
-#mastHead .header-compare {
-    float: right;
+// Next to "Sort by" in collection toolbars (snippets/collection-compare-link.liquid), matching its label
+// A box with the same shadow as the sorter and pagination. Rendered next to the sorter from 1024px,
+// and left of the pagination below that (see snippets/collection-compare-link.liquid)
+.collection-compare {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin: .6875rem 0 0;
-    padding: .625rem;
-    color: v.$wilson-grey;
-    @media only screen and (max-width: 24.99em) {
-        margin-top: .875rem;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px #32323226;
+    &--sorter {
+        float: left;
+        margin-left: 1rem;
+        @media only screen and (max-width: 63.99em) {
+            display: none;
+        }
     }
-    @media only screen and (min-width: 64em) {
-        // Divides it from "Find your local store", matching the basket's divider
-        border-left: 1px solid #36476e;
-        margin-top: 35px;
-        padding: .1875rem 1.25rem;
+    &--pagination {
+        flex: none;
+        // Not gap, as the row's clearfix pseudo-elements would count as flex items
+        margin-right: 1rem;
+        @media only screen and (min-width: 64em) {
+            display: none;
+        }
     }
-    svg {
-        display: block;
-        width: 26px;
-        height: 26px;
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 .9375rem;
+        color: v.$wilson-grey;
+        font-size: .9375rem;
+        font-weight: 900;
+        line-height: 2.375rem;
+        white-space: nowrap;
+        // Icon only, square to match the pagination's 38px pages. The height is set as there's no text
+        // to give it one, and the width as the pagination is balanced against it, see below
+        @media only screen and (max-width: 63.99em) {
+            justify-content: center;
+            width: 2.375rem;
+            height: 2.375rem;
+            padding: 0;
+        }
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+        &:hover, &:focus-visible {
+            color: v.$wilson-grey;
+            text-decoration: underline;
+        }
     }
-    &:hover {
-        color: v.$wilson-yellow;
-    }
-    // Below 1024px the logo is centred (main.css), so sit just to its left.
-    // 40px clears half the 100px wide logo link, whose image is centred in it
-    @media only screen and (max-width: 63.99em) {
-        float: none;
-        position: absolute;
-        top: 50%;
-        right: initial;
-        transform: translateY(-50%);
-        margin: 0;
-        left: 60px;
-    }
-}
-
-#mastHead .header-compare__icon {
-    position: relative;
-    display: block;
-}
-
-#mastHead .header-compare__label {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1;
-    // Icon only on smaller screens. The link's aria-label still names it
-    @media only screen and (max-width: 1079px) {
-        display: none;
-    }
-}
-
-#mastHead .header-compare__count {
-    position: absolute;
-    top: -8px;
-    right: -10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 4px;
-    box-sizing: border-box;
-    border-radius: 9px;
-    background-color: v.$wilson-yellow;
-    color: v.$wilson-grey;
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1;
-    &[hidden] {
-        display: none;
+    // Icon only below 1024px. The link's aria-label still names it
+    &__text {
+        @media only screen and (max-width: 63.99em) {
+            display: none;
+        }
     }
 }
 
-// Hidden once the page is scrolled and the header shrinks (body.header-sticky, from all.min.js).
-// Always shown below 1024px, where it sits beside the logo
-.header-sticky #mastHead .header-compare {
-    @media only screen and (min-width: 64em) {
-        display: none;
+// Puts the link and the pagination side by side. The filter and sort bar is positioned out of this row (main.css).
+// The pagination's right margin matches the link and its margin, so the pagination stays centred on the screen
+@media only screen and (max-width: 63.99em) {
+    .toolbar-product > .row:has(> .collection-compare--pagination) {
+        display: flex;
+        align-items: center;
+        .wrap-pagi {
+            flex: 1;
+            min-width: 0;
+            margin-right: calc(2.375rem + 1rem);
+        }
     }
 }
 

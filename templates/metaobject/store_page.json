@@ -8,6 +8,14 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "store_banner_MFH98H": {
+      "type": "store-banner",
+      "name": "Store Banner",
+      "settings": {}
+    }
+  },
+  "order": [
+    "store_banner_MFH98H"
+  ]
 }

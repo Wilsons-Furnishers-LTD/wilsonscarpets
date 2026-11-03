@@ -25,20 +25,10 @@
 
 </script>
 
-{% assign store_pages = shop.metaobjects.store_page.values %}
+{% assign store_pages = shop.metaobjects.store_page %}
 
-{% for store in store_pages %}
+{{ store_pages | json }}
 
-  <h2>{{ store.system.handle }}</h2>
-
-  {% for field in store %}
-    <p>
-      <strong>{{ field[0] }}:</strong>
-      {{ field[1].value }}
-    </p>
-  {% endfor %}
-
-{% endfor %}
 <div class="cms-two-columns cw-storelocator">
     <div class="row">
       <div class="col-main">

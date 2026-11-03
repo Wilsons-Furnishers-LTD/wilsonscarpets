@@ -25,7 +25,7 @@
 
 </script>
 
-{% assign store_pages = shop.metaobjects.store_page %}
+{% assign store_pages = shop.metaobjects.store_page.values %}
 
 <pre>
 {{store_pages | json}}

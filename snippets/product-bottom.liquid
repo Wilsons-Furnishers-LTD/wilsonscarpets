@@ -732,7 +732,9 @@
 
             jQuery(".size .selectWrapper select").on('change', function () { // change the sibling as well:
                 jQuery(this).parents('.measurementSelect').siblings().find('select').val(jQuery(this).val());
+                updateProductSelectSize(jQuery(this).val());
                 setSelectedSize(jQuery(this).val());
+                document.dispatchEvent(new CustomEvent('measurement:changed'));
             });
             jQuery("#metreInchesSwitcher input").on('change', function () {
                 if (jQuery(this).attr("id") == "measurementToggleMetres") {
@@ -1110,6 +1112,32 @@
         }
         featherlightGalleryInitial();
     });
+
+  // Selects the variant in #product-select with the chosen width, keeping the other options (e.g. colour) as they are
+  function updateProductSelectSize(size) {
+    var sizeSelect = jQuery(jQuery('.option-size').data('select-option'));
+    var variantData = document.getElementById('ProductVariants');
+
+    if (!sizeSelect.length || !variantData) return;
+
+    // The size option's index comes from its id, e.g. #product-select-option-1
+    var sizeIndex = Number(sizeSelect.attr('id').split('-').pop());
+
+    sizeSelect.val(size);
+
+    var selectedOptions = jQuery('#product-variants .single-option-selector').map(function () {
+      return jQuery(this).val();
+    }).get();
+    selectedOptions[sizeIndex] = size;
+
+    var variant = JSON.parse(variantData.textContent).find(function (variant) {
+      return variant.options.every(function (option, index) {
+        return option === selectedOptions[index];
+      });
+    });
+
+    if (variant) jQuery('#product-select').val(variant.id).change();
+  }
 
   function setSelectedSize(value) {
     sessionStorage.setItem('selectedSize', value);

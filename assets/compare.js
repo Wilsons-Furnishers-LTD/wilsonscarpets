@@ -194,7 +194,7 @@ class Compare {
         Compare.track('compare_first_click', {
             product_type: button.dataset.type,
             product_handle: button.dataset.handle,
-            source,
+            origin: source,
         });
     }
 
@@ -494,7 +494,7 @@ class Compare {
             product_type: type,
             product_handle: handle,
             variant_id: variantId,
-            source,
+            origin: source,
             compare_count: products.length,
         });
 
@@ -503,7 +503,7 @@ class Compare {
             Compare.track('compare_category_add', {
                 product_type: type,
                 product_handle: handle,
-                source,
+                origin: source,
                 category_count: new Set(products.map(product => product.type || '')).size,
             });
         }

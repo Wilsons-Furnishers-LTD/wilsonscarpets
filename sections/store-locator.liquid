@@ -22,11 +22,11 @@
         store_data: {{ page.metafields.store | json }}
     };
 
-    {% assign store_pages = shop.metaobjects.store_page.values %}
-    {{store_pages | json}}
+
 </script>
 
-
+    {% assign store_pages = shop.metaobjects.store_page.values %}
+    {{store_pages | json}}
 <div class="cms-two-columns cw-storelocator">
     <div class="row">
       <div class="col-main">

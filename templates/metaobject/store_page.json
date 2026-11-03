@@ -8,20 +8,6 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {
-    "store_banner_CMf3fw": {
-      "type": "store-banner",
-      "name": "Store Banner",
-      "settings": {
-        "text_color": "text-light",
-        "title": "Visit your local store",
-        "subheading": "",
-        "link": "",
-        "button_text": "Find a store"
-      }
-    }
-  },
-  "order": [
-    "store_banner_CMf3fw"
-  ]
+  "sections": {},
+  "order": []
 }

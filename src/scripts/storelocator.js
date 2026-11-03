@@ -541,45 +541,44 @@
 
         }
 
+        // store_data is one object per store_page metaobject, see sections/store-locator.liquid.
+        // Fields the metaobject doesn't have are left empty, as the rest of this file expects them to exist
         function formatCmsStoreData() {
-            let data = window.themeAssets.store_data;
+            let data = window.themeAssets.store_data || [];
             return {
-                    type: "FeatureCollection",
-                    features: data.address.map((address, index) => ({
-                    type: "Feature",
-                    geometry: {
-                        type: "Point",
-                        coordinates: [
-                            data.long ? Number(data.long[index]) : '',
-                            data.lat[index] ? Number(data.lat[index]) : ''
-                        ]
-                    },
-                    properties: {
-                        category: "store",
-                        address,
-                        name: data.name ? data.name[index] : '',
-                        thumbnail: data.thumbnail ? data.thumbnail[index] : '',
-                        address: data.address ? data.address[index] : '',
-                        url: data.url ? data.url[index] : '',
-                        phone: data.address ? data.phone[index] : '',
-                        lat: data.lat[index] ? data.lat[index] : '',
-                        long: data.long[index] ? data.long[index] : '',
-                        social: data.social ? data.social[index] : '',
-                        tags: data.tags ? data.tags[index] : [],
-                        opening_times: data.opening_times ? data.opening_times[index] : '',
-                        country: data.country ? data.country[index] : '',
-                        region: data.region ? data.region[index] : '',
-                        city: data.city ? data.city[index] : '',
-                        schedule: data.schedule ? data.schedule[index] : '',
-                        schedule_text: data.schedule ? data.schedule_text[index] : '',
-                        id: data.store_id ? Number(data.store_id[index]) : '',
-                        email: data.email ? data.email[index] : '',
-                        place_id: data.place_id ? data.place_id[index] : '',
-                        featured_store: data.featured_store ? data.featured_store[index] : ''
-                    }
-                }))
+                type: "FeatureCollection",
+                features: data
+                    .filter(store => store.lat && store.long)
+                    .map(store => ({
+                        type: "Feature",
+                        geometry: {
+                            type: "Point",
+                            coordinates: [Number(store.long), Number(store.lat)]
+                        },
+                        properties: {
+                            category: "store",
+                            id: store.id ? Number(store.id) : '',
+                            name: store.name || '',
+                            address: store.address || '',
+                            phone: store.phone || '',
+                            lat: store.lat,
+                            long: store.long,
+                            place_id: store.place_id || '',
+                            opening_times: store.opening_times || '',
+                            thumbnail: store.thumbnail || '',
+                            url: store.url || '',
+                            email: '',
+                            social: '',
+                            tags: [],
+                            country: '',
+                            region: '',
+                            city: '',
+                            schedule: '',
+                            schedule_text: '',
+                            featured_store: ''
+                        }
+                    }))
             };
-  
         }
 
         // format metadata

@@ -1,0 +1,105 @@
+{%- comment -%} Uses the same markup as sections/banner.liquid, so it picks up the theme's banner styles {%- endcomment -%}
+<div data-section-id="{{ section.id }}" data-section-type="store-banner" class="banner-one store-banner">
+    <div class="row">
+        <div class="col-wide-12 col-img {{ section.settings.text_color | escape }}">
+            {% if section.settings.link != blank %}
+                <a class="image" href="{{ section.settings.link }}">
+            {% endif %}
+            {% if section.settings.image %}
+                <picture>
+                    <source media="(min-width: 1440px)" srcset="{{ section.settings.image | img_url: 'master' }}">
+                    <source media="(min-width: 1390px)" srcset="{{ section.settings.image | img_url: '1440x' }}">
+                    <source media="(min-width: 1340px)" srcset="{{ section.settings.image | img_url: '1390x' }}">
+                    <source media="(min-width: 1280px)" srcset="{{ section.settings.image | img_url: '1340x' }}">
+                    <source media="(min-width: 1024px)" srcset="{{ section.settings.image | img_url: '1280x' }}">
+                    <source media="(min-width: 768px)" srcset="{{ section.settings.image | img_url: '1024x640', crop: 'center' }}">
+                    {% if section.settings.mobile_image != blank %}
+                        <source media="(min-width: 540px)" srcset="{{ section.settings.mobile_image | img_url: 'master' }}">
+                        <source srcset="{{ section.settings.mobile_image | img_url: '540x' }}">
+                    {% else %}
+                        <source media="(min-width: 540px)" srcset="{{ section.settings.image | img_url: '640x600', crop: 'center' }}">
+                        <source srcset="{{ section.settings.image | img_url: '540x506', crop: 'center' }}">
+                    {% endif %}
+                    <img width="1600" height="533" src="{{ section.settings.image | img_url: 'master' }}" alt="{{ section.settings.image.alt | default: section.settings.title | escape }}" />
+                </picture>
+            {% else %}
+                <span class="placeholder-background">
+                    {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                </span>
+            {% endif %}
+            {% if section.settings.link != blank %}
+                </a>
+            {% endif %}
+            <div class="text-wrap overlay">
+                <div class="wrapper">
+                    <div class="text-content">
+                        {% unless section.settings.title == blank %}
+                            <h2 class="title">{{ section.settings.title }}</h2>
+                        {% endunless %}
+                        {% unless section.settings.subheading == blank %}
+                            <p class="subtitle">{{ section.settings.subheading }}</p>
+                        {% endunless %}
+                        {% if section.settings.link != blank and section.settings.button_text != blank %}
+                            <a class="button" href="{{ section.settings.link }}">{{ section.settings.button_text }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Store Banner",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "mobile_image",
+                "label": "Mobile Image"
+            },
+            {
+                "type": "select",
+                "id": "text_color",
+                "label": "Text color",
+                "options": [
+                    { "value": "text-light", "label": "Light" },
+                    { "value": "text-dark", "label": "Dark" }
+                ],
+                "default": "text-light"
+            },
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading",
+                "default": "Visit your local store"
+            },
+            {
+                "type": "text",
+                "id": "subheading",
+                "label": "Subheading"
+            },
+            {
+                "type": "url",
+                "id": "link",
+                "label": "Link"
+            },
+            {
+                "type": "text",
+                "id": "button_text",
+                "label": "Button Text",
+                "default": "Find a store"
+            }
+        ],
+        "presets": [{
+            "name": "Store Banner",
+            "category": "Image"
+        }]
+    }
+{% endschema %}

@@ -7,7 +7,7 @@
 {%- endcomment -%}
 
 
-{% if shop.metafields.custom.compare_feature == 1 %}
+{% if shop.metafields.custom.compare_feature.value %}
   {% assign compare_types = 'Carpets|LVT|Vinyl|Laminate|Artificial Grass|Real Wood|Accessories & Underlay|Rugs' | split: '|' %}
   {% assign has_comparable_product = false %}
   {% for product in collection.products %}

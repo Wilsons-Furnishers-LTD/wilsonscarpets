@@ -135,14 +135,13 @@
     }
     .store-banner__inner {
         width: 100%;
-        max-width: 310px;
+        max-width: 600px;
     }
     .store-banner__breadcrumb {
         display: flex;
-        gap: 4px;
-        font-size: 11px;
-        font-weight: 600;
-        margin-bottom: 24px;
+        gap: 6px;
+        font-size: 14px;
+        margin-bottom: 32px;
     }
     .store-banner__breadcrumb a {
         color: inherit;
@@ -152,8 +151,8 @@
         font-weight: 700;
     }
     .store-banner__title {
-        margin: 0 0 22px;
-        font-size: 24px;
+        margin: 0 0 32px;
+        font-size: 32px;
         line-height: 1.2;
         font-weight: 700;
         color: var(--store-dark);
@@ -161,39 +160,39 @@
     }
     .store-banner__card {
         background: #fff;
-        border-radius: 8px;
-        padding: 14px 14px 16px;
-        margin-bottom: 16px;
+        border-radius: 10px;
+        padding: 20px 20px 24px;
+        margin-bottom: 20px;
     }
     .store-banner__card--split {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 24px;
     }
     .store-banner__heading {
         display: flex;
         align-items: center;
-        gap: 6px;
-        margin: 0 0 10px;
-        font-size: 13px;
+        gap: 10px;
+        margin: 0 0 14px;
+        font-size: 17px;
         font-weight: 700;
         color: var(--store-red);
         text-transform: none;
         letter-spacing: 0;
     }
     .store-banner__heading svg {
-        width: 15px;
-        height: 15px;
+        width: 20px;
+        height: 20px;
         flex-shrink: 0;
     }
     .store-banner__text {
         padding-left: 30px;
-        font-size: 10.5px;
-        line-height: 1.4;
+        font-size: 14px;
+        line-height: 1.45;
         font-style: normal;
     }
     .store-banner__hours {
-        padding-left: 18px;
+        padding-left: 20px;
     }
     .store-banner__hours table {
         width: 100%;
@@ -214,7 +213,7 @@
     .store-banner__details ul {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 0 8px;
+        gap: 0 12px;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -229,20 +228,21 @@
     .store-banner__buttons {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 8px 10px;
-        margin-top: 24px;
+        gap: 12px 16px;
+        margin-top: 36px;
     }
     .store-banner__button {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
-        min-height: 20px;
-        padding: 0 8px;
+        gap: 8px;
+        min-height: 40px;
+        padding: 6px 12px;
         background: var(--store-red);
         color: #fff;
-        font-size: 10px;
+        font-size: 14px;
         font-weight: 700;
+        line-height: 1.2;
         text-decoration: none;
         text-align: center;
         transition: background-color .2s;
@@ -253,17 +253,22 @@
         color: #fff;
     }
     .store-banner__button svg {
-        width: 11px;
-        height: 11px;
+        width: 15px;
+        height: 15px;
         flex-shrink: 0;
     }
     .store-banner__button--alt {
         background: var(--store-yellow);
         color: var(--store-dark);
     }
+    .store-banner__button--alt:hover,
+    .store-banner__button--alt:focus-visible {
+        background: var(--store-dark);
+        color: #fff;
+    }
     .store-banner__image {
         position: relative;
-        min-height: 260px;
+        min-height: 280px;
         overflow: hidden;
     }
     .store-banner__image img,
@@ -277,36 +282,24 @@
     @media (min-width: 990px) {
         .store-banner {
             grid-template-columns: 1fr 1fr;
-            min-height: 400px;
+            min-height: 560px;
         }
         .store-banner__info {
-            padding: 16px 32px 20px;
-        }
-        .store-banner__inner {
-            max-width: 310px;
-        }
-        .store-banner__button {
-            min-height: 20px;
+            padding: 24px 48px 40px;
         }
     }
-    @media (max-width: 989px) {
-        .store-banner__inner {
-            max-width: 480px;
-        }
+    @media (max-width: 600px) {
         .store-banner__title {
-            font-size: 22px;
+            font-size: 26px;
         }
-        .store-banner__text {
-            font-size: 13px;
-        }
-        .store-banner__button {
-            min-height: 40px;
-            font-size: 13px;
-        }
-    }
-    @media (max-width: 400px) {
         .store-banner__card--split,
         .store-banner__details ul {
+            grid-template-columns: 1fr;
+        }
+        .store-banner__details ul {
+            grid-template-columns: 1fr 1fr;
+        }
+        .store-banner__buttons {
             grid-template-columns: 1fr;
         }
     }

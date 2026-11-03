@@ -6,7 +6,7 @@
   pagination below that, where the filter and sort bar is moved out of the toolbar
 {%- endcomment -%}
 
-{{ custom.compare_feature  }}
+{{ shop.metafields.custom.compare_feature  }}
 {% if shop.metafields.comparison.feature == 1 %}
   {% assign compare_types = 'Carpets|LVT|Vinyl|Laminate|Artificial Grass|Real Wood|Accessories & Underlay|Rugs' | split: '|' %}
   {% assign has_comparable_product = false %}

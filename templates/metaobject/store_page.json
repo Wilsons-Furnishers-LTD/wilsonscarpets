@@ -8,14 +8,6 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {
-    "store_banner_ppacwK": {
-      "type": "store-banner",
-      "name": "Store Banner",
-      "settings": {}
-    }
-  },
-  "order": [
-    "store_banner_ppacwK"
-  ]
+  "sections": {},
+  "order": []
 }

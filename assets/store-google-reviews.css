@@ -73,6 +73,16 @@
 .store-reviews__list--carousel.store-reviews__list--nav .owl-nav.disabled {
   display: block;
 }
+.store-reviews__list--carousel .owl-nav .visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
 .store-reviews__list--carousel .owl-nav div.owl-prev,
 .store-reviews__list--carousel .owl-nav div.owl-next {
   position: absolute;

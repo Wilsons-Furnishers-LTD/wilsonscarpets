@@ -2,7 +2,6 @@
 .store-banner {
   display: grid;
   grid-template-columns: 1fr;
-  background: #f7f7f7;
   color: #414B52;
   font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
 }
@@ -48,6 +47,7 @@
   border-radius: 10px;
   padding: 20px 20px 24px;
   margin-bottom: 20px;
+  border: 3px solid #ddd;
 }
 .store-banner__card--split {
   display: grid;

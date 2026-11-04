@@ -20,9 +20,6 @@
     align-items: center;
   }
 }
-.store-gallery__layout--no-content {
-  grid-template-columns: 1fr;
-}
 .store-gallery__gallery {
   display: flex;
   flex-direction: column-reverse;

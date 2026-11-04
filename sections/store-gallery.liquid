@@ -26,7 +26,7 @@
 {%- assign content_html = content_html | strip -%}
 <div class="store-gallery" data-section-id="{{ section.id }}" data-section-type="store-gallery">
     <div class="wrapper">
-        <div class="store-gallery__layout{% if content_html == blank %} store-gallery__layout--no-content{% endif %}">
+        <div class="store-gallery__layout">
             <div class="store-gallery__gallery">
                 {% if section.blocks.size > 1 %}
                     <ul class="store-gallery__thumbs" aria-label="Choose image">
@@ -73,11 +73,12 @@
                 {% endif %}
             </div>
 
-            {% if content_html != blank %}
-                <div class="store-gallery__content">
+            {%- comment -%} Always rendered so the gallery keeps its column width when there's no text {%- endcomment -%}
+            <div class="store-gallery__content">
+                {% if content_html != blank %}
                     <div class="store-gallery__text">{{ content_html }}</div>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
     </div>
 </div>

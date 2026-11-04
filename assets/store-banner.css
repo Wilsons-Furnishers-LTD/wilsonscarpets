@@ -177,6 +177,12 @@
     max-width: 850px;
   }
 }
+@media (min-width: 990px) {
+  .store-banner__image--map {
+    max-width: none;
+    margin-right: max(20px, 100% - 657px);
+  }
+}
 .store-banner__image > img,
 .store-banner__image > .placeholder-svg,
 .store-banner__image > .store-banner__map {

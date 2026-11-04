@@ -126,10 +126,6 @@
 .store-gallery__content {
   max-width: 560px;
 }
-.store-gallery__text {
-  font-size: 15px;
-  line-height: 1.45;
-}
 .store-gallery__text p {
   margin: 0 0 1.2em;
 }

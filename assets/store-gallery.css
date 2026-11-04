@@ -23,9 +23,15 @@
   }
 }
 @media (min-width: 990px) {
-  .store-gallery__gallery, .store-gallery__content {
-    justify-self: center;
+  .store-gallery__gallery {
+    margin-left: max(48px, (100% - 600px) / 2);
+  }
+}
+@media (min-width: 990px) {
+  .store-gallery__content {
+    justify-self: start;
     width: min(600px, 100% - 96px);
+    margin-left: 48px;
   }
 }
 .store-gallery__gallery {

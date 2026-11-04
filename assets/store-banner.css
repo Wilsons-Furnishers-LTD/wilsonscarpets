@@ -11,7 +11,7 @@
 @media (min-width: 990px) {
   .store-banner__container {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    max-width: 1324px;
+    max-width: 1314px;
     min-height: 560px;
     margin: 0 auto;
   }
@@ -235,7 +235,7 @@
   align-items: center;
   gap: 16px 24px;
   box-sizing: border-box;
-  max-width: 1324px;
+  max-width: 1314px;
   margin: 0 auto;
   padding: 10px 20px;
 }

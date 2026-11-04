@@ -16,7 +16,7 @@
 }
 @media (min-width: 990px) {
   .store-gallery__layout {
-    grid-template-columns: 1fr minmax(0, 662px) minmax(0, 662px) 1fr;
+    grid-template-columns: 1fr minmax(0, 657px) minmax(0, 657px) 1fr;
     gap: 0;
     padding: 0;
     align-items: center;

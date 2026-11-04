@@ -94,10 +94,18 @@
 <div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner" id="StoreBanner-{{ section.id }}">
     <div class="store-banner__info">
         <div class="store-banner__inner">
-            <nav class="store-banner__breadcrumb" aria-label="Breadcrumb">
-                <a href="{{ routes.root_url }}">Home</a>
-                <span aria-hidden="true">&gt;</span>
-                <a href="/pages/stores">Stores</a>
+            {%- comment -%}
+                Same markup as snippets/breadcrumbs.liquid (used on collection pages), so it picks up the theme's
+                .breadcrumb styles: faded links, chevron separators, current page in bold
+            {%- endcomment -%}
+            <nav class="breadcrumb store-banner__breadcrumb" aria-label="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span><a href="{{ shop.url }}" itemprop="item" title="Home">Home</a></span><meta itemprop="name" content="Home"><meta itemprop="position" content="1"></span>
+                <span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span><a href="/pages/stores" itemprop="item">Stores</a></span><meta itemprop="name" content="Stores"><meta itemprop="position" content="2"></span>
+                {% if store_name != blank %}
+                    <span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+                    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ store_name | escape }}</span><meta itemprop="position" content="3"><meta itemprop="item" content="{{ shop.url }}{{ store.system.url }}"></span>
+                {% endif %}
             </nav>
 
             {% if store_name != blank %}

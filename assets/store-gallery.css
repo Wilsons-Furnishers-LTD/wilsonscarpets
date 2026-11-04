@@ -25,6 +25,7 @@
 @media (min-width: 990px) {
   .store-gallery__gallery {
     margin-left: max(48px, (100% - 600px) / 2);
+    margin-right: 60px;
   }
 }
 @media (min-width: 990px) {

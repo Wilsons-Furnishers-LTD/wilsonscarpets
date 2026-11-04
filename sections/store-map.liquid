@@ -125,8 +125,11 @@
                     icon: { url: config.marker, scaledSize: new google.maps.Size(30, 43) }
                 });
                 if (config.title) {
-                    // "Wilsons Carpets <store>", unless the store name already starts with "Wilsons"
-                    var label = /^wilsons\b/i.test(config.title) ? config.title : 'Wilsons Carpets, ' + config.title;
+                    // "Wilsons Carpets," on the first line, the store name on the second (the \n is kept by
+                    // white-space: pre on .store-map__label). If the store name already starts with "Wilsons Carpets",
+                    // that part goes on the first line instead of being repeated.
+                    var storePart = config.title.replace(/^wilsons carpets[\s,\-]*/i, '');
+                    var label = storePart ? 'Wilsons Carpets,\n' + storePart : 'Wilsons Carpets';
                     addLabel(map, position, label);
                 }
             }

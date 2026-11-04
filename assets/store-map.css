@@ -30,8 +30,8 @@
 }
 .store-map__label {
   position: absolute;
-  transform: translate(19px, -32px);
-  white-space: nowrap;
+  transform: translate(19px, -39px);
+  white-space: pre;
   color: #ba3c3d;
   font-family: Roboto, Arial, sans-serif;
   font-size: 14px;

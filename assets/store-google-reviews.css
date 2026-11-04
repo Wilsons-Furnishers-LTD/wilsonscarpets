@@ -56,11 +56,11 @@
 .store-reviews__list--carousel .store-reviews__card {
   width: 100%;
 }
-.store-reviews__list--carousel:has(.owl-nav:not(.disabled)) {
+.store-reviews__list--carousel {
   padding: 0 52px;
 }
 @media (max-width: 599px) {
-  .store-reviews__list--carousel:has(.owl-nav:not(.disabled)) {
+  .store-reviews__list--carousel {
     padding: 0 40px;
   }
 }

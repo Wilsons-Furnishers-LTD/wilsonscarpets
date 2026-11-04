@@ -72,8 +72,20 @@
 
                 var foot = document.createElement('div');
                 foot.className = 'store-reviews__author';
+                // Reviewer's Google profile picture if they have one, otherwise (or if it fails to load) their initial
                 var avatar = text('span', 'store-reviews__avatar', name.trim().charAt(0).toUpperCase());
                 avatar.setAttribute('aria-hidden', 'true');
+                if (author.photoURI) {
+                    var photo = document.createElement('img');
+                    photo.src = author.photoURI;
+                    photo.alt = '';
+                    photo.width = 28;
+                    photo.height = 28;
+                    photo.loading = 'lazy';
+                    photo.referrerPolicy = 'no-referrer';
+                    photo.onerror = function () { photo.remove(); };
+                    avatar.appendChild(photo);
+                }
                 foot.appendChild(avatar);
 
                 var who = document.createElement('div');

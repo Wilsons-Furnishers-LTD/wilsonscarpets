@@ -109,9 +109,9 @@
             // Cards visible at each screen width (Owl Carousel breakpoints)
             var BREAKPOINTS = { 0: 1, 600: 2, 990: 3, 1200: 5 };
 
-            // Turns the cards into a looping Owl Carousel with arrows, dots and autoplay whenever there are 2+ reviews.
-            // Cards on screen never exceed the number of reviews (e.g. 3 reviews on desktop -> 3 wider cards),
-            // so the loop never shows the same review twice at once.
+            // Turns the cards into an Owl Carousel. Cards are always the same width (BREAKPOINTS cards per screen).
+            // At each screen width, if the reviews fill the row it loops with arrows, dots and autoplay; if there
+            // are fewer reviews than fit, they sit centred with no arrows (looping would show a review twice at once).
             // Owl Carousel and jQuery are loaded (deferred) by layout/theme.liquid. Without them the CSS grid is used.
             function carousel(list, count) {
                 function start() {
@@ -119,8 +119,8 @@
                     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     var responsive = {};
                     Object.keys(BREAKPOINTS).forEach(function (width) {
-                        var items = Math.min(BREAKPOINTS[width], count);
-                        var loop = count > 1;
+                        var items = BREAKPOINTS[width];
+                        var loop = count > 1 && count >= items;
                         responsive[width] = {
                             items: items,
                             loop: loop,
@@ -135,7 +135,14 @@
                     });
 
                     list.classList.add('owl-carousel', 'store-reviews__list--carousel');
-                    if (count > 1) list.classList.add('store-reviews__list--nav');
+
+                    // Owl 2.2.1 hides the arrows when every review fits on screen, even while looping (e.g. 5 reviews,
+                    // 5 cards on desktop). --nav keeps them showing, but only at screen widths where it's looping.
+                    jQuery(list).on('initialized.owl.carousel refreshed.owl.carousel resized.owl.carousel', function (e) {
+                        var owl = e.relatedTarget;
+                        if (owl && owl.settings) list.classList.toggle('store-reviews__list--nav', !!owl.settings.loop);
+                    });
+
                     jQuery(list).owlCarousel({
                         margin: 20,
                         autoplayTimeout: 5000,

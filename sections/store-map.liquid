@@ -3,7 +3,7 @@
     Store map: a Google map of the current store_page metaobject's location, styled like the /pages/stores
     map (sections/store-locator.liquid): the same grey "Silver" map style and the marker-alt-2.png pin.
     Uses store_finder_lat / store_finder_long when both are set, otherwise geocodes the store name + address.
-    Uses the same Google Maps API key as the store locator.
+    The Maps API is loaded by snippets/store-google-maps-loader.liquid (same key as the store locator).
     Styles: src/styles/store-map/_index.scss -> assets/store-map.css (npm run build)
 {%- endcomment -%}
 {%- assign store = metaobject -%}
@@ -36,11 +36,11 @@
         </div>
     </div>
 
+    {% render 'store-google-maps-loader' %}
     <script>
         (function () {
             var sectionId = {{ section.id | json }};
             var config = {
-                apiKey: 'AIzaSyDW3vqDk5Ow2bKE3pgC4i9GYi4IxZBcIkQ',
                 lat: {{ store_lat | json }},
                 lng: {{ store_long | json }},
                 address: {{ store_name | append: ', ' | append: store_address | json }},
@@ -102,21 +102,8 @@
                 });
             }
 
-            // Load the Maps API once, even if there's more than one map section on the page
             function load() {
-                if (window.google && window.google.maps) return init();
-                window.storeMapCallbacks = window.storeMapCallbacks || [];
-                window.storeMapCallbacks.push(init);
-                if (window.storeMapLoading) return;
-                window.storeMapLoading = true;
-                window.storeMapReady = function () {
-                    window.storeMapCallbacks.forEach(function (cb) { cb(); });
-                    window.storeMapCallbacks = [];
-                };
-                var script = document.createElement('script');
-                script.src = 'https://maps.googleapis.com/maps/api/js?key=' + config.apiKey + '&language=en&callback=storeMapReady';
-                script.async = true;
-                document.head.appendChild(script);
+                window.storeLoadGoogleMaps(init);
             }
 
             load();

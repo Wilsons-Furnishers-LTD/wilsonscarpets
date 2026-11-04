@@ -1,7 +1,7 @@
 {{ 'store-gallery.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Store gallery: main image with a row of thumbnails underneath, text content on the right (desktop).
-    Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
+    Store gallery: the store's images stacked in a pattern (one full width, then two side by side, repeating),
+    with the title and text on the right (desktop).
     Styles: src/styles/store-gallery/_index.scss -> assets/store-gallery.css (npm run build)
 
     Everything comes from the current store_page metaobject, so it only shows on store pages:
@@ -34,37 +34,31 @@
     <div class="store-gallery__wrap">
         <div class="store-gallery__layout">
             <div class="store-gallery__gallery">
-                {% if images.size > 1 %}
-                    <ul class="store-gallery__thumbs" aria-label="Choose image">
+                {%- comment -%}
+                    Pattern: one full-width image, then two half-width images underneath, repeating
+                    (1 full, 2 half, 1 full, 2 half...). A half-width image left on its own at the end goes full width.
+                {%- endcomment -%}
+                {% if images.size > 0 %}
+                    <ul class="store-gallery__grid" role="list">
                         {% for image in images %}
-                            <li>
-                                <button type="button"
-                                    class="store-gallery__thumb{% if forloop.first %} is-active{% endif %}"
-                                    data-index="{{ forloop.index0 }}"
-                                    aria-label="Show image {{ forloop.index }} of {{ forloop.length }}"
-                                    {% if forloop.first %}aria-current="true"{% endif %}>
-                                    {{ image | image_url: width: 160, height: 160, crop: 'center' | image_tag: alt: '', loading: 'lazy' }}
-                                </button>
+                            {%- assign position = forloop.index0 | modulo: 3 -%}
+                            {%- if position == 0 or forloop.last and position == 1 -%}
+                                {%- assign image_sizes = '(min-width: 990px) 600px, 100vw' -%}
+                                {%- assign item_class = 'store-gallery__item store-gallery__item--full' -%}
+                            {%- else -%}
+                                {%- assign image_sizes = '(min-width: 990px) 300px, 50vw' -%}
+                                {%- assign item_class = 'store-gallery__item' -%}
+                            {%- endif -%}
+                            <li class="{{ item_class }}">
+                                {{ image | image_url: width: 1600 | image_tag:
+                                    widths: '400, 600, 800, 1000, 1200, 1600',
+                                    sizes: image_sizes,
+                                    alt: image.alt,
+                                    loading: 'lazy'
+                                }}
                             </li>
                         {% endfor %}
                     </ul>
-                {% endif %}
-
-                {% if images.size > 0 %}
-                    <div class="store-gallery__main">
-                        <div class="owl-carousel" id="StoreGallery-{{ section.id }}">
-                            {% for image in images %}
-                                <div class="store-gallery__slide">
-                                    {{ image | image_url: width: 1600 | image_tag:
-                                        widths: '540, 800, 1000, 1200, 1600',
-                                        sizes: '(min-width: 990px) 45vw, 100vw',
-                                        alt: image.alt,
-                                        loading: 'lazy'
-                                    }}
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
                 {% elsif request.design_mode %}
                     <p class="store-gallery__notice">
                         Store Gallery: add images to this store's <strong>Store Gallery</strong> field to show them here.
@@ -87,55 +81,6 @@
 </div>
 {%- endif -%}
 
-<script>
-    (function () {
-        var sectionId = '{{ section.id }}';
-
-        function init() {
-            if (!window.jQuery || !jQuery.fn.owlCarousel) return;
-            var $main = jQuery('#StoreGallery-' + sectionId);
-            if (!$main.length) return;
-            var $thumbs = $main.closest('.store-gallery').find('.store-gallery__thumb');
-
-            $main.trigger('destroy.owl.carousel');
-            $thumbs.off('.storeGallery');
-
-            function setActive(index) {
-                $thumbs.removeClass('is-active').removeAttr('aria-current');
-                $thumbs.eq(index).addClass('is-active').attr('aria-current', 'true');
-            }
-
-            $main.on('changed.owl.carousel', function (e) {
-                if (e.item && e.item.index !== null) setActive(e.item.index);
-            });
-
-            $main.owlCarousel({
-                items: 1,
-                loop: false,
-                rewind: true,
-                nav: false,
-                dots: $thumbs.length > 0,
-                smartSpeed: 500
-            });
-
-            $thumbs.on('click.storeGallery', function () {
-                $main.trigger('to.owl.carousel', [parseInt(jQuery(this).data('index'), 10), 500]);
-            });
-        }
-
-        // owl.carousel.js is loaded with defer, so wait for it
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-
-        // Re-initialise when the section is edited in the theme editor
-        document.addEventListener('shopify:section:load', function (e) {
-            if (e.detail.sectionId === sectionId) init();
-        });
-    })();
-</script>
 
 {% schema %}
     {

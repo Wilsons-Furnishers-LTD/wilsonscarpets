@@ -31,7 +31,7 @@
   .store-banner__inner {
     width: auto;
     max-width: none;
-    margin-left: calc(max(48px, (100% - 600px) / 2) + 80px);
+    margin-left: max(48px, (100% - 600px) / 2);
     margin-right: 60px;
   }
 }

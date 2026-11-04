@@ -1,3 +1,7 @@
+main.main-content {
+  overflow: visible;
+}
+
 .store-gallery {
   padding: 60px 0;
   color: #414B52;

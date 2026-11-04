@@ -181,31 +181,6 @@
                 role="region"
                 aria-label="Map showing the location of {{ store_name | escape }}"></div>
             {% render 'store-google-map', store: store, map_id: banner_map_id, zoom: section.settings.map_zoom, tone: 'darker' %}
-            <script>
-                // Desktop: start the map level with the top of the first content box (address / opening hours) and
-                // end it level with the bottom of the buttons. Both depend on the content (breadcrumb, how many lines
-                // the store name takes, how many buttons), so they're measured and passed to the CSS as
-                // --store-banner-map-top / --store-banner-map-bottom (only used at 990px and up - see .store-banner__image--map).
-                (function () {
-                    var banner = document.getElementById('StoreBanner-{{ section.id }}');
-                    if (!banner) return;
-                    var column = banner.querySelector('.store-banner__image--map');
-                    var first = banner.querySelector('.store-banner__info .store-banner__card, .store-banner__info .store-banner__buttons');
-                    var last = banner.querySelector('.store-banner__info .store-banner__buttons') || first;
-                    if (!column || !first) return;
-
-                    function align() {
-                        var box = (banner.querySelector('.store-banner__container') || banner).getBoundingClientRect();
-                        var top = first.getBoundingClientRect().top - box.top;
-                        var bottom = box.bottom - last.getBoundingClientRect().bottom;
-                        column.style.setProperty('--store-banner-map-top', Math.max(0, Math.round(top)) + 'px');
-                        column.style.setProperty('--store-banner-map-bottom', Math.max(0, Math.round(bottom)) + 'px');
-                    }
-                    align();
-                    if ('ResizeObserver' in window) new ResizeObserver(align).observe(banner.querySelector('.store-banner__info'));
-                    window.addEventListener('load', align); // web fonts can change the title's height
-                })();
-            </script>
         {% elsif store_image != blank %}
             {%- comment -%}
                 On desktop the image fills (object-fit: cover) a half-width box at least 560px tall - often ~800px with
@@ -231,6 +206,38 @@
     </div>
   </div>
 </div>
+
+<script>
+    // Desktop: line the photo / map up with the store details beside it. The positions depend on the content
+    // (breadcrumb, how many lines the store name takes, how many buttons), so they're measured and passed to the CSS
+    // as --store-banner-media-top / --store-banner-media-bottom (only used at 990px and up - see .store-banner__image).
+    //   Photo: top level with the store name (the banner title); bottom at the bottom of the banner.
+    //   Map:   top level with the first content box (address / opening hours), bottom level with the buttons.
+    (function () {
+        var banner = document.getElementById('StoreBanner-{{ section.id }}');
+        if (!banner) return;
+        var column = banner.querySelector('.store-banner__image');
+        var info = banner.querySelector('.store-banner__info');
+        if (!column || !info) return;
+
+        var isMap = column.classList.contains('store-banner__image--map');
+        var firstBox = info.querySelector('.store-banner__card, .store-banner__buttons');
+        var top = isMap ? firstBox : (info.querySelector('.store-banner__title') || firstBox);
+        var bottom = isMap ? (info.querySelector('.store-banner__buttons') || firstBox) : null;
+        if (!top) return;
+
+        function align() {
+            var box = (banner.querySelector('.store-banner__container') || banner).getBoundingClientRect();
+            var topGap = top.getBoundingClientRect().top - box.top;
+            var bottomGap = bottom ? box.bottom - bottom.getBoundingClientRect().bottom : 0;
+            column.style.setProperty('--store-banner-media-top', Math.max(0, Math.round(topGap)) + 'px');
+            column.style.setProperty('--store-banner-media-bottom', Math.max(0, Math.round(bottomGap)) + 'px');
+        }
+        align();
+        if ('ResizeObserver' in window) new ResizeObserver(align).observe(info);
+        window.addEventListener('load', align); // web fonts can change the title's height
+    })();
+</script>
 
 {%- if banner_buttons != blank -%}
     {%- comment -%}

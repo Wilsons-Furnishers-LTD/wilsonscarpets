@@ -175,6 +175,11 @@
   min-height: 280px;
   overflow: hidden;
 }
+@media (min-width: 990px) {
+  .store-banner__image {
+    margin-top: var(--store-banner-media-top, 0px);
+  }
+}
 .store-banner__image--map {
   background: #e9e9e9;
 }
@@ -186,8 +191,8 @@
 @media (min-width: 990px) {
   .store-banner__image--map {
     max-width: none;
-    margin-top: var(--store-banner-map-top, 0px);
-    margin-bottom: var(--store-banner-map-bottom, 0px);
+    margin-top: var(--store-banner-media-top, 0px);
+    margin-bottom: var(--store-banner-media-bottom, 0px);
     border: 1px solid #dcdddf;
     box-shadow: 0 2px 8px rgba(50, 50, 50, 0.1);
   }

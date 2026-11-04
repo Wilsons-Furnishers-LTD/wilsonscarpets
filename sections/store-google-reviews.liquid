@@ -2,7 +2,7 @@
 {%- comment -%}
     Store Google reviews: a centred heading and a row of review cards (stars, text, reviewer initial, name, date)
     for the current store, loaded live in the browser with the Places API (New) - Place.fetchFields(). Google returns up to 5.
-    With 2+ reviews it becomes a looping Owl Carousel with arrows (see carousel() below).
+    The cards sit in rows (5 across on desktop), centred when a row isn't full.
 
     Needs, on the store_page metaobject definition:
       google_place_id - single line text, the store's Google Place ID (starts "ChIJ...").
@@ -106,60 +106,6 @@
                 return li;
             }
 
-            // Cards visible at each screen width (Owl Carousel breakpoints)
-            var BREAKPOINTS = { 0: 1, 600: 2, 990: 3, 1200: 5 };
-
-            // Turns the cards into an Owl Carousel. Cards are always the same width (BREAKPOINTS cards per screen).
-            // At each screen width, if the reviews fill the row it loops with arrows, dots and autoplay; if there
-            // are fewer reviews than fit, they sit centred with no arrows (looping would show a review twice at once).
-            // Owl Carousel and jQuery are loaded (deferred) by layout/theme.liquid. Without them the CSS grid is used.
-            function carousel(list, count) {
-                function start() {
-                    if (!window.jQuery || !jQuery.fn.owlCarousel) return;
-                    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                    var responsive = {};
-                    Object.keys(BREAKPOINTS).forEach(function (width) {
-                        var items = BREAKPOINTS[width];
-                        var loop = count > 1 && count >= items;
-                        responsive[width] = {
-                            items: items,
-                            loop: loop,
-                            nav: loop,
-                            dots: loop,
-                            autoplay: loop && !reduceMotion,
-                            mouseDrag: loop,
-                            touchDrag: loop,
-                            pullDrag: loop,
-                            stagePadding: 0
-                        };
-                    });
-
-                    list.classList.add('owl-carousel', 'store-reviews__list--carousel');
-
-                    // Owl 2.2.1 hides the arrows when every review fits on screen, even while looping (e.g. 5 reviews,
-                    // 5 cards on desktop). --nav keeps them showing, but only at screen widths where it's looping.
-                    jQuery(list).on('initialized.owl.carousel refreshed.owl.carousel resized.owl.carousel', function (e) {
-                        var owl = e.relatedTarget;
-                        if (owl && owl.settings) list.classList.toggle('store-reviews__list--nav', !!owl.settings.loop);
-                    });
-
-                    jQuery(list).owlCarousel({
-                        margin: 20,
-                        autoplayTimeout: 5000,
-                        autoplayHoverPause: true,
-                        smartSpeed: 500,
-                        navText: [
-                            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="visually-hidden">Previous reviews</span>',
-                            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg><span class="visually-hidden">Next reviews</span>'
-                        ],
-                        responsive: responsive
-                    });
-                }
-
-                if (window.jQuery && jQuery.fn.owlCarousel) start();
-                else if (document.readyState !== 'complete') window.addEventListener('load', start);
-            }
-
             async function init() {
                 try {
                     var places = await google.maps.importLibrary('places');
@@ -175,7 +121,6 @@
                     reviews.forEach(function (r) { list.appendChild(reviewCard(r)); });
 
                     root.hidden = false;
-                    carousel(list, reviews.length);
                 } catch (e) {
                     // Wrong Place ID, Places API (New) not enabled, or the request was blocked - leave the section hidden
                     console.warn('Store Google Reviews: could not load reviews', e);

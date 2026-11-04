@@ -6,7 +6,7 @@
     Fields used: store_finder_name / name, address, telephone, store_opening_times (HTML table),
     store_finder_place_id (Google Maps URL), store_banner_image (file - the banner photo; store_finder_thumbnail is used if it's empty).
     Assumed field keys - change these if your store_page definition uses different ones:
-      email         - single line text
+      email         - single line text (enquiries@wilsonscarpets.com is used if it's empty)
       store_details - list of text, or rich text
       linked_store  - metaobject reference to another store_page (e.g. the Hillsborough bed store)
 {%- endcomment -%}
@@ -15,7 +15,7 @@
 {%- comment -%} Banner photo: the Store Banner Image field, falling back to the store finder thumbnail {%- endcomment -%}
 {%- assign store_image = store.store_banner_image.value | default: store.store_finder_thumbnail.value -%}
 {%- assign store_phone = store.telephone.value -%}
-{%- assign store_email = store.email.value -%}
+{%- assign store_email = store.email.value | strip | default: 'enquiries@wilsonscarpets.com' -%}
 {%- assign store_directions = store.store_finder_place_id.value -%}
 {%- assign store_details = store.store_details -%}
 {%- assign linked_store = store.linked_store.value -%}

@@ -282,3 +282,8 @@
   font-size: 13px;
   white-space: nowrap;
 }
+
+#insta-feed {
+  max-width: 1394px;
+  margin: 0 auto;
+}

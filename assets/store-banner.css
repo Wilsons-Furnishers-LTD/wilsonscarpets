@@ -26,13 +26,13 @@
 }
 .store-banner__inner {
   width: 100%;
-  max-width: 600px;
+  max-width: 620px;
 }
 @media (min-width: 990px) {
   .store-banner__inner {
     width: auto;
     max-width: none;
-    margin-left: max(48px, (100% - 600px) / 2);
+    margin-left: max(48px, (100% - 620px) / 2);
     margin-right: 60px;
   }
 }
@@ -189,7 +189,7 @@
 @media (min-width: 990px) {
   .store-banner__image--map {
     max-width: none;
-    margin-right: calc(max(48px, (100% - 600px) / 2) + 60px);
+    margin-right: calc(max(48px, (100% - 620px) / 2) + 60px);
     margin-top: var(--store-banner-map-top, 0px);
     margin-bottom: var(--store-banner-map-bottom, 0px);
     border: 1px solid #dcdddf;

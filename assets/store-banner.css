@@ -282,13 +282,3 @@
   font-size: 13px;
   white-space: nowrap;
 }
-
-.template-metaobject .shopify-app-block {
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 84.625em;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.25em;
-  padding-right: 1.25em;
-}

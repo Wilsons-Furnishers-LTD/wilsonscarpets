@@ -20,7 +20,7 @@
 {% if map_query != blank %}
     
     <div class="store-map" data-section-id="{{ section.id }}" data-section-type="store-map">
-        <div class="wrapper">
+        <div class="store-map__inner">
             {% if section.settings.heading != blank %}
                 <h2 class="store-map__heading">{{ section.settings.heading | escape }}</h2>
             {% endif %}

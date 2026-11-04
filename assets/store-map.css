@@ -8,6 +8,9 @@
     padding: 24px 0;
   }
 }
+.store-map__inner {
+  padding: 0 30px;
+}
 .store-map__heading {
   margin: 0 0 20px;
   font-size: 28px;

@@ -167,8 +167,12 @@
         Right-hand column: the banner photo, or a map of the store when its store_banner_show_map field
         (true / false) is true. The map needs a location (lat + long, or an address); without one the photo is shown.
     {%- endcomment -%}
+    {%- comment -%}
+        Turned into text first so it works whether the field is a true/false field (true) or text ("true", "yes", "1")
+    {%- endcomment -%}
     {%- assign show_map = false -%}
-    {%- if store.store_banner_show_map.value == true -%}
+    {%- assign show_map_field = store.store_banner_show_map.value | append: '' | strip | downcase -%}
+    {%- if show_map_field == 'true' or show_map_field == 'yes' or show_map_field == '1' -%}
         {%- if store.store_finder_lat.value != blank and store.store_finder_long.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
         {%- if store.address.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
     {%- endif -%}

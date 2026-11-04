@@ -7,6 +7,7 @@
     Text comes from the current store_page metaobject's store_content field (rich text or multi-line text),
     so it only shows on store pages. The section has no settings of its own.
 {%- endcomment -%}
+{{metaobject | json}}
 {%- assign store_content = metaobject.store_content -%}
 {%- capture content_html -%}
     {%- if store_content.value != blank -%}

@@ -91,3 +91,9 @@
   color: #ba3c3d;
   text-decoration: underline;
 }
+
+@supports (overflow: clip) {
+  .template-metaobject #wrapper {
+    overflow: clip;
+  }
+}

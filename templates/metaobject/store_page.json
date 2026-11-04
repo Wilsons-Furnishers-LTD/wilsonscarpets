@@ -14,64 +14,21 @@
       "name": "Store Banner",
       "settings": {}
     },
-    "carousel_AmtAgb": {
-      "type": "carousel",
+    "store_gallery": {
+      "type": "store-gallery",
+      "name": "Store Gallery",
       "blocks": {
-        "slide_cfGF7p": {
-          "type": "slide",
-          "settings": {
-            "title": "Slide heading",
-            "text": "<p>Tell customers about this product, service or offer.</p>",
-            "button_text": "Find out more",
-            "link": ""
-          }
-        },
-        "slide_Rwnyh3": {
-          "type": "slide",
-          "settings": {
-            "title": "Slide heading",
-            "text": "<p>Tell customers about this product, service or offer.</p>",
-            "button_text": "Find out more",
-            "link": ""
-          }
-        },
-        "slide_JAcg86": {
-          "type": "slide",
-          "settings": {
-            "title": "Slide heading",
-            "text": "<p>Tell customers about this product, service or offer.</p>",
-            "button_text": "Find out more",
-            "link": ""
-          }
-        },
-        "slide_VDQnpB": {
-          "type": "slide",
-          "settings": {
-            "title": "Slide heading",
-            "text": "<p>Tell customers about this product, service or offer.</p>",
-            "button_text": "Find out more",
-            "link": ""
-          }
-        }
+        "slide_1": { "type": "slide", "settings": {} },
+        "slide_2": { "type": "slide", "settings": {} },
+        "slide_3": { "type": "slide", "settings": {} },
+        "slide_4": { "type": "slide", "settings": {} }
       },
-      "block_order": [
-        "slide_cfGF7p",
-        "slide_Rwnyh3",
-        "slide_JAcg86",
-        "slide_VDQnpB"
-      ],
-      "name": "Carousel",
-      "settings": {
-        "title": "Carousel",
-        "text": "",
-        "items_desktop": 3,
-        "autoplay": false,
-        "autoplay_speed": 5
-      }
+      "block_order": ["slide_1", "slide_2", "slide_3", "slide_4"],
+      "settings": {}
     }
   },
   "order": [
     "store_banner_MFH98H",
-    "carousel_AmtAgb"
+    "store_gallery"
   ]
 }

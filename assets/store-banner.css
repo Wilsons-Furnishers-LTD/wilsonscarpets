@@ -193,7 +193,6 @@
     margin-top: var(--store-banner-map-top, 0px);
     margin-bottom: var(--store-banner-map-bottom, 0px);
     border: 1px solid #dcdddf;
-    border-radius: 10px;
     box-shadow: 0 2px 8px rgba(50, 50, 50, 0.1);
   }
 }

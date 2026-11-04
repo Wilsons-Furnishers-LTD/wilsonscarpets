@@ -79,6 +79,35 @@
         </div>
     </div>
 </div>
+
+    {%- comment -%}
+        Sticky text (desktop, see .store-gallery__content): keeps --store-gallery-sticky-top at the bottom edge of
+        whatever is fixed to the top of the screen - the site header, and the store banner's sticky bar when it's
+        showing - so the text sticks just below them. The CSS does the sticking and stops it at the end of the section.
+    {%- endcomment -%}
+    <script>
+        (function () {
+            var section = document.querySelector('[data-section-id="{{ section.id }}"].store-gallery');
+            if (!section) return;
+            var header = document.getElementById('shopify-section-header');
+            var frame = null;
+
+            function update() {
+                frame = null;
+                var top = header ? header.getBoundingClientRect().bottom : 0;
+                var bar = document.querySelector('.store-banner-bar.is-visible');
+                if (bar) top = Math.max(top, bar.getBoundingClientRect().bottom);
+                section.style.setProperty('--store-gallery-sticky-top', Math.max(0, Math.round(top)) + 'px');
+            }
+            function queue() {
+                if (frame === null) frame = requestAnimationFrame(update);
+            }
+
+            update();
+            window.addEventListener('scroll', queue, { passive: true });
+            window.addEventListener('resize', queue);
+        })();
+    </script>
 {%- endif -%}
 
 

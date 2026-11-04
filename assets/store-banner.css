@@ -19,12 +19,21 @@
 }
 @media (min-width: 990px) {
   .store-banner__info {
-    padding: 24px 48px 40px;
+    display: block;
+    padding: 24px 0 40px;
   }
 }
 .store-banner__inner {
   width: 100%;
   max-width: 600px;
+}
+@media (min-width: 990px) {
+  .store-banner__inner {
+    width: auto;
+    max-width: none;
+    margin-left: calc(max(48px, (100% - 600px) / 2) + 80px);
+    margin-right: 60px;
+  }
 }
 .store-banner__breadcrumb {
   margin-bottom: 8px;

@@ -12,7 +12,10 @@
     "store_banner_MFH98H": {
       "type": "store-banner",
       "name": "Store Banner",
-      "settings": {}
+      "settings": {
+        "media": "map",
+        "map_zoom": 15
+      }
     },
     "store_gallery": {
       "type": "store-gallery",

@@ -112,12 +112,15 @@
                 sizes uses whichever is bigger: half the screen, or 800px x the photo's aspect ratio. Widths go up to
                 3000 so retina screens get a sharp copy (Shopify skips any width larger than the uploaded photo).
             {%- endcomment -%}
-            {%- assign cover_width = store_image.aspect_ratio | times: 800 | ceil -%}
+            {%- assign image_ratio = store_image.aspect_ratio | default: 1.333 -%}
+            {%- assign cover_width = image_ratio | times: 800 | ceil -%}
             {%- capture image_sizes -%}(min-width: 990px) max(50vw, {{ cover_width }}px), 100vw{%- endcapture -%}
+            {%- comment -%} Worked out first: a filter inside image_tag's arguments would apply to the whole tag {%- endcomment -%}
+            {%- assign image_alt = store_image.alt | default: store_name -%}
             {{ store_image | image_url: width: 3000 | image_tag:
                 widths: '540, 768, 1024, 1280, 1600, 2000, 2400, 3000',
                 sizes: image_sizes,
-                alt: store_image.alt | default: store_name,
+                alt: image_alt,
                 loading: 'eager'
             }}
         {% else %}

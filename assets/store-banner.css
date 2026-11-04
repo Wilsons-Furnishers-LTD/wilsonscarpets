@@ -90,8 +90,8 @@
 .store-banner__hours td {
   padding: 0;
   border: 0;
-  font-size: inherit;
-  padding-bottom: 5px;
+  font-size: 14px;
+  padding-bottom: 10px;
 }
 .store-banner__hours td:first-child {
   font-weight: 700;

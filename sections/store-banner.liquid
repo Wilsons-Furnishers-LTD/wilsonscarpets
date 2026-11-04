@@ -179,6 +179,26 @@
                 role="region"
                 aria-label="Map showing the location of {{ store_name | escape }}"></div>
             {% render 'store-google-map', store: store, map_id: banner_map_id, zoom: section.settings.map_zoom %}
+            <script>
+                // Desktop: start the map level with the top of the first content box (address / opening hours).
+                // The gap depends on the breadcrumb and how many lines the store name takes, so it's measured and
+                // passed to the CSS as --store-banner-map-top (only used at 990px and up - see .store-banner__image--map).
+                (function () {
+                    var banner = document.getElementById('StoreBanner-{{ section.id }}');
+                    if (!banner) return;
+                    var column = banner.querySelector('.store-banner__image--map');
+                    var first = banner.querySelector('.store-banner__info .store-banner__card, .store-banner__info .store-banner__buttons');
+                    if (!column || !first) return;
+
+                    function align() {
+                        var top = first.getBoundingClientRect().top - banner.getBoundingClientRect().top;
+                        column.style.setProperty('--store-banner-map-top', Math.max(0, Math.round(top)) + 'px');
+                    }
+                    align();
+                    if ('ResizeObserver' in window) new ResizeObserver(align).observe(banner.querySelector('.store-banner__info'));
+                    window.addEventListener('load', align); // web fonts can change the title's height
+                })();
+            </script>
         {% elsif store_image != blank %}
             {%- comment -%}
                 On desktop the image fills (object-fit: cover) a half-width box at least 560px tall - often ~800px with

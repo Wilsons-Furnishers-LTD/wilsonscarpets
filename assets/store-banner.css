@@ -181,6 +181,7 @@
   .store-banner__image--map {
     max-width: none;
     margin-right: max(20px, 100% - 657px);
+    margin-top: var(--store-banner-map-top, 0px);
   }
 }
 .store-banner__image > img,

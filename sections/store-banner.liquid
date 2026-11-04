@@ -57,7 +57,41 @@
     {%- endfor -%}
 {%- endif -%}
 
-<div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner">
+{%- comment -%} Buttons are captured once and used in the banner and in the sticky bar below {%- endcomment -%}
+{%- capture banner_buttons -%}
+                {% if store_phone != blank %}
+                    <a class="store-banner__button" href="tel:{{ store_phone | remove: ' ' }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+                        {{ store_phone | escape }}
+                    </a>
+                {% endif %}
+                {% if store_email != blank %}
+                    <a class="store-banner__button" href="mailto:{{ store_email | escape }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v.4l-10 6.25L2 6.4V6a1 1 0 0 1 1-1Zm-1 3.75V18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8.75l-10 6.25L2 8.75Z"/></svg>
+                        Email
+                    </a>
+                {% endif %}
+                {% if store_directions != blank %}
+                    <a class="store-banner__button" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3 3 5.5v15.5l6-2.5 6 2.5 6-2.5V3l-6 2.5L9 3Zm1 2.6 4 1.65v11.15l-4-1.65V5.6Z"/></svg>
+                        Get Directions
+                    </a>
+                {% endif %}
+                {% if closest_store != blank %}
+                    {%- assign closest_name = closest_store.store_finder_name.value | default: closest_store.name.value -%}
+                    <a class="store-banner__button store-banner__button--alt" href="{{ closest_store.system.url }}">
+                        {{ closest_name | escape }}
+                    </a>
+                {% endif %}
+                {% if linked_store != blank %}
+                    {%- assign linked_name = linked_store.store_finder_name.value | default: linked_store.name.value -%}
+                    <a class="store-banner__button store-banner__button--alt" href="{{ linked_store.system.url }}">
+                        View {{ linked_name | escape }} Store
+                    </a>
+                {% endif %}
+{%- endcapture -%}
+
+<div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner" id="StoreBanner-{{ section.id }}">
     <div class="store-banner__info">
         <div class="store-banner__inner">
             <nav class="store-banner__breadcrumb" aria-label="Breadcrumb">
@@ -114,36 +148,7 @@
             {% endif %}
 
             <div class="store-banner__buttons">
-                {% if store_phone != blank %}
-                    <a class="store-banner__button" href="tel:{{ store_phone | remove: ' ' }}">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
-                        {{ store_phone | escape }}
-                    </a>
-                {% endif %}
-                {% if store_email != blank %}
-                    <a class="store-banner__button" href="mailto:{{ store_email | escape }}">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v.4l-10 6.25L2 6.4V6a1 1 0 0 1 1-1Zm-1 3.75V18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8.75l-10 6.25L2 8.75Z"/></svg>
-                        Email
-                    </a>
-                {% endif %}
-                {% if store_directions != blank %}
-                    <a class="store-banner__button" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3 3 5.5v15.5l6-2.5 6 2.5 6-2.5V3l-6 2.5L9 3Zm1 2.6 4 1.65v11.15l-4-1.65V5.6Z"/></svg>
-                        Get Directions
-                    </a>
-                {% endif %}
-                {% if closest_store != blank %}
-                    {%- assign closest_name = closest_store.store_finder_name.value | default: closest_store.name.value -%}
-                    <a class="store-banner__button store-banner__button--alt" href="{{ closest_store.system.url }}">
-                        {{ closest_name | escape }}
-                    </a>
-                {% endif %}
-                {% if linked_store != blank %}
-                    {%- assign linked_name = linked_store.store_finder_name.value | default: linked_store.name.value -%}
-                    <a class="store-banner__button store-banner__button--alt" href="{{ linked_store.system.url }}">
-                        View {{ linked_name | escape }} Store
-                    </a>
-                {% endif %}
+                {{ banner_buttons }}
             </div>
         </div>
     </div>
@@ -172,6 +177,67 @@
         {% endif %}
     </div>
 </div>
+
+{%- if banner_buttons != blank -%}
+    {%- comment -%}
+        Sticky bar: the banner's buttons in a bar fixed under the site header, shown once the banner has scrolled
+        out of view (IntersectionObserver). The header (#shopify-section-header) is position: fixed and changes height
+        when it goes sticky, so the bar's top is kept at the header's bottom edge while it's showing.
+    {%- endcomment -%}
+    <div class="store-banner-bar" id="StoreBannerBar-{{ section.id }}" aria-hidden="true" inert>
+        <div class="store-banner-bar__inner">
+            {% if store_name != blank %}
+                <p class="store-banner-bar__title">{{ store_name | escape }}</p>
+            {% endif %}
+            <div class="store-banner-bar__buttons">
+                {{ banner_buttons }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var banner = document.getElementById('StoreBanner-{{ section.id }}');
+            var bar = document.getElementById('StoreBannerBar-{{ section.id }}');
+            if (!banner || !bar || !('IntersectionObserver' in window)) return;
+
+            var header = document.getElementById('shopify-section-header');
+            var frame = null;
+
+            // Keep the bar's top at the header's bottom edge (the header resizes and slides as it goes sticky)
+            function placeBar() {
+                frame = null;
+                var top = header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+                bar.style.setProperty('--store-banner-bar-top', top + 'px');
+            }
+            function queuePlace() {
+                if (frame === null) frame = requestAnimationFrame(placeBar);
+            }
+
+            function show(visible) {
+                bar.classList.toggle('is-visible', visible);
+                if (visible) {
+                    bar.removeAttribute('aria-hidden');
+                    bar.removeAttribute('inert');
+                    placeBar();
+                    window.addEventListener('scroll', queuePlace, { passive: true });
+                    window.addEventListener('resize', queuePlace);
+                } else {
+                    bar.setAttribute('aria-hidden', 'true');
+                    bar.setAttribute('inert', '');
+                    window.removeEventListener('scroll', queuePlace);
+                    window.removeEventListener('resize', queuePlace);
+                }
+            }
+
+            // Only show it once the banner has gone off the top of the screen (not when it's below, e.g. on load)
+            new IntersectionObserver(function (entries) {
+                var entry = entries[0];
+                show(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+            }).observe(banner);
+        })();
+    </script>
+{%- endif -%}
 
 {% schema %}
     {

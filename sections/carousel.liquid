@@ -1,0 +1,386 @@
+{%- comment -%}
+    Carousel of content cards (image, heading, text, button), one block per slide.
+    Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
+{%- endcomment -%}
+<div class="content-carousel" data-section-id="{{ section.id }}" data-section-type="carousel">
+    <div class="wrapper">
+        {% if section.settings.title != blank or section.settings.text != blank %}
+            <div class="content-carousel__header">
+                {% if section.settings.title != blank %}
+                    <h2 class="content-carousel__title">{{ section.settings.title | escape }}</h2>
+                {% endif %}
+                {% if section.settings.text != blank %}
+                    <div class="content-carousel__intro">{{ section.settings.text }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if section.blocks.size > 0 %}
+            <div class="owl-carousel content-carousel__track" id="Carousel-{{ section.id }}"
+                data-items="{{ section.settings.items_desktop }}"
+                data-autoplay="{{ section.settings.autoplay }}"
+                data-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
+                {% for block in section.blocks %}
+                    <div class="content-carousel__slide" {{ block.shopify_attributes }}>
+                        <div class="content-carousel__image">
+                            {% if block.settings.link != blank %}<a href="{{ block.settings.link }}" tabindex="-1" aria-hidden="true">{% endif %}
+                            {% if block.settings.image != blank %}
+                                {{ block.settings.image | image_url: width: 800 | image_tag:
+                                    widths: '400, 600, 800',
+                                    sizes: '(min-width: 990px) 33vw, (min-width: 600px) 50vw, 100vw',
+                                    alt: block.settings.image.alt | default: block.settings.title,
+                                    loading: 'lazy'
+                                }}
+                            {% else %}
+                                {%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
+                                {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                            {% if block.settings.link != blank %}</a>{% endif %}
+                        </div>
+                        <div class="content-carousel__content">
+                            {% if block.settings.title != blank %}
+                                <h3 class="content-carousel__heading">{{ block.settings.title | escape }}</h3>
+                            {% endif %}
+                            {% if block.settings.text != blank %}
+                                <div class="content-carousel__text">{{ block.settings.text }}</div>
+                            {% endif %}
+                            {% if block.settings.link != blank and block.settings.button_text != blank %}
+                                <a class="content-carousel__button" href="{{ block.settings.link }}">{{ block.settings.button_text | escape }}</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    (function () {
+        var id = 'Carousel-{{ section.id }}';
+
+        function init() {
+            if (!window.jQuery || !jQuery.fn.owlCarousel) return;
+            var $el = jQuery('#' + id);
+            if (!$el.length) return;
+            $el.trigger('destroy.owl.carousel');
+
+            var desktop = parseInt($el.data('items'), 10) || 3;
+            var count = $el.children().length;
+            $el.owlCarousel({
+                margin: 20,
+                loop: false,
+                rewind: true,
+                nav: true,
+                dots: true,
+                navText: [
+                    '<span class="visually-hidden">Previous</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" d="M15 5l-7 7 7 7"/></svg>',
+                    '<span class="visually-hidden">Next</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>'
+                ],
+                autoplay: $el.data('autoplay') === true,
+                autoplayTimeout: parseInt($el.data('speed'), 10) || 5000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: { items: 1, stagePadding: count > 1 ? 30 : 0 },
+                    600: { items: Math.min(2, desktop) },
+                    990: { items: desktop }
+                }
+            });
+        }
+
+        // owl.carousel.js is loaded with defer, so wait for it
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        // Re-initialise when the section or a block is edited in the theme editor
+        document.addEventListener('shopify:section:load', function (e) {
+            if (e.detail.sectionId === '{{ section.id }}') init();
+        });
+        document.addEventListener('shopify:block:select', function (e) {
+            if (e.detail.sectionId !== '{{ section.id }}' || !window.jQuery) return;
+            var index = jQuery(e.target).closest('.owl-item').index();
+            if (index > -1) jQuery('#' + id).trigger('to.owl.carousel', [index, 300]);
+        });
+    })();
+</script>
+
+{% stylesheet %}
+    .content-carousel {
+        --carousel-red: #ba3c3d;
+        --carousel-dark: #414b52;
+        padding: 48px 0;
+        color: var(--carousel-dark);
+        font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
+    }
+    .content-carousel__header {
+        max-width: 720px;
+        margin: 0 auto 32px;
+        text-align: center;
+    }
+    .content-carousel__title {
+        margin: 0 0 12px;
+        font-size: 30px;
+        font-weight: 700;
+        color: var(--carousel-dark);
+        text-transform: none;
+    }
+    .content-carousel__intro {
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    .content-carousel__intro p:last-child {
+        margin-bottom: 0;
+    }
+    .content-carousel__track {
+        position: relative;
+    }
+    .content-carousel .owl-stage {
+        display: flex;
+    }
+    .content-carousel .owl-item {
+        display: flex;
+    }
+    .content-carousel__slide {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        background: #f7f7f7;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .content-carousel__image {
+        position: relative;
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+        background: #e9e9e9;
+    }
+    .content-carousel__image a {
+        display: block;
+        height: 100%;
+    }
+    .content-carousel__image img,
+    .content-carousel__image .placeholder-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform .4s;
+    }
+    .content-carousel__slide:hover .content-carousel__image img {
+        transform: scale(1.03);
+    }
+    .content-carousel__content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 20px 20px 24px;
+    }
+    .content-carousel__heading {
+        margin: 0 0 10px;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--carousel-red);
+        text-transform: none;
+    }
+    .content-carousel__text {
+        margin-bottom: 18px;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+    .content-carousel__text p:last-child {
+        margin-bottom: 0;
+    }
+    .content-carousel__text a {
+        color: inherit;
+        text-decoration: underline;
+    }
+    .content-carousel__button {
+        align-self: flex-start;
+        margin-top: auto;
+        padding: 10px 22px;
+        background: var(--carousel-red);
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background-color .2s;
+    }
+    .content-carousel__button:hover,
+    .content-carousel__button:focus-visible {
+        background: var(--carousel-dark);
+        color: #fff;
+    }
+    .content-carousel .owl-nav button.owl-prev,
+    .content-carousel .owl-nav button.owl-next {
+        position: absolute;
+        top: calc(50% - 40px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        background: #fff;
+        color: var(--carousel-dark);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+        cursor: pointer;
+        transition: background-color .2s, color .2s;
+    }
+    .content-carousel .owl-nav button.owl-prev { left: -22px; }
+    .content-carousel .owl-nav button.owl-next { right: -22px; }
+    .content-carousel .owl-nav button:hover {
+        background: var(--carousel-red);
+        color: #fff;
+    }
+    .content-carousel .owl-nav button.disabled {
+        opacity: .4;
+        cursor: default;
+    }
+    .content-carousel .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+    .content-carousel .owl-nav svg {
+        width: 18px;
+        height: 18px;
+    }
+    .content-carousel .owl-dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 24px;
+    }
+    .content-carousel .owl-dots button.owl-dot span {
+        display: block;
+        width: 10px;
+        height: 10px;
+        margin: 0;
+        border-radius: 50%;
+        background: #c9cdd0;
+        transition: background-color .2s;
+    }
+    .content-carousel .owl-dots button.owl-dot.active span {
+        background: var(--carousel-red);
+    }
+    .content-carousel .owl-dots.disabled,
+    .content-carousel .owl-nav.disabled {
+        display: none;
+    }
+    @media (max-width: 989px) {
+        .content-carousel .owl-nav {
+            display: none;
+        }
+    }
+    @media (max-width: 600px) {
+        .content-carousel {
+            padding: 32px 0;
+        }
+        .content-carousel__title {
+            font-size: 24px;
+        }
+    }
+{% endstylesheet %}
+
+{% schema %}
+    {
+        "name": "Carousel",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Heading"
+            },
+            {
+                "type": "richtext",
+                "id": "text",
+                "label": "Text"
+            },
+            {
+                "type": "range",
+                "id": "items_desktop",
+                "label": "Slides visible on desktop",
+                "min": 1,
+                "max": 4,
+                "step": 1,
+                "default": 3
+            },
+            {
+                "type": "checkbox",
+                "id": "autoplay",
+                "label": "Autoplay",
+                "default": false
+            },
+            {
+                "type": "range",
+                "id": "autoplay_speed",
+                "label": "Change slides every",
+                "min": 3,
+                "max": 10,
+                "step": 1,
+                "unit": "s",
+                "default": 5
+            }
+        ],
+        "blocks": [
+            {
+                "type": "slide",
+                "name": "Slide",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "label": "Heading",
+                        "default": "Slide heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "text",
+                        "label": "Text",
+                        "default": "<p>Tell customers about this product, service or offer.</p>"
+                    },
+                    {
+                        "type": "text",
+                        "id": "button_text",
+                        "label": "Button text",
+                        "default": "Find out more"
+                    },
+                    {
+                        "type": "url",
+                        "id": "link",
+                        "label": "Link"
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "Carousel",
+            "category": "Image",
+            "settings": {
+                "title": "Carousel"
+            },
+            "blocks": [
+                { "type": "slide" },
+                { "type": "slide" },
+                { "type": "slide" },
+                { "type": "slide" }
+            ]
+        }]
+    }
+{% endschema %}

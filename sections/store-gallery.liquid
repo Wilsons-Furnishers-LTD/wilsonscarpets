@@ -29,7 +29,8 @@
 {%- assign content_html = content_html | strip -%}
 {%- if images.size > 0 or content_html != blank -%}
 <div class="store-gallery" data-section-id="{{ section.id }}" data-section-type="store-gallery">
-    <div class="wrapper">
+    {%- comment -%} No .wrapper: the columns match the store banner's instead (see the stylesheet) {%- endcomment -%}
+    <div class="store-gallery__wrap">
         <div class="store-gallery__layout">
             <div class="store-gallery__gallery">
                 {% if images.size > 1 %}

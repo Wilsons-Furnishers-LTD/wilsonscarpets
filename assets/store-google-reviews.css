@@ -73,8 +73,8 @@
 .store-reviews__list--carousel.store-reviews__list--nav .owl-nav.disabled {
   display: block;
 }
-.store-reviews__list--carousel .owl-nav button.owl-prev,
-.store-reviews__list--carousel .owl-nav button.owl-next {
+.store-reviews__list--carousel .owl-nav div.owl-prev,
+.store-reviews__list--carousel .owl-nav div.owl-next {
   position: absolute;
   top: 50%;
   display: flex;
@@ -93,15 +93,15 @@
   transition: background-color 0.2s, border-color 0.2s, color 0.2s;
 }
 @media (max-width: 599px) {
-  .store-reviews__list--carousel .owl-nav button.owl-prev,
-  .store-reviews__list--carousel .owl-nav button.owl-next {
+  .store-reviews__list--carousel .owl-nav div.owl-prev,
+  .store-reviews__list--carousel .owl-nav div.owl-next {
     width: 32px;
     height: 32px;
     margin-top: -16px;
   }
 }
-.store-reviews__list--carousel .owl-nav button.owl-prev svg,
-.store-reviews__list--carousel .owl-nav button.owl-next svg {
+.store-reviews__list--carousel .owl-nav div.owl-prev svg,
+.store-reviews__list--carousel .owl-nav div.owl-next svg {
   width: 20px;
   height: 20px;
   fill: none;
@@ -111,15 +111,15 @@
   stroke-linejoin: round;
 }
 @media (max-width: 599px) {
-  .store-reviews__list--carousel .owl-nav button.owl-prev svg,
-  .store-reviews__list--carousel .owl-nav button.owl-next svg {
+  .store-reviews__list--carousel .owl-nav div.owl-prev svg,
+  .store-reviews__list--carousel .owl-nav div.owl-next svg {
     width: 16px;
     height: 16px;
   }
 }
-.store-reviews__list--carousel .owl-nav button.owl-prev:hover, .store-reviews__list--carousel .owl-nav button.owl-prev:focus-visible,
-.store-reviews__list--carousel .owl-nav button.owl-next:hover,
-.store-reviews__list--carousel .owl-nav button.owl-next:focus-visible {
+.store-reviews__list--carousel .owl-nav div.owl-prev:hover, .store-reviews__list--carousel .owl-nav div.owl-prev:focus-visible,
+.store-reviews__list--carousel .owl-nav div.owl-next:hover,
+.store-reviews__list--carousel .owl-nav div.owl-next:focus-visible {
   background: #ba3c3d;
   border-color: #ba3c3d;
   color: #fff;

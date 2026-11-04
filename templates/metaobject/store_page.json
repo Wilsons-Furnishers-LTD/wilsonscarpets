@@ -33,11 +33,21 @@
         "zoom": 15,
         "height": 450
       }
+    },
+    "store_google_reviews": {
+      "type": "store-google-reviews",
+      "name": "Store Google Reviews",
+      "settings": {
+        "heading": "Google Reviews",
+        "max_reviews": 3,
+        "min_rating": 4
+      }
     }
   },
   "order": [
     "store_banner_MFH98H",
     "store_gallery",
-    "store_map"
+    "store_map",
+    "store_google_reviews"
   ]
 }

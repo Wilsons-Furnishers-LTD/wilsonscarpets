@@ -1,0 +1,81 @@
+{{ 'store-map.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+    Store map: an embedded Google map of the current store_page metaobject's location.
+    Uses store_finder_lat / store_finder_long when both are set, otherwise searches for the store name + address.
+    The embed (maps.google.com ... output=embed) doesn't need an API key.
+    Styles: src/styles/store-map/_index.scss -> assets/store-map.css (npm run build)
+{%- endcomment -%}
+{%- assign store = metaobject -%}
+{%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
+{%- assign store_lat = store.store_finder_lat.value -%}
+{%- assign store_long = store.store_finder_long.value -%}
+{%- assign store_directions = store.store_finder_place_id.value -%}
+
+{%- if store_lat != blank and store_long != blank -%}
+    {%- assign map_query = store_lat | append: ',' | append: store_long -%}
+{%- elsif store.address.value != blank -%}
+    {%- assign map_query = store_name | append: ', ' | append: store.address.value | newline_to_br | replace: '<br />', ', ' | strip_newlines -%}
+{%- endif -%}
+
+{% if map_query != blank %}
+    <div class="store-map" data-section-id="{{ section.id }}" data-section-type="store-map">
+        <div class="wrapper">
+            {% if section.settings.heading != blank %}
+                <h2 class="store-map__heading">{{ section.settings.heading | escape }}</h2>
+            {% endif %}
+
+            <div class="store-map__frame" style="--store-map-height: {{ section.settings.height }}px;">
+                <iframe
+                    src="https://maps.google.com/maps?q={{ map_query | url_encode }}&z={{ section.settings.zoom }}&output=embed"
+                    title="Map showing the location of {{ store_name | escape }}"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen></iframe>
+            </div>
+
+            {% if store_directions != blank %}
+                <a class="store-map__link" href="{{ store_directions | escape }}" target="_blank" rel="noopener">
+                    Open in Google Maps<span class="visually-hidden"> (opens in a new tab)</span>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+{% schema %}
+    {
+        "name": "Store Map",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Heading",
+                "default": "Find us"
+            },
+            {
+                "type": "range",
+                "id": "zoom",
+                "label": "Zoom",
+                "min": 10,
+                "max": 18,
+                "step": 1,
+                "default": 15
+            },
+            {
+                "type": "range",
+                "id": "height",
+                "label": "Map height (desktop)",
+                "min": 250,
+                "max": 700,
+                "step": 50,
+                "unit": "px",
+                "default": 450
+            }
+        ],
+        "presets": [{
+            "name": "Store Map",
+            "category": "Image"
+        }]
+    }
+{% endschema %}

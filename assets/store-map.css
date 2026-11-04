@@ -1,0 +1,40 @@
+.store-map {
+  padding: 40px 0;
+  color: #414B52;
+  font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
+}
+@media (max-width: 600px) {
+  .store-map {
+    padding: 24px 0;
+  }
+}
+.store-map__heading {
+  margin: 0 0 20px;
+  font-size: 28px;
+  line-height: 1.2;
+  color: #414B52;
+}
+.store-map__frame {
+  position: relative;
+  height: min(var(--store-map-height, 450px), 70vh);
+  background: #e9e9e9;
+}
+@media (max-width: 749px) {
+  .store-map__frame {
+    height: 320px;
+  }
+}
+.store-map__frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.store-map__link {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 15px;
+  color: #ba3c3d;
+  text-decoration: underline;
+}

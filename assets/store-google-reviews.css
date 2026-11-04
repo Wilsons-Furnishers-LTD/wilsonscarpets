@@ -7,6 +7,9 @@
 .store-reviews[hidden] {
   display: none;
 }
+.store-reviews__inner {
+  padding: 0 30px;
+}
 .store-reviews__heading {
   margin: 0 0 20px;
   font-size: 26px;

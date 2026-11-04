@@ -1,8 +1,9 @@
 {{ 'store-map.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Store map: an embedded Google map of the current store_page metaobject's location.
-    Uses store_finder_lat / store_finder_long when both are set, otherwise searches for the store name + address.
-    The embed (maps.google.com ... output=embed) doesn't need an API key.
+    Store map: a Google map of the current store_page metaobject's location, styled like the /pages/stores
+    map (sections/store-locator.liquid): the same grey "Silver" map style and the marker-alt-2.png pin.
+    Uses store_finder_lat / store_finder_long when both are set, otherwise geocodes the store name + address.
+    Uses the same Google Maps API key as the store locator.
     Styles: src/styles/store-map/_index.scss -> assets/store-map.css (npm run build)
 {%- endcomment -%}
 {%- assign store = metaobject -%}
@@ -10,24 +11,21 @@
 {%- assign store_lat = store.store_finder_lat.value -%}
 {%- assign store_long = store.store_finder_long.value -%}
 {%- assign store_directions = store.store_finder_place_id.value -%}
+{%- assign store_address = store.address.value | newline_to_br | replace: '<br />', ', ' | strip_newlines -%}
 
-{%- if store_lat != blank and store_long != blank -%}
-    {%- assign map_query = store_lat | append: ',' | append: store_long -%}
-{%- elsif store.address.value != blank -%}
-    {%- assign map_query = store_name | append: ', ' | append: store.address.value | newline_to_br | replace: '<br />', ', ' | strip_newlines -%}
-{%- endif -%}
+{%- comment -%} Liquid evaluates and/or right to left, so work out whether there's a location in steps {%- endcomment -%}
+{%- assign has_location = false -%}
+{%- if store_lat != blank and store_long != blank -%}{%- assign has_location = true -%}{%- endif -%}
+{%- if store_address != blank -%}{%- assign has_location = true -%}{%- endif -%}
 
-{% if map_query != blank %}
-    
+{% if has_location %}
     <div class="store-map" data-section-id="{{ section.id }}" data-section-type="store-map">
         <div class="store-map__inner">
             <div class="store-map__frame" style="--store-map-height: {{ section.settings.height }}px;">
-                <iframe
-                    src="https://maps.google.com/maps?q={{ map_query | url_encode }}&z={{ section.settings.zoom }}&output=embed"
-                    title="Map showing the location of {{ store_name | escape }}"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen></iframe>
+                <div class="store-map__map"
+                    id="StoreMap-{{ section.id }}"
+                    role="region"
+                    aria-label="Map showing the location of {{ store_name | escape }}"></div>
             </div>
 
             {% if store_directions != blank %}
@@ -37,6 +35,98 @@
             {% endif %}
         </div>
     </div>
+
+    <script>
+        (function () {
+            var sectionId = {{ section.id | json }};
+            var config = {
+                apiKey: 'AIzaSyDW3vqDk5Ow2bKE3pgC4i9GYi4IxZBcIkQ',
+                lat: {{ store_lat | json }},
+                lng: {{ store_long | json }},
+                address: {{ store_name | append: ', ' | append: store_address | json }},
+                title: {{ store_name | json }},
+                zoom: {{ section.settings.zoom }},
+                marker: {{ 'marker-alt-2.png' | asset_url | json }}
+            };
+
+            // Same map style as the store locator (map_style_render in assets/storelocator-params.js)
+            var mapStyle = [
+                { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
+                { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
+                { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
+                { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f5f5' }] },
+                { featureType: 'administrative.land_parcel', elementType: 'labels.text.fill', stylers: [{ color: '#bdbdbd' }] },
+                { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#eeeeee' }] },
+                { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
+                { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#e5e5e5' }] },
+                { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
+                { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+                { featureType: 'road.arterial', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
+                { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#dadada' }] },
+                { featureType: 'road.highway', elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
+                { featureType: 'road.local', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
+                { featureType: 'transit.line', elementType: 'geometry', stylers: [{ color: '#e5e5e5' }] },
+                { featureType: 'transit.station', elementType: 'geometry', stylers: [{ color: '#eeeeee' }] },
+                { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c9c9c9' }] },
+                { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] }
+            ];
+
+            function draw(el, position) {
+                var map = new google.maps.Map(el, {
+                    center: position,
+                    zoom: config.zoom,
+                    styles: mapStyle,
+                    mapTypeControl: false,
+                    streetViewControl: false
+                });
+                new google.maps.Marker({
+                    map: map,
+                    position: position,
+                    title: config.title,
+                    icon: { url: config.marker, scaledSize: new google.maps.Size(30, 43) }
+                });
+            }
+
+            function init() {
+                var el = document.getElementById('StoreMap-' + sectionId);
+                if (!el || !window.google || !google.maps) return;
+
+                var lat = parseFloat(config.lat);
+                var lng = parseFloat(config.lng);
+                if (!isNaN(lat) && !isNaN(lng)) {
+                    draw(el, { lat: lat, lng: lng });
+                    return;
+                }
+                new google.maps.Geocoder().geocode({ address: config.address }, function (results, status) {
+                    if (status === 'OK' && results[0]) draw(el, results[0].geometry.location);
+                });
+            }
+
+            // Load the Maps API once, even if there's more than one map section on the page
+            function load() {
+                if (window.google && window.google.maps) return init();
+                window.storeMapCallbacks = window.storeMapCallbacks || [];
+                window.storeMapCallbacks.push(init);
+                if (window.storeMapLoading) return;
+                window.storeMapLoading = true;
+                window.storeMapReady = function () {
+                    window.storeMapCallbacks.forEach(function (cb) { cb(); });
+                    window.storeMapCallbacks = [];
+                };
+                var script = document.createElement('script');
+                script.src = 'https://maps.googleapis.com/maps/api/js?key=' + config.apiKey + '&language=en&callback=storeMapReady';
+                script.async = true;
+                document.head.appendChild(script);
+            }
+
+            load();
+
+            // Redraw when the section is edited in the theme editor
+            document.addEventListener('shopify:section:load', function (e) {
+                if (e.detail.sectionId === sectionId) load();
+            });
+        })();
+    </script>
 {% endif %}
 
 {% schema %}

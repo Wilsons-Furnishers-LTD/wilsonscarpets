@@ -21,7 +21,7 @@
     height: 320px;
   }
 }
-.store-map__frame iframe {
+.store-map__frame .store-map__map {
   position: absolute;
   inset: 0;
   width: 100%;

@@ -4,8 +4,8 @@
     One block per image. Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
     Styles: src/styles/carousel/_index.scss -> assets/carousel.css (npm run build)
 
-    Text comes from the current store_page metaobject's store_content field (rich text or multi-line text).
-    The section's Content setting is used when that's empty, or when the section isn't on a store page.
+    Text comes from the current store_page metaobject's store_content field (rich text or multi-line text),
+    so it only shows on store pages. The section has no settings of its own.
 {%- endcomment -%}
 {%- assign store_content = metaobject.store_content -%}
 {%- capture content_html -%}
@@ -13,20 +13,19 @@
         {%- if store_content.type == 'rich_text_field' -%}
             {{- store_content | metafield_tag -}}
         {%- else -%}
-            {%- assign paragraphs = store_content.value | newline_to_br | split: '<br /><br />' -%}
+            {%- comment -%} Blank lines start a new paragraph; single line breaks are kept {%- endcomment -%}
+            {%- assign paragraphs = store_content.value | escape | newline_to_br | strip_newlines | split: '<br /><br />' -%}
             {%- for paragraph in paragraphs -%}
-                {%- assign paragraph_text = paragraph | strip -%}
-                {%- if paragraph_text != blank -%}<p>{{ paragraph_text | strip_html | escape | newline_to_br }}</p>{%- endif -%}
+                {%- assign paragraph_text = paragraph | remove: '<br />' | strip -%}
+                {%- if paragraph_text != blank -%}<p>{{ paragraph | strip }}</p>{%- endif -%}
             {%- endfor -%}
         {%- endif -%}
-    {%- else -%}
-        {{- section.settings.content -}}
     {%- endif -%}
 {%- endcapture -%}
 {%- assign content_html = content_html | strip -%}
 <div class="content-carousel" data-section-id="{{ section.id }}" data-section-type="carousel">
     <div class="wrapper">
-        <div class="content-carousel__layout{% if content_html == blank and section.settings.title == blank %} content-carousel__layout--no-content{% endif %}">
+        <div class="content-carousel__layout{% if content_html == blank %} content-carousel__layout--no-content{% endif %}">
             <div class="content-carousel__gallery">
                 {% if section.blocks.size > 1 %}
                     <ul class="content-carousel__thumbs" aria-label="Choose image">
@@ -50,9 +49,7 @@
 
                 {% if section.blocks.size > 0 %}
                     <div class="content-carousel__main">
-                        <div class="owl-carousel" id="Carousel-{{ section.id }}"
-                            data-autoplay="{{ section.settings.autoplay }}"
-                            data-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
+                        <div class="owl-carousel" id="Carousel-{{ section.id }}">
                             {% for block in section.blocks %}
                                 <div class="content-carousel__slide" {{ block.shopify_attributes }}>
                                     {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
@@ -75,14 +72,9 @@
                 {% endif %}
             </div>
 
-            {% if section.settings.title != blank or section.settings.content != blank %}
+            {% if content_html != blank %}
                 <div class="content-carousel__content">
-                    {% if section.settings.title != blank %}
-                        <h2 class="content-carousel__title">{{ section.settings.title | escape }}</h2>
-                    {% endif %}
-                    {% if section.settings.content != blank %}
-                        <div class="content-carousel__text">{{ section.settings.content }}</div>
-                    {% endif %}
+                    <div class="content-carousel__text">{{ content_html }}</div>
                 </div>
             {% endif %}
         </div>
@@ -116,10 +108,7 @@
                 loop: false,
                 rewind: true,
                 nav: false,
-                dots: $thumbs.length === 0 ? false : true,
-                autoplay: $main.data('autoplay') === true,
-                autoplayTimeout: parseInt($main.data('speed'), 10) || 5000,
-                autoplayHoverPause: true,
+                dots: $thumbs.length > 0,
                 smartSpeed: 500
             });
 
@@ -151,34 +140,7 @@
     {
         "name": "Carousel",
         "class": "index-section",
-        "settings": [
-            {
-                "type": "text",
-                "id": "title",
-                "label": "Heading"
-            },
-            {
-                "type": "richtext",
-                "id": "content",
-                "label": "Content"
-            },
-            {
-                "type": "checkbox",
-                "id": "autoplay",
-                "label": "Autoplay",
-                "default": false
-            },
-            {
-                "type": "range",
-                "id": "autoplay_speed",
-                "label": "Change images every",
-                "min": 3,
-                "max": 10,
-                "step": 1,
-                "unit": "s",
-                "default": 5
-            }
-        ],
+        "settings": [],
         "blocks": [
             {
                 "type": "slide",
@@ -200,9 +162,6 @@
         "presets": [{
             "name": "Carousel",
             "category": "Image",
-            "settings": {
-                "content": "<p>Tell customers about this store: what you sell, where to find you and the areas you cover.</p>"
-            },
             "blocks": [
                 { "type": "slide" },
                 { "type": "slide" },

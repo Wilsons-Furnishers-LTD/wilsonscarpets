@@ -118,13 +118,6 @@
 .content-carousel__content {
   max-width: 560px;
 }
-.content-carousel__title {
-  margin: 0 0 16px;
-  font-size: 26px;
-  font-weight: 700;
-  color: #414B52;
-  text-transform: none;
-}
 .content-carousel__text {
   font-size: 15px;
   line-height: 1.45;

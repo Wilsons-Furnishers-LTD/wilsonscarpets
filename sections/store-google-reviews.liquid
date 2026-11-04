@@ -1,7 +1,7 @@
 {{ 'store-google-reviews.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Store Google reviews: the current store's Google rating, review count and most recent reviews (Google returns up to 5),
-    loaded live in the browser with the Places API (New) - Place.fetchFields().
+    Store Google reviews: a centred heading and a row of review cards (stars, text, reviewer initial, name, date)
+    for the current store, loaded live in the browser with the Places API (New) - Place.fetchFields(). Google returns up to 5.
 
     Needs, on the store_page metaobject definition:
       google_place_id - single line text, the store's Google Place ID (starts "ChIJ...").
@@ -18,32 +18,11 @@
 {% if place_id != blank %}
     <div class="store-reviews" id="StoreReviews-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="store-google-reviews" hidden>
         <div class="wrapper">
-            <div class="store-reviews__header">
-                <div>
-                    {% if section.settings.heading != blank %}
-                        <h2 class="store-reviews__heading">{{ section.settings.heading | escape }}</h2>
-                    {% endif %}
-                    <div class="store-reviews__summary">
-                        <span class="store-reviews__score" data-score></span>
-                        <span class="store-reviews__stars" data-stars></span>
-                        <span class="store-reviews__count" data-count></span>
-                    </div>
-                </div>
-                <div class="store-reviews__actions">
-                    <a class="store-reviews__button" data-all-link href="#" target="_blank" rel="noopener">
-                        See all reviews<span class="visually-hidden"> (opens in a new tab)</span>
-                    </a>
-                    <a class="store-reviews__button store-reviews__button--alt"
-                        href="https://search.google.com/local/writereview?placeid={{ place_id | url_encode }}"
-                        target="_blank" rel="noopener">
-                        Write a review<span class="visually-hidden"> (opens in a new tab)</span>
-                    </a>
-                </div>
-            </div>
+            {% if section.settings.heading != blank %}
+                <h2 class="store-reviews__heading">{{ section.settings.heading | escape }}</h2>
+            {% endif %}
 
             <ul class="store-reviews__list" data-list></ul>
-
-            <p class="store-reviews__attribution">Reviews from Google</p>
         </div>
     </div>
 
@@ -82,37 +61,34 @@
 
             function reviewCard(review) {
                 var author = review.authorAttribution || {};
+                var name = author.displayName || 'Google user';
                 var li = document.createElement('li');
                 li.className = 'store-reviews__card';
 
-                var head = document.createElement('div');
-                head.className = 'store-reviews__author';
-                if (author.photoURI) {
-                    var img = document.createElement('img');
-                    img.src = author.photoURI;
-                    img.alt = '';
-                    img.width = 40;
-                    img.height = 40;
-                    img.loading = 'lazy';
-                    img.referrerPolicy = 'no-referrer';
-                    head.appendChild(img);
-                }
-                var who = document.createElement('div');
-                if (author.uri) {
-                    var link = text('a', 'store-reviews__name', author.displayName);
-                    link.href = author.uri;
-                    link.target = '_blank';
-                    link.rel = 'noopener nofollow';
-                    who.appendChild(link);
-                } else {
-                    who.appendChild(text('span', 'store-reviews__name', author.displayName));
-                }
-                who.appendChild(text('span', 'store-reviews__date', review.relativePublishTimeDescription));
-                head.appendChild(who);
-                li.appendChild(head);
-
                 li.appendChild(stars(review.rating || 0));
                 if (review.text) li.appendChild(text('p', 'store-reviews__text', review.text));
+
+                var foot = document.createElement('div');
+                foot.className = 'store-reviews__author';
+                var avatar = text('span', 'store-reviews__avatar', name.trim().charAt(0).toUpperCase());
+                avatar.setAttribute('aria-hidden', 'true');
+                foot.appendChild(avatar);
+
+                var who = document.createElement('div');
+                var nameEl;
+                if (author.uri) {
+                    nameEl = text('a', 'store-reviews__name', name);
+                    nameEl.href = author.uri;
+                    nameEl.target = '_blank';
+                    nameEl.rel = 'noopener nofollow';
+                } else {
+                    nameEl = text('span', 'store-reviews__name', name);
+                }
+                who.appendChild(nameEl);
+                var date = review.relativePublishTimeDescription;
+                who.appendChild(text('span', 'store-reviews__date', (date ? date + ' \u00b7 ' : '') + 'Google'));
+                foot.appendChild(who);
+                li.appendChild(foot);
                 return li;
             }
 
@@ -120,29 +96,15 @@
                 try {
                     var places = await google.maps.importLibrary('places');
                     var place = new places.Place({ id: placeId });
-                    await place.fetchFields({ fields: ['rating', 'userRatingCount', 'reviews', 'googleMapsURI'] });
+                    await place.fetchFields({ fields: ['reviews'] });
 
                     var reviews = (place.reviews || [])
                         .filter(function (r) { return (r.rating || 0) >= minRating; })
                         .slice(0, maxReviews);
-                    if (!place.rating && !reviews.length) return;
-
-                    if (place.rating) {
-                        root.querySelector('[data-score]').textContent = place.rating.toFixed(1);
-                        root.querySelector('[data-stars]').appendChild(stars(place.rating));
-                    }
-                    if (place.userRatingCount) {
-                        root.querySelector('[data-count]').textContent =
-                            'Based on ' + place.userRatingCount.toLocaleString('en-GB') + ' review' + (place.userRatingCount === 1 ? '' : 's');
-                    }
-
-                    var allLink = root.querySelector('[data-all-link]');
-                    if (place.googleMapsURI) allLink.href = place.googleMapsURI;
-                    else allLink.remove();
+                    if (!reviews.length) return;
 
                     var list = root.querySelector('[data-list]');
                     reviews.forEach(function (r) { list.appendChild(reviewCard(r)); });
-                    if (!reviews.length) list.remove();
 
                     root.hidden = false;
                 } catch (e) {
@@ -184,7 +146,7 @@
                 "min": 1,
                 "max": 5,
                 "step": 1,
-                "default": 3
+                "default": 5
             },
             {
                 "type": "range",

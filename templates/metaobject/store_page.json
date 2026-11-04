@@ -39,7 +39,7 @@
       "name": "Store Google Reviews",
       "settings": {
         "heading": "Google Reviews",
-        "max_reviews": 3,
+        "max_reviews": 5,
         "min_rating": 4
       }
     }

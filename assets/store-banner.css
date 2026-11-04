@@ -164,6 +164,11 @@
   min-height: 280px;
   overflow: hidden;
 }
+@media (min-width: 1701px) {
+  .store-banner__image {
+    max-width: 850px;
+  }
+}
 .store-banner__image img,
 .store-banner__image .placeholder-svg {
   position: absolute;

@@ -171,7 +171,8 @@
             {%- endcomment -%}
             {%- assign image_ratio = store_image.aspect_ratio | default: 1.333 -%}
             {%- assign cover_width = image_ratio | times: 800 | ceil -%}
-            {%- capture image_sizes -%}(min-width: 990px) max(50vw, {{ cover_width }}px), 100vw{%- endcapture -%}
+            {%- comment -%} Above 1700px the photo stops at 850px wide (see .store-banner__image) {%- endcomment -%}
+            {%- capture image_sizes -%}(min-width: 1701px) max(850px, {{ cover_width }}px), (min-width: 990px) max(50vw, {{ cover_width }}px), 100vw{%- endcapture -%}
             {%- comment -%} Worked out first: a filter inside image_tag's arguments would apply to the whole tag {%- endcomment -%}
             {%- assign image_alt = store_image.alt | default: store_name -%}
             {{ store_image | image_url: width: 3000 | image_tag:

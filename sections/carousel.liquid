@@ -1,91 +1,110 @@
 {{ 'carousel.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Carousel of content cards (image, heading, text, button), one block per slide.
-    Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
+    Image gallery carousel: thumbnails on the left, main image in the middle, text content on the right.
+    One block per image. Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
+    Styles: src/styles/carousel/_index.scss -> assets/carousel.css (npm run build)
 {%- endcomment -%}
 <div class="content-carousel" data-section-id="{{ section.id }}" data-section-type="carousel">
     <div class="wrapper">
-        {% if section.settings.title != blank or section.settings.text != blank %}
-            <div class="content-carousel__header">
-                {% if section.settings.title != blank %}
-                    <h2 class="content-carousel__title">{{ section.settings.title | escape }}</h2>
+        <div class="content-carousel__layout{% if section.settings.content == blank and section.settings.title == blank %} content-carousel__layout--no-content{% endif %}">
+            <div class="content-carousel__gallery">
+                {% if section.blocks.size > 1 %}
+                    <ul class="content-carousel__thumbs" aria-label="Choose image">
+                        {% for block in section.blocks %}
+                            <li>
+                                <button type="button"
+                                    class="content-carousel__thumb{% if forloop.first %} is-active{% endif %}"
+                                    data-index="{{ forloop.index0 }}"
+                                    aria-label="Show image {{ forloop.index }} of {{ forloop.length }}"
+                                    {% if forloop.first %}aria-current="true"{% endif %}>
+                                    {% if block.settings.image != blank %}
+                                        {{ block.settings.image | image_url: width: 160, height: 160, crop: 'center' | image_tag: alt: '', loading: 'lazy' }}
+                                    {% else %}
+                                        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {% endif %}
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 {% endif %}
-                {% if section.settings.text != blank %}
-                    <div class="content-carousel__intro">{{ section.settings.text }}</div>
-                {% endif %}
-            </div>
-        {% endif %}
 
-        {% if section.blocks.size > 0 %}
-            <div class="owl-carousel content-carousel__track" id="Carousel-{{ section.id }}"
-                data-items="{{ section.settings.items_desktop }}"
-                data-autoplay="{{ section.settings.autoplay }}"
-                data-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
-                {% for block in section.blocks %}
-                    <div class="content-carousel__slide" {{ block.shopify_attributes }}>
-                        <div class="content-carousel__image">
-                            {% if block.settings.link != blank %}<a href="{{ block.settings.link }}" tabindex="-1" aria-hidden="true">{% endif %}
-                            {% if block.settings.image != blank %}
-                                {{ block.settings.image | image_url: width: 800 | image_tag:
-                                    widths: '400, 600, 800',
-                                    sizes: '(min-width: 990px) 33vw, (min-width: 600px) 50vw, 100vw',
-                                    alt: block.settings.image.alt | default: block.settings.title,
-                                    loading: 'lazy'
-                                }}
-                            {% else %}
-                                {%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
-                                {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                            {% endif %}
-                            {% if block.settings.link != blank %}</a>{% endif %}
-                        </div>
-                        <div class="content-carousel__content">
-                            {% if block.settings.title != blank %}
-                                <h3 class="content-carousel__heading">{{ block.settings.title | escape }}</h3>
-                            {% endif %}
-                            {% if block.settings.text != blank %}
-                                <div class="content-carousel__text">{{ block.settings.text }}</div>
-                            {% endif %}
-                            {% if block.settings.link != blank and block.settings.button_text != blank %}
-                                <a class="content-carousel__button" href="{{ block.settings.link }}">{{ block.settings.button_text | escape }}</a>
-                            {% endif %}
+                {% if section.blocks.size > 0 %}
+                    <div class="content-carousel__main">
+                        <div class="owl-carousel" id="Carousel-{{ section.id }}"
+                            data-autoplay="{{ section.settings.autoplay }}"
+                            data-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
+                            {% for block in section.blocks %}
+                                <div class="content-carousel__slide" {{ block.shopify_attributes }}>
+                                    {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
+                                    {% if block.settings.image != blank %}
+                                        {{ block.settings.image | image_url: width: 1200 | image_tag:
+                                            widths: '540, 800, 1000, 1200',
+                                            sizes: '(min-width: 990px) 45vw, 100vw',
+                                            alt: block.settings.image.alt,
+                                            loading: 'lazy'
+                                        }}
+                                    {% else %}
+                                        {%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
+                                        {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {% endif %}
+                                    {% if block.settings.link != blank %}</a>{% endif %}
+                                </div>
+                            {% endfor %}
                         </div>
                     </div>
-                {% endfor %}
+                {% endif %}
             </div>
-        {% endif %}
+
+            {% if section.settings.title != blank or section.settings.content != blank %}
+                <div class="content-carousel__content">
+                    {% if section.settings.title != blank %}
+                        <h2 class="content-carousel__title">{{ section.settings.title | escape }}</h2>
+                    {% endif %}
+                    {% if section.settings.content != blank %}
+                        <div class="content-carousel__text">{{ section.settings.content }}</div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 
 <script>
     (function () {
-        var id = 'Carousel-{{ section.id }}';
+        var sectionId = '{{ section.id }}';
 
         function init() {
             if (!window.jQuery || !jQuery.fn.owlCarousel) return;
-            var $el = jQuery('#' + id);
-            if (!$el.length) return;
-            $el.trigger('destroy.owl.carousel');
+            var $main = jQuery('#Carousel-' + sectionId);
+            if (!$main.length) return;
+            var $thumbs = $main.closest('.content-carousel').find('.content-carousel__thumb');
 
-            var desktop = parseInt($el.data('items'), 10) || 3;
-            var count = $el.children().length;
-            $el.owlCarousel({
-                margin: 20,
+            $main.trigger('destroy.owl.carousel');
+            $thumbs.off('.contentCarousel');
+
+            function setActive(index) {
+                $thumbs.removeClass('is-active').removeAttr('aria-current');
+                $thumbs.eq(index).addClass('is-active').attr('aria-current', 'true');
+            }
+
+            $main.on('changed.owl.carousel', function (e) {
+                if (e.item && e.item.index !== null) setActive(e.item.index);
+            });
+
+            $main.owlCarousel({
+                items: 1,
                 loop: false,
                 rewind: true,
-                nav: true,
-                dots: true,
-                navText: [
-                    '<span class="visually-hidden">Previous</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" d="M15 5l-7 7 7 7"/></svg>',
-                    '<span class="visually-hidden">Next</span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>'
-                ],
-                autoplay: $el.data('autoplay') === true,
-                autoplayTimeout: parseInt($el.data('speed'), 10) || 5000,
+                nav: false,
+                dots: $thumbs.length === 0 ? false : true,
+                autoplay: $main.data('autoplay') === true,
+                autoplayTimeout: parseInt($main.data('speed'), 10) || 5000,
                 autoplayHoverPause: true,
-                responsive: {
-                    0: { items: 1, stagePadding: count > 1 ? 30 : 0 },
-                    600: { items: Math.min(2, desktop) },
-                    990: { items: desktop }
-                }
+                smartSpeed: 500
+            });
+
+            $thumbs.on('click.contentCarousel', function () {
+                $main.trigger('to.owl.carousel', [parseInt(jQuery(this).data('index'), 10), 500]);
             });
         }
 
@@ -96,14 +115,14 @@
             init();
         }
 
-        // Re-initialise when the section or a block is edited in the theme editor
+        // Re-initialise when the section is edited in the theme editor, and jump to a block when it's selected
         document.addEventListener('shopify:section:load', function (e) {
-            if (e.detail.sectionId === '{{ section.id }}') init();
+            if (e.detail.sectionId === sectionId) init();
         });
         document.addEventListener('shopify:block:select', function (e) {
-            if (e.detail.sectionId !== '{{ section.id }}' || !window.jQuery) return;
+            if (e.detail.sectionId !== sectionId || !window.jQuery) return;
             var index = jQuery(e.target).closest('.owl-item').index();
-            if (index > -1) jQuery('#' + id).trigger('to.owl.carousel', [index, 300]);
+            if (index > -1) jQuery('#Carousel-' + sectionId).trigger('to.owl.carousel', [index, 300]);
         });
     })();
 </script>
@@ -120,17 +139,8 @@
             },
             {
                 "type": "richtext",
-                "id": "text",
-                "label": "Text"
-            },
-            {
-                "type": "range",
-                "id": "items_desktop",
-                "label": "Slides visible on desktop",
-                "min": 1,
-                "max": 4,
-                "step": 1,
-                "default": 3
+                "id": "content",
+                "label": "Content"
             },
             {
                 "type": "checkbox",
@@ -141,7 +151,7 @@
             {
                 "type": "range",
                 "id": "autoplay_speed",
-                "label": "Change slides every",
+                "label": "Change images every",
                 "min": 3,
                 "max": 10,
                 "step": 1,
@@ -152,30 +162,12 @@
         "blocks": [
             {
                 "type": "slide",
-                "name": "Slide",
+                "name": "Image",
                 "settings": [
                     {
                         "type": "image_picker",
                         "id": "image",
                         "label": "Image"
-                    },
-                    {
-                        "type": "text",
-                        "id": "title",
-                        "label": "Heading",
-                        "default": "Slide heading"
-                    },
-                    {
-                        "type": "richtext",
-                        "id": "text",
-                        "label": "Text",
-                        "default": "<p>Tell customers about this product, service or offer.</p>"
-                    },
-                    {
-                        "type": "text",
-                        "id": "button_text",
-                        "label": "Button text",
-                        "default": "Find out more"
                     },
                     {
                         "type": "url",
@@ -189,7 +181,7 @@
             "name": "Carousel",
             "category": "Image",
             "settings": {
-                "title": "Carousel"
+                "content": "<p>Tell customers about this store: what you sell, where to find you and the areas you cover.</p>"
             },
             "blocks": [
                 { "type": "slide" },

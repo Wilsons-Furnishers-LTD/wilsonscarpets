@@ -3,5 +3,19 @@ $wilson-yellow: #F2BF00;
 $wilson-grey: #414B52;
 $wilson-light-grey: #EFF0EF;
 $wilson-medium-grey: #575E5F;
-$wilson-christmas-white: #ececec
+$wilson-christmas-white: #ececec;
 
+
+// Store pages: the store banner's two half-width columns. Content sits in a centred column up to
+// $store-column-max wide with at least $store-column-gutter either side (mobile: $store-column-gutter-mobile).
+// Shared by store-banner and store-gallery so they line up.
+$store-column-max: 600px;
+$store-column-gutter: 48px;
+$store-column-gutter-mobile: 16px;
+$store-columns-from: 990px;
+
+// Store gallery: thumbnail column (desktop) and the gap after it, and how far short of the middle of the page the
+// gallery stops (the store banner's details stop there too, so they line up with the whole gallery).
+$store-gallery-thumb-size: 64px;
+$store-gallery-thumb-gap: 16px;
+$store-gallery-end-gap: 60px;

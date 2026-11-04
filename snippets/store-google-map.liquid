@@ -1,0 +1,162 @@
+{%- comment -%}
+    Draws a store's Google map into an element on the page: the store locator's grey "Silver" map style,
+    the marker-alt-2.png pin and a "Wilsons Carpets, / <store name>" label beside the pin.
+    Used by sections/store-map.liquid and sections/store-banner.liquid (when its media is set to Map).
+
+    Location: store_finder_lat / store_finder_long when both are set, otherwise the store name + address is geocoded.
+    The Maps API is loaded by snippets/store-google-maps-loader.liquid (same key as the store locator).
+
+    Parameters:
+      store  - store_page metaobject
+      map_id - id of the (empty, sized) element to draw the map into
+      zoom   - map zoom level (optional, default 15)
+      tone   - 'darker' for a darker grey version of the map style, to stand out on a light grey background
+               like the store banner's (optional, default: the store locator's own colours)
+
+    Usage:
+      <div id="MyMap" style="height: 400px"></div>
+      {% render 'store-google-map', store: metaobject, map_id: 'MyMap', zoom: 15 %}
+
+    Check the store has a location first with the same rules (lat + long, or an address), or the map stays blank.
+{%- endcomment -%}
+{%- assign map_store_name = store.store_finder_name.value | default: store.name.value -%}
+{%- assign map_store_address = store.address.value | newline_to_br | replace: '<br />', ', ' | strip_newlines -%}
+{%- assign map_zoom = zoom | default: 15 -%}
+
+<style>
+    /* Store name beside the map pin, on two lines (the line break is a \n in the text, kept by white-space: pre).
+       The overlay's top-left is the pin's point (bottom centre of the 30x43 icon), so it's moved right of the pin
+       and up so the two lines sit level with the middle of the icon. */
+    .store-google-map__label {
+        position: absolute;
+        transform: translate(19px, -39px);
+        white-space: pre;
+        color: #ba3c3d;
+        font-family: Roboto, Arial, sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 4px #fff;
+        pointer-events: none;
+    }
+</style>
+
+{% render 'store-google-maps-loader' %}
+<script>
+    (function () {
+        var mapId = {{ map_id | json }};
+        var config = {
+            lat: {{ store.store_finder_lat.value | json }},
+            lng: {{ store.store_finder_long.value | json }},
+            address: {{ map_store_name | append: ', ' | append: map_store_address | json }},
+            title: {{ map_store_name | json }},
+            zoom: {{ map_zoom | json }},
+            marker: {{ 'marker-alt-2.png' | asset_url | json }},
+            darker: {{ tone | default: '' | json }} === 'darker'
+        };
+
+        // Same map style as the store locator (map_style_render in assets/storelocator-params.js)
+        var mapStyle = [
+            { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
+            { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
+            { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
+            { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f5f5' }] },
+            { featureType: 'administrative.land_parcel', elementType: 'labels.text.fill', stylers: [{ color: '#bdbdbd' }] },
+            { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#eeeeee' }] },
+            { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
+            { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#e5e5e5' }] },
+            { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
+            { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
+            { featureType: 'road.arterial', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
+            { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#dadada' }] },
+            { featureType: 'road.highway', elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
+            { featureType: 'road.local', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
+            { featureType: 'transit.line', elementType: 'geometry', stylers: [{ color: '#e5e5e5' }] },
+            { featureType: 'transit.station', elementType: 'geometry', stylers: [{ color: '#eeeeee' }] },
+            { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c9c9c9' }] },
+            { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] }
+        ];
+
+        // Darker grey version: the same style with the light greys stepped down, so the map doesn't blend into a
+        // #f7f7f7 background. Roads stay white so they stand out more, not less.
+        if (config.darker) {
+            var darker = {
+                '#f5f5f5': '#e4e5e6', // land, label outlines
+                '#eeeeee': '#dadbdc', // points of interest, stations
+                '#e5e5e5': '#d3d8d0', // parks (a hint of green), rail lines
+                '#dadada': '#c6c8ca', // motorways / main roads
+                '#c9c9c9': '#b4bfc6'  // water (a hint of blue)
+            };
+            mapStyle.forEach(function (rule) {
+                rule.stylers.forEach(function (styler) {
+                    if (styler.color && darker[styler.color]) styler.color = darker[styler.color];
+                });
+            });
+        }
+
+        function draw(el, position) {
+            var map = new google.maps.Map(el, {
+                center: position,
+                zoom: config.zoom,
+                styles: mapStyle,
+                mapTypeControl: false,
+                streetViewControl: false
+            });
+            new google.maps.Marker({
+                map: map,
+                position: position,
+                title: config.title,
+                icon: { url: config.marker, scaledSize: new google.maps.Size(30, 43) }
+            });
+            if (config.title) {
+                // "Wilsons Carpets," on the first line, the store name on the second. If the store name already
+                // starts with "Wilsons Carpets", that part goes on the first line instead of being repeated.
+                var storePart = config.title.replace(/^wilsons carpets[\s,\-]*/i, '');
+                var label = storePart ? 'Wilsons Carpets,\n' + storePart : 'Wilsons Carpets';
+                addLabel(map, position, label);
+            }
+        }
+
+        // Store name beside the marker. A marker's own label is always centred on the pin, so this is a small
+        // OverlayView placed at the marker's position and nudged right of the pin by CSS (.store-google-map__label).
+        function addLabel(map, position, text) {
+            function Label() {
+                this.div = document.createElement('div');
+                this.div.className = 'store-google-map__label';
+                this.div.setAttribute('aria-hidden', 'true'); // decorative - the map region is labelled with the store name
+                this.div.textContent = text;
+            }
+            Label.prototype = new google.maps.OverlayView();
+            Label.prototype.onAdd = function () {
+                this.getPanes().overlayLayer.appendChild(this.div);
+            };
+            Label.prototype.draw = function () {
+                var point = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(position));
+                if (!point) return;
+                this.div.style.left = point.x + 'px';
+                this.div.style.top = point.y + 'px';
+            };
+            Label.prototype.onRemove = function () {
+                this.div.remove();
+            };
+            new Label().setMap(map);
+        }
+
+        function init() {
+            var el = document.getElementById(mapId);
+            if (!el || !window.google || !google.maps) return;
+
+            var lat = parseFloat(config.lat);
+            var lng = parseFloat(config.lng);
+            if (!isNaN(lat) && !isNaN(lng)) {
+                draw(el, { lat: lat, lng: lng });
+                return;
+            }
+            new google.maps.Geocoder().geocode({ address: config.address }, function (results, status) {
+                if (status === 'OK' && results[0]) draw(el, results[0].geometry.location);
+            });
+        }
+
+        window.storeLoadGoogleMaps(init);
+    })();
+</script>

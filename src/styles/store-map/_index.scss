@@ -1,0 +1,147 @@
+@use './../variables' as v;
+
+// sections/store-map.liquid
+.store-map {
+    padding: 40px 0;
+    color: v.$wilson-grey;
+    font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
+
+    @media (max-width: 600px) {
+        padding: 24px 0;
+    }
+
+    &__frame {
+        position: relative;
+        height: min(var(--store-map-height, 450px), 70vh);
+        background: #e9e9e9;
+
+        @media (max-width: 749px) {
+            height: 320px;
+        }
+
+        // The Google map is drawn into this element by sections/store-map.liquid
+        .store-map__map {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    }
+
+
+    // Address card over the top left of the map, styled like Google's embedded map card
+    &__card {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 1;
+        width: calc(100% - 20px);
+        max-width: 300px;
+        box-sizing: border-box;
+        padding: 12px 14px 14px;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+        color: #202124;
+        font-family: Roboto, Arial, sans-serif;
+    }
+
+    &__card-name {
+        margin: 0 0 4px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    &__card-address {
+        margin: 0;
+        font-size: 13px;
+        font-style: normal;
+        line-height: 1.4;
+        color: #5f6368;
+    }
+
+    &__card-rating {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        margin-top: 6px;
+        font-size: 13px;
+        line-height: 1;
+        color: #5f6368;
+
+        &[hidden] {
+            display: none;
+        }
+
+        a {
+            color: #1a0dab;
+            text-decoration: underline;
+        }
+    }
+
+    &__card-star {
+        width: 14px;
+        height: 14px;
+        fill: #e7711b;
+    }
+
+    &__card-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    &__card-open {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 36px;
+        padding: 0 16px 0 12px;
+        border-radius: 18px;
+        background: #4355d6;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color .2s, box-shadow .2s;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: #3446c4;
+            color: #fff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+        }
+    }
+
+    &__card-directions {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: #eceff7;
+        color: #4355d6;
+        transition: background-color .2s;
+
+        svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: #dde2f2;
+        }
+    }
+}

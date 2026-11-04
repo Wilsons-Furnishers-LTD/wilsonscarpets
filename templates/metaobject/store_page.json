@@ -8,6 +8,39 @@
  * ------------------------------------------------------------
  */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "store_banner_MFH98H": {
+      "type": "store-banner",
+      "name": "Store Banner",
+      "settings": {}
+    },
+    "store_gallery": {
+      "type": "store-gallery",
+      "name": "Store Gallery",
+      "settings": {}
+    },
+    "store_map": {
+      "type": "store-map",
+      "name": "Store Map",
+      "settings": {
+        "zoom": 15,
+        "height": 450
+      }
+    },
+    "store_google_reviews": {
+      "type": "store-google-reviews",
+      "name": "Store Google Reviews",
+      "settings": {
+        "heading": "Google Reviews",
+        "max_reviews": 5,
+        "min_rating": 4
+      }
+    }
+  },
+  "order": [
+    "store_banner_MFH98H",
+    "store_gallery",
+    "store_map",
+    "store_google_reviews"
+  ]
 }

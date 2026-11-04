@@ -19,9 +19,15 @@
 {% if place_id != blank %}
     <div class="store-reviews" id="StoreReviews-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="store-google-reviews" hidden>
         <div class="store-reviews__inner">
-            {% if section.settings.heading != blank %}
-                <h2 class="store-reviews__heading">{{ section.settings.heading | escape }}</h2>
-            {% endif %}
+            <div class="store-reviews__header">
+                {% if section.settings.heading != blank %}
+                    <h2 class="store-reviews__heading">{{ section.settings.heading | escape }}</h2>
+                {% endif %}
+                {%- comment -%} Opens all of the store's reviews on Google {%- endcomment -%}
+                <a class="store-reviews__all" href="https://search.google.com/local/reviews?placeid={{ place_id | url_encode }}" target="_blank" rel="noopener">
+                    See all reviews on Google<span class="visually-hidden"> (opens in a new tab)</span>
+                </a>
+            </div>
 
             <div class="store-reviews__list" role="list" data-list></div>
         </div>

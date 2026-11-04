@@ -10,8 +10,25 @@
 .store-reviews__inner {
   padding: 0 30px;
 }
+.store-reviews__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.store-reviews__all {
+  font-size: 15px;
+  color: #ba3c3d;
+  text-decoration: underline;
+}
+.store-reviews__all:hover, .store-reviews__all:focus-visible {
+  color: #414B52;
+}
 .store-reviews__heading {
-  margin: 0 0 20px;
+  margin: 0;
   font-size: 26px;
   font-weight: 700;
   line-height: 1.2;

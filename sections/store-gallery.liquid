@@ -1,12 +1,15 @@
 {{ 'store-gallery.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
     Store gallery: thumbnails on the left, main image in the middle, text content on the right.
-    One block per image. Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
+    Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
     Styles: src/styles/store-gallery/_index.scss -> assets/store-gallery.css (npm run build)
 
-    Text comes from the current store_page metaobject's store_content field (rich text or multi-line text),
-    so it only shows on store pages. The section has no settings of its own.
+    Everything comes from the current store_page metaobject, so it only shows on store pages:
+      store_gallery - list of files (images): the gallery images, in the order they're listed. Non-image files are skipped.
+      store_content - rich text or multi-line text: the text beside the gallery.
+    The section has no settings of its own. If a store has no gallery images and no text, nothing is shown.
 {%- endcomment -%}
+{%- assign images = metaobject.store_gallery.value | where: 'media_type', 'image' -%}
 
 {%- assign store_content = metaobject.store_content -%}
 {%- capture content_html -%}
@@ -24,52 +27,47 @@
     {%- endif -%}
 {%- endcapture -%}
 {%- assign content_html = content_html | strip -%}
+{%- if images.size > 0 or content_html != blank -%}
 <div class="store-gallery" data-section-id="{{ section.id }}" data-section-type="store-gallery">
     <div class="wrapper">
         <div class="store-gallery__layout">
             <div class="store-gallery__gallery">
-                {% if section.blocks.size > 1 %}
+                {% if images.size > 1 %}
                     <ul class="store-gallery__thumbs" aria-label="Choose image">
-                        {% for block in section.blocks %}
+                        {% for image in images %}
                             <li>
                                 <button type="button"
                                     class="store-gallery__thumb{% if forloop.first %} is-active{% endif %}"
                                     data-index="{{ forloop.index0 }}"
                                     aria-label="Show image {{ forloop.index }} of {{ forloop.length }}"
                                     {% if forloop.first %}aria-current="true"{% endif %}>
-                                    {% if block.settings.image != blank %}
-                                        {{ block.settings.image | image_url: width: 160, height: 160, crop: 'center' | image_tag: alt: '', loading: 'lazy' }}
-                                    {% else %}
-                                        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                                    {% endif %}
+                                    {{ image | image_url: width: 160, height: 160, crop: 'center' | image_tag: alt: '', loading: 'lazy' }}
                                 </button>
                             </li>
                         {% endfor %}
                     </ul>
                 {% endif %}
 
-                {% if section.blocks.size > 0 %}
+                {% if images.size > 0 %}
                     <div class="store-gallery__main">
                         <div class="owl-carousel" id="StoreGallery-{{ section.id }}">
-                            {% for block in section.blocks %}
-                                <div class="store-gallery__slide" {{ block.shopify_attributes }}>
-                                    {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
-                                    {% if block.settings.image != blank %}
-                                        {{ block.settings.image | image_url: width: 1200 | image_tag:
-                                            widths: '540, 800, 1000, 1200',
-                                            sizes: '(min-width: 990px) 45vw, 100vw',
-                                            alt: block.settings.image.alt,
-                                            loading: 'lazy'
-                                        }}
-                                    {% else %}
-                                        {%- capture current -%}{% cycle 1, 2 %}{%- endcapture -%}
-                                        {{ 'lifestyle-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
-                                    {% endif %}
-                                    {% if block.settings.link != blank %}</a>{% endif %}
+                            {% for image in images %}
+                                <div class="store-gallery__slide">
+                                    {{ image | image_url: width: 1600 | image_tag:
+                                        widths: '540, 800, 1000, 1200, 1600',
+                                        sizes: '(min-width: 990px) 45vw, 100vw',
+                                        alt: image.alt,
+                                        loading: 'lazy'
+                                    }}
                                 </div>
                             {% endfor %}
                         </div>
                     </div>
+                {% elsif request.design_mode %}
+                    <p class="store-gallery__notice">
+                        Store Gallery: add images to this store's <strong>Store Gallery</strong> field to show them here.
+                        This message only shows in the theme editor.
+                    </p>
                 {% endif %}
             </div>
 
@@ -82,6 +80,7 @@
         </div>
     </div>
 </div>
+{%- endif -%}
 
 <script>
     (function () {
@@ -126,14 +125,9 @@
             init();
         }
 
-        // Re-initialise when the section is edited in the theme editor, and jump to a block when it's selected
+        // Re-initialise when the section is edited in the theme editor
         document.addEventListener('shopify:section:load', function (e) {
             if (e.detail.sectionId === sectionId) init();
-        });
-        document.addEventListener('shopify:block:select', function (e) {
-            if (e.detail.sectionId !== sectionId || !window.jQuery) return;
-            var index = jQuery(e.target).closest('.owl-item').index();
-            if (index > -1) jQuery('#StoreGallery-' + sectionId).trigger('to.owl.carousel', [index, 300]);
         });
     })();
 </script>
@@ -143,33 +137,9 @@
         "name": "Store Gallery",
         "class": "index-section",
         "settings": [],
-        "blocks": [
-            {
-                "type": "slide",
-                "name": "Image",
-                "settings": [
-                    {
-                        "type": "image_picker",
-                        "id": "image",
-                        "label": "Image"
-                    },
-                    {
-                        "type": "url",
-                        "id": "link",
-                        "label": "Link"
-                    }
-                ]
-            }
-        ],
         "presets": [{
             "name": "Store Gallery",
-            "category": "Image",
-            "blocks": [
-                { "type": "slide" },
-                { "type": "slide" },
-                { "type": "slide" },
-                { "type": "slide" }
-            ]
+            "category": "Image"
         }]
     }
 {% endschema %}

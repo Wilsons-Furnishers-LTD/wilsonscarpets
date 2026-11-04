@@ -90,6 +90,13 @@
   opacity: 1;
   outline-color: #414B52;
 }
+.store-gallery__notice {
+  flex: 1;
+  margin: 0;
+  padding: 16px;
+  border: 1px dashed #575E5F;
+  font-size: 14px;
+}
 .store-gallery__main {
   flex: 1;
   min-width: 0;

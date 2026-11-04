@@ -182,3 +182,77 @@
   height: 100%;
   object-fit: cover;
 }
+
+.store-banner-bar {
+  position: fixed;
+  top: var(--store-banner-bar-top, 0px);
+  left: 0;
+  right: 0;
+  z-index: 900000;
+  background: #f7f7f7;
+  border-bottom: 1px solid #e3e3e3;
+  box-shadow: 0 2px 5px rgba(50, 50, 50, 0.12);
+  color: #414B52;
+  font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
+  transform: translateY(-100%);
+  visibility: hidden;
+  transition: transform 0.3s ease-out, visibility 0s linear 0.3s;
+}
+.store-banner-bar.is-visible {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.3s ease-out, visibility 0s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .store-banner-bar {
+    transition: none;
+  }
+  .store-banner-bar.is-visible {
+    transition: none;
+  }
+}
+.store-banner-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 16px 24px;
+  padding: 10px 30px;
+}
+@media (max-width: 749px) {
+  .store-banner-bar__inner {
+    padding: 8px 16px;
+  }
+}
+.store-banner-bar__title {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+@media (max-width: 749px) {
+  .store-banner-bar__title {
+    display: none;
+  }
+}
+.store-banner-bar__buttons {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.store-banner-bar__buttons::-webkit-scrollbar {
+  display: none;
+}
+@media (max-width: 749px) {
+  .store-banner-bar__buttons {
+    margin-left: 0;
+  }
+}
+.store-banner-bar__buttons .store-banner__button {
+  flex-shrink: 0;
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 13px;
+  white-space: nowrap;
+}

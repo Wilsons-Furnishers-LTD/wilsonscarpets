@@ -4,6 +4,16 @@
   color: #414B52;
   font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
 }
+.store-reviews .visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
 .store-reviews[hidden] {
   display: none;
 }

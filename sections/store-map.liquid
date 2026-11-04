@@ -21,10 +21,6 @@
     
     <div class="store-map" data-section-id="{{ section.id }}" data-section-type="store-map">
         <div class="store-map__inner">
-            {% if section.settings.heading != blank %}
-                <h2 class="store-map__heading">{{ section.settings.heading | escape }}</h2>
-            {% endif %}
-
             <div class="store-map__frame" style="--store-map-height: {{ section.settings.height }}px;">
                 <iframe
                     src="https://maps.google.com/maps?q={{ map_query | url_encode }}&z={{ section.settings.zoom }}&output=embed"
@@ -48,12 +44,6 @@
         "name": "Store Map",
         "class": "index-section",
         "settings": [
-            {
-                "type": "text",
-                "id": "heading",
-                "label": "Heading",
-                "default": "Find us"
-            },
             {
                 "type": "range",
                 "id": "zoom",

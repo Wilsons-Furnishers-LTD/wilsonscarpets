@@ -30,7 +30,6 @@
       "type": "store-map",
       "name": "Store Map",
       "settings": {
-        "heading": "Find us",
         "zoom": 15,
         "height": 450
       }

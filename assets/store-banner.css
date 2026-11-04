@@ -182,6 +182,7 @@
     max-width: none;
     margin-right: max(20px, 100% - 657px);
     margin-top: var(--store-banner-map-top, 0px);
+    margin-bottom: var(--store-banner-map-bottom, 0px);
   }
 }
 .store-banner__image > img,

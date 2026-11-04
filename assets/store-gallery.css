@@ -45,25 +45,21 @@
 }
 @media (min-width: 750px) {
   .store-gallery__gallery {
-    flex-direction: row;
     gap: 16px;
   }
 }
 .store-gallery__thumbs {
   display: flex;
   gap: 10px;
-  margin: 0;
-  padding: 0;
+  margin: -4px;
+  padding: 4px;
   list-style: none;
   overflow-x: auto;
   flex-shrink: 0;
 }
 @media (min-width: 750px) {
   .store-gallery__thumbs {
-    flex-direction: column;
     gap: 16px;
-    width: 64px;
-    overflow: visible;
   }
 }
 .store-gallery__thumbs li {

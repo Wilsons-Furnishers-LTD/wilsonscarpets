@@ -38,7 +38,8 @@
 
 {% if has_location %}
     <div class="store-map" data-section-id="{{ section.id }}" data-section-type="store-map">
-        <div class="store-map__inner">
+        {%- comment -%} Theme .wrapper: same max width (84.625em) and side padding as the rest of the page {%- endcomment -%}
+        <div class="wrapper">
             <div class="store-map__frame" style="--store-map-height: {{ section.settings.height }}px;">
                 <div class="store-map__map"
                     id="StoreMap-{{ section.id }}"

@@ -8,9 +8,6 @@
     padding: 24px 0;
   }
 }
-.store-map__inner {
-  padding: 0 30px;
-}
 .store-map__frame {
   position: relative;
   height: min(var(--store-map-height, 450px), 70vh);

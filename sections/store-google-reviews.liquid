@@ -123,6 +123,7 @@
                     });
 
                     list.classList.add('owl-carousel', 'store-reviews__list--carousel');
+                    if (count > 1) list.classList.add('store-reviews__list--nav');
                     jQuery(list).owlCarousel({
                         margin: 20,
                         autoplayTimeout: 5000,

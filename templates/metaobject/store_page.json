@@ -30,16 +30,11 @@
         "max_reviews": 5,
         "min_rating": 4
       }
-    },
-    "1793802705636306cd": {
-      "type": "apps",
-      "settings": {}
     }
   },
   "order": [
     "store_banner_MFH98H",
     "store_gallery",
-    "store_google_reviews",
-    "1793802705636306cd"
+    "store_google_reviews"
   ]
 }

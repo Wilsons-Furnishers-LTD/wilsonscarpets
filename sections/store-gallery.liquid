@@ -7,7 +7,8 @@
     Everything comes from the current store_page metaobject, so it only shows on store pages:
       store_gallery - list of files (images): the gallery images, in the order they're listed. Non-image files are skipped.
       store_content - rich text or multi-line text: the text beside the gallery.
-    The section has no settings of its own. If a store has no gallery images and no text, nothing is shown.
+    Section setting: Title (default "About the store"), shown above the text. If a store has no gallery images
+    and no text, nothing is shown.
 {%- endcomment -%}
 {%- assign images = metaobject.store_gallery.value | where: 'media_type', 'image' -%}
 
@@ -74,6 +75,9 @@
 
             {%- comment -%} Always rendered so the gallery keeps its column width when there's no text {%- endcomment -%}
             <div class="store-gallery__content">
+                {% if section.settings.heading != blank %}
+                    <h2 class="store-gallery__heading">{{ section.settings.heading | escape }}</h2>
+                {% endif %}
                 {% if content_html != blank %}
                     <div class="store-gallery__text">{{ content_html }}</div>
                 {% endif %}
@@ -137,7 +141,15 @@
     {
         "name": "Store Gallery",
         "class": "index-section",
-        "settings": [],
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Title",
+                "info": "Shown above the store's text, beside the gallery.",
+                "default": "About the store"
+            }
+        ],
         "presets": [{
             "name": "Store Gallery",
             "category": "Image"

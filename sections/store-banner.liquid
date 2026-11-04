@@ -1,6 +1,6 @@
 {{ 'store-banner.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Store page banner: store info on the left, store photo on the right.
+    Store page banner: store info on the left, store photo (or a map - "Banner media" setting) on the right.
     Content comes from the current store_page metaobject (templates/metaobject/store_page.json), not section settings.
 
     Fields used: store_finder_name / name, address, telephone, store_opening_times (HTML table),
@@ -161,8 +161,25 @@
         </div>
     </div>
 
-    <div class="store-banner__image">
-        {% if store_image != blank %}
+    {%- comment -%}
+        Right-hand column: the banner photo, or a map of the store (section setting "Banner media").
+        The map needs a location (lat + long, or an address); without one the photo is shown instead.
+    {%- endcomment -%}
+    {%- assign show_map = false -%}
+    {%- if section.settings.media == 'map' -%}
+        {%- if store.store_finder_lat.value != blank and store.store_finder_long.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
+        {%- if store.address.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
+    {%- endif -%}
+
+    <div class="store-banner__image{% if show_map %} store-banner__image--map{% endif %}">
+        {% if show_map %}
+            {%- assign banner_map_id = 'StoreBannerMap-' | append: section.id -%}
+            <div class="store-banner__map"
+                id="{{ banner_map_id }}"
+                role="region"
+                aria-label="Map showing the location of {{ store_name | escape }}"></div>
+            {% render 'store-google-map', store: store, map_id: banner_map_id, zoom: section.settings.map_zoom %}
+        {% elsif store_image != blank %}
             {%- comment -%}
                 On desktop the image fills (object-fit: cover) a half-width box at least 560px tall - often ~800px with
                 the store details beside it. A landscape photo is shown wider than the box when the box is tall, so
@@ -252,7 +269,28 @@
     {
         "name": "Store Banner",
         "class": "index-section",
-        "settings": [],
+        "settings": [
+            {
+                "type": "select",
+                "id": "media",
+                "label": "Banner media",
+                "info": "What shows beside the store details. The map needs the store's coordinates or address; without them the image is shown.",
+                "options": [
+                    { "value": "image", "label": "Image" },
+                    { "value": "map", "label": "Map" }
+                ],
+                "default": "image"
+            },
+            {
+                "type": "range",
+                "id": "map_zoom",
+                "label": "Map zoom",
+                "min": 10,
+                "max": 18,
+                "step": 1,
+                "default": 15
+            }
+        ],
         "presets": [{
             "name": "Store Banner",
             "category": "Image"

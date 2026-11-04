@@ -124,7 +124,11 @@
                     title: config.title,
                     icon: { url: config.marker, scaledSize: new google.maps.Size(30, 43) }
                 });
-                if (config.title) addLabel(map, position, config.title);
+                if (config.title) {
+                    // "Wilsons Carpets <store>", unless the store name already starts with "Wilsons"
+                    var label = /^wilsons\b/i.test(config.title) ? config.title : 'Wilsons Carpets ' + config.title;
+                    addLabel(map, position, label);
+                }
             }
 
             // Store name beside the marker. A marker's own label is always centred on the pin, so this is a small

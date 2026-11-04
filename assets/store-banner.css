@@ -8,7 +8,7 @@
 }
 @media (min-width: 990px) {
   .store-banner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr minmax(0, 677px) minmax(0, 677px) 1fr;
     min-height: 560px;
   }
 }
@@ -19,6 +19,7 @@
 }
 @media (min-width: 990px) {
   .store-banner__info {
+    grid-column: 2;
     display: block;
     padding: 24px 0 60px;
   }
@@ -180,9 +181,9 @@
     min-height: 320px;
   }
 }
-@media (min-width: 1701px) {
+@media (min-width: 990px) {
   .store-banner__image {
-    max-width: 850px;
+    grid-column: 3;
   }
 }
 @media (min-width: 990px) {
@@ -237,7 +238,10 @@
   display: flex;
   align-items: center;
   gap: 16px 24px;
-  padding: 10px 30px;
+  box-sizing: border-box;
+  max-width: 1354px;
+  margin: 0 auto;
+  padding: 10px 20px;
 }
 @media (max-width: 749px) {
   .store-banner-bar__inner {

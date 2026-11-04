@@ -16,7 +16,7 @@
 }
 @media (min-width: 990px) {
   .store-gallery__layout {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 1fr minmax(0, 677px) minmax(0, 677px) 1fr;
     gap: 0;
     padding: 0;
     align-items: center;
@@ -24,12 +24,14 @@
 }
 @media (min-width: 990px) {
   .store-gallery__gallery {
+    grid-column: 2;
     margin-left: max(48px, (100% - 600px) / 2);
     margin-right: 60px;
   }
 }
 @media (min-width: 990px) {
   .store-gallery__content {
+    grid-column: 3;
     justify-self: start;
     width: min(600px, 100% - 96px);
     margin-left: 48px;

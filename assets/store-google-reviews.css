@@ -7,9 +7,6 @@
 .store-reviews[hidden] {
   display: none;
 }
-.store-reviews__inner {
-  padding: 0 30px;
-}
 .store-reviews__header {
   display: flex;
   flex-wrap: wrap;

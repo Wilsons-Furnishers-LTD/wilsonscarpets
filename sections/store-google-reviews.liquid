@@ -18,7 +18,7 @@
 
 {% if place_id != blank %}
     <div class="store-reviews" id="StoreReviews-{{ section.id }}" data-section-id="{{ section.id }}" data-section-type="store-google-reviews" hidden>
-        <div class="store-reviews__inner">
+        <div class="wrapper">
             <div class="store-reviews__header">
                 {% if section.settings.heading != blank %}
                     <h2 class="store-reviews__heading">{{ section.settings.heading | escape }}</h2>
@@ -138,7 +138,7 @@
     </script>
 {% elsif request.design_mode %}
     <div class="store-reviews">
-        <div class="store-reviews__inner">
+        <div class="wrapper">
             <p class="store-reviews__notice">
                 Store Google Reviews: add this store's Google Place ID to its <strong>google_place_id</strong> field to show its reviews.
                 This message only shows in the theme editor.

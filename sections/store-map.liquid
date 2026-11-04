@@ -10,7 +10,6 @@
 {%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
 {%- assign store_lat = store.store_finder_lat.value -%}
 {%- assign store_long = store.store_finder_long.value -%}
-{%- assign store_directions = store.store_finder_place_id.value -%}
 {%- assign store_address = store.address.value | newline_to_br | replace: '<br />', ', ' | strip_newlines -%}
 
 {%- comment -%} Liquid evaluates and/or right to left, so work out whether there's a location in steps {%- endcomment -%}
@@ -28,11 +27,6 @@
                     aria-label="Map showing the location of {{ store_name | escape }}"></div>
             </div>
 
-            {% if store_directions != blank %}
-                <a class="store-map__link" href="{{ store_directions | escape }}" target="_blank" rel="noopener">
-                    Open in Google Maps<span class="visually-hidden"> (opens in a new tab)</span>
-                </a>
-            {% endif %}
         </div>
     </div>
 

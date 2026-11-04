@@ -28,10 +28,3 @@
   height: 100%;
   border: 0;
 }
-.store-map__link {
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 15px;
-  color: #ba3c3d;
-  text-decoration: underline;
-}

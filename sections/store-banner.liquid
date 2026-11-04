@@ -211,7 +211,7 @@
     // Desktop: line the photo / map up with the store details beside it. The positions depend on the content
     // (breadcrumb, how many lines the store name takes, how many buttons), so they're measured and passed to the CSS
     // as --store-banner-media-top / --store-banner-media-bottom (only used at 990px and up - see .store-banner__image).
-    //   Photo: top level with the store name (the banner title); bottom at the bottom of the banner.
+    //   Photo: top level with the store name (the banner title), bottom level with the buttons.
     //   Map:   top level with the first content box (address / opening hours), bottom level with the buttons.
     (function () {
         var banner = document.getElementById('StoreBanner-{{ section.id }}');
@@ -223,7 +223,7 @@
         var isMap = column.classList.contains('store-banner__image--map');
         var firstBox = info.querySelector('.store-banner__card, .store-banner__buttons');
         var top = isMap ? firstBox : (info.querySelector('.store-banner__title') || firstBox);
-        var bottom = isMap ? (info.querySelector('.store-banner__buttons') || firstBox) : null;
+        var bottom = info.querySelector('.store-banner__buttons') || firstBox;
         if (!top) return;
 
         function align() {

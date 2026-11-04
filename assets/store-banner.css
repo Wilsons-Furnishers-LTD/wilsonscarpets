@@ -178,6 +178,7 @@
 @media (min-width: 990px) {
   .store-banner__image {
     margin-top: var(--store-banner-media-top, 0px);
+    margin-bottom: var(--store-banner-media-bottom, 0px);
   }
 }
 .store-banner__image--map {

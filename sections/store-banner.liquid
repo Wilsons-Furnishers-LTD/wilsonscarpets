@@ -9,6 +9,7 @@
       email         - single line text (enquiries@wilsonscarpets.com is used if it's empty)
       store_details - list of text, or rich text
       linked_store  - metaobject reference to another store_page (e.g. the Hillsborough bed store)
+    store_finder_lat / store_finder_long are also used to find the closest other store for the "Closest Store" button.
 {%- endcomment -%}
 {%- assign store = metaobject -%}
 {%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
@@ -19,6 +20,42 @@
 {%- assign store_directions = store.store_finder_place_id.value -%}
 {%- assign store_details = store.store_details -%}
 {%- assign linked_store = store.linked_store.value -%}
+
+{%- comment -%}
+    Closest store: the nearest other store_page by store_finder_lat / store_finder_long, for the "Closest Store" button.
+    Skips this store, its linked_store (it already has its own button) and stores without coordinates.
+    Liquid has no trig, so distances are compared on a flat approximation: north-south degrees as they are and
+    east-west degrees scaled by cos(latitude) (Taylor series: 1 - x^2/2 + x^4/24, x in radians). Squared distances are
+    compared, so there's no square root either. That's plenty accurate for ranking stores tens of miles apart.
+{%- endcomment -%}
+{%- assign closest_store = nil -%}
+{%- if store.store_finder_lat.value != blank and store.store_finder_long.value != blank -%}
+    {%- assign here_lat = store.store_finder_lat.value | times: 1.0 -%}
+    {%- assign here_long = store.store_finder_long.value | times: 1.0 -%}
+    {%- assign lat_rad = here_lat | times: 0.0174533 -%}
+    {%- assign lat_rad_sq = lat_rad | times: lat_rad -%}
+    {%- assign cos_half = lat_rad_sq | divided_by: 2.0 -%}
+    {%- assign cos_quarter = lat_rad_sq | times: lat_rad_sq | divided_by: 24.0 -%}
+    {%- assign long_scale = 1.0 | minus: cos_half | plus: cos_quarter -%}
+    {%- assign closest_distance = -1 -%}
+
+    {%- for other in shop.metaobjects.store_page.values -%}
+        {%- if other.system.handle == store.system.handle -%}{%- continue -%}{%- endif -%}
+        {%- if linked_store != blank and other.system.handle == linked_store.system.handle -%}{%- continue -%}{%- endif -%}
+        {%- if other.store_finder_lat.value == blank or other.store_finder_long.value == blank -%}{%- continue -%}{%- endif -%}
+
+        {%- assign d_lat = other.store_finder_lat.value | times: 1.0 | minus: here_lat -%}
+        {%- assign d_long = other.store_finder_long.value | times: 1.0 | minus: here_long | times: long_scale -%}
+        {%- assign distance = d_lat | times: d_lat -%}
+        {%- assign d_long_sq = d_long | times: d_long -%}
+        {%- assign distance = distance | plus: d_long_sq -%}
+
+        {%- if closest_distance < 0 or distance < closest_distance -%}
+            {%- assign closest_distance = distance -%}
+            {%- assign closest_store = other -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
 
 <div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner">
     <div class="store-banner__info">
@@ -93,6 +130,13 @@
                     <a class="store-banner__button" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3 3 5.5v15.5l6-2.5 6 2.5 6-2.5V3l-6 2.5L9 3Zm1 2.6 4 1.65v11.15l-4-1.65V5.6Z"/></svg>
                         Get Directions
+                    </a>
+                {% endif %}
+                {% if closest_store != blank %}
+                    {%- assign closest_name = closest_store.store_finder_name.value | default: closest_store.name.value -%}
+                    <a class="store-banner__button" href="{{ closest_store.system.url }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+                        Closest Store: {{ closest_name | escape }}
                     </a>
                 {% endif %}
                 {% if linked_store != blank %}

@@ -1,5 +1,5 @@
 .store-gallery {
-  padding: 40px 0;
+  padding: 60px 0;
   color: #414B52;
   font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
 }
@@ -33,7 +33,6 @@
     grid-column: 3;
     justify-self: start;
     width: min(600px, 100% - 96px);
-    margin-left: 48px;
   }
 }
 .store-gallery__gallery {

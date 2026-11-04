@@ -113,13 +113,13 @@
                         responsive[width] = {
                             items: items,
                             loop: loop,
-                            nav: loop && items > 1,
+                            nav: loop,
                             dots: loop,
                             autoplay: loop && !reduceMotion,
                             mouseDrag: loop,
                             touchDrag: loop,
                             pullDrag: loop,
-                            stagePadding: items === 1 && loop ? 24 : 0
+                            stagePadding: 0
                         };
                     });
 
@@ -130,8 +130,8 @@
                         autoplayHoverPause: true,
                         smartSpeed: 500,
                         navText: [
-                            '<span aria-hidden="true">&lsaquo;</span><span class="visually-hidden">Previous reviews</span>',
-                            '<span aria-hidden="true">&rsaquo;</span><span class="visually-hidden">Next reviews</span>'
+                            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="visually-hidden">Previous reviews</span>',
+                            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg><span class="visually-hidden">Next reviews</span>'
                         ],
                         responsive: responsive
                     });

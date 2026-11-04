@@ -56,6 +56,14 @@
 .store-reviews__list--carousel .store-reviews__card {
   width: 100%;
 }
+.store-reviews__list--carousel:has(.owl-nav:not(.disabled)) {
+  padding: 0 52px;
+}
+@media (max-width: 599px) {
+  .store-reviews__list--carousel:has(.owl-nav:not(.disabled)) {
+    padding: 0 40px;
+  }
+}
 .store-reviews__list--carousel .owl-nav {
   margin: 0;
 }
@@ -69,18 +77,42 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0;
-  padding: 0 0 3px;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0;
+  padding: 0;
   border: 1px solid #e3e3e3;
   border-radius: 50%;
   background: #fff;
   color: #414B52;
-  font-size: 26px;
-  line-height: 1;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
-  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+@media (max-width: 599px) {
+  .store-reviews__list--carousel .owl-nav button.owl-prev,
+  .store-reviews__list--carousel .owl-nav button.owl-next {
+    width: 32px;
+    height: 32px;
+    margin-top: -16px;
+  }
+}
+.store-reviews__list--carousel .owl-nav button.owl-prev svg,
+.store-reviews__list--carousel .owl-nav button.owl-next svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (max-width: 599px) {
+  .store-reviews__list--carousel .owl-nav button.owl-prev svg,
+  .store-reviews__list--carousel .owl-nav button.owl-next svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 .store-reviews__list--carousel .owl-nav button.owl-prev:hover, .store-reviews__list--carousel .owl-nav button.owl-prev:focus-visible,
 .store-reviews__list--carousel .owl-nav button.owl-next:hover,
@@ -90,10 +122,10 @@
   color: #fff;
 }
 .store-reviews__list--carousel .owl-nav button.owl-prev {
-  left: -14px;
+  left: 0;
 }
 .store-reviews__list--carousel .owl-nav button.owl-next {
-  right: -14px;
+  right: 0;
 }
 .store-reviews__list--carousel .owl-dots {
   display: flex;

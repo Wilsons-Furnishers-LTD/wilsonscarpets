@@ -28,6 +28,18 @@
   height: 100%;
   border: 0;
 }
+.store-map__label {
+  position: absolute;
+  transform: translate(19px, -32px);
+  white-space: nowrap;
+  color: #ba3c3d;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 4px #fff;
+  pointer-events: none;
+}
 .store-map__card {
   position: absolute;
   top: 10px;

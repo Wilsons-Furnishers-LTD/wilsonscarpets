@@ -124,6 +124,32 @@
                     title: config.title,
                     icon: { url: config.marker, scaledSize: new google.maps.Size(30, 43) }
                 });
+                if (config.title) addLabel(map, position, config.title);
+            }
+
+            // Store name beside the marker. A marker's own label is always centred on the pin, so this is a small
+            // OverlayView placed at the marker's position and nudged right of the pin by CSS (.store-map__label).
+            function addLabel(map, position, text) {
+                function Label() {
+                    this.div = document.createElement('div');
+                    this.div.className = 'store-map__label';
+                    this.div.setAttribute('aria-hidden', 'true'); // the name is already in the address card
+                    this.div.textContent = text;
+                }
+                Label.prototype = new google.maps.OverlayView();
+                Label.prototype.onAdd = function () {
+                    this.getPanes().overlayLayer.appendChild(this.div);
+                };
+                Label.prototype.draw = function () {
+                    var point = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(position));
+                    if (!point) return;
+                    this.div.style.left = point.x + 'px';
+                    this.div.style.top = point.y + 'px';
+                };
+                Label.prototype.onRemove = function () {
+                    this.div.remove();
+                };
+                new Label().setMap(map);
             }
 
             function init() {

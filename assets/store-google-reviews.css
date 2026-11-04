@@ -10,19 +10,29 @@
 .store-reviews__header {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
   gap: 4px 16px;
   margin-bottom: 20px;
   text-align: center;
 }
 .store-reviews__all {
-  font-size: 15px;
-  color: #ba3c3d;
-  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 6px 16px;
+  background: #ba3c3d;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 0.2s;
 }
 .store-reviews__all:hover, .store-reviews__all:focus-visible {
-  color: #414B52;
+  background: #414B52;
+  color: #fff;
 }
 .store-reviews__heading {
   margin: 0;

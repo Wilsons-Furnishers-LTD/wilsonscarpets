@@ -92,6 +92,8 @@
 {%- endcapture -%}
 
 <div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner" id="StoreBanner-{{ section.id }}">
+  {%- comment -%} Holds the store details and the photo / map: centred, max 1354px, two columns on desktop {%- endcomment -%}
+  <div class="store-banner__container">
     <div class="store-banner__info">
         <div class="store-banner__inner">
             {%- comment -%}
@@ -193,7 +195,7 @@
                     if (!column || !first) return;
 
                     function align() {
-                        var box = banner.getBoundingClientRect();
+                        var box = (banner.querySelector('.store-banner__container') || banner).getBoundingClientRect();
                         var top = first.getBoundingClientRect().top - box.top;
                         var bottom = box.bottom - last.getBoundingClientRect().bottom;
                         column.style.setProperty('--store-banner-map-top', Math.max(0, Math.round(top)) + 'px');
@@ -227,6 +229,7 @@
             {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {% endif %}
     </div>
+  </div>
 </div>
 
 {%- if banner_buttons != blank -%}

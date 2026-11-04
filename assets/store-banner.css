@@ -1,15 +1,19 @@
 @charset "UTF-8";
 .store-banner {
-  display: grid;
-  grid-template-columns: 1fr;
   background: #f7f7f7;
   color: #414B52;
   font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
 }
+.store-banner__container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
 @media (min-width: 990px) {
-  .store-banner {
-    grid-template-columns: 1fr minmax(0, 697px) minmax(0, 697px) 1fr;
+  .store-banner__container {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    max-width: 1394px;
     min-height: 560px;
+    margin: 0 auto;
   }
 }
 .store-banner__info {
@@ -19,7 +23,6 @@
 }
 @media (min-width: 990px) {
   .store-banner__info {
-    grid-column: 2;
     display: block;
     padding: 24px 0 60px;
   }
@@ -179,11 +182,6 @@
 @media (max-width: 989px) {
   .store-banner__image--map {
     min-height: 320px;
-  }
-}
-@media (min-width: 990px) {
-  .store-banner__image {
-    grid-column: 3;
   }
 }
 @media (min-width: 990px) {

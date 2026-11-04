@@ -50,10 +50,20 @@
       ],
       "name": "Store Gallery",
       "settings": {}
+    },
+    "store_map_ayqTNT": {
+      "type": "store-map",
+      "name": "Store Map",
+      "settings": {
+        "heading": "Find us",
+        "zoom": 15,
+        "height": 450
+      }
     }
   },
   "order": [
     "store_banner_MFH98H",
-    "store_gallery_rTeery"
+    "store_gallery_rTeery",
+    "store_map_ayqTNT"
   ]
 }

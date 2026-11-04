@@ -31,11 +31,20 @@
         "max_reviews": 5,
         "min_rating": 4
       }
+    },
+    "store_map_XGnMkz": {
+      "type": "store-map",
+      "name": "Store Map",
+      "settings": {
+        "zoom": 15,
+        "height": 450
+      }
     }
   },
   "order": [
     "store_banner_MFH98H",
     "store_gallery",
+    "store_map_XGnMkz",
     "store_google_reviews"
   ]
 }

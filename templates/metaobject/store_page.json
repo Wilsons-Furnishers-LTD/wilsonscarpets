@@ -13,9 +13,65 @@
       "type": "store-banner",
       "name": "Store Banner",
       "settings": {}
+    },
+    "carousel_AmtAgb": {
+      "type": "carousel",
+      "blocks": {
+        "slide_cfGF7p": {
+          "type": "slide",
+          "settings": {
+            "title": "Slide heading",
+            "text": "<p>Tell customers about this product, service or offer.</p>",
+            "button_text": "Find out more",
+            "link": ""
+          }
+        },
+        "slide_Rwnyh3": {
+          "type": "slide",
+          "settings": {
+            "title": "Slide heading",
+            "text": "<p>Tell customers about this product, service or offer.</p>",
+            "button_text": "Find out more",
+            "link": ""
+          }
+        },
+        "slide_JAcg86": {
+          "type": "slide",
+          "settings": {
+            "title": "Slide heading",
+            "text": "<p>Tell customers about this product, service or offer.</p>",
+            "button_text": "Find out more",
+            "link": ""
+          }
+        },
+        "slide_VDQnpB": {
+          "type": "slide",
+          "settings": {
+            "title": "Slide heading",
+            "text": "<p>Tell customers about this product, service or offer.</p>",
+            "button_text": "Find out more",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_cfGF7p",
+        "slide_Rwnyh3",
+        "slide_JAcg86",
+        "slide_VDQnpB"
+      ],
+      "name": "Carousel",
+      "settings": {
+        "title": "Carousel",
+        "text": "",
+        "items_desktop": 3,
+        "autoplay": false,
+        "autoplay_speed": 5
+      }
     }
   },
   "order": [
-    "store_banner_MFH98H"
+    "store_banner_MFH98H",
+    "carousel_AmtAgb"
   ]
 }

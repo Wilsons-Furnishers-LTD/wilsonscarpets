@@ -134,10 +134,10 @@
   border-color: #ba3c3d;
   color: #fff;
 }
-.store-reviews__list--carousel .owl-nav button.owl-prev {
+.store-reviews__list--carousel .owl-nav div.owl-prev {
   left: 0;
 }
-.store-reviews__list--carousel .owl-nav button.owl-next {
+.store-reviews__list--carousel .owl-nav div.owl-next {
   right: 0;
 }
 .store-reviews__list--carousel .owl-dots {

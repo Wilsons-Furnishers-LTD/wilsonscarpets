@@ -2,7 +2,7 @@
 {%- comment -%}
     Store Google reviews: a centred heading and a row of review cards (stars, text, reviewer initial, name, date)
     for the current store, loaded live in the browser with the Places API (New) - Place.fetchFields(). Google returns up to 5.
-    When the reviews fill the row, it becomes a looping Owl Carousel (see carousel() below).
+    With 2+ reviews it becomes a looping Owl Carousel with arrows (see carousel() below).
 
     Needs, on the store_page metaobject definition:
       google_place_id - single line text, the store's Google Place ID (starts "ChIJ...").
@@ -97,10 +97,9 @@
             // Cards visible at each screen width (Owl Carousel breakpoints)
             var BREAKPOINTS = { 0: 1, 600: 2, 990: 3, 1200: 5 };
 
-            // Turns the cards into an Owl Carousel. At each screen width it loops (with arrows, dots and autoplay)
-            // once the reviews fill the row - so 5 reviews loop on desktop too, each card sliding off one side
-            // and coming back on the other. With fewer reviews than fit on screen, the cards just sit in a row
-            // (looping then would show the same review twice at once).
+            // Turns the cards into a looping Owl Carousel with arrows, dots and autoplay whenever there are 2+ reviews.
+            // Cards on screen never exceed the number of reviews (e.g. 3 reviews on desktop -> 3 wider cards),
+            // so the loop never shows the same review twice at once.
             // Owl Carousel and jQuery are loaded (deferred) by layout/theme.liquid. Without them the CSS grid is used.
             function carousel(list, count) {
                 function start() {
@@ -108,8 +107,8 @@
                     var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                     var responsive = {};
                     Object.keys(BREAKPOINTS).forEach(function (width) {
-                        var items = BREAKPOINTS[width];
-                        var loop = count > 1 && count >= items;
+                        var items = Math.min(BREAKPOINTS[width], count);
+                        var loop = count > 1;
                         responsive[width] = {
                             items: items,
                             loop: loop,

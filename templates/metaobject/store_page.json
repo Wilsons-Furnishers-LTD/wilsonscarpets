@@ -13,14 +13,15 @@
       "type": "store-banner",
       "name": "Store Banner",
       "settings": {
-        "media": "map",
         "map_zoom": 15
       }
     },
     "store_gallery": {
       "type": "store-gallery",
       "name": "Store Gallery",
-      "settings": {}
+      "settings": {
+        "heading": "About the store"
+      }
     },
     "store_google_reviews": {
       "type": "store-google-reviews",

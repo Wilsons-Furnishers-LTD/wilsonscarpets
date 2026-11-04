@@ -1,6 +1,6 @@
 {{ 'store-banner.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Store page banner: store info on the left, store photo (or a map - "Banner media" setting) on the right.
+    Store page banner: store info on the left, store photo (or a map, per store - store_banner_show_map) on the right.
     Content comes from the current store_page metaobject (templates/metaobject/store_page.json), not section settings.
 
     Fields used: store_finder_name / name, address, telephone, store_opening_times (HTML table),
@@ -164,11 +164,11 @@
     </div>
 
     {%- comment -%}
-        Right-hand column: the banner photo, or a map of the store (section setting "Banner media").
-        The map needs a location (lat + long, or an address); without one the photo is shown instead.
+        Right-hand column: the banner photo, or a map of the store when its store_banner_show_map field
+        (true / false) is true. The map needs a location (lat + long, or an address); without one the photo is shown.
     {%- endcomment -%}
     {%- assign show_map = false -%}
-    {%- if section.settings.media == 'map' -%}
+    {%- if store.store_banner_show_map.value == true -%}
         {%- if store.store_finder_lat.value != blank and store.store_finder_long.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
         {%- if store.address.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
     {%- endif -%}
@@ -299,20 +299,10 @@
         "class": "index-section",
         "settings": [
             {
-                "type": "select",
-                "id": "media",
-                "label": "Banner media",
-                "info": "What shows beside the store details. The map needs the store's coordinates or address; without them the image is shown.",
-                "options": [
-                    { "value": "image", "label": "Image" },
-                    { "value": "map", "label": "Map" }
-                ],
-                "default": "image"
-            },
-            {
                 "type": "range",
                 "id": "map_zoom",
                 "label": "Map zoom",
+                "info": "For stores whose Store Banner Show Map field is on.",
                 "min": 10,
                 "max": 18,
                 "step": 1,

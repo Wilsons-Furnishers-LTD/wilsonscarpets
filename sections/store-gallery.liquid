@@ -1,8 +1,8 @@
-{{ 'carousel.css' | asset_url | stylesheet_tag }}
+{{ 'store-gallery.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Image gallery carousel: thumbnails on the left, main image in the middle, text content on the right.
+    Store gallery: thumbnails on the left, main image in the middle, text content on the right.
     One block per image. Uses Owl Carousel v2, which layout/theme.liquid already loads (deferred) along with jQuery.
-    Styles: src/styles/carousel/_index.scss -> assets/carousel.css (npm run build)
+    Styles: src/styles/store-gallery/_index.scss -> assets/store-gallery.css (npm run build)
 
     Text comes from the current store_page metaobject's store_content field (rich text or multi-line text),
     so it only shows on store pages. The section has no settings of its own.
@@ -23,16 +23,16 @@
     {%- endif -%}
 {%- endcapture -%}
 {%- assign content_html = content_html | strip -%}
-<div class="content-carousel" data-section-id="{{ section.id }}" data-section-type="carousel">
+<div class="store-gallery" data-section-id="{{ section.id }}" data-section-type="store-gallery">
     <div class="wrapper">
-        <div class="content-carousel__layout{% if content_html == blank %} content-carousel__layout--no-content{% endif %}">
-            <div class="content-carousel__gallery">
+        <div class="store-gallery__layout{% if content_html == blank %} store-gallery__layout--no-content{% endif %}">
+            <div class="store-gallery__gallery">
                 {% if section.blocks.size > 1 %}
-                    <ul class="content-carousel__thumbs" aria-label="Choose image">
+                    <ul class="store-gallery__thumbs" aria-label="Choose image">
                         {% for block in section.blocks %}
                             <li>
                                 <button type="button"
-                                    class="content-carousel__thumb{% if forloop.first %} is-active{% endif %}"
+                                    class="store-gallery__thumb{% if forloop.first %} is-active{% endif %}"
                                     data-index="{{ forloop.index0 }}"
                                     aria-label="Show image {{ forloop.index }} of {{ forloop.length }}"
                                     {% if forloop.first %}aria-current="true"{% endif %}>
@@ -48,10 +48,10 @@
                 {% endif %}
 
                 {% if section.blocks.size > 0 %}
-                    <div class="content-carousel__main">
-                        <div class="owl-carousel" id="Carousel-{{ section.id }}">
+                    <div class="store-gallery__main">
+                        <div class="owl-carousel" id="StoreGallery-{{ section.id }}">
                             {% for block in section.blocks %}
-                                <div class="content-carousel__slide" {{ block.shopify_attributes }}>
+                                <div class="store-gallery__slide" {{ block.shopify_attributes }}>
                                     {% if block.settings.link != blank %}<a href="{{ block.settings.link }}">{% endif %}
                                     {% if block.settings.image != blank %}
                                         {{ block.settings.image | image_url: width: 1200 | image_tag:
@@ -73,8 +73,8 @@
             </div>
 
             {% if content_html != blank %}
-                <div class="content-carousel__content">
-                    <div class="content-carousel__text">{{ content_html }}</div>
+                <div class="store-gallery__content">
+                    <div class="store-gallery__text">{{ content_html }}</div>
                 </div>
             {% endif %}
         </div>
@@ -87,12 +87,12 @@
 
         function init() {
             if (!window.jQuery || !jQuery.fn.owlCarousel) return;
-            var $main = jQuery('#Carousel-' + sectionId);
+            var $main = jQuery('#StoreGallery-' + sectionId);
             if (!$main.length) return;
-            var $thumbs = $main.closest('.content-carousel').find('.content-carousel__thumb');
+            var $thumbs = $main.closest('.store-gallery').find('.store-gallery__thumb');
 
             $main.trigger('destroy.owl.carousel');
-            $thumbs.off('.contentCarousel');
+            $thumbs.off('.storeGallery');
 
             function setActive(index) {
                 $thumbs.removeClass('is-active').removeAttr('aria-current');
@@ -112,7 +112,7 @@
                 smartSpeed: 500
             });
 
-            $thumbs.on('click.contentCarousel', function () {
+            $thumbs.on('click.storeGallery', function () {
                 $main.trigger('to.owl.carousel', [parseInt(jQuery(this).data('index'), 10), 500]);
             });
         }
@@ -131,14 +131,14 @@
         document.addEventListener('shopify:block:select', function (e) {
             if (e.detail.sectionId !== sectionId || !window.jQuery) return;
             var index = jQuery(e.target).closest('.owl-item').index();
-            if (index > -1) jQuery('#Carousel-' + sectionId).trigger('to.owl.carousel', [index, 300]);
+            if (index > -1) jQuery('#StoreGallery-' + sectionId).trigger('to.owl.carousel', [index, 300]);
         });
     })();
 </script>
 
 {% schema %}
     {
-        "name": "Carousel",
+        "name": "Store Gallery",
         "class": "index-section",
         "settings": [],
         "blocks": [
@@ -160,7 +160,7 @@
             }
         ],
         "presets": [{
-            "name": "Carousel",
+            "name": "Store Gallery",
             "category": "Image",
             "blocks": [
                 { "type": "slide" },

@@ -1,9 +1,8 @@
 {{ 'store-map.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
     Store map: a Google map of the current store_page metaobject's location, styled like the /pages/stores
-    map (sections/store-locator.liquid): the same grey "Silver" map style and the marker-alt-2.png pin.
-    Uses store_finder_lat / store_finder_long when both are set, otherwise geocodes the store name + address.
-    The Maps API is loaded by snippets/store-google-maps-loader.liquid (same key as the store locator).
+    map (sections/store-locator.liquid). The map itself (style, pin, name label) is drawn by
+    snippets/store-google-map.liquid, which the store banner also uses when its media is set to Map.
 
     Address card (top left of the map, like Google's embedded map card): store name, address, Google rating and review
     count, an "Open in Maps" button and a directions button.
@@ -74,114 +73,21 @@
         </div>
     </div>
 
-    {% render 'store-google-maps-loader' %}
+    {%- assign map_id = 'StoreMap-' | append: section.id -%}
+    {% render 'store-google-map', store: store, map_id: map_id, zoom: section.settings.zoom %}
     <script>
         (function () {
             var sectionId = {{ section.id | json }};
-            var config = {
-                lat: {{ store_lat | json }},
-                lng: {{ store_long | json }},
-                address: {{ store_name | append: ', ' | append: store_address | json }},
-                title: {{ store_name | json }},
-                zoom: {{ section.settings.zoom }},
-                marker: {{ 'marker-alt-2.png' | asset_url | json }},
-                placeId: {{ place_id | json }}
-            };
-
-            // Same map style as the store locator (map_style_render in assets/storelocator-params.js)
-            var mapStyle = [
-                { elementType: 'geometry', stylers: [{ color: '#f5f5f5' }] },
-                { elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
-                { elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
-                { elementType: 'labels.text.stroke', stylers: [{ color: '#f5f5f5' }] },
-                { featureType: 'administrative.land_parcel', elementType: 'labels.text.fill', stylers: [{ color: '#bdbdbd' }] },
-                { featureType: 'poi', elementType: 'geometry', stylers: [{ color: '#eeeeee' }] },
-                { featureType: 'poi', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-                { featureType: 'poi.park', elementType: 'geometry', stylers: [{ color: '#e5e5e5' }] },
-                { featureType: 'poi.park', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
-                { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#ffffff' }] },
-                { featureType: 'road.arterial', elementType: 'labels.text.fill', stylers: [{ color: '#757575' }] },
-                { featureType: 'road.highway', elementType: 'geometry', stylers: [{ color: '#dadada' }] },
-                { featureType: 'road.highway', elementType: 'labels.text.fill', stylers: [{ color: '#616161' }] },
-                { featureType: 'road.local', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] },
-                { featureType: 'transit.line', elementType: 'geometry', stylers: [{ color: '#e5e5e5' }] },
-                { featureType: 'transit.station', elementType: 'geometry', stylers: [{ color: '#eeeeee' }] },
-                { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#c9c9c9' }] },
-                { featureType: 'water', elementType: 'labels.text.fill', stylers: [{ color: '#9e9e9e' }] }
-            ];
-
-            function draw(el, position) {
-                var map = new google.maps.Map(el, {
-                    center: position,
-                    zoom: config.zoom,
-                    styles: mapStyle,
-                    mapTypeControl: false,
-                    streetViewControl: false
-                });
-                new google.maps.Marker({
-                    map: map,
-                    position: position,
-                    title: config.title,
-                    icon: { url: config.marker, scaledSize: new google.maps.Size(30, 43) }
-                });
-                if (config.title) {
-                    // "Wilsons Carpets," on the first line, the store name on the second (the \n is kept by
-                    // white-space: pre on .store-map__label). If the store name already starts with "Wilsons Carpets",
-                    // that part goes on the first line instead of being repeated.
-                    var storePart = config.title.replace(/^wilsons carpets[\s,\-]*/i, '');
-                    var label = storePart ? 'Wilsons Carpets,\n' + storePart : 'Wilsons Carpets';
-                    addLabel(map, position, label);
-                }
-            }
-
-            // Store name beside the marker. A marker's own label is always centred on the pin, so this is a small
-            // OverlayView placed at the marker's position and nudged right of the pin by CSS (.store-map__label).
-            function addLabel(map, position, text) {
-                function Label() {
-                    this.div = document.createElement('div');
-                    this.div.className = 'store-map__label';
-                    this.div.setAttribute('aria-hidden', 'true'); // the name is already in the address card
-                    this.div.textContent = text;
-                }
-                Label.prototype = new google.maps.OverlayView();
-                Label.prototype.onAdd = function () {
-                    this.getPanes().overlayLayer.appendChild(this.div);
-                };
-                Label.prototype.draw = function () {
-                    var point = this.getProjection().fromLatLngToDivPixel(new google.maps.LatLng(position));
-                    if (!point) return;
-                    this.div.style.left = point.x + 'px';
-                    this.div.style.top = point.y + 'px';
-                };
-                Label.prototype.onRemove = function () {
-                    this.div.remove();
-                };
-                new Label().setMap(map);
-            }
-
-            function init() {
-                var el = document.getElementById('StoreMap-' + sectionId);
-                if (!el || !window.google || !google.maps) return;
-
-                var lat = parseFloat(config.lat);
-                var lng = parseFloat(config.lng);
-                if (!isNaN(lat) && !isNaN(lng)) {
-                    draw(el, { lat: lat, lng: lng });
-                    return;
-                }
-                new google.maps.Geocoder().geocode({ address: config.address }, function (results, status) {
-                    if (status === 'OK' && results[0]) draw(el, results[0].geometry.location);
-                });
-            }
+            var placeId = {{ place_id | json }};
 
             // Google rating + review count for the address card (needs google_place_id and Places API (New))
             async function loadRating() {
-                if (!config.placeId) return;
+                if (!placeId) return;
                 var card = document.getElementById('StoreMapCard-' + sectionId);
                 if (!card) return;
                 try {
                     var places = await google.maps.importLibrary('places');
-                    var place = new places.Place({ id: config.placeId });
+                    var place = new places.Place({ id: placeId });
                     await place.fetchFields({ fields: ['rating', 'userRatingCount', 'googleMapsURI'] });
                     if (!place.rating) return;
 
@@ -202,19 +108,7 @@
                 }
             }
 
-            function load() {
-                window.storeLoadGoogleMaps(function () {
-                    init();
-                    loadRating();
-                });
-            }
-
-            load();
-
-            // Redraw when the section is edited in the theme editor
-            document.addEventListener('shopify:section:load', function (e) {
-                if (e.detail.sectionId === sectionId) load();
-            });
+            window.storeLoadGoogleMaps(loadRating);
         })();
     </script>
 {% endif %}

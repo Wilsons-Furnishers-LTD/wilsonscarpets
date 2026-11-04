@@ -119,6 +119,10 @@
   height: 100%;
   object-fit: cover;
 }
+.store-gallery .owl-carousel .owl-item .store-gallery__slide img {
+  height: 100%;
+  max-width: none;
+}
 .store-gallery__content {
   max-width: 560px;
 }

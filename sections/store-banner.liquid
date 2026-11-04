@@ -106,9 +106,17 @@
 
     <div class="store-banner__image">
         {% if store_image != blank %}
-            {{ store_image | image_url: width: 1600 | image_tag:
-                widths: '540, 768, 1024, 1280, 1600',
-                sizes: '(min-width: 990px) 50vw, 100vw',
+            {%- comment -%}
+                On desktop the image fills (object-fit: cover) a half-width box at least 560px tall - often ~800px with
+                the store details beside it. A landscape photo is shown wider than the box when the box is tall, so
+                sizes uses whichever is bigger: half the screen, or 800px x the photo's aspect ratio. Widths go up to
+                3000 so retina screens get a sharp copy (Shopify skips any width larger than the uploaded photo).
+            {%- endcomment -%}
+            {%- assign cover_width = store_image.aspect_ratio | times: 800 | ceil -%}
+            {%- capture image_sizes -%}(min-width: 990px) max(50vw, {{ cover_width }}px), 100vw{%- endcapture -%}
+            {{ store_image | image_url: width: 3000 | image_tag:
+                widths: '540, 768, 1024, 1280, 1600, 2000, 2400, 3000',
+                sizes: image_sizes,
                 alt: store_image.alt | default: store_name,
                 loading: 'eager'
             }}

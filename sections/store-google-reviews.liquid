@@ -31,7 +31,7 @@
 
             {%- comment -%}
                 With more than 3 reviews, below 1200px the list becomes a swipeable row (CSS scroll snapping) with
-                previous / next arrows - 3 cards in view up to 1199px, 2 on tablets, 1 on phones. From 1200px it's a
+                looping previous / next arrows - 3 cards in view up to 1199px, 2 on tablets, 1 on phones. From 1200px it's a
                 single row of up to 5, so no carousel. See setupCarousel() below and .store-reviews__carousel.
             {%- endcomment -%}
             <div class="store-reviews__carousel" data-carousel>
@@ -125,8 +125,8 @@
                 return li;
             }
 
-            // Arrows for the swipeable row (only shown below 1200px, by the CSS). Each click scrolls by one card;
-            // an arrow is disabled at its end of the row.
+            // Arrows for the swipeable row (only shown below 1200px, by the CSS). Each click scrolls by one card,
+            // and it loops: next from the last card goes back to the first, previous from the first goes to the last.
             function setupCarousel(list) {
                 var carousel = root.querySelector('[data-carousel]');
                 var prev = carousel.querySelector('[data-prev]');
@@ -140,17 +140,17 @@
                     var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
                     return card ? card.getBoundingClientRect().width + gap : list.clientWidth;
                 }
-                function update() {
-                    var max = list.scrollWidth - list.clientWidth - 1;
-                    prev.disabled = list.scrollLeft <= 0;
-                    next.disabled = list.scrollLeft >= max;
-                }
+                function atStart() { return list.scrollLeft <= 1; }
+                function atEnd() { return list.scrollLeft >= list.scrollWidth - list.clientWidth - 1; }
 
-                prev.addEventListener('click', function () { list.scrollBy({ left: -step(), behavior: 'smooth' }); });
-                next.addEventListener('click', function () { list.scrollBy({ left: step(), behavior: 'smooth' }); });
-                list.addEventListener('scroll', update, { passive: true });
-                window.addEventListener('resize', update);
-                update();
+                prev.addEventListener('click', function () {
+                    if (atStart()) list.scrollTo({ left: list.scrollWidth, behavior: 'smooth' });
+                    else list.scrollBy({ left: -step(), behavior: 'smooth' });
+                });
+                next.addEventListener('click', function () {
+                    if (atEnd()) list.scrollTo({ left: 0, behavior: 'smooth' });
+                    else list.scrollBy({ left: step(), behavior: 'smooth' });
+                });
             }
 
             async function init() {

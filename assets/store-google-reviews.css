@@ -129,10 +129,6 @@
   .store-reviews__carousel.is-carousel .store-reviews__nav[hidden] {
     display: none;
   }
-  .store-reviews__carousel.is-carousel .store-reviews__nav:disabled {
-    opacity: 0.4;
-    cursor: default;
-  }
   .store-reviews__carousel.is-carousel .store-reviews__nav:focus-visible {
     outline: 2px solid #ba3c3d;
     outline-offset: 2px;

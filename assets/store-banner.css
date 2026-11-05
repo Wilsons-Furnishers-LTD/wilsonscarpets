@@ -149,6 +149,15 @@
   background: none;
   color: #414B52;
 }
+.store-banner__closest-link {
+  color: #ba3c3d;
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: underline;
+}
+.store-banner__closest-link:hover, .store-banner__closest-link:focus-visible {
+  color: #414B52;
+}
 .store-banner__directions-arrow {
   display: none;
 }

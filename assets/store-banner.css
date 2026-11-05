@@ -197,6 +197,9 @@
   padding: 0;
   list-style: none;
 }
+.store-banner__details ul li {
+  display: flex;
+}
 @media (max-width: 600px) {
   .store-banner__details ul {
     grid-template-columns: 1fr 1fr;

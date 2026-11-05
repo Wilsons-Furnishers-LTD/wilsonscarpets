@@ -118,6 +118,16 @@
 .store-banner__dept-phone:hover, .store-banner__dept-phone:focus-visible {
   color: #414B52;
 }
+.store-banner__address-col {
+  display: flex;
+  flex-direction: column;
+}
+.store-banner__address-col .store-banner__address-buttons {
+  flex: 1;
+}
+.store-banner__address-col .store-banner__closest-link {
+  margin-top: auto;
+}
 .store-banner__address-buttons {
   display: flex;
   flex-direction: column;

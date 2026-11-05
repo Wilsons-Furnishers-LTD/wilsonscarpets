@@ -227,10 +227,6 @@
   height: 15px;
   flex-shrink: 0;
 }
-.store-banner__button--alt {
-  background: #F2BF00;
-  color: #414B52;
-}
 .store-banner__image {
   position: relative;
   min-height: 280px;

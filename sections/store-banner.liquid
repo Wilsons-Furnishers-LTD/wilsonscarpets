@@ -171,17 +171,17 @@
                             Beds
                         </h2>
                         <div class="store-banner__text">
-                            <a class="store-banner__dept-phone" href="tel:{{ store_bed_phone | remove: ' ' }}" aria-label="Call the bed department on {{ store_bed_phone | escape }}">{{ store_bed_phone | escape }}</a>
+                            <a class="store-banner__dept-phone" href="tel:{{ store_bed_phone | remove: ' ' }}" aria-label="Call the bed department on {{ store_bed_phone | escape }}">T: {{ store_bed_phone | escape }}</a>
                         </div>
                     </div>
                     {% if store_phone != blank %}
                         <div>
                             <h2 class="store-banner__heading">
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.5 4A4.5 4.5 0 0 0 2 8.5v7A4.5 4.5 0 0 0 6.5 20H21a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H6.5Zm0 2a2.5 2.5 0 0 1 0 5A2.5 2.5 0 0 1 4 8.5 2.5 2.5 0 0 1 6.5 6Zm3.65 0H20v12H6.5A2.5 2.5 0 0 1 4 15.5v-2.24A4.48 4.48 0 0 0 6.5 13 4.5 4.5 0 0 0 10.15 6ZM6.5 7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
-                                Carpet
+                                Carpets
                             </h2>
                             <div class="store-banner__text">
-                                <a class="store-banner__dept-phone" href="tel:{{ store_phone | remove: ' ' }}" aria-label="Call the carpet department on {{ store_phone | escape }}">{{ store_phone | escape }}</a>
+                                <a class="store-banner__dept-phone" href="tel:{{ store_phone | remove: ' ' }}" aria-label="Call the carpet department on {{ store_phone | escape }}"> T: {{ store_phone | escape }}</a>
                             </div>
                         </div>
                     {% endif %}

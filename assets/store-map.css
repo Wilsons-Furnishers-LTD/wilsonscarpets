@@ -59,27 +59,6 @@
   margin: 0;
   font-style: normal;
 }
-.store-map__card-rating {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  margin-top: 6px;
-  font-size: 13px;
-  line-height: 1;
-  color: #5f6368;
-}
-.store-map__card-rating[hidden] {
-  display: none;
-}
-.store-map__card-rating a {
-  color: #1a0dab;
-  text-decoration: underline;
-}
-.store-map__card-star {
-  width: 14px;
-  height: 14px;
-  fill: #e7711b;
-}
 .store-map__card-actions {
   display: flex;
   align-items: center;

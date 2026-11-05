@@ -110,6 +110,18 @@
   padding-left: 30px;
   font-style: normal;
 }
+.store-banner__address-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+  padding-left: 30px;
+}
+.store-banner__address-buttons .store-banner__button {
+  width: 100%;
+  box-sizing: border-box;
+}
 .store-banner__hours {
   padding-left: 30px;
 }

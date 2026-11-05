@@ -138,7 +138,8 @@
                                     {{ location_buttons }}
                                     {%- comment -%} Closest other store, as a text link like Get Directions (not in the sticky bar) {%- endcomment -%}
                                     {% if closest_store != blank %}
-                                        {%- assign closest_name = closest_store.store_finder_name.value | default: closest_store.name.value -%}
+                                        {%- comment -%} The closest store's alt_name if it has one, otherwise its usual name {%- endcomment -%}
+                                        {%- assign closest_name = closest_store.alt_name.value | strip | default: closest_store.store_finder_name.value | default: closest_store.name.value -%}
                                         <a class="store-banner__closest-link" href="{{ closest_store.system.url }}">
                                             View {{ closest_name | escape }} Store
                                         </a>

@@ -83,6 +83,7 @@
 }
 @media (max-width: 600px) {
   .store-banner__card--split {
+    gap: 25px;
     grid-template-columns: 1fr;
   }
 }

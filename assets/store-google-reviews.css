@@ -255,3 +255,21 @@
   border: 1px dashed #575E5F;
   font-size: 14px;
 }
+@media (max-width: 419px) {
+  .store-reviews > .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .store-reviews__header {
+    display: contents;
+  }
+  .store-reviews__heading {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .store-reviews__all {
+    order: 1;
+    align-self: center;
+    margin-top: 20px;
+  }
+}

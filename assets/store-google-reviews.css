@@ -105,8 +105,7 @@
   }
   .store-reviews__carousel.is-carousel .store-reviews__list .store-reviews__card {
     scroll-snap-align: start;
-    padding-left: 30px;
-    padding-right: 30px;
+    padding: 30px 40px;
   }
   .store-reviews__carousel.is-carousel .store-reviews__nav {
     position: absolute;

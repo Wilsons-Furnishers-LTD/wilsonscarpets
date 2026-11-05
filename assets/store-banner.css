@@ -210,6 +210,9 @@
     grid-template-columns: 1fr;
   }
 }
+.store-banner__buttons .store-banner__button--wide {
+  grid-column: 1/-1;
+}
 .store-banner__button {
   display: flex;
   align-items: center;

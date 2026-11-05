@@ -36,7 +36,8 @@
                     </a>
                 {% endif %}
                 {% if store_email != blank %}
-                    <a class="store-banner__button" href="mailto:{{ store_email | escape }}">
+                    {%- comment -%} With a bed number there's no phone button, so Email spans the full width of the row {%- endcomment -%}
+                    <a class="store-banner__button{% if store_bed_phone != blank %} store-banner__button--wide{% endif %}" href="mailto:{{ store_email | escape }}">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v.4l-10 6.25L2 6.4V6a1 1 0 0 1 1-1Zm-1 3.75V18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8.75l-10 6.25L2 8.75Z"/></svg>
                         Email
                     </a>

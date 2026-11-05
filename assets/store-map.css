@@ -84,25 +84,26 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  min-height: 36px;
-  padding: 0 16px 0 12px;
-  border-radius: 18px;
-  background: #4355d6;
-  color: #fff;
+  min-height: 40px;
+  padding: 6px 14px;
+  border-radius: 0;
+  background: #F2BF00;
+  color: #414B52;
+  font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
+  line-height: 1.2;
   text-decoration: none;
-  transition: background-color 0.2s, box-shadow 0.2s;
+  transition: background-color 0.2s, color 0.2s;
 }
 .store-map__card-open svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   fill: currentColor;
 }
 .store-map__card-open:hover, .store-map__card-open:focus-visible {
-  background: #3446c4;
+  background: #414B52;
   color: #fff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 .store-map__card-directions {
   display: inline-flex;

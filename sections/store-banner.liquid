@@ -140,7 +140,7 @@
                                     {% if closest_store != blank %}
                                         {%- assign closest_name = closest_store.store_finder_name.value | default: closest_store.name.value -%}
                                         <a class="store-banner__closest-link" href="{{ closest_store.system.url }}">
-                                            Closest store: {{ closest_name | escape }}<span aria-hidden="true"> &#8594;</span>
+                                            View {{ closest_name | escape }}
                                         </a>
                                     {% endif %}
                                 </div>

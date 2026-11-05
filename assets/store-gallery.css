@@ -39,7 +39,7 @@ main.main-content {
 }
 @media (min-width: 990px) and (max-width: 1199px) {
   .store-gallery__gallery {
-    margin-right: 40px;
+    margin-right: 20px;
   }
 }
 @media (min-width: 990px) {

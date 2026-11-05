@@ -58,7 +58,12 @@
 {%- endif -%}
 
 {%- comment -%} Buttons are captured once and used in the banner and in the sticky bar below {%- endcomment -%}
-{%- capture banner_buttons -%}
+{%- comment -%}
+    Contact buttons (phone, email) go in the button row under the content boxes; location buttons (Get Directions,
+    closest store, linked store) go under the address. Without an address they join the contact buttons instead.
+    The sticky bar shows all of them. Each group is captured once and used in both places.
+{%- endcomment -%}
+{%- capture contact_buttons -%}
                 {% if store_phone != blank %}
                     <a class="store-banner__button" href="tel:{{ store_phone | remove: ' ' }}">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
@@ -71,6 +76,8 @@
                         Email
                     </a>
                 {% endif %}
+{%- endcapture -%}
+{%- capture location_buttons -%}
                 {% if store_directions != blank %}
                     <a class="store-banner__button" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3 3 5.5v15.5l6-2.5 6 2.5 6-2.5V3l-6 2.5L9 3Zm1 2.6 4 1.65v11.15l-4-1.65V5.6Z"/></svg>
@@ -90,6 +97,15 @@
                     </a>
                 {% endif %}
 {%- endcapture -%}
+{%- assign contact_buttons = contact_buttons | strip -%}
+{%- assign location_buttons = location_buttons | strip -%}
+{%- comment -%} Main button row: contact buttons, plus the location ones when there's no address card to hold them {%- endcomment -%}
+{%- if store.address.value != blank -%}
+    {%- assign row_buttons = contact_buttons -%}
+{%- else -%}
+    {%- assign row_buttons = contact_buttons | append: location_buttons -%}
+{%- endif -%}
+{%- assign banner_buttons = contact_buttons | append: location_buttons -%}
 
 <div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner" id="StoreBanner-{{ section.id }}">
   {%- comment -%} Holds the store details and the photo / map: centred, max 1354px, two columns on desktop {%- endcomment -%}
@@ -123,6 +139,11 @@
                                 Address
                             </h2>
                             <address class="store-banner__text">{{ store.address.value | escape | newline_to_br }}</address>
+                            {% if location_buttons != blank %}
+                                <div class="store-banner__address-buttons">
+                                    {{ location_buttons }}
+                                </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                     {% if store.store_opening_times.value != blank %}
@@ -182,7 +203,7 @@
             {% endif %}
 
             <div class="store-banner__buttons">
-                {{ banner_buttons }}
+                {{ row_buttons }}
             </div>
         </div>
     </div>

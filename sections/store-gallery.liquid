@@ -41,10 +41,10 @@
                 {%- endcomment -%}
                 {% if images.size > 0 %}
                     {%- comment -%}
-                        At most 5 images in the grid. If there are more, the 5th shows "+N" (N = how many aren't shown)
+                        At most 4 images in the grid. If there are more, the 4th shows "+N" (N = how many aren't shown)
                         over it; clicking it opens the popup there, which has all of the images.
                     {%- endcomment -%}
-                    {%- assign grid_limit = 5 -%}
+                    {%- assign grid_limit = 4 -%}
                     {%- assign hidden_count = images.size | minus: grid_limit -%}
                     <ul class="store-gallery__grid" role="list">
                         {% for image in images limit: grid_limit %}

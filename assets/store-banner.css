@@ -111,12 +111,12 @@
   font-style: normal;
 }
 .store-banner__dept-phone {
-  color: inherit;
+  color: #ba3c3d;
   font-weight: 700;
   text-decoration: underline;
 }
 .store-banner__dept-phone:hover, .store-banner__dept-phone:focus-visible {
-  color: #ba3c3d;
+  color: #414B52;
 }
 .store-banner__address-buttons {
   display: flex;

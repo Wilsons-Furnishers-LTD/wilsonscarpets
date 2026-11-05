@@ -8,12 +8,14 @@
     Assumed field keys - change these if your store_page definition uses different ones:
       email         - single line text (enquiries@wilsonscarpets.com is used if it's empty)
       store_details - list of text, or rich text
+      store_bed_telephone - single line text: the bed department's number, shown in a "Beds" box if set
 {%- endcomment -%}
 {%- assign store = metaobject -%}
 {%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
 {%- comment -%} Banner photo: the Store Banner Image field, falling back to the store finder thumbnail {%- endcomment -%}
 {%- assign store_image = store.store_banner_image.value | default: store.store_finder_thumbnail.value -%}
 {%- assign store_phone = store.telephone.value -%}
+{%- assign store_bed_phone = store.store_bed_telephone.value | strip -%}
 {%- assign store_email = store.email.value | strip | default: 'enquiries@wilsonscarpets.com' -%}
 {%- assign store_directions = store.store_finder_place_id.value -%}
 {%- assign store_details = store.store_details -%}
@@ -151,6 +153,19 @@
                         {% else %}
                             {{ store_details | metafield_tag }}
                         {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {%- comment -%} Beds: the bed department's phone number (store_bed_telephone), if the store has one {%- endcomment -%}
+            {% if store_bed_phone != blank %}
+                <div class="store-banner__card">
+                    <h2 class="store-banner__heading">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4.1A3 3 0 0 1 21 12v6a1 1 0 0 1-1 1h-1v2h-2v-2H7v2H5v-2H4a1 1 0 0 1-1-1v-6a3 3 0 0 1 2-2.9V5Zm2 4h4V8a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1Zm6 0h4V8a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v1Zm-7 2a1 1 0 0 0-1 1v5h14v-5a1 1 0 0 0-1-1H6Z"/></svg>
+                        Beds
+                    </h2>
+                    <div class="store-banner__text">
+                        <a class="store-banner__bed-phone" href="tel:{{ store_bed_phone | remove: ' ' }}" aria-label="Call the bed department on {{ store_bed_phone | escape }}">{{ store_bed_phone | escape }}</a>
                     </div>
                 </div>
             {% endif %}

@@ -115,22 +115,3 @@
   background: #414B52;
   color: #fff;
 }
-.store-map__card-directions {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #eceff7;
-  color: #4355d6;
-  transition: background-color 0.2s;
-}
-.store-map__card-directions svg {
-  width: 20px;
-  height: 20px;
-  fill: currentColor;
-}
-.store-map__card-directions:hover, .store-map__card-directions:focus-visible {
-  background: #dde2f2;
-}

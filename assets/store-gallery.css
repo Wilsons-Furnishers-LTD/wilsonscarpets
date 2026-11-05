@@ -7,6 +7,11 @@ main.main-content {
   color: #414B52;
   font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
 }
+@media (max-width: 989px) {
+  .store-gallery {
+    padding: 40px 0;
+  }
+}
 @media (max-width: 600px) {
   .store-gallery {
     padding: 24px 0;

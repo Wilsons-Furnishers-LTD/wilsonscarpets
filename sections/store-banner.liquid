@@ -131,7 +131,31 @@
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
                                 Opening hours
                             </h2>
-                            <div class="store-banner__text store-banner__hours">{{ store.store_opening_times.value }}</div>
+                            <div class="store-banner__text store-banner__hours" id="StoreBannerHours-{{ section.id }}">{{ store.store_opening_times.value }}</div>
+                            <script>
+                                // Highlight today's row in the opening hours (the table comes from store_opening_times).
+                                // Today is worked out in UK time, and a row matches if its first cell starts with the day's
+                                // name ("Monday", "Mon", "Mon:" ...).
+                                (function () {
+                                    var hours = document.getElementById('StoreBannerHours-{{ section.id }}');
+                                    if (!hours) return;
+                                    var today;
+                                    try {
+                                        today = new Intl.DateTimeFormat('en-GB', { weekday: 'long', timeZone: 'Europe/London' }).format(new Date());
+                                    } catch (e) {
+                                        today = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
+                                    }
+                                    var short = today.slice(0, 3).toLowerCase();
+                                    hours.querySelectorAll('tr').forEach(function (row) {
+                                        var cell = row.querySelector('td, th');
+                                        var day = cell ? cell.textContent.trim().toLowerCase() : '';
+                                        if (day.slice(0, 3) === short) {
+                                            row.classList.add('is-today');
+                                            if (cell) cell.setAttribute('aria-label', cell.textContent.trim() + ' (today)');
+                                        }
+                                    });
+                                })();
+                            </script>
                         </div>
                     {% endif %}
                 </div>

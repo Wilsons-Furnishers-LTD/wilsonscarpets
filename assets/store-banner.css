@@ -110,6 +110,10 @@
 .store-banner__hours td:last-child {
   text-align: right;
 }
+.store-banner__hours tr.is-today td {
+  color: #ba3c3d;
+  font-weight: 700;
+}
 .store-banner__details ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

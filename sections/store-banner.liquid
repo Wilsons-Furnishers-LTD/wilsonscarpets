@@ -79,9 +79,13 @@
 {%- endcapture -%}
 {%- capture location_buttons -%}
                 {% if store_directions != blank %}
-                    <a class="store-banner__button" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
+                    {%- comment -%}
+                        Under the address it's styled as a text link like the /pages/stores "Directions →" link
+                        (.store-banner__address-buttons); in the sticky bar / button row it stays a button
+                    {%- endcomment -%}
+                    <a class="store-banner__button store-banner__button--directions" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3 3 5.5v15.5l6-2.5 6 2.5 6-2.5V3l-6 2.5L9 3Zm1 2.6 4 1.65v11.15l-4-1.65V5.6Z"/></svg>
-                        Get Directions
+                        Get Directions<span class="store-banner__directions-arrow" aria-hidden="true"> &#8594;</span>
                     </a>
                 {% endif %}
                 {% if closest_store != blank %}

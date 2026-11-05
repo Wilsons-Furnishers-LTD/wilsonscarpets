@@ -28,7 +28,8 @@
     The sticky bar shows all of them. Each group is captured once and used in both places.
 {%- endcomment -%}
 {%- capture contact_buttons -%}
-                {% if store_phone != blank %}
+                {%- comment -%} No phone button when the store has a bed number: both numbers are in the Beds / Carpets box {%- endcomment -%}
+                {% if store_phone != blank and store_bed_phone == blank %}
                     <a class="store-banner__button" href="tel:{{ store_phone | remove: ' ' }}">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
                         {{ store_phone | escape }}

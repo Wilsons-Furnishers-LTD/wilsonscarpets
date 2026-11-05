@@ -162,6 +162,19 @@ main.main-content {
 .store-gallery__modal-nav {
   top: 50%;
   margin-top: -22px;
+  color: #414b52;
+  font-size: 16px;
+  box-shadow: 0 0 5px rgba(50, 50, 50, 0.15);
+}
+.store-gallery__modal-nav:hover {
+  background: #fff;
+  color: #414b52;
+}
+.store-gallery__modal-nav:focus-visible {
+  background: #fff;
+  color: #414b52;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 .store-gallery__modal-nav--prev {
   left: 16px;

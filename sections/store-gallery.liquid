@@ -74,11 +74,12 @@
                         <div class="store-gallery__modal-inner">
                             <img class="store-gallery__modal-image" data-modal-image alt="">
                             {% if images.size > 1 %}
+                                {%- comment -%} Same icons as the product page's "more products" carousel (.featured-collections) {%- endcomment -%}
                                 <button type="button" class="store-gallery__modal-nav store-gallery__modal-nav--prev" data-modal-prev aria-label="Previous image">
-                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+                                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
                                 </button>
                                 <button type="button" class="store-gallery__modal-nav store-gallery__modal-nav--next" data-modal-next aria-label="Next image">
-                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
                                 </button>
                                 <p class="store-gallery__modal-count" data-modal-count aria-live="polite"></p>
                             {% endif %}

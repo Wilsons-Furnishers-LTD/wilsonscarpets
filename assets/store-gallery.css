@@ -155,6 +155,9 @@ main.main-content {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.store-gallery__modal-nav i, .store-gallery__modal-close i {
+  height: 20px;
+}
 .store-gallery__modal-nav:hover, .store-gallery__modal-nav:focus-visible, .store-gallery__modal-close:hover, .store-gallery__modal-close:focus-visible {
   background: #ba3c3d;
   color: #fff;

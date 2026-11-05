@@ -11,6 +11,7 @@
     and no text, nothing is shown.
 {%- endcomment -%}
 {%- assign images = metaobject.store_gallery.value | where: 'media_type', 'image' -%}
+{%- assign store_name = metaobject.store_finder_name.value | default: metaobject.name.value | default: 'Store' -%}
 
 {%- assign store_content = metaobject.store_content -%}
 {%- capture content_html -%}
@@ -50,15 +51,54 @@
                                 {%- assign item_class = 'store-gallery__item' -%}
                             {%- endif -%}
                             <li class="{{ item_class }}">
-                                {{ image | image_url: width: 1600 | image_tag:
-                                    widths: '400, 600, 800, 1000, 1200, 1600',
-                                    sizes: image_sizes,
-                                    alt: image.alt,
-                                    loading: 'lazy'
-                                }}
+                                <button type="button" class="store-gallery__open" data-index="{{ forloop.index0 }}"
+                                    aria-label="View image {{ forloop.index }} of {{ forloop.length }}{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}"
+                                    aria-haspopup="dialog">
+                                    {{ image | image_url: width: 1600 | image_tag:
+                                        widths: '400, 600, 800, 1000, 1200, 1600',
+                                        sizes: image_sizes,
+                                        alt: image.alt,
+                                        loading: 'lazy'
+                                    }}
+                                </button>
                             </li>
                         {% endfor %}
                     </ul>
+
+                    {%- comment -%}
+                        Popup (modal) for viewing the images larger: opened by clicking an image. A native <dialog>, so it
+                        sits above everything, closes on Esc and keeps keyboard focus inside while it's open.
+                        Previous / next: buttons, the arrow keys, or swiping on touch screens.
+                    {%- endcomment -%}
+                    <dialog class="store-gallery__modal" id="StoreGalleryModal-{{ section.id }}" aria-label="{{ store_name | escape }} photos">
+                        <div class="store-gallery__modal-inner">
+                            <img class="store-gallery__modal-image" data-modal-image alt="">
+                            {% if images.size > 1 %}
+                                <button type="button" class="store-gallery__modal-nav store-gallery__modal-nav--prev" data-modal-prev aria-label="Previous image">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+                                </button>
+                                <button type="button" class="store-gallery__modal-nav store-gallery__modal-nav--next" data-modal-next aria-label="Next image">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+                                </button>
+                                <p class="store-gallery__modal-count" data-modal-count aria-live="polite"></p>
+                            {% endif %}
+                            <button type="button" class="store-gallery__modal-close" data-modal-close aria-label="Close">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                            </button>
+                        </div>
+                    </dialog>
+                    <script type="application/json" id="StoreGalleryImages-{{ section.id }}">
+                        [
+                            {%- for image in images -%}
+                                {%- capture modal_srcset -%}{{ image | image_url: width: 800 }} 800w, {{ image | image_url: width: 1200 }} 1200w, {{ image | image_url: width: 1600 }} 1600w, {{ image | image_url: width: 2400 }} 2400w{%- endcapture -%}
+                                {
+                                    "src": {{ image | image_url: width: 1600 | json }},
+                                    "srcset": {{ modal_srcset | json }},
+                                    "alt": {{ image.alt | default: '' | json }}
+                                }{% unless forloop.last %},{% endunless %}
+                            {%- endfor -%}
+                        ]
+                    </script>
                 {% elsif request.design_mode %}
                     <p class="store-gallery__notice">
                         Store Gallery: add images to this store's <strong>Store Gallery</strong> field to show them here.
@@ -106,6 +146,8 @@
             update();
             window.addEventListener('scroll', queue, { passive: true });
             window.addEventListener('resize', queue);
+            // The header and the banner's sticky bar slide in and out, so measure again when they finish moving
+            document.addEventListener('transitionend', queue);
         })();
     </script>
 {%- endif -%}

@@ -8,7 +8,8 @@
     Assumed field keys - change these if your store_page definition uses different ones:
       email         - single line text (enquiries@wilsonscarpets.com is used if it's empty)
       store_details - list of text, or rich text
-      store_bed_telephone - single line text: the bed department's number, shown in a "Beds" box if set
+      store_bed_telephone - single line text: the bed department's number, shown in a Beds / Carpet box if set
+                            (Carpet uses the main telephone number)
 {%- endcomment -%}
 {%- assign store = metaobject -%}
 {%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
@@ -157,16 +158,33 @@
                 </div>
             {% endif %}
 
-            {%- comment -%} Beds: the bed department's phone number (store_bed_telephone), if the store has one {%- endcomment -%}
+            {%- comment -%}
+                Phone numbers by department, in two columns like the address / opening hours box (stacked on phones):
+                Beds (store_bed_telephone) and Carpet (the store's main number, telephone). Only shown if the store has a
+                bed number; the Carpet column is left out if there's no main number.
+            {%- endcomment -%}
             {% if store_bed_phone != blank %}
-                <div class="store-banner__card">
-                    <h2 class="store-banner__heading">
-                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4.1A3 3 0 0 1 21 12v6a1 1 0 0 1-1 1h-1v2h-2v-2H7v2H5v-2H4a1 1 0 0 1-1-1v-6a3 3 0 0 1 2-2.9V5Zm2 4h4V8a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1Zm6 0h4V8a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v1Zm-7 2a1 1 0 0 0-1 1v5h14v-5a1 1 0 0 0-1-1H6Z"/></svg>
-                        Beds
-                    </h2>
-                    <div class="store-banner__text">
-                        <a class="store-banner__bed-phone" href="tel:{{ store_bed_phone | remove: ' ' }}" aria-label="Call the bed department on {{ store_bed_phone | escape }}">{{ store_bed_phone | escape }}</a>
+                <div class="store-banner__card{% if store_phone != blank %} store-banner__card--split{% endif %}">
+                    <div>
+                        <h2 class="store-banner__heading">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4.1A3 3 0 0 1 21 12v6a1 1 0 0 1-1 1h-1v2h-2v-2H7v2H5v-2H4a1 1 0 0 1-1-1v-6a3 3 0 0 1 2-2.9V5Zm2 4h4V8a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1Zm6 0h4V8a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v1Zm-7 2a1 1 0 0 0-1 1v5h14v-5a1 1 0 0 0-1-1H6Z"/></svg>
+                            Beds
+                        </h2>
+                        <div class="store-banner__text">
+                            <a class="store-banner__dept-phone" href="tel:{{ store_bed_phone | remove: ' ' }}" aria-label="Call the bed department on {{ store_bed_phone | escape }}">{{ store_bed_phone | escape }}</a>
+                        </div>
                     </div>
+                    {% if store_phone != blank %}
+                        <div>
+                            <h2 class="store-banner__heading">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.5 4A4.5 4.5 0 0 0 2 8.5v7A4.5 4.5 0 0 0 6.5 20H21a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H6.5Zm0 2a2.5 2.5 0 0 1 0 5A2.5 2.5 0 0 1 4 8.5 2.5 2.5 0 0 1 6.5 6Zm3.65 0H20v12H6.5A2.5 2.5 0 0 1 4 15.5v-2.24A4.48 4.48 0 0 0 6.5 13 4.5 4.5 0 0 0 10.15 6ZM6.5 7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+                                Carpet
+                            </h2>
+                            <div class="store-banner__text">
+                                <a class="store-banner__dept-phone" href="tel:{{ store_phone | remove: ' ' }}" aria-label="Call the carpet department on {{ store_phone | escape }}">{{ store_phone | escape }}</a>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             {% endif %}
 

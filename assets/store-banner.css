@@ -110,12 +110,12 @@
   padding-left: 30px;
   font-style: normal;
 }
-.store-banner__bed-phone {
+.store-banner__dept-phone {
   color: inherit;
   font-weight: 700;
   text-decoration: underline;
 }
-.store-banner__bed-phone:hover, .store-banner__bed-phone:focus-visible {
+.store-banner__dept-phone:hover, .store-banner__dept-phone:focus-visible {
   color: #ba3c3d;
 }
 .store-banner__address-buttons {

@@ -45,6 +45,11 @@
     margin-right: 60px;
   }
 }
+@media (min-width: 990px) and (max-width: 1199px) {
+  .store-banner__inner {
+    margin-right: 40px;
+  }
+}
 .store-banner__breadcrumb {
   margin-bottom: 8px;
   padding-top: 0;

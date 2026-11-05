@@ -108,6 +108,28 @@ main.main-content {
   outline: 3px solid #ba3c3d;
   outline-offset: -3px;
 }
+.store-gallery__more {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 24, 27, 0.55);
+  color: #fff;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  transition: background-color 0.2s;
+}
+@media (max-width: 749px) {
+  .store-gallery__more {
+    font-size: 32px;
+  }
+}
+.store-gallery__open--more:hover .store-gallery__more, .store-gallery__open--more:focus-visible .store-gallery__more {
+  background: rgba(20, 24, 27, 0.7);
+}
 .store-gallery__modal {
   width: 100vw;
   max-width: 100vw;

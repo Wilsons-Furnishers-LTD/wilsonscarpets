@@ -40,8 +40,14 @@
                     (1 full, 2 half, 1 full, 2 half...). A half-width image left on its own at the end goes full width.
                 {%- endcomment -%}
                 {% if images.size > 0 %}
+                    {%- comment -%}
+                        At most 5 images in the grid. If there are more, the 5th shows "+N" (N = how many aren't shown)
+                        over it; clicking it opens the popup there, which has all of the images.
+                    {%- endcomment -%}
+                    {%- assign grid_limit = 5 -%}
+                    {%- assign hidden_count = images.size | minus: grid_limit -%}
                     <ul class="store-gallery__grid" role="list">
-                        {% for image in images %}
+                        {% for image in images limit: grid_limit %}
                             {%- assign position = forloop.index0 | modulo: 3 -%}
                             {%- if position == 0 or forloop.last and position == 1 -%}
                                 {%- assign image_sizes = '(min-width: 990px) 600px, 100vw' -%}
@@ -51,8 +57,10 @@
                                 {%- assign item_class = 'store-gallery__item' -%}
                             {%- endif -%}
                             <li class="{{ item_class }}">
-                                <button type="button" class="store-gallery__open" data-index="{{ forloop.index0 }}"
-                                    aria-label="View image {{ forloop.index }} of {{ forloop.length }}{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}"
+                                {%- assign show_more = false -%}
+                                {%- if forloop.last and hidden_count > 0 -%}{%- assign show_more = true -%}{%- endif -%}
+                                <button type="button" class="store-gallery__open{% if show_more %} store-gallery__open--more{% endif %}" data-index="{{ forloop.index0 }}"
+                                    aria-label="View image {{ forloop.index }} of {{ images.size }}{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}{% if show_more %} ({{ hidden_count }} more){% endif %}"
                                     aria-haspopup="dialog">
                                     {{ image | image_url: width: 1600 | image_tag:
                                         widths: '400, 600, 800, 1000, 1200, 1600',
@@ -60,6 +68,9 @@
                                         alt: image.alt,
                                         loading: 'lazy'
                                     }}
+                                    {% if show_more %}
+                                        <span class="store-gallery__more" aria-hidden="true">+{{ hidden_count }}</span>
+                                    {% endif %}
                                 </button>
                             </li>
                         {% endfor %}

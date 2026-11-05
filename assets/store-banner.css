@@ -36,7 +36,6 @@
 }
 .store-banner__inner {
   width: 100%;
-  max-width: 600px;
 }
 @media (min-width: 990px) {
   .store-banner__inner {

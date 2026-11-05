@@ -51,6 +51,7 @@
   line-height: 1.2;
   text-decoration: none;
   transition: background-color 0.2s;
+  width: 100%;
 }
 .store-reviews__all:hover, .store-reviews__all:focus-visible {
   background: #414B52;

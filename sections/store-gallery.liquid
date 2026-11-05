@@ -41,8 +41,8 @@
                 {%- endcomment -%}
                 {% if images.size > 0 %}
                     {%- comment -%}
-                        At most 4 images in the grid. If there are more, the 4th shows "+N" (N = how many aren't shown)
-                        over it; clicking it opens the popup there, which has all of the images.
+                        At most 4 images in the grid. If there are more, the 4th has a small "Show all photos" button in
+                        its corner; clicking it opens the popup there, which has all of the images.
                     {%- endcomment -%}
                     {%- assign grid_limit = 4 -%}
                     {%- assign hidden_count = images.size | minus: grid_limit -%}
@@ -60,7 +60,7 @@
                                 {%- assign show_more = false -%}
                                 {%- if forloop.last and hidden_count > 0 -%}{%- assign show_more = true -%}{%- endif -%}
                                 <button type="button" class="store-gallery__open{% if show_more %} store-gallery__open--more{% endif %}" data-index="{{ forloop.index0 }}"
-                                    aria-label="View image {{ forloop.index }} of {{ images.size }}{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}{% if show_more %} ({{ hidden_count }} more){% endif %}"
+                                    aria-label="View image {{ forloop.index }} of {{ images.size }}{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}{% if show_more %}. Show all {{ images.size }} photos{% endif %}"
                                     aria-haspopup="dialog">
                                     {{ image | image_url: width: 1600 | image_tag:
                                         widths: '400, 600, 800, 1000, 1200, 1600',
@@ -69,7 +69,7 @@
                                         loading: 'lazy'
                                     }}
                                     {% if show_more %}
-                                        <span class="store-gallery__more" aria-hidden="true">+{{ hidden_count }}</span>
+                                        <span class="store-gallery__more" aria-hidden="true">Show all photos</span>
                                     {% endif %}
                                 </button>
                             </li>

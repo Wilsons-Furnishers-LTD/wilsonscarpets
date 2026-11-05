@@ -76,7 +76,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
-@media (max-width: 990px) {
+@media (max-width: 1000px) {
   .store-banner__card--split {
     gap: 10px;
   }
@@ -110,6 +110,61 @@
   padding-left: 30px;
   font-style: normal;
 }
+.store-banner__dept-phone {
+  color: #ba3c3d;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.store-banner__dept-phone:hover, .store-banner__dept-phone:focus-visible {
+  color: #414B52;
+}
+.store-banner__address-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+  padding-left: 30px;
+}
+.store-banner__address-buttons .store-banner__button {
+  width: 100%;
+  box-sizing: border-box;
+}
+.store-banner__address-buttons .store-banner__button--directions {
+  display: inline;
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  background: none;
+  color: #ba3c3d;
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.store-banner__address-buttons .store-banner__button--directions svg {
+  display: none;
+}
+.store-banner__address-buttons .store-banner__button--directions:hover, .store-banner__address-buttons .store-banner__button--directions:focus-visible {
+  background: none;
+  color: #414B52;
+}
+.store-banner__closest-link {
+  margin-top: 10px;
+  color: #ba3c3d;
+  font-size: 14px;
+  font-weight: 900;
+  text-decoration: underline;
+}
+.store-banner__closest-link:hover, .store-banner__closest-link:focus-visible {
+  color: #414B52;
+}
+.store-banner__directions-arrow {
+  display: none;
+}
+.store-banner__address-buttons .store-banner__directions-arrow {
+  display: inline;
+}
 .store-banner__hours {
   padding-left: 30px;
 }
@@ -142,6 +197,9 @@
   padding: 0;
   list-style: none;
 }
+.store-banner__details ul li {
+  display: flex;
+}
 @media (max-width: 600px) {
   .store-banner__details ul {
     grid-template-columns: 1fr 1fr;
@@ -165,6 +223,9 @@
     grid-template-columns: 1fr;
   }
 }
+.store-banner__buttons .store-banner__button--wide {
+  grid-column: 1/-1;
+}
 .store-banner__button {
   display: flex;
   align-items: center;
@@ -186,13 +247,9 @@
   color: #fff;
 }
 .store-banner__button svg {
-  width: 15px;
-  height: 15px;
+  width: 18px;
+  height: 18px;
   flex-shrink: 0;
-}
-.store-banner__button--alt {
-  background: #F2BF00;
-  color: #414B52;
 }
 .store-banner__image {
   position: relative;

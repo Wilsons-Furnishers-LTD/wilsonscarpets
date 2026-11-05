@@ -88,7 +88,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
-            @media (max-width: 990px) {
+            @media (max-width: 1000px) {
                 gap: 10px;
             }
             @media (max-width: 600px) {
@@ -123,6 +123,81 @@
     &__text {
         padding-left: 30px;
         font-style: normal;
+    }
+
+    // Phone numbers in the Beds / Carpet box
+    &__dept-phone {
+        color: v.$wilson-red;
+        font-weight: 700;
+        text-decoration: underline;
+
+        &:hover,
+        &:focus-visible {
+            color: v.$wilson-grey;
+        }
+    }
+
+    // Get Directions, under the address and lined up with its text
+    &__address-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 16px;
+        padding-left: 30px;
+
+        .store-banner__button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        // Get Directions here is a text link, the same as the "Directions →" link on /pages/stores
+        // (.getdirectionstore in src/styles/storelocator/_index.scss): red, bold, underlined, no icon
+        .store-banner__button--directions {
+            display: inline;
+            width: auto;
+            min-height: 0;
+            padding: 0;
+            background: none;
+            color: v.$wilson-red;
+            font-size: 14px;
+            font-weight: 900;
+            text-decoration: underline;
+            white-space: nowrap;
+
+            svg {
+                display: none;
+            }
+
+            &:hover,
+            &:focus-visible {
+                background: none;
+                color: v.$wilson-grey;
+            }
+        }
+    }
+
+    // Closest store link under Get Directions: the same text-link look (red, bold, underlined)
+    &__closest-link {
+        margin-top: 10px;
+        color: v.$wilson-red;
+        font-size: 14px;
+        font-weight: 900;
+        text-decoration: underline;
+
+        &:hover,
+        &:focus-visible {
+            color: v.$wilson-grey;
+        }
+    }
+
+    // The "→" after Get Directions only shows on the text link under the address
+    &__directions-arrow {
+        display: none;
+
+        .store-banner__address-buttons & {
+            display: inline;
+        }
     }
 
     &__hours {
@@ -163,7 +238,9 @@
             margin: 0;
             padding: 0;
             list-style: none;
-
+            li {
+                display: flex;
+            }
             @media (max-width: 600px) {
                 grid-template-columns: 1fr 1fr;
             }
@@ -187,6 +264,12 @@
 
         @media (max-width: 600px) {
             grid-template-columns: 1fr;
+        }
+
+        // Full width of the row (e.g. Email when the store has a bed number and so no phone button).
+        // Only in this grid - in the sticky bar it's an ordinary button.
+        .store-banner__button--wide {
+            grid-column: 1 / -1;
         }
     }
 
@@ -213,14 +296,9 @@
         }
 
         svg {
-            width: 15px;
-            height: 15px;
+            width: 18px;
+            height: 18px;
             flex-shrink: 0;
-        }
-
-        &--alt {
-            background: v.$wilson-yellow;
-            color: v.$wilson-grey;
         }
     }
 

@@ -150,6 +150,75 @@
             document.addEventListener('transitionend', queue);
         })();
     </script>
+
+    {%- comment -%} Image popup: opens the clicked image larger, with previous / next {%- endcomment -%}
+    <script>
+        (function () {
+            var sectionId = {{ section.id | json }};
+            var modal = document.getElementById('StoreGalleryModal-' + sectionId);
+            var data = document.getElementById('StoreGalleryImages-' + sectionId);
+            if (!modal || !data || typeof modal.showModal !== 'function') return;
+
+            var images = JSON.parse(data.textContent);
+            var img = modal.querySelector('[data-modal-image]');
+            var count = modal.querySelector('[data-modal-count]');
+            var current = 0;
+
+            function show(index) {
+                current = (index + images.length) % images.length; // wraps round at either end
+                var image = images[current];
+                img.srcset = image.srcset;
+                img.sizes = '90vw';
+                img.src = image.src;
+                img.alt = image.alt;
+                if (count) count.textContent = (current + 1) + ' / ' + images.length;
+            }
+
+            function open(index) {
+                show(index);
+                modal.showModal();
+                document.documentElement.classList.add('store-gallery-modal-open'); // stops the page scrolling behind
+            }
+
+            modal.addEventListener('close', function () {
+                document.documentElement.classList.remove('store-gallery-modal-open');
+            });
+
+            document.querySelectorAll('[data-section-id="' + sectionId + '"] .store-gallery__open').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    open(parseInt(button.getAttribute('data-index'), 10) || 0);
+                });
+            });
+
+            var prev = modal.querySelector('[data-modal-prev]');
+            var next = modal.querySelector('[data-modal-next]');
+            if (prev) prev.addEventListener('click', function () { show(current - 1); });
+            if (next) next.addEventListener('click', function () { show(current + 1); });
+            modal.querySelector('[data-modal-close]').addEventListener('click', function () { modal.close(); });
+
+            // Clicking the dark area around the image closes it
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal || e.target.classList.contains('store-gallery__modal-inner')) modal.close();
+            });
+
+            // Arrow keys (Esc is handled by <dialog> itself)
+            modal.addEventListener('keydown', function (e) {
+                if (images.length < 2) return;
+                if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+            });
+
+            // Swipe left / right on touch screens
+            var startX = null;
+            img.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+            img.addEventListener('touchend', function (e) {
+                if (startX === null || images.length < 2) return;
+                var dx = e.changedTouches[0].clientX - startX;
+                if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+                startX = null;
+            });
+        })();
+    </script>
 {%- endif -%}
 
 

@@ -14,8 +14,19 @@ $store-column-gutter: 48px;
 $store-column-gutter-mobile: 16px;
 $store-columns-from: 990px;
 
-// Store gallery: thumbnail column (desktop) and the gap after it, and how far short of the middle of the page the
-// gallery stops (the store banner's details stop there too, so they line up with the whole gallery).
-$store-gallery-thumb-size: 64px;
-$store-gallery-thumb-gap: 16px;
+// Store gallery: how far short of the middle of the page the gallery stops (the store banner's details stop there
+// too, so they line up).
 $store-gallery-end-gap: 60px;
+// ...and on smaller desktops (990px to $store-gallery-end-gap-small-until)
+$store-gallery-end-gap-small: 20px;
+$store-gallery-end-gap-small-until: 1199px;
+
+// Store pages: max width of the content, like the theme's .wrapper (84.625em). On desktop the banner and gallery
+// halves are each at most half of this, centred on the page; backgrounds still run the full width.
+$store-content-max: 1314px;
+$store-half-max: $store-content-max * 0.5;
+
+// Store pages: side padding on the store sections on screens narrower than $store-side-padding-until
+// (store banner, sticky bar, store gallery, Google reviews), so content doesn't run to the edge of the screen
+$store-side-padding: 20px;
+$store-side-padding-until: 1363px;

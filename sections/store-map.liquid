@@ -4,11 +4,8 @@
     map (sections/store-locator.liquid). The map itself (style, pin, name label) is drawn by
     snippets/store-google-map.liquid, which the store banner also uses when its media is set to Map.
 
-    Address card (top left of the map, like Google's embedded map card): store name, address, Google rating and review
-    count, an "Open in Maps" button and a directions button.
-      Rating / review count - fetched with the Places API (New) using the store's google_place_id field (same as the
-                              Store Google Reviews section). Left out if there's no Place ID or the request fails.
-      Open in Maps          - store_finder_place_id (Google Maps URL) if set, otherwise a Google Maps search link.
+    Address card (top left of the map, like Google's embedded map card): store name, address and an "Open in Maps"
+    button - store_finder_place_id (Google Maps URL) if set, otherwise a Google Maps search link.
     Styles: src/styles/store-map/_index.scss -> assets/store-map.css (npm run build)
 {%- endcomment -%}
 {%- assign store = metaobject -%}
@@ -25,7 +22,6 @@
     {%- assign maps_destination = store_name | append: ', ' | append: store_address -%}
 {%- endif -%}
 {%- capture place_param -%}{% if place_id != blank %}&query_place_id={{ place_id | url_encode }}{% endif %}{%- endcapture -%}
-{%- capture directions_url -%}https://www.google.com/maps/dir/?api=1&destination={{ maps_destination | url_encode }}{% if place_id != blank %}&destination_place_id={{ place_id | url_encode }}{% endif %}{%- endcapture -%}
 {%- assign open_url = store.store_finder_place_id.value | strip -%}
 {%- if open_url == blank -%}
     {%- capture open_url -%}https://www.google.com/maps/search/?api=1&query={{ maps_destination | url_encode }}{{ place_param }}{%- endcapture -%}
@@ -53,19 +49,10 @@
                     {% if store_address != blank %}
                         <address class="store-map__card-address">{{ store_address | escape }}</address>
                     {% endif %}
-                    {%- comment -%} Filled in by the script below once Google returns the rating {%- endcomment -%}
-                    <div class="store-map__card-rating" data-rating hidden>
-                        <span data-rating-score></span>
-                        <svg class="store-map__card-star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6L2.5 9.4l6.6-.8z"/></svg>
-                        <a data-rating-count href="{{ open_url | escape }}" target="_blank" rel="noopener"></a>
-                    </div>
                     <div class="store-map__card-actions">
                         <a class="store-map__card-open" data-open-link href="{{ open_url | escape }}" target="_blank" rel="noopener">
                             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7ZM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7Z"/></svg>
                             Open in Maps<span class="visually-hidden"> (opens in a new tab)</span>
-                        </a>
-                        <a class="store-map__card-directions" href="{{ directions_url | escape }}" target="_blank" rel="noopener" aria-label="Directions to {{ store_name | escape }} (opens in a new tab)" title="Directions">
-                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.71 11.29l-9-9a1 1 0 0 0-1.42 0l-9 9a1 1 0 0 0 0 1.42l9 9a1 1 0 0 0 1.42 0l9-9a1 1 0 0 0 0-1.42ZM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5-3.5 3.5Z"/></svg>
                         </a>
                     </div>
                 </div>
@@ -76,42 +63,6 @@
 
     {%- assign map_id = 'StoreMap-' | append: section.id -%}
     {% render 'store-google-map', store: store, map_id: map_id, zoom: section.settings.zoom %}
-    <script>
-        (function () {
-            var sectionId = {{ section.id | json }};
-            var placeId = {{ place_id | json }};
-
-            // Google rating + review count for the address card (needs google_place_id and Places API (New))
-            async function loadRating() {
-                if (!placeId) return;
-                var card = document.getElementById('StoreMapCard-' + sectionId);
-                if (!card) return;
-                try {
-                    var places = await google.maps.importLibrary('places');
-                    var place = new places.Place({ id: placeId });
-                    await place.fetchFields({ fields: ['rating', 'userRatingCount', 'googleMapsURI'] });
-                    if (!place.rating) return;
-
-                    var rating = card.querySelector('[data-rating]');
-                    var count = card.querySelector('[data-rating-count]');
-                    rating.querySelector('[data-rating-score]').textContent = place.rating.toFixed(1);
-                    rating.setAttribute('aria-label', place.rating.toFixed(1) + ' out of 5 stars');
-                    if (place.userRatingCount) {
-                        count.textContent = '(' + place.userRatingCount.toLocaleString('en-GB') + ')';
-                        count.setAttribute('aria-label', place.userRatingCount.toLocaleString('en-GB') + ' Google reviews (opens in a new tab)');
-                        if (place.googleMapsURI) count.href = place.googleMapsURI;
-                    } else {
-                        count.remove();
-                    }
-                    rating.hidden = false;
-                } catch (e) {
-                    console.warn('Store Map: could not load the Google rating', e);
-                }
-            }
-
-            window.storeLoadGoogleMaps(loadRating);
-        })();
-    </script>
 {% endif %}
 
 {% schema %}

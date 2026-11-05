@@ -1,6 +1,6 @@
 {{ 'store-banner.css' | asset_url | stylesheet_tag }}
 {%- comment -%}
-    Store page banner: store info on the left, store photo (or a map - "Banner media" setting) on the right.
+    Store page banner: store info on the left, store photo (or a map, per store - store_banner_show_map) on the right.
     Content comes from the current store_page metaobject (templates/metaobject/store_page.json), not section settings.
 
     Fields used: store_finder_name / name, address, telephone, store_opening_times (HTML table),
@@ -92,6 +92,8 @@
 {%- endcapture -%}
 
 <div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner" id="StoreBanner-{{ section.id }}">
+  {%- comment -%} Holds the store details and the photo / map: centred, max 1354px, two columns on desktop {%- endcomment -%}
+  <div class="store-banner__container">
     <div class="store-banner__info">
         <div class="store-banner__inner">
             {%- comment -%}
@@ -129,7 +131,31 @@
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
                                 Opening hours
                             </h2>
-                            <div class="store-banner__text store-banner__hours">{{ store.store_opening_times.value }}</div>
+                            <div class="store-banner__text store-banner__hours" id="StoreBannerHours-{{ section.id }}">{{ store.store_opening_times.value }}</div>
+                            <script>
+                                // Highlight today's row in the opening hours (the table comes from store_opening_times).
+                                // Today is worked out in UK time, and a row matches if its first cell starts with the day's
+                                // name ("Monday", "Mon", "Mon:" ...).
+                                (function () {
+                                    var hours = document.getElementById('StoreBannerHours-{{ section.id }}');
+                                    if (!hours) return;
+                                    var today;
+                                    try {
+                                        today = new Intl.DateTimeFormat('en-GB', { weekday: 'long', timeZone: 'Europe/London' }).format(new Date());
+                                    } catch (e) {
+                                        today = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
+                                    }
+                                    var short = today.slice(0, 3).toLowerCase();
+                                    hours.querySelectorAll('tr').forEach(function (row) {
+                                        var cell = row.querySelector('td, th');
+                                        var day = cell ? cell.textContent.trim().toLowerCase() : '';
+                                        if (day.slice(0, 3) === short) {
+                                            row.classList.add('is-today');
+                                            if (cell) cell.setAttribute('aria-label', cell.textContent.trim() + ' (today)');
+                                        }
+                                    });
+                                })();
+                            </script>
                         </div>
                     {% endif %}
                 </div>
@@ -162,11 +188,15 @@
     </div>
 
     {%- comment -%}
-        Right-hand column: the banner photo, or a map of the store (section setting "Banner media").
-        The map needs a location (lat + long, or an address); without one the photo is shown instead.
+        Right-hand column: the banner photo, or a map of the store when its store_banner_show_map field
+        (true / false) is true. The map needs a location (lat + long, or an address); without one the photo is shown.
+    {%- endcomment -%}
+    {%- comment -%}
+        Turned into text first so it works whether the field is a true/false field (true) or text ("true", "yes", "1")
     {%- endcomment -%}
     {%- assign show_map = false -%}
-    {%- if section.settings.media == 'map' -%}
+    {%- assign show_map_field = store.store_banner_show_map.value | append: '' | strip | downcase -%}
+    {%- if show_map_field == 'true' or show_map_field == 'yes' or show_map_field == '1' -%}
         {%- if store.store_finder_lat.value != blank and store.store_finder_long.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
         {%- if store.address.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
     {%- endif -%}
@@ -179,31 +209,6 @@
                 role="region"
                 aria-label="Map showing the location of {{ store_name | escape }}"></div>
             {% render 'store-google-map', store: store, map_id: banner_map_id, zoom: section.settings.map_zoom, tone: 'darker' %}
-            <script>
-                // Desktop: start the map level with the top of the first content box (address / opening hours) and
-                // end it level with the bottom of the buttons. Both depend on the content (breadcrumb, how many lines
-                // the store name takes, how many buttons), so they're measured and passed to the CSS as
-                // --store-banner-map-top / --store-banner-map-bottom (only used at 990px and up - see .store-banner__image--map).
-                (function () {
-                    var banner = document.getElementById('StoreBanner-{{ section.id }}');
-                    if (!banner) return;
-                    var column = banner.querySelector('.store-banner__image--map');
-                    var first = banner.querySelector('.store-banner__info .store-banner__card, .store-banner__info .store-banner__buttons');
-                    var last = banner.querySelector('.store-banner__info .store-banner__buttons') || first;
-                    if (!column || !first) return;
-
-                    function align() {
-                        var box = banner.getBoundingClientRect();
-                        var top = first.getBoundingClientRect().top - box.top;
-                        var bottom = box.bottom - last.getBoundingClientRect().bottom;
-                        column.style.setProperty('--store-banner-map-top', Math.max(0, Math.round(top)) + 'px');
-                        column.style.setProperty('--store-banner-map-bottom', Math.max(0, Math.round(bottom)) + 'px');
-                    }
-                    align();
-                    if ('ResizeObserver' in window) new ResizeObserver(align).observe(banner.querySelector('.store-banner__info'));
-                    window.addEventListener('load', align); // web fonts can change the title's height
-                })();
-            </script>
         {% elsif store_image != blank %}
             {%- comment -%}
                 On desktop the image fills (object-fit: cover) a half-width box at least 560px tall - often ~800px with
@@ -213,8 +218,8 @@
             {%- endcomment -%}
             {%- assign image_ratio = store_image.aspect_ratio | default: 1.333 -%}
             {%- assign cover_width = image_ratio | times: 800 | ceil -%}
-            {%- comment -%} Above 1700px the photo stops at 850px wide (see .store-banner__image) {%- endcomment -%}
-            {%- capture image_sizes -%}(min-width: 1701px) max(850px, {{ cover_width }}px), (min-width: 990px) max(50vw, {{ cover_width }}px), 100vw{%- endcapture -%}
+            {%- comment -%} From 1354px wide the photo's column stops at 677px (see .store-banner grid) {%- endcomment -%}
+            {%- capture image_sizes -%}(min-width: 1354px) max(677px, {{ cover_width }}px), (min-width: 990px) max(50vw, {{ cover_width }}px), 100vw{%- endcapture -%}
             {%- comment -%} Worked out first: a filter inside image_tag's arguments would apply to the whole tag {%- endcomment -%}
             {%- assign image_alt = store_image.alt | default: store_name -%}
             {{ store_image | image_url: width: 3000 | image_tag:
@@ -227,7 +232,37 @@
             {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {% endif %}
     </div>
+  </div>
 </div>
+
+<script>
+    // Desktop: line the photo / map up with the store details beside it. The positions depend on the content
+    // (breadcrumb, how many lines the store name takes, how many buttons), so they're measured and passed to the CSS
+    // as --store-banner-media-top / --store-banner-media-bottom (only used at 990px and up - see .store-banner__image).
+    // Photo and map both: top level with the first content box (address / opening hours), bottom level with the buttons.
+    (function () {
+        var banner = document.getElementById('StoreBanner-{{ section.id }}');
+        if (!banner) return;
+        var column = banner.querySelector('.store-banner__image');
+        var info = banner.querySelector('.store-banner__info');
+        if (!column || !info) return;
+
+        var top = info.querySelector('.store-banner__card, .store-banner__buttons');
+        var bottom = info.querySelector('.store-banner__buttons') || top;
+        if (!top) return;
+
+        function align() {
+            var box = (banner.querySelector('.store-banner__container') || banner).getBoundingClientRect();
+            var topGap = top.getBoundingClientRect().top - box.top;
+            var bottomGap = bottom ? box.bottom - bottom.getBoundingClientRect().bottom : 0;
+            column.style.setProperty('--store-banner-media-top', Math.max(0, Math.round(topGap)) + 'px');
+            column.style.setProperty('--store-banner-media-bottom', Math.max(0, Math.round(bottomGap)) + 'px');
+        }
+        align();
+        if ('ResizeObserver' in window) new ResizeObserver(align).observe(info);
+        window.addEventListener('load', align); // web fonts can change the title's height
+    })();
+</script>
 
 {%- if banner_buttons != blank -%}
     {%- comment -%}
@@ -296,20 +331,10 @@
         "class": "index-section",
         "settings": [
             {
-                "type": "select",
-                "id": "media",
-                "label": "Banner media",
-                "info": "What shows beside the store details. The map needs the store's coordinates or address; without them the image is shown.",
-                "options": [
-                    { "value": "image", "label": "Image" },
-                    { "value": "map", "label": "Map" }
-                ],
-                "default": "image"
-            },
-            {
                 "type": "range",
                 "id": "map_zoom",
                 "label": "Map zoom",
+                "info": "For stores whose Store Banner Show Map field is on.",
                 "min": 10,
                 "max": 18,
                 "step": 1,

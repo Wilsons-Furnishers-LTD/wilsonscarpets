@@ -13,21 +13,14 @@
       "type": "store-banner",
       "name": "Store Banner",
       "settings": {
-        "media": "map",
         "map_zoom": 15
       }
     },
     "store_gallery": {
       "type": "store-gallery",
       "name": "Store Gallery",
-      "settings": {}
-    },
-    "store_map": {
-      "type": "store-map",
-      "name": "Store Map",
       "settings": {
-        "zoom": 15,
-        "height": 450
+        "heading": "About the store"
       }
     },
     "store_google_reviews": {
@@ -43,7 +36,6 @@
   "order": [
     "store_banner_MFH98H",
     "store_gallery",
-    "store_map",
     "store_google_reviews"
   ]
 }

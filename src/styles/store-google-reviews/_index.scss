@@ -4,18 +4,35 @@
 // Light grey band, centred heading, rows of white review cards:
 // stars, review text, then the reviewer (initial, name, "date · Google") at the bottom of each card.
 .store-reviews {
-    padding: 24px 0 32px;
+    padding: 60px 30px;
     background: #f4f4f4;
     color: v.$wilson-grey;
     font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
-
+    .visually-hidden {
+          // sass-lint:disable no-important
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+    }
     &[hidden] {
         display: none;
     }
 
-    // Full page width, 30px in from each side (no .wrapper max-width), like the store map
-    &__inner {
-        padding: 0 30px;
+    // Narrower than 1364px: 20px either side, like the other store sections
+    @media (max-width: v.$store-side-padding-until) {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        > .wrapper {
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
 
     // Heading with the "See all reviews on Google" link beside it, centred together; the link wraps underneath
@@ -23,21 +40,32 @@
     &__header {
         display: flex;
         flex-wrap: wrap;
-        align-items: baseline;
-        justify-content: center;
+        align-items: center;
+        justify-content: space-between;
         gap: 4px 16px;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         text-align: center;
     }
 
+    // Button, same look as the store banner buttons (.store-banner__button)
     &__all {
-        font-size: 15px;
-        color: v.$wilson-red;
-        text-decoration: underline;
-
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 6px 16px;
+        background: v.$wilson-red;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-decoration: none;
+        transition: background-color .2s;
+        
         &:hover,
         &:focus-visible {
-            color: v.$wilson-grey;
+            background: v.$wilson-grey;
+            color: #fff;
         }
     }
 
@@ -50,14 +78,14 @@
         color: v.$wilson-grey;
     }
 
-    // Rows of equal-width cards, centred when a row isn't full: 5 across on desktop, 3 on small desktop,
-    // 2 on tablet, 1 on phones
+    // Rows of equal-width cards, left-aligned when a row isn't full (e.g. fewer than 5 reviews on desktop):
+    // 5 across on desktop, 3 on small desktop, 2 on tablet, 1 on phones
     &__list {
         --cards: 5;
         --gap: 20px;
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         gap: var(--gap);
 
         @media (max-width: 1199px) {
@@ -71,6 +99,83 @@
         @media (max-width: 599px) {
             --cards: 1;
             --gap: 12px;
+        }
+    }
+
+    // Carousel: only with more than 3 reviews (.is-carousel, set by the script) and only below 1200px.
+    // The list becomes one swipeable row that snaps to each card; --cards (3 / 2 / 1, from the list rules above)
+    // sets how many are in view. Arrows match the product page's "more products" carousel arrows.
+    &__carousel {
+        position: relative;
+    }
+
+    &__nav {
+        display: none;
+    }
+
+    @media (max-width: 1199px) {
+        > .wrapper {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        &__carousel.is-carousel &__list {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .store-reviews__card {
+                scroll-snap-align: start;
+                padding: 30px 40px;
+            }
+        }
+
+        &__carousel.is-carousel &__nav {
+            position: absolute;
+            top: 50%;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            margin: -22px 0 0;
+            padding: 0;
+            border: 0;
+            border-radius: 0;
+            background: #fff;
+            color: #414b52;
+            font-size: 16px;
+            box-shadow: 0 0 5px rgba(50, 50, 50, .15);
+            cursor: pointer;
+
+            &[hidden] {
+                display: none;
+            }
+
+            &:focus-visible {
+                outline: 2px solid v.$wilson-red;
+                outline-offset: 2px;
+            }
+
+            &--prev {
+                left: -16px;
+            }
+
+            &--next {
+                right: -16px;
+            }
+        }
+    }
+
+    @media (max-width: 1199px) and (prefers-reduced-motion: reduce) {
+        &__carousel.is-carousel &__list {
+            scroll-behavior: auto;
         }
     }
 
@@ -194,5 +299,30 @@
         padding: 16px;
         border: 1px dashed v.$wilson-medium-grey;
         font-size: 14px;
+    }
+
+    // Phones narrower than 420px: the "See All Reviews" button goes below the reviews. The header box steps aside
+    // (display: contents) so the heading and button become items of the wrapper, and the button is ordered last.
+    @media (max-width: 419px) {
+        > .wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__header {
+            display: contents;
+        }
+
+        &__heading {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        &__all {
+            order: 1;
+            align-self: center;
+            margin-top: 20px;
+            width: 100%;
+        }
     }
 }

@@ -2,22 +2,37 @@
 
 // sections/store-banner.liquid
 .store-banner {
-    display: grid;
-    grid-template-columns: 1fr;
     background: #f7f7f7;
     color: v.$wilson-grey;
     font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
 
-    @media (min-width: v.$store-columns-from) {
-        grid-template-columns: 1fr 1fr;
-        min-height: 560px;
+    // Wraps the store details and the photo / map. Desktop: two equal halves within $store-content-max (1354px),
+    // centred like the rest of the site; the grey background still runs the full width.
+    &__container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+
+        @media (min-width: v.$store-columns-from) {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            max-width: v.$store-content-max;
+            min-height: 560px;
+            margin: 0 auto;
+        }
+
+        // Narrower than 1364px: 20px either side (src/styles/_variables.scss), the same as the other store sections
+        @media (max-width: v.$store-side-padding-until) {
+            box-sizing: border-box;
+            padding-left: v.$store-side-padding;
+            padding-right: v.$store-side-padding;
+        }
     }
 
     // Column width and gutters are shared with the store gallery (src/styles/_variables.scss) so they line up
     &__info {
         display: flex;
         justify-content: center;
-        padding: 24px v.$store-column-gutter-mobile 32px;
+        // No side padding of its own: the container's 20px gives the spacing on tablets and phones
+        padding: 24px 0 32px;
 
         @media (min-width: v.$store-columns-from) {
             display: block;
@@ -30,13 +45,18 @@
     // (% margins are of the half-page column.)
     &__inner {
         width: 100%;
-        max-width: v.$store-column-max;
+        
 
         @media (min-width: v.$store-columns-from) {
             width: auto;
             max-width: none;
-            margin-left: max(#{v.$store-column-gutter}, calc((100% - #{v.$store-column-max}) / 2));
+            
             margin-right: v.$store-gallery-end-gap;
+        }
+
+        // Smaller desktops (990-1199px): 40px, matching the store gallery
+        @media (min-width: v.$store-columns-from) and (max-width: v.$store-gallery-end-gap-small-until) {
+            margin-right: v.$store-gallery-end-gap-small;
         }
     }
 
@@ -61,7 +81,6 @@
 
     &__card {
         background: #fff;
-        border-radius: 10px;
         padding: 20px 20px 24px;
         margin-bottom: 20px;
         
@@ -69,11 +88,18 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
-
+            @media (max-width: 990px) {
+                gap: 10px;
+            }
             @media (max-width: 600px) {
+                gap: 25px;
                 grid-template-columns: 1fr;
             }
         }
+    }
+
+    address {
+        line-height: 22px;
     }
 
     &__heading {
@@ -83,7 +109,7 @@
         margin: 0 0 14px;
         font-size: 17px;
         font-weight: 700;
-        color: v.$wilson-red;
+        color: v.$wilson-grey;
         text-transform: none;
         letter-spacing: 0;
 
@@ -100,7 +126,7 @@
     }
 
     &__hours {
-        padding-left: 20px;
+        padding-left: 30px;
 
         table {
             width: 100%;
@@ -120,6 +146,12 @@
             &:last-child {
                 text-align: right;
             }
+        }
+
+        // Today's row (set by the script in sections/store-banner.liquid): red and bold, day and times
+        tr.is-today td {
+            color: v.$wilson-red;
+            font-weight: 700;
         }
     }
 
@@ -197,6 +229,13 @@
         min-height: 280px;
         overflow: hidden;
 
+        // Desktop: the photo's top lines up with the first content box (address / opening hours) and its bottom with
+        // the buttons, the same as the map; set by the script in sections/store-banner.liquid.
+        @media (min-width: v.$store-columns-from) {
+            margin-top: var(--store-banner-media-top, 0px);
+            margin-bottom: var(--store-banner-media-bottom, 0px);
+        }
+
         // Map instead of the photo: a little taller on phones and tablets so there's room to see the area
         &--map {
             background: #e9e9e9;
@@ -206,27 +245,19 @@
             }
         }
 
-        // Screens wider than 1700px: the photo stops at half of 1700px (850px) wide instead of running to the edge
-        // of the page. It still starts at the middle of the page; the banner's grey background shows to its right.
-        @media (min-width: 1701px) {
-            max-width: 850px;
-        }
-
-        // Map on desktop: its right edge lines up with the right edge of the page content in the theme's .wrapper
-        // (max-width 84.625em = 1354px, centred, 1.25em = 20px padding), instead of running to the edge of the page.
-        // The column is half the page, so the gap is max(20px, half - 1354px / 2 + 20px) = max(20px, 100% - 657px)
-        // (% margins are of the column's width).
+        // Map on desktop: the same width as the store details beside it. The details are
+        // (half page) - (left gap) - $store-gallery-end-gap wide, and the map starts at the middle of the page,
+        // so its right margin is that same left gap + $store-gallery-end-gap. (% margins are of the half-page column.)
         &--map {
             @media (min-width: v.$store-columns-from) {
                 max-width: none;
-                margin-right: max(20px, calc(100% - 657px));
+                
                 // Top lines up with the first content box and bottom with the buttons; set by the script in
                 // sections/store-banner.liquid
-                margin-top: var(--store-banner-map-top, 0px);
-                margin-bottom: var(--store-banner-map-bottom, 0px);
+                margin-top: var(--store-banner-media-top, 0px);
+                margin-bottom: var(--store-banner-media-bottom, 0px);
                 // Framed like the content boxes beside it (.store-banner__card) so it stands out from the background
                 border: 1px solid #dcdddf;
-                border-radius: 10px;
                 box-shadow: 0 2px 8px rgba(50, 50, 50, .1);
             }
         }
@@ -281,7 +312,15 @@
         display: flex;
         align-items: center;
         gap: 16px 24px;
-        padding: 10px 30px;
+        box-sizing: border-box;
+        max-width: v.$store-content-max;
+        margin: 0 auto;
+        padding: 10px 20px;
+
+        @media (max-width: v.$store-side-padding-until) {
+            padding-left: v.$store-side-padding;
+            padding-right: v.$store-side-padding;
+        }
 
         @media (max-width: 749px) {
             padding: 8px 16px;
@@ -325,4 +364,14 @@
             white-space: nowrap;
         }
     }
+}
+
+
+#insta-feed {
+    max-width: 1394px;
+    margin: 0 auto;
+}
+
+.instafeed-new-layout-wrapper {
+    gap: 30px !important;
 }

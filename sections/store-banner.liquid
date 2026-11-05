@@ -10,7 +10,6 @@
       store_details - list of text, or rich text
       store_bed_telephone - single line text: the bed department's number, shown in a Beds / Carpet box if set
                             (Carpet uses the main telephone number)
-      store_bed_email     - single line text: the bed department's email, under the bed number (main email if empty)
 {%- endcomment -%}
 {%- assign store = metaobject -%}
 {%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
@@ -18,7 +17,6 @@
 {%- assign store_image = store.store_banner_image.value | default: store.store_finder_thumbnail.value -%}
 {%- assign store_phone = store.telephone.value -%}
 {%- assign store_bed_phone = store.store_bed_telephone.value | strip -%}
-{%- assign store_bed_email = store.store_bed_email.value | strip | default: store_email -%}
 {%- assign store_email = store.email.value | strip | default: 'enquiries@wilsonscarpets.com' -%}
 {%- assign store_directions = store.store_finder_place_id.value -%}
 {%- assign store_details = store.store_details -%}
@@ -174,9 +172,6 @@
                         </h2>
                         <div class="store-banner__text">
                             <a class="store-banner__dept-phone" href="tel:{{ store_bed_phone | remove: ' ' }}" aria-label="Call the bed department on {{ store_bed_phone | escape }}">T: {{ store_bed_phone | escape }}</a>
-                            {% if store_bed_email != blank %}
-                                <a class="store-banner__dept-phone store-banner__dept-email" href="mailto:{{ store_bed_email | escape }}" aria-label="Email the bed department at {{ store_bed_email | escape }}">E: {{ store_bed_email | escape }}</a>
-                            {% endif %}
                         </div>
                     </div>
                     {% if store_phone != blank %}
@@ -187,9 +182,6 @@
                             </h2>
                             <div class="store-banner__text">
                                 <a class="store-banner__dept-phone" href="tel:{{ store_phone | remove: ' ' }}" aria-label="Call the carpet department on {{ store_phone | escape }}"> T: {{ store_phone | escape }}</a>
-                                {% if store_email != blank %}
-                                    <a class="store-banner__dept-phone store-banner__dept-email" href="mailto:{{ store_email | escape }}" aria-label="Email the carpet department at {{ store_email | escape }}">E: {{ store_email | escape }}</a>
-                                {% endif %}
                             </div>
                         </div>
                     {% endif %}

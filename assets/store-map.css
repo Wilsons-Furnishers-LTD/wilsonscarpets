@@ -50,6 +50,11 @@
   font-weight: 400;
   color: #414B52;
 }
+@media (max-width: 899px) {
+  .store-map__card {
+    display: none;
+  }
+}
 .store-map__card-name {
   margin: 0 0 4px;
   font-weight: 700;

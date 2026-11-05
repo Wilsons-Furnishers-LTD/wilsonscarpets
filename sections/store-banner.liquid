@@ -25,7 +25,7 @@
 {%- comment -%}
     Contact buttons (phone, email) go in the button row under the content boxes; the location button (Get Directions)
     goes under the address. Without an address they join the contact buttons instead.
-    The sticky bar shows all of them. Each group is captured once and used in both places.
+    The sticky bar shows only the location button (Get Directions). Each group is captured once and reused.
 {%- endcomment -%}
 {%- capture contact_buttons -%}
                 {%- comment -%} No phone button when the store has a bed number: both numbers are in the Beds / Carpets box {%- endcomment -%}
@@ -63,7 +63,8 @@
 {%- else -%}
     {%- assign row_buttons = contact_buttons | append: location_buttons -%}
 {%- endif -%}
-{%- assign banner_buttons = contact_buttons | append: location_buttons -%}
+{%- comment -%} Sticky bar: the location button(s) only - no phone or email {%- endcomment -%}
+{%- assign banner_buttons = location_buttons -%}
 
 <div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner" id="StoreBanner-{{ section.id }}">
   {%- comment -%} Holds the store details and the photo / map: centred, max 1354px, two columns on desktop {%- endcomment -%}
@@ -275,7 +276,7 @@
 
 {%- if banner_buttons != blank -%}
     {%- comment -%}
-        Sticky bar: the banner's buttons in a bar fixed under the site header, shown once the banner has scrolled
+        Sticky bar: the store name and Get Directions in a bar fixed under the site header, shown once the banner has scrolled
         out of view (IntersectionObserver). The header (#shopify-section-header) is position: fixed and changes height
         when it goes sticky, so the bar's top is kept at the header's bottom edge while it's showing.
     {%- endcomment -%}

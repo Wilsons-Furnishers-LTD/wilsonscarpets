@@ -29,7 +29,20 @@
                 </a>
             </div>
 
-            <div class="store-reviews__list" role="list" data-list></div>
+            {%- comment -%}
+                With more than 3 reviews, below 1200px the list becomes a swipeable row (CSS scroll snapping) with
+                previous / next arrows - 3 cards in view up to 1199px, 2 on tablets, 1 on phones. From 1200px it's a
+                single row of up to 5, so no carousel. See setupCarousel() below and .store-reviews__carousel.
+            {%- endcomment -%}
+            <div class="store-reviews__carousel" data-carousel>
+                <div class="store-reviews__list" role="list" data-list></div>
+                <button type="button" class="store-reviews__nav store-reviews__nav--prev" data-prev aria-label="Previous reviews" hidden>
+                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="store-reviews__nav store-reviews__nav--next" data-next aria-label="Next reviews" hidden>
+                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -112,6 +125,34 @@
                 return li;
             }
 
+            // Arrows for the swipeable row (only shown below 1200px, by the CSS). Each click scrolls by one card;
+            // an arrow is disabled at its end of the row.
+            function setupCarousel(list) {
+                var carousel = root.querySelector('[data-carousel]');
+                var prev = carousel.querySelector('[data-prev]');
+                var next = carousel.querySelector('[data-next]');
+                carousel.classList.add('is-carousel');
+                prev.hidden = false;
+                next.hidden = false;
+
+                function step() {
+                    var card = list.querySelector('.store-reviews__card');
+                    var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+                    return card ? card.getBoundingClientRect().width + gap : list.clientWidth;
+                }
+                function update() {
+                    var max = list.scrollWidth - list.clientWidth - 1;
+                    prev.disabled = list.scrollLeft <= 0;
+                    next.disabled = list.scrollLeft >= max;
+                }
+
+                prev.addEventListener('click', function () { list.scrollBy({ left: -step(), behavior: 'smooth' }); });
+                next.addEventListener('click', function () { list.scrollBy({ left: step(), behavior: 'smooth' }); });
+                list.addEventListener('scroll', update, { passive: true });
+                window.addEventListener('resize', update);
+                update();
+            }
+
             async function init() {
                 try {
                     var places = await google.maps.importLibrary('places');
@@ -127,6 +168,7 @@
                     reviews.forEach(function (r) { list.appendChild(reviewCard(r)); });
 
                     root.hidden = false;
+                    if (reviews.length > 3) setupCarousel(list);
                 } catch (e) {
                     // Wrong Place ID, Places API (New) not enabled, or the request was blocked - leave the section hidden
                     console.warn('Store Google Reviews: could not load reviews', e);

@@ -16,7 +16,7 @@ main.main-content {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 24px;
-  padding: 0 30px;
+  padding: 0 20px;
 }
 @media (min-width: 990px) {
   .store-gallery__layout {
@@ -28,7 +28,7 @@ main.main-content {
 }
 @media (min-width: 990px) and (max-width: 1363px) {
   .store-gallery__layout {
-    padding: 0 30px;
+    padding: 0 20px;
   }
 }
 @media (min-width: 990px) {

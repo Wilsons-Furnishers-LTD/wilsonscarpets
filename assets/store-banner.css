@@ -190,8 +190,8 @@
   font-weight: 700;
 }
 .store-banner__details ul {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px 12px;
   margin: 0;
   padding: 0;

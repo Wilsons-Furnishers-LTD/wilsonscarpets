@@ -17,6 +17,12 @@
 .store-reviews[hidden] {
   display: none;
 }
+@media (max-width: 1363px) {
+  .store-reviews > .wrapper {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
 .store-reviews__header {
   display: flex;
   flex-wrap: wrap;

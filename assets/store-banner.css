@@ -76,7 +76,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
-@media (max-width: 100px) {
+@media (max-width: 1000px) {
   .store-banner__card--split {
     gap: 10px;
   }

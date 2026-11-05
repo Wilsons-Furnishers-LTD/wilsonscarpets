@@ -37,6 +37,11 @@ main.main-content {
     margin-right: 60px;
   }
 }
+@media (min-width: 990px) and (max-width: 1199px) {
+  .store-gallery__gallery {
+    margin-right: 40px;
+  }
+}
 @media (min-width: 990px) {
   .store-gallery__content {
     grid-column: 3;

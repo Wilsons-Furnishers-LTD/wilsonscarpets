@@ -81,6 +81,9 @@
     grid-template-columns: 1fr;
   }
 }
+.store-banner address {
+  line-height: 22px;
+}
 .store-banner__heading {
   display: flex;
   align-items: center;
@@ -100,9 +103,6 @@
 .store-banner__text {
   padding-left: 30px;
   font-style: normal;
-}
-.store-banner__text address {
-  line-height: 25px;
 }
 .store-banner__hours {
   padding-left: 20px;

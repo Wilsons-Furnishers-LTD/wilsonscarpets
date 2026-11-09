@@ -114,7 +114,7 @@
 						</p>
 						{% endcomment %}
 
-						{% render 'product-grid-item', product: product with products_per_row %}
+						{% render 'product-grid-item', product: product %}
 					{% else %}
     					<p id="noProducts">
     						There are no products in this view.
@@ -201,4 +201,13 @@
 
 {% comment %} {% if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' %}
 {{ 'filters.js' | asset_url | script_tag }}
-{% endif %} {% endcomment %}
+{% endif %} {% endcomment %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'product-grid-item', product: product with products_per_row %}"
+  to: "{% render 'product-grid-item', product: product %}"
+  position: 4995..5045
+{%- endcomment -%}

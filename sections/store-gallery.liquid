@@ -1,0 +1,255 @@
+{{ 'store-gallery.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+    Store gallery: the store's images stacked in a pattern (one full width, then two side by side, repeating),
+    with the title and text on the right (desktop).
+    Styles: src/styles/store-gallery/_index.scss -> assets/store-gallery.css (npm run build)
+
+    Everything comes from the current store_page metaobject, so it only shows on store pages:
+      store_gallery - list of files (images): the gallery images, in the order they're listed. Non-image files are skipped.
+      store_content - rich text or multi-line text: the text beside the gallery.
+    Section setting: Title (default "About the store"), shown above the text. If a store has no gallery images
+    and no text, nothing is shown.
+{%- endcomment -%}
+{%- assign images = metaobject.store_gallery.value | where: 'media_type', 'image' -%}
+{%- assign store_name = metaobject.store_finder_name.value | default: metaobject.name.value | default: 'Store' -%}
+
+{%- assign store_content = metaobject.store_content -%}
+{%- capture content_html -%}
+    {%- if store_content.value != blank -%}
+        {%- if store_content.type == 'rich_text_field' -%}
+            {{- store_content | metafield_tag -}}
+        {%- else -%}
+            {%- comment -%} Blank lines start a new paragraph; single line breaks are kept {%- endcomment -%}
+            {%- assign paragraphs = store_content.value | escape | newline_to_br | strip_newlines | split: '<br /><br />' -%}
+            {%- for paragraph in paragraphs -%}
+                {%- assign paragraph_text = paragraph | remove: '<br />' | strip -%}
+                {%- if paragraph_text != blank -%}<p>{{ paragraph | strip }}</p>{%- endif -%}
+            {%- endfor -%}
+        {%- endif -%}
+    {%- endif -%}
+{%- endcapture -%}
+{%- assign content_html = content_html | strip -%}
+{%- if images.size > 0 or content_html != blank -%}
+<div class="store-gallery" data-section-id="{{ section.id }}" data-section-type="store-gallery">
+    {%- comment -%} No .wrapper: the columns match the store banner's instead (see the stylesheet) {%- endcomment -%}
+    <div class="store-gallery__wrap">
+        <div class="store-gallery__layout">
+            <div class="store-gallery__gallery">
+                {%- comment -%}
+                    Pattern: one full-width image, then two half-width images underneath, repeating
+                    (1 full, 2 half, 1 full, 2 half...). A half-width image left on its own at the end goes full width.
+                {%- endcomment -%}
+                {% if images.size > 0 %}
+                    {%- comment -%}
+                        At most 4 images in the grid. If there are more, the 4th has a small "Show all photos" button in
+                        its corner; clicking it opens the popup there, which has all of the images.
+                    {%- endcomment -%}
+                    {%- assign grid_limit = 4 -%}
+                    {%- assign hidden_count = images.size | minus: grid_limit -%}
+                    <ul class="store-gallery__grid" role="list">
+                        {% for image in images limit: grid_limit %}
+                            {%- assign position = forloop.index0 | modulo: 3 -%}
+                            {%- if position == 0 or forloop.last and position == 1 -%}
+                                {%- assign image_sizes = '(min-width: 990px) 600px, 100vw' -%}
+                                {%- assign item_class = 'store-gallery__item store-gallery__item--full' -%}
+                            {%- else -%}
+                                {%- assign image_sizes = '(min-width: 990px) 300px, 50vw' -%}
+                                {%- assign item_class = 'store-gallery__item' -%}
+                            {%- endif -%}
+                            <li class="{{ item_class }}">
+                                {%- assign show_more = false -%}
+                                {%- if forloop.last and hidden_count > 0 -%}{%- assign show_more = true -%}{%- endif -%}
+                                <button type="button" class="store-gallery__open{% if show_more %} store-gallery__open--more{% endif %}" data-index="{{ forloop.index0 }}"
+                                    aria-label="View image {{ forloop.index }} of {{ images.size }}{% if image.alt != blank %}: {{ image.alt | escape }}{% endif %}{% if show_more %}. Show all {{ images.size }} photos{% endif %}"
+                                    aria-haspopup="dialog">
+                                    {{ image | image_url: width: 1600 | image_tag:
+                                        widths: '400, 600, 800, 1000, 1200, 1600',
+                                        sizes: image_sizes,
+                                        alt: image.alt,
+                                        loading: 'lazy'
+                                    }}
+                                    {% if show_more %}
+                                        <span class="store-gallery__more" aria-hidden="true">Show All Photos</span>
+                                    {% endif %}
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    {%- comment -%}
+                        Popup (modal) for viewing the images larger: opened by clicking an image. A native <dialog>, so it
+                        sits above everything, closes on Esc and keeps keyboard focus inside while it's open.
+                        Previous / next: buttons, the arrow keys, or swiping on touch screens.
+                    {%- endcomment -%}
+                    <dialog class="store-gallery__modal" id="StoreGalleryModal-{{ section.id }}" aria-label="{{ store_name | escape }} photos">
+                        <div class="store-gallery__modal-inner">
+                            <img class="store-gallery__modal-image" data-modal-image alt="">
+                            {% if images.size > 1 %}
+                                {%- comment -%} Same icons as the product page's "more products" carousel (.featured-collections) {%- endcomment -%}
+                                <button type="button" class="store-gallery__modal-nav store-gallery__modal-nav--prev" data-modal-prev aria-label="Previous image">
+                                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="store-gallery__modal-nav store-gallery__modal-nav--next" data-modal-next aria-label="Next image">
+                                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                                </button>
+                                <p class="store-gallery__modal-count" data-modal-count aria-live="polite"></p>
+                            {% endif %}
+                            <button type="button" class="store-gallery__modal-close" data-modal-close aria-label="Close">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                            </button>
+                        </div>
+                    </dialog>
+                    <script type="application/json" id="StoreGalleryImages-{{ section.id }}">
+                        [
+                            {%- for image in images -%}
+                                {%- capture modal_srcset -%}{{ image | image_url: width: 800 }} 800w, {{ image | image_url: width: 1200 }} 1200w, {{ image | image_url: width: 1600 }} 1600w, {{ image | image_url: width: 2400 }} 2400w{%- endcapture -%}
+                                {
+                                    "src": {{ image | image_url: width: 1600 | json }},
+                                    "srcset": {{ modal_srcset | json }},
+                                    "alt": {{ image.alt | default: '' | json }}
+                                }{% unless forloop.last %},{% endunless %}
+                            {%- endfor -%}
+                        ]
+                    </script>
+                {% elsif request.design_mode %}
+                    <p class="store-gallery__notice">
+                        Store Gallery: add images to this store's <strong>Store Gallery</strong> field to show them here.
+                        This message only shows in the theme editor.
+                    </p>
+                {% endif %}
+            </div>
+
+            {%- comment -%} Always rendered so the gallery keeps its column width when there's no text {%- endcomment -%}
+            <div class="store-gallery__content">
+                {% if section.settings.heading != blank %}
+                    <h2 class="store-gallery__heading">{{ section.settings.heading | escape }}</h2>
+                {% endif %}
+                {% if content_html != blank %}
+                    <div class="store-gallery__text">{{ content_html }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+    {%- comment -%}
+        Sticky text (desktop, see .store-gallery__content): keeps --store-gallery-sticky-top at the bottom edge of
+        whatever is fixed to the top of the screen - the site header, and the store banner's sticky bar when it's
+        showing - so the text sticks just below them. The CSS does the sticking and stops it at the end of the section.
+    {%- endcomment -%}
+    <script>
+        (function () {
+            var section = document.querySelector('[data-section-id="{{ section.id }}"].store-gallery');
+            if (!section) return;
+            var header = document.getElementById('shopify-section-header');
+            var frame = null;
+
+            function update() {
+                frame = null;
+                var top = header ? header.getBoundingClientRect().bottom : 0;
+                var bar = document.querySelector('.store-banner-bar.is-visible');
+                if (bar) top = Math.max(top, bar.getBoundingClientRect().bottom);
+                section.style.setProperty('--store-gallery-sticky-top', Math.max(0, Math.round(top)) + 'px');
+            }
+            function queue() {
+                if (frame === null) frame = requestAnimationFrame(update);
+            }
+
+            update();
+            window.addEventListener('scroll', queue, { passive: true });
+            window.addEventListener('resize', queue);
+            // The header and the banner's sticky bar slide in and out, so measure again when they finish moving
+            document.addEventListener('transitionend', queue);
+        })();
+    </script>
+
+    {%- comment -%} Image popup: opens the clicked image larger, with previous / next {%- endcomment -%}
+    <script>
+        (function () {
+            var sectionId = {{ section.id | json }};
+            var modal = document.getElementById('StoreGalleryModal-' + sectionId);
+            var data = document.getElementById('StoreGalleryImages-' + sectionId);
+            if (!modal || !data || typeof modal.showModal !== 'function') return;
+
+            var images = JSON.parse(data.textContent);
+            var img = modal.querySelector('[data-modal-image]');
+            var count = modal.querySelector('[data-modal-count]');
+            var current = 0;
+
+            function show(index) {
+                current = (index + images.length) % images.length; // wraps round at either end
+                var image = images[current];
+                img.srcset = image.srcset;
+                img.sizes = '90vw';
+                img.src = image.src;
+                img.alt = image.alt;
+                if (count) count.textContent = (current + 1) + ' / ' + images.length;
+            }
+
+            function open(index) {
+                show(index);
+                modal.showModal();
+                document.documentElement.classList.add('store-gallery-modal-open'); // stops the page scrolling behind
+            }
+
+            modal.addEventListener('close', function () {
+                document.documentElement.classList.remove('store-gallery-modal-open');
+            });
+
+            document.querySelectorAll('[data-section-id="' + sectionId + '"] .store-gallery__open').forEach(function (button) {
+                button.addEventListener('click', function () {
+                    open(parseInt(button.getAttribute('data-index'), 10) || 0);
+                });
+            });
+
+            var prev = modal.querySelector('[data-modal-prev]');
+            var next = modal.querySelector('[data-modal-next]');
+            if (prev) prev.addEventListener('click', function () { show(current - 1); });
+            if (next) next.addEventListener('click', function () { show(current + 1); });
+            modal.querySelector('[data-modal-close]').addEventListener('click', function () { modal.close(); });
+
+            // Clicking the dark area around the image closes it
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal || e.target.classList.contains('store-gallery__modal-inner')) modal.close();
+            });
+
+            // Arrow keys (Esc is handled by <dialog> itself)
+            modal.addEventListener('keydown', function (e) {
+                if (images.length < 2) return;
+                if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); show(current + 1); }
+            });
+
+            // Swipe left / right on touch screens
+            var startX = null;
+            img.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
+            img.addEventListener('touchend', function (e) {
+                if (startX === null || images.length < 2) return;
+                var dx = e.changedTouches[0].clientX - startX;
+                if (Math.abs(dx) > 40) show(current + (dx < 0 ? 1 : -1));
+                startX = null;
+            });
+        })();
+    </script>
+{%- endif -%}
+
+
+{% schema %}
+    {
+        "name": "Store Gallery",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Title",
+                "info": "Shown above the store's text, beside the gallery.",
+                "default": "About the store"
+            }
+        ],
+        "presets": [{
+            "name": "Store Gallery",
+            "category": "Image"
+        }]
+    }
+{% endschema %}

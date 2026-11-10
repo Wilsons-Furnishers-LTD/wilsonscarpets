@@ -1,0 +1,402 @@
+{{ 'store-banner.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+    Store page banner: store info on the left, store photo (or a map, per store - store_banner_show_map) on the right.
+    Content comes from the current store_page metaobject (templates/metaobject/store_page.json), not section settings.
+
+    Fields used: store_finder_name / name, address, telephone, store_opening_times (HTML table),
+    store_finder_place_id (Google Maps URL), store_banner_image (file - the banner photo; store_finder_thumbnail is used if it's empty).
+    Assumed field keys - change these if your store_page definition uses different ones:
+      email         - single line text (enquiries@wilsonscarpets.com is used if it's empty)
+      store_details - list of text, or rich text
+      store_bed_telephone - single line text: the bed department's number, shown in a Beds / Carpet box if set
+                            (Carpet uses the main telephone number)
+{%- endcomment -%}
+{%- assign store = metaobject -%}
+{%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
+{%- comment -%} Banner photo: the Store Banner Image field, falling back to the store finder thumbnail {%- endcomment -%}
+{%- assign store_image = store.store_banner_image.value | default: store.store_finder_thumbnail.value -%}
+{%- assign store_phone = store.telephone.value -%}
+{%- assign store_bed_phone = store.store_bed_telephone.value | strip -%}
+{%- assign store_email = store.email.value | strip | default: 'enquiries@wilsonscarpets.com' -%}
+{%- assign store_directions = store.store_finder_place_id.value -%}
+{%- assign store_details = store.store_details -%}
+
+{%- comment -%}
+    Closest store: the nearest other store_page by store_finder_lat / store_finder_long, for the "Closest store" link
+    under Get Directions. Skips this store and stores without coordinates.
+    Liquid has no trig, so distances are compared on a flat approximation: north-south degrees as they are and
+    east-west degrees scaled by cos(latitude) (Taylor series: 1 - x^2/2 + x^4/24, x in radians). Squared distances are
+    compared, so there's no square root either. That's plenty accurate for ranking stores tens of miles apart.
+{%- endcomment -%}
+{%- assign closest_store = nil -%}
+{%- if store.store_finder_lat.value != blank and store.store_finder_long.value != blank -%}
+    {%- assign here_lat = store.store_finder_lat.value | times: 1.0 -%}
+    {%- assign here_long = store.store_finder_long.value | times: 1.0 -%}
+    {%- assign lat_rad = here_lat | times: 0.0174533 -%}
+    {%- assign lat_rad_sq = lat_rad | times: lat_rad -%}
+    {%- assign cos_half = lat_rad_sq | divided_by: 2.0 -%}
+    {%- assign cos_quarter = lat_rad_sq | times: lat_rad_sq | divided_by: 24.0 -%}
+    {%- assign long_scale = 1.0 | minus: cos_half | plus: cos_quarter -%}
+    {%- assign closest_distance = -1 -%}
+
+    {%- for other in shop.metaobjects.store_page.values -%}
+        {%- if other.system.handle == store.system.handle -%}{%- continue -%}{%- endif -%}
+        {%- if other.store_finder_lat.value == blank or other.store_finder_long.value == blank -%}{%- continue -%}{%- endif -%}
+
+        {%- assign d_lat = other.store_finder_lat.value | times: 1.0 | minus: here_lat -%}
+        {%- assign d_long = other.store_finder_long.value | times: 1.0 | minus: here_long | times: long_scale -%}
+        {%- assign distance = d_lat | times: d_lat -%}
+        {%- assign d_long_sq = d_long | times: d_long -%}
+        {%- assign distance = distance | plus: d_long_sq -%}
+
+        {%- if closest_distance < 0 or distance < closest_distance -%}
+            {%- assign closest_distance = distance -%}
+            {%- assign closest_store = other -%}
+        {%- endif -%}
+    {%- endfor -%}
+{%- endif -%}
+
+{%- comment -%} Buttons are captured once and used in the banner and in the sticky bar below {%- endcomment -%}
+{%- comment -%}
+    Contact buttons (phone, email) go in the button row under the content boxes; the location button (Get Directions)
+    goes under the address. Without an address they join the contact buttons instead.
+    The sticky bar shows only the location button (Get Directions). Each group is captured once and reused.
+{%- endcomment -%}
+{%- capture contact_buttons -%}
+                {%- comment -%} No phone button when the store has a bed number: both numbers are in the Beds / Carpets box {%- endcomment -%}
+                {% if store_phone != blank and store_bed_phone == blank %}
+                    <a class="store-banner__button" href="tel:{{ store_phone | remove: ' ' }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1L6.6 10.8Z"/></svg>
+                        {{ store_phone | escape }}
+                    </a>
+                {% endif %}
+                {% if store_email != blank %}
+                    {%- comment -%} With a bed number there's no phone button, so Email spans the full width of the row {%- endcomment -%}
+                    <a class="store-banner__button{% if store_bed_phone != blank %} store-banner__button--wide{% endif %}" href="mailto:{{ store_email | escape }}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v.4l-10 6.25L2 6.4V6a1 1 0 0 1 1-1Zm-1 3.75V18a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V8.75l-10 6.25L2 8.75Z"/></svg>
+                        Email
+                    </a>
+                {% endif %}
+{%- endcapture -%}
+{%- capture location_buttons -%}
+                {% if store_directions != blank %}
+                    {%- comment -%}
+                        Under the address it's styled as a text link like the /pages/stores "Directions →" link
+                        (.store-banner__address-buttons); in the sticky bar / button row it stays a button
+                    {%- endcomment -%}
+                    <a class="store-banner__button store-banner__button--directions" href="{{ store_directions | escape }}" target="_blank" rel="noopener" aria-label="Get Directions (opens in a new tab)">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3 3 5.5v15.5l6-2.5 6 2.5 6-2.5V3l-6 2.5L9 3Zm1 2.6 4 1.65v11.15l-4-1.65V5.6Z"/></svg>
+                        Get Directions<span class="store-banner__directions-arrow" aria-hidden="true"> &#8594;</span>
+                    </a>
+                {% endif %}
+{%- endcapture -%}
+{%- assign contact_buttons = contact_buttons | strip -%}
+{%- assign location_buttons = location_buttons | strip -%}
+{%- comment -%} Main button row: contact buttons, plus the location ones when there's no address card to hold them {%- endcomment -%}
+{%- if store.address.value != blank -%}
+    {%- assign row_buttons = contact_buttons -%}
+{%- else -%}
+    {%- assign row_buttons = contact_buttons | append: location_buttons -%}
+{%- endif -%}
+{%- comment -%} Sticky bar: the location button(s) only - no phone or email {%- endcomment -%}
+{%- assign banner_buttons = location_buttons -%}
+
+<div data-section-id="{{ section.id }}" data-section-type="store-banner" class="store-banner" id="StoreBanner-{{ section.id }}">
+  {%- comment -%} Holds the store details and the photo / map: centred, max 1354px, two columns on desktop {%- endcomment -%}
+  <div class="store-banner__container">
+    <div class="store-banner__info">
+        <div class="store-banner__inner">
+            {%- comment -%}
+                Same markup as snippets/breadcrumbs.liquid (used on collection pages), so it picks up the theme's
+                .breadcrumb styles: faded links, chevron separators, current page in bold
+            {%- endcomment -%}
+            <nav class="breadcrumb store-banner__breadcrumb" aria-label="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span><a href="{{ shop.url }}" itemprop="item" title="Home">Home</a></span><meta itemprop="name" content="Home"><meta itemprop="position" content="1"></span>
+                <span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+                <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span><a href="/pages/stores" itemprop="item">Stores</a></span><meta itemprop="name" content="Stores"><meta itemprop="position" content="2"></span>
+                {% if store_name != blank %}
+                    <span aria-hidden="true"><i class="fal fa-chevron-right"></i></span>
+                    <span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{{ store_name | escape }}</span><meta itemprop="position" content="3"><meta itemprop="item" content="{{ shop.url }}{{ store.system.url }}"></span>
+                {% endif %}
+            </nav>
+
+            {% if store_name != blank %}
+                <h1 class="store-banner__title">{{ store_name | escape }}</h1>
+            {% endif %}
+
+            {% if store.address.value != blank or store.store_opening_times.value != blank %}
+                <div class="store-banner__card store-banner__card--split">
+                    {% if store.address.value != blank %}
+                        <div>
+                            <h2 class="store-banner__heading">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+                                Address
+                            </h2>
+                            <address class="store-banner__text">{{ store.address.value | escape | newline_to_br }}</address>
+                            {% if location_buttons != blank or closest_store != blank %}
+                                <div class="store-banner__address-buttons">
+                                    {{ location_buttons }}
+                                    {%- comment -%} Closest other store, as a text link like Get Directions (not in the sticky bar) {%- endcomment -%}
+                                    {% if closest_store != blank %}
+                                        {%- comment -%} The closest store's alt_name if it has one, otherwise its usual name {%- endcomment -%}
+                                        {%- assign closest_name = closest_store.alt_name.value | strip | default: closest_store.store_finder_name.value | default: closest_store.name.value -%}
+                                        <a class="store-banner__closest-link" href="{{ closest_store.system.url }}">
+                                            View {{ closest_name | escape }} Store
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% if store.store_opening_times.value != blank %}
+                        <div>
+                            <h2 class="store-banner__heading">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" d="M12 7v5l3 2"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>
+                                Opening hours
+                            </h2>
+                            <div class="store-banner__text store-banner__hours" id="StoreBannerHours-{{ section.id }}">{{ store.store_opening_times.value }}</div>
+                            <script>
+                                // Highlight today's row in the opening hours (the table comes from store_opening_times).
+                                // Today is worked out in UK time, and a row matches if its first cell starts with the day's
+                                // name ("Monday", "Mon", "Mon:" ...).
+                                (function () {
+                                    var hours = document.getElementById('StoreBannerHours-{{ section.id }}');
+                                    if (!hours) return;
+                                    var today;
+                                    try {
+                                        today = new Intl.DateTimeFormat('en-GB', { weekday: 'long', timeZone: 'Europe/London' }).format(new Date());
+                                    } catch (e) {
+                                        today = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][new Date().getDay()];
+                                    }
+                                    var short = today.slice(0, 3).toLowerCase();
+                                    hours.querySelectorAll('tr').forEach(function (row) {
+                                        var cell = row.querySelector('td, th');
+                                        var day = cell ? cell.textContent.trim().toLowerCase() : '';
+                                        if (day.slice(0, 3) === short) {
+                                            row.classList.add('is-today');
+                                            if (cell) cell.setAttribute('aria-label', cell.textContent.trim() + ' (today)');
+                                        }
+                                    });
+                                })();
+                            </script>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            {% if store_details.value != blank %}
+                <div class="store-banner__card">
+                    <h2 class="store-banner__heading">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 4h18l1 5a3 3 0 0 1-5 2.2A3 3 0 0 1 12 12a3 3 0 0 1-5-.8A3 3 0 0 1 2 9l1-5Zm1 9.5V20a1 1 0 0 0 1 1h5v-5h4v5h5a1 1 0 0 0 1-1v-6.5a4.9 4.9 0 0 1-4-.6 4.9 4.9 0 0 1-5 .5 4.9 4.9 0 0 1-5-.5 4.9 4.9 0 0 1-2 .6Z"/></svg>
+                        Store Details
+                    </h2>
+                    <div class="store-banner__text store-banner__details">
+                        {% if store_details.type contains 'list' %}
+                            <ul>
+                                {% for detail in store_details.value %}
+                                    <li>{{ detail }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            {{ store_details | metafield_tag }}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {%- comment -%}
+                Phone numbers by department, in two columns like the address / opening hours box (stacked on phones):
+                Beds (store_bed_telephone) and Carpet (the store's main number, telephone). Only shown if the store has a
+                bed number; the Carpet column is left out if there's no main number.
+            {%- endcomment -%}
+            {% if store_bed_phone != blank %}
+                <div class="store-banner__card{% if store_phone != blank %} store-banner__card--split{% endif %}">
+                    <div>
+                        <h2 class="store-banner__heading">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4.1A3 3 0 0 1 21 12v6a1 1 0 0 1-1 1h-1v2h-2v-2H7v2H5v-2H4a1 1 0 0 1-1-1v-6a3 3 0 0 1 2-2.9V5Zm2 4h4V8a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v1Zm6 0h4V8a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v1Zm-7 2a1 1 0 0 0-1 1v5h14v-5a1 1 0 0 0-1-1H6Z"/></svg>
+                            Beds
+                        </h2>
+                        <div class="store-banner__text">
+                            <a class="store-banner__dept-phone" href="tel:{{ store_bed_phone | remove: ' ' }}" aria-label="Call the bed department on {{ store_bed_phone | escape }}">T: {{ store_bed_phone | escape }}</a>
+                        </div>
+                    </div>
+                    {% if store_phone != blank %}
+                        <div>
+                            <h2 class="store-banner__heading">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.5 4A4.5 4.5 0 0 0 2 8.5v7A4.5 4.5 0 0 0 6.5 20H21a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H6.5Zm0 2a2.5 2.5 0 0 1 0 5A2.5 2.5 0 0 1 4 8.5 2.5 2.5 0 0 1 6.5 6Zm3.65 0H20v12H6.5A2.5 2.5 0 0 1 4 15.5v-2.24A4.48 4.48 0 0 0 6.5 13 4.5 4.5 0 0 0 10.15 6ZM6.5 7.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"/></svg>
+                                Carpets
+                            </h2>
+                            <div class="store-banner__text">
+                                <a class="store-banner__dept-phone" href="tel:{{ store_phone | remove: ' ' }}" aria-label="Call the carpet department on {{ store_phone | escape }}"> T: {{ store_phone | escape }}</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+
+            <div class="store-banner__buttons">
+                {{ row_buttons }}
+            </div>
+        </div>
+    </div>
+
+    {%- comment -%}
+        Right-hand column: the banner photo, or a map of the store when its store_banner_show_map field
+        (true / false) is true. The map needs a location (lat + long, or an address); without one the photo is shown.
+    {%- endcomment -%}
+    {%- comment -%}
+        Turned into text first so it works whether the field is a true/false field (true) or text ("true", "yes", "1")
+    {%- endcomment -%}
+    {%- assign show_map = false -%}
+    {%- assign show_map_field = store.store_banner_show_map.value | append: '' | strip | downcase -%}
+    {%- if show_map_field == 'true' or show_map_field == 'yes' or show_map_field == '1' -%}
+        {%- if store.store_finder_lat.value != blank and store.store_finder_long.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
+        {%- if store.address.value != blank -%}{%- assign show_map = true -%}{%- endif -%}
+    {%- endif -%}
+
+    <div class="store-banner__image{% if show_map %} store-banner__image--map{% endif %}">
+        {% if show_map %}
+            {%- assign banner_map_id = 'StoreBannerMap-' | append: section.id -%}
+            <div class="store-banner__map"
+                id="{{ banner_map_id }}"
+                role="region"
+                aria-label="Map showing the location of {{ store_name | escape }}"></div>
+            {% render 'store-google-map', store: store, map_id: banner_map_id, zoom: section.settings.map_zoom, tone: 'darker' %}
+        {% elsif store_image != blank %}
+            {%- comment -%}
+                On desktop the image fills (object-fit: cover) a half-width box at least 560px tall - often ~800px with
+                the store details beside it. A landscape photo is shown wider than the box when the box is tall, so
+                sizes uses whichever is bigger: half the screen, or 800px x the photo's aspect ratio. Widths go up to
+                3000 so retina screens get a sharp copy (Shopify skips any width larger than the uploaded photo).
+            {%- endcomment -%}
+            {%- assign image_ratio = store_image.aspect_ratio | default: 1.333 -%}
+            {%- assign cover_width = image_ratio | times: 800 | ceil -%}
+            {%- comment -%} From 1354px wide the photo's column stops at 677px (see .store-banner grid) {%- endcomment -%}
+            {%- capture image_sizes -%}(min-width: 1354px) max(677px, {{ cover_width }}px), (min-width: 990px) max(50vw, {{ cover_width }}px), 100vw{%- endcapture -%}
+            {%- comment -%} Worked out first: a filter inside image_tag's arguments would apply to the whole tag {%- endcomment -%}
+            {%- assign image_alt = store_image.alt | default: store_name -%}
+            {{ store_image | image_url: width: 3000 | image_tag:
+                widths: '540, 768, 1024, 1280, 1600, 2000, 2400, 3000',
+                sizes: image_sizes,
+                alt: image_alt,
+                loading: 'eager'
+            }}
+        {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+    // Desktop: line the photo / map up with the store details beside it. The positions depend on the content
+    // (breadcrumb, how many lines the store name takes, how many buttons), so they're measured and passed to the CSS
+    // as --store-banner-media-top / --store-banner-media-bottom (only used at 990px and up - see .store-banner__image).
+    // Photo and map both: top level with the first content box (address / opening hours), bottom level with the buttons.
+    (function () {
+        var banner = document.getElementById('StoreBanner-{{ section.id }}');
+        if (!banner) return;
+        var column = banner.querySelector('.store-banner__image');
+        var info = banner.querySelector('.store-banner__info');
+        if (!column || !info) return;
+
+        var top = info.querySelector('.store-banner__card, .store-banner__buttons');
+        var bottom = info.querySelector('.store-banner__buttons') || top;
+        if (!top) return;
+
+        function align() {
+            var box = (banner.querySelector('.store-banner__container') || banner).getBoundingClientRect();
+            var topGap = top.getBoundingClientRect().top - box.top;
+            var bottomGap = bottom ? box.bottom - bottom.getBoundingClientRect().bottom : 0;
+            column.style.setProperty('--store-banner-media-top', Math.max(0, Math.round(topGap)) + 'px');
+            column.style.setProperty('--store-banner-media-bottom', Math.max(0, Math.round(bottomGap)) + 'px');
+        }
+        align();
+        if ('ResizeObserver' in window) new ResizeObserver(align).observe(info);
+        window.addEventListener('load', align); // web fonts can change the title's height
+    })();
+</script>
+
+{%- if banner_buttons != blank -%}
+    {%- comment -%}
+        Sticky bar: the store name and Get Directions in a bar fixed under the site header, shown once the banner has scrolled
+        out of view (IntersectionObserver). The header (#shopify-section-header) is position: fixed and changes height
+        when it goes sticky, so the bar's top is kept at the header's bottom edge while it's showing.
+    {%- endcomment -%}
+    <div class="store-banner-bar" id="StoreBannerBar-{{ section.id }}" aria-hidden="true" inert>
+        <div class="store-banner-bar__inner">
+            {% if store_name != blank %}
+                <p class="store-banner-bar__title">{{ store_name | escape }}</p>
+            {% endif %}
+            <div class="store-banner-bar__buttons">
+                {{ banner_buttons }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var banner = document.getElementById('StoreBanner-{{ section.id }}');
+            var bar = document.getElementById('StoreBannerBar-{{ section.id }}');
+            if (!banner || !bar || !('IntersectionObserver' in window)) return;
+
+            var header = document.getElementById('shopify-section-header');
+            var frame = null;
+
+            // Keep the bar's top at the header's bottom edge (the header resizes and slides as it goes sticky)
+            function placeBar() {
+                frame = null;
+                var top = header ? Math.max(0, header.getBoundingClientRect().bottom) : 0;
+                bar.style.setProperty('--store-banner-bar-top', top + 'px');
+            }
+            function queuePlace() {
+                if (frame === null) frame = requestAnimationFrame(placeBar);
+            }
+
+            function show(visible) {
+                bar.classList.toggle('is-visible', visible);
+                if (visible) {
+                    bar.removeAttribute('aria-hidden');
+                    bar.removeAttribute('inert');
+                    placeBar();
+                    window.addEventListener('scroll', queuePlace, { passive: true });
+                    window.addEventListener('resize', queuePlace);
+                } else {
+                    bar.setAttribute('aria-hidden', 'true');
+                    bar.setAttribute('inert', '');
+                    window.removeEventListener('scroll', queuePlace);
+                    window.removeEventListener('resize', queuePlace);
+                }
+            }
+
+            // Only show it once the banner has gone off the top of the screen (not when it's below, e.g. on load)
+            new IntersectionObserver(function (entries) {
+                var entry = entries[0];
+                show(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+            }).observe(banner);
+        })();
+    </script>
+{%- endif -%}
+
+{% schema %}
+    {
+        "name": "Store Banner",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "range",
+                "id": "map_zoom",
+                "label": "Map zoom",
+                "info": "For stores whose Store Banner Show Map field is on.",
+                "min": 10,
+                "max": 18,
+                "step": 1,
+                "default": 15
+            }
+        ],
+        "presets": [{
+            "name": "Store Banner",
+            "category": "Image"
+        }]
+    }
+{% endschema %}

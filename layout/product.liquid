@@ -180,6 +180,13 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
 {{ 'search.css' | asset_url | stylesheet_tag }}
+<<<<<<< HEAD
+=======
+{% if shop.metafields.comparison.feature == 1 %}
+{{ 'compare.css' | asset_url | stylesheet_tag }}
+{% endif  %}
+
+>>>>>>> feature/comparison-layout
 
 </head>
 
@@ -313,7 +320,7 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 </div>
 
 
-
+{% section 'compare-modal' %}
 {% section 'footer-scripts' %}
 
 <script src="{{ 'owl.carousel.js' | asset_url }}" defer></script>

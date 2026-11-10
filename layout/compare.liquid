@@ -182,7 +182,7 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 {{ 'main.css' | asset_url | stylesheet_tag }}
 {{ 'search.css' | asset_url | stylesheet_tag }}
 
-{% if shop.metafields.custom.compare_feature.value %}
+{% if shop.metafields.comparison.feature == 1 %}
 {{ 'compare.css' | asset_url | stylesheet_tag }}
 {% endif  %}
 
@@ -290,7 +290,7 @@ window.KlarnaThemeGlobals.data_purchase_amount =
             {% else %}
                 <meta itemprop="gtin" content="{{ GTINvalue }}"/>
             {% endif %}
-            {% if shop.metafields.custom.compare_feature.value %}
+            {% if shop.metafields.comparison.feature == 1 %}
                 <div class="comparison-page__header">
                     <div class="comparison-page__header--inner">
                         <h1>Product Comparison</h1>

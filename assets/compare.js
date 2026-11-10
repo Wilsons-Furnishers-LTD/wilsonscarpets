@@ -29,7 +29,8 @@ class Compare {
         this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style', 'Door Bar Length'];
         this.specificationsRugs = ['Material', 'Pile Height', 'Style', 'Door Bar Length'];
-        this.specificationsBeds = ['Style'];
+        this.specificationsBed = ['Headboard Type', 'Headboard Design', 'Base'];
+        this.specificationsMattressHeadboard = ['Style'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
@@ -732,7 +733,50 @@ class Compare {
         return productCard;
     }
 
+    // The custom.specifications metafield (templates/product.compare.liquid), one "Field: value" per line,
+    // as a Map of field -> value. A list metafield comes as an array, a multi-line text one as a string
+    getMetafieldSpecifications(product) {
+        const raw = product.metafields?.specifications;
+        const lines = Array.isArray(raw) ? raw : (typeof raw === 'string' ? raw.split(/\r?\n/) : []);
+        const specifications = new Map();
+
+        lines.forEach(line => {
+            const index = String(line).indexOf(':');
+            if (index === -1) return;
+
+            const field = line.slice(0, index).trim();
+            const value = line.slice(index + 1).trim();
+
+            if (field && value && !specifications.has(field)) specifications.set(field, value);
+        });
+
+        return specifications;
+    }
+
+    // The type's specifications, then any other fields from the products' Specifications metafields,
+    // in the order they first appear. Field names are matched ignoring case
+    getTableSpecifications(type, products) {
+        const specifications = [...this.getSpecifications(type)];
+        const seen = new Set(specifications.map(specification => specification.toLowerCase()));
+
+        products.forEach(product => {
+            this.getMetafieldSpecifications(product).forEach((value, field) => {
+                if (seen.has(field.toLowerCase())) return;
+
+                seen.add(field.toLowerCase());
+                specifications.push(field);
+            });
+        });
+
+        return specifications;
+    }
+
+    // From the Specifications metafield if it has the field, otherwise from "{specification}_" tags
     getSpecificationValue(product, specification) {
+        for (const [field, value] of this.getMetafieldSpecifications(product)) {
+            if (field.toLowerCase() === specification.toLowerCase()) return value;
+        }
+
         const prefix = `${specification}_`;
 
         const value = (product.tags || [])
@@ -872,10 +916,11 @@ class Compare {
                 return this.specificationsAccessories;
             case 'Rugs':
                 return this.specificationsRugs;
-            case 'Beds':
+            case 'Bed':
+                return this.specificationsBed;
             case 'Mattress':
             case 'Headboard':
-                return this.specificationsBeds;
+                return this.specificationsMattressHeadboard;
             default:
                 return this.specifications;
         }
@@ -938,7 +983,7 @@ class Compare {
             this.createRow('Stock', products, product => this.createStockValue(product))
         );
 
-        this.getSpecifications(type)
+        this.getTableSpecifications(type, products)
             // Skip specifications none of the products have
             .filter(specification => products.some(product => this.getSpecificationValue(product, specification) !== '-'))
             .forEach(specification => {
@@ -1142,7 +1187,7 @@ class Compare {
     // packSize divides the "was" price to per m², as price should already be. The RRP_ tag is already per m².
     // Sold per item, so have no per m² unit
     getPriceUnit(type) {
-        return ['Accessories & Underlay', 'Rugs', 'Beds', 'Mattress', 'Headboard'].includes(type) ? '' : 'm²';
+        return ['Accessories & Underlay', 'Rugs', 'Bed', 'Mattress', 'Headboard'].includes(type) ? '' : 'm²';
     }
 
     getRrpPrice(product, price, compareAtInCents = false, packSize = 1) {

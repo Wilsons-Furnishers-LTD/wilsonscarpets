@@ -42,7 +42,6 @@
         "title_1": "Lowest Price Guaranteed",
         "subheading_1": "Over 1,000 competitor prices are checked by us daily",
         "icon_2": "<i class=\"fas fa-truck\"></i>",
-<<<<<<< HEAD
         "title_2": "Fast Delivery",
         "subheading_2": "Fast delivery available on beds, mattresses and headboards",
         "icon_3": "<i class=\"fas fa-envelope-open\"></i>",
@@ -51,16 +50,6 @@
         "icon_4": "<i class=\"fas fa-star\"></i>",
         "title_4": "58 Years In The Industry",
         "subheading_4": "Wilsons has been selling great products and providing great service since 1968",
-=======
-        "title_2": "Estimating & Fast Delivery",
-        "subheading_2": "Free estimate service and fast delivery across the region",
-        "icon_3": "<i class=\"fas fa-envelope-open\"></i>",
-        "title_3": "Visit Us In Store",
-        "subheading_3": "We have 19 stores around the Yorkshire, Nottinghamshire & Lincolnshire area",
-        "icon_4": "<i class=\"fas fa-star\"></i>",
-        "title_4": "58 Years In The Industry",
-        "subheading_4": "Wilsons has been selling flooring and providing great service since 1968",
->>>>>>> feature/comparison-layout
         "add_border_top": "add_border_top_no",
         "add_border_bottom": "add_border_bottom_no"
       }

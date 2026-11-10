@@ -29,7 +29,8 @@ class Compare {
         this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style', 'Door Bar Length'];
         this.specificationsRugs = ['Material', 'Pile Height', 'Style', 'Door Bar Length'];
-        this.specificationsBeds = ['Headboard Type', 'Headboard Design', 'Base'];
+        this.specificationsBed = ['Headboard Type', 'Headboard Design', 'Base'];
+        this.specificationsMattressHeadboard = ['Style'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
@@ -873,9 +874,10 @@ class Compare {
             case 'Rugs':
                 return this.specificationsRugs;
             case 'Bed':
+                return this.specificationsBed;
             case 'Mattress':
             case 'Headboard':
-                return this.specificationsBeds;
+                return this.specificationsMattressHeadboard;
             default:
                 return this.specifications;
         }

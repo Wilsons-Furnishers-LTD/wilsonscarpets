@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-{"sections":{"main":{"type":"main-content-store-page","blocks":{"cms_page_left_kkmBJi":{"type":"cms_page_left","settings":{"cms_heading":"Information Pages","cms_linklist":"advice","cms_linklist_two":"information","cms_linklist_three":""}}},"block_order":["cms_page_left_kkmBJi"],"settings":{}}},"order":["main"]}
-=======
 /*
  * ------------------------------------------------------------
  * IMPORTANT: The contents of this file are auto-generated.
@@ -13,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-content-store-page",
+      "type": "main-content-page",
       "blocks": {
         "cms_page_left_kkmBJi": {
           "type": "cms_page_left",
@@ -35,4 +32,3 @@
     "main"
   ]
 }
->>>>>>> feature/comparison-layout

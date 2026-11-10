@@ -15,8 +15,8 @@
         "image_YAUcRz": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/lowest-carpet-prices-desktop-314_314x_08644afa-1ec9-4e5b-aefa-0ca97d0e3801.webp",
-            "mobileimage": "shopify://shop_images/lowest-carpet-prices_520x520_crop_center_d7a143fb-c06c-46d6-b19d-2b34818f6434.webp",
+            "image": "shopify://shop_images/lowest-carpet-prices-desktop.jpg",
+            "mobileimage": "shopify://shop_images/usp-mobile-lowest-price-guarantee.jpg",
             "link": "shopify://pages/price-promise",
             "position": "7"
           }
@@ -24,8 +24,8 @@
         "image_nQ3pWE": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/lincoln-store-landing-banner-2_314x625_1fca8710-96e2-4dcd-91f1-af96a3b300d5.webp",
-            "mobileimage": "shopify://shop_images/lincoln-store-landing-banner-2m_520x520_crop_center_9e4e5a13-e284-47c4-a6ee-8d156dc2b7db.webp",
+            "image": "shopify://shop_images/lincoln-store-landing-banner-2_20241025130805.jpg",
+            "mobileimage": "shopify://shop_images/lincoln-store-landing-banner-2m_20241025130754.jpg",
             "link": "shopify://pages/lincoln",
             "position": "4"
           }
@@ -33,8 +33,8 @@
         "image_TxP3Ga": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/wilsons-carpet-store-lincoln-desktop2_314x625_5c81d47f-edd0-47d6-bc90-78741cd92a9b.webp",
-            "mobileimage": "shopify://shop_images/lincoln-store-landing-banner-1m_520x520_crop_center_039ed1ee-47a4-4002-ae1b-c8c956e3b0ea.webp",
+            "image": "shopify://shop_images/wilsons-carpets-beds-store-lincoln-desktop.jpg",
+            "mobileimage": "shopify://shop_images/wilsons-carpet-beds-store-lincoln-mobile.jpg",
             "link": "shopify://pages/lincoln",
             "position": "1"
           }

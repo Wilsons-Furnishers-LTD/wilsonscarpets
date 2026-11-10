@@ -64,7 +64,3 @@
     jQuery('html').removeClass('no-js').addClass('js');
   </script>
 <script src="{{ 'search.js' |  asset_url}}"></script>
-
-{% if shop.metafields.custom.compare_feature.value %}
-<script src="{{ 'compare.js' |  asset_url}}" defer></script>
-{% endif  %}

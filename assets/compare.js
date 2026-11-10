@@ -872,7 +872,7 @@ class Compare {
                 return this.specificationsAccessories;
             case 'Rugs':
                 return this.specificationsRugs;
-            case 'Bed':
+            case 'Beds':
             case 'Mattress':
             case 'Headboard':
                 return this.specificationsBeds;
@@ -1142,7 +1142,7 @@ class Compare {
     // packSize divides the "was" price to per m², as price should already be. The RRP_ tag is already per m².
     // Sold per item, so have no per m² unit
     getPriceUnit(type) {
-        return ['Accessories & Underlay', 'Rugs', 'Bed', 'Mattress', 'Headboard'].includes(type) ? '' : 'm²';
+        return ['Accessories & Underlay', 'Rugs', 'Beds', 'Mattress', 'Headboard'].includes(type) ? '' : 'm²';
     }
 
     getRrpPrice(product, price, compareAtInCents = false, packSize = 1) {

@@ -65,6 +65,6 @@
   </script>
 <script src="{{ 'search.js' |  asset_url}}"></script>
 
-{% if shop.metafields.comparison.feature == 1 %}
+{% if shop.metafields.custom.compare_feature.value %}
 <script src="{{ 'compare.js' |  asset_url}}" defer></script>
 {% endif  %}

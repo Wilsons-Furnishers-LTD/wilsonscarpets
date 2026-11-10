@@ -19,10 +19,26 @@
         default_marker: "{{ 'default-marker.png' | asset_url }}",
         bed_marker: "{{ 'bed-marker.png' | asset_url }}",
         bed_flag: "{{ 'bed-flag.png' | asset_url }}",
-        store_data: {{ page.metafields.store | json }}
+        // One entry per store_page metaobject, renamed to the properties storelocator.js uses.
+        // The thumbnail field is a file reference, so it's turned into an image URL here
+        store_data: [
+            {%- for store in shop.metaobjects.store_page.values -%}
+                {
+                    "id": {{ store.store_finder_id.value | json }},
+                    "name": {{ store.store_finder_name.value | default: store.name.value | json }},
+                    "address": {{ store.address.value | json }},
+                    "phone": {{ store.telephone.value | json }},
+                    "lat": {{ store.store_finder_lat.value | json }},
+                    "long": {{ store.store_finder_long.value | json }},
+                    "place_id": {{ store.store_finder_place_id.value | json }},
+                    "opening_times": {{ store.store_opening_times.value | json }},
+                    "thumbnail": {% if store.store_finder_thumbnail != blank %}{{ store.store_finder_thumbnail | image_url: width: 600 | json }}{% else %}""{% endif %},
+                    "url": {{ store.system.url | json }}
+                }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+        ],
     };
 </script>
-
 
 <div class="cms-two-columns cw-storelocator">
     <div class="row">

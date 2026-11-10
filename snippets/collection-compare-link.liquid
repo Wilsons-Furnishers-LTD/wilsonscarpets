@@ -5,8 +5,10 @@
   Rendered twice, as placement 'sorter' next to "Sort by" from 1024px, and 'pagination' left of the
   pagination below that, where the filter and sort bar is moved out of the toolbar
 {%- endcomment -%}
-{% if shop.metafields.comparison.feature == 1 %}
-  {% assign compare_types = 'Carpets|LVT|Vinyl|Laminate|Artificial Grass|Real Wood|Accessories & Underlay|Rugs|Bed|Mattress|Headboard' | split: '|' %}
+
+
+{% if shop.metafields.custom.compare_feature.value %}
+  {% assign compare_types = 'Carpets|LVT|Vinyl|Laminate|Artificial Grass|Real Wood|Accessories & Underlay|Rugs' | split: '|' %}
   {% assign has_comparable_product = false %}
   {% for product in collection.products %}
     {% if compare_types contains product.type %}

@@ -1,0 +1,324 @@
+@use './../variables' as v;
+
+// Book a home visit: Tally-style, one question per step.
+$hv-text: #2b2b2b;
+$hv-muted: #6b6f72;
+$hv-border: #dcdfe0;
+$hv-accent: v.$wilson-red;
+$hv-btn: #2b2b2b;
+$hv-radius: 8px;
+
+.hv {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 20px 64px;
+    min-height: 70vh;
+    color: $hv-text;
+    font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
+    box-sizing: border-box;
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    &__form { position: relative; }
+
+    // Progress bar along the top of the page
+    &__progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: transparent;
+        z-index: 1000;
+    }
+    &__progress-bar {
+        height: 100%;
+        width: 0;
+        background: $hv-accent;
+        transition: width .35s ease;
+    }
+
+    // Steps: without JS every step shows, so the form still works
+    &__step { margin-bottom: 48px; outline: none; }
+    &.is-ready &__step {
+        display: none;
+        margin-bottom: 0;
+        &.is-active {
+            display: block;
+            animation: hv-in .35s ease both;
+        }
+        &.is-active.from-back { animation-name: hv-in-back; }
+    }
+
+    &__fieldset {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-width: 0;
+    }
+
+    &__title {
+        display: block;
+        float: none;
+        width: 100%;
+        margin: 0 0 8px;
+        padding: 0;
+        font-size: 24px;
+        line-height: 1.3;
+        font-weight: 600;
+        color: $hv-text;
+        text-transform: none;
+        letter-spacing: 0;
+
+        &--large { font-size: 34px; line-height: 1.2; margin-bottom: 12px; }
+    }
+    &__req { color: $hv-accent; margin-left: 4px; }
+
+    &__text {
+        font-size: 18px;
+        line-height: 1.5;
+        color: $hv-muted;
+        p { margin: 0 0 12px; }
+    }
+    &__help {
+        margin: 0 0 16px;
+        font-size: 15px;
+        color: $hv-muted;
+    }
+
+    // Choice cards
+    &__options {
+        display: grid;
+        gap: 8px;
+        margin-top: 20px;
+        max-width: 420px;
+
+        &--grid {
+            max-width: none;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            @media (max-width: 340px) { grid-template-columns: 1fr; }
+        }
+    }
+    &__option {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0;
+        padding: 10px 14px 10px 10px;
+        border: 1px solid $hv-border;
+        border-radius: $hv-radius;
+        background: #fff;
+        font-size: 16px;
+        line-height: 1.3;
+        font-weight: 400;
+        color: $hv-text;
+        cursor: pointer;
+        transition: border-color .15s, background-color .15s, box-shadow .15s;
+
+        &:hover { border-color: #a9adaf; background: #fafafa; }
+
+        input {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px;
+            margin: 0;
+        }
+
+        &:has(input:focus-visible) { box-shadow: 0 0 0 3px rgba($hv-accent, .25); }
+
+        &:has(input:checked) {
+            border-color: $hv-accent;
+            background: rgba($hv-accent, .06);
+            box-shadow: 0 0 0 1px $hv-accent;
+            .hv__key { background: $hv-accent; border-color: $hv-accent; color: #fff; }
+            .hv__tick { opacity: 1; }
+        }
+    }
+    &__key {
+        flex: 0 0 auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border: 1px solid $hv-border;
+        border-radius: 5px;
+        font-size: 12px;
+        font-weight: 600;
+        color: $hv-muted;
+        background: #fff;
+        transition: inherit;
+    }
+    &__option-label { flex: 1 1 auto; }
+    &__tick { flex: 0 0 auto; color: $hv-accent; opacity: 0; transition: opacity .15s; }
+
+    // Text inputs: underlined, like Tally
+    &__fields { display: grid; gap: 20px; margin-top: 24px; }
+    &__field { display: block; margin: 0; }
+    &__label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        color: $hv-text;
+    }
+    &__input-wrap {
+        position: relative;
+        margin-top: 20px;
+        &.has-prefix .hv__input { padding-left: 26px; }
+    }
+    &__prefix {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: $hv-muted;
+    }
+    &__input {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        margin: 0;
+        padding: 12px 12px;
+        border: 1px solid $hv-border;
+        border-radius: $hv-radius;
+        background: #fff;
+        font: inherit;
+        font-size: 18px;
+        line-height: 1.4;
+        color: $hv-text;
+        box-shadow: none;
+        transition: border-color .15s, box-shadow .15s;
+        -webkit-appearance: none;
+
+        &::placeholder { color: #a9adaf; }
+        &:focus {
+            outline: none;
+            border-color: $hv-accent;
+            box-shadow: 0 0 0 3px rgba($hv-accent, .18);
+        }
+        &--area { margin-top: 20px; min-height: 120px; resize: vertical; }
+    }
+    &__count { margin-top: 6px; text-align: right; font-size: 13px; }
+
+    &__error {
+        min-height: 0;
+        margin: 12px 0 0;
+        font-size: 14px;
+        color: $hv-accent;
+        &:empty { display: none; }
+        &--server { margin: 16px 0 0; ul { margin: 0; padding-left: 18px; } }
+    }
+    .hv__input[aria-invalid='true'] { border-color: $hv-accent; }
+
+    // Navigation
+    &__nav {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-top: 28px;
+    }
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        height: auto;
+        margin: 0;
+        padding: 12px 20px;
+        border: 0;
+        border-radius: $hv-radius;
+        background: $hv-btn;
+        color: #fff;
+        font: inherit;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: 0;
+        text-transform: none;
+        cursor: pointer;
+        transition: background-color .15s, transform .1s;
+
+        &:hover { background: #474747; }
+        &:active { transform: translateY(1px); }
+        &:focus-visible { outline: 3px solid rgba($hv-accent, .4); outline-offset: 2px; }
+        &:disabled { opacity: .6; cursor: default; }
+    }
+    &__hint {
+        font-size: 13px;
+        color: $hv-muted;
+        kbd {
+            font-family: inherit;
+            font-weight: 600;
+        }
+        @media (hover: none) { display: none; }
+    }
+
+    &__footer {
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 40px;
+        padding-top: 16px;
+        border-top: 1px solid #eef0f0;
+    }
+    &.is-ready &__footer { display: flex; }
+    &__back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin: 0;
+        padding: 6px 0;
+        border: 0;
+        background: none;
+        font: inherit;
+        font-size: 15px;
+        color: $hv-muted;
+        text-transform: none;
+        cursor: pointer;
+        &:hover { color: $hv-text; }
+        &[hidden] { display: none; }
+    }
+    &__counter { margin-left: auto; font-size: 13px; color: $hv-muted; }
+
+    // Hide letter keys on touch screens, where there's no keyboard
+    @media (hover: none) { &__key { display: none; } }
+
+    // Thank you
+    &__step--done { text-align: center; padding-top: 40px; }
+    &__done-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        margin-bottom: 20px;
+        border-radius: 50%;
+        background: rgba($hv-accent, .1);
+        color: $hv-accent;
+    }
+
+    @media (max-width: 600px) {
+        padding-top: 32px;
+        &__title { font-size: 21px; }
+        &__title--large { font-size: 28px; }
+        &__text { font-size: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        &.is-ready &__step.is-active { animation: none; }
+        &__progress-bar { transition: none; }
+    }
+}
+
+@keyframes hv-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+}
+@keyframes hv-in-back {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: none; }
+}

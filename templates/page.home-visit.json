@@ -1,0 +1,195 @@
+{
+  "sections": {
+    "main": {
+      "type": "home-visit-form",
+      "blocks": {
+        "q01": {
+          "type": "question",
+          "settings": {
+            "label": "What is the reason you are looking for a new carpet or flooring?",
+            "type": "single",
+            "options": "I have damaged floors that need replacing\nI want a new look\nI am moving home\nI am doing a renovation project"
+          }
+        },
+        "q02": {
+          "type": "question",
+          "settings": {
+            "label": "When do you need your new floor by?",
+            "type": "single",
+            "options": "Immediately\nIn the next 4 weeks\n1-3 months\n3 months +"
+          }
+        },
+        "q03": {
+          "type": "question",
+          "settings": {
+            "label": "How many people spend time in the home?",
+            "type": "single",
+            "options": "1\n2\n3\n4\n5\n6\n7\n8"
+          }
+        },
+        "q04": {
+          "type": "question",
+          "settings": {
+            "label": "What is the most important to you when choosing a new floor?",
+            "type": "single",
+            "options": "Colours\nPrice\nSoftness\nTimescale\nDurability"
+          }
+        },
+        "q05": {
+          "type": "question",
+          "settings": {
+            "label": "Do you have a budget in mind?",
+            "type": "number",
+            "prefix": "£",
+            "placeholder": "e.g. 1,500"
+          }
+        },
+        "q06": {
+          "type": "question",
+          "settings": {
+            "label": "Is there anything else you want to tell us about your project?",
+            "type": "textarea",
+            "max_length": 200
+          }
+        },
+        "q07": {
+          "type": "question",
+          "settings": {
+            "label": "What rooms in the property are you interested in flooring for?",
+            "type": "multiple",
+            "options": "Bedroom\nLounge\nStairs\nBathroom\nKitchen\nDining\nHall\nConservatory"
+          }
+        },
+        "q08": {
+          "type": "question",
+          "settings": {
+            "label": "What product types are you interested in?",
+            "type": "multiple",
+            "options": "Carpet\nVinyl\nLaminate\nLuxury Vinyl Tiles\nEngineered Wood"
+          }
+        },
+        "q09": {
+          "type": "question",
+          "settings": {
+            "label": "Do you have any specific colours in mind for your flooring?",
+            "type": "multiple",
+            "options": "Greys\nBrowns\nCreams\nBeiges\nWhites\nBlacks\nBlues\nGolds\nGreens\nOranges\nPinks\nPurples\nReds\nSilvers\nMulticolour"
+          }
+        },
+        "q10": {
+          "type": "question",
+          "settings": {
+            "label": "Do you know what sort of pattern you'd like on your flooring?",
+            "type": "single",
+            "options": "Plain/Solid\nPatterned\nStriped\nHerringbone"
+          }
+        },
+        "q11": {
+          "type": "question",
+          "settings": {
+            "label": "Already fallen in love with a specific range? Let us know which one:",
+            "type": "text"
+          }
+        },
+        "q12": {
+          "type": "question",
+          "settings": {
+            "label": "What sort of property are we visiting?",
+            "type": "single",
+            "options": "Semi-detached\nDetached\nTerraced\nFlat\nBungalow"
+          }
+        },
+        "q13": {
+          "type": "question",
+          "settings": {
+            "label": "Is this property your:",
+            "type": "single",
+            "options": "Primary Residence\nSecond Home\nNew Build\nRental Property (private landlord)\nRental Property (Council/Association Landlord)\nOther"
+          }
+        },
+        "q14": {
+          "type": "question",
+          "settings": {
+            "label": "Is the answer to any of the following 'Yes'?",
+            "type": "multiple",
+            "options": "Do you need a quote for insurance claim?\nDo you want to spread the cost with monthly payments?\nIs there building work currently in progress at the property?\nAre there pets (with claws) that live in the house?"
+          }
+        },
+        "q15": {
+          "type": "question",
+          "settings": {
+            "label": "What are you hoping to get from the home visit?",
+            "type": "multiple",
+            "options": "Help me choose products\nTo get rooms measured\nTo get a quote\nTo place an order"
+          }
+        },
+        "q16": {
+          "type": "question",
+          "settings": {
+            "label": "Is there parking for our Mobile Showroom at the property?",
+            "type": "single",
+            "options": "Driveway Parking\nOn Street Parking\nPermit Parking\nNo parking Available"
+          }
+        },
+        "q17": {
+          "type": "question",
+          "settings": {
+            "label": "Are you getting quotes elsewhere?",
+            "type": "single",
+            "options": "Yes\nNo"
+          }
+        },
+        "q18": {
+          "type": "question",
+          "settings": {
+            "label": "Have you visited one of our stores recently?",
+            "type": "single",
+            "options": "Yes\nNo"
+          }
+        },
+        "q19": {
+          "type": "question",
+          "settings": {
+            "label": "When would you ideally like your appointment?",
+            "type": "multiple",
+            "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday"
+          }
+        },
+        "q20": {
+          "type": "question",
+          "settings": {
+            "label": "Preferred time of day",
+            "type": "multiple",
+            "options": "Morning\nAfternoon"
+          }
+        }
+      },
+      "block_order": [
+        "q01",
+        "q02",
+        "q03",
+        "q04",
+        "q05",
+        "q06",
+        "q07",
+        "q08",
+        "q09",
+        "q10",
+        "q11",
+        "q12",
+        "q13",
+        "q14",
+        "q15",
+        "q16",
+        "q17",
+        "q18",
+        "q19",
+        "q20"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

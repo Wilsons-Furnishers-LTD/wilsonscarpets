@@ -1,4 +1,4 @@
-{{shop.metafields.comparison.feature}}
+{{shop.metafields.custom.compare_feature}}
 {% if shop.metafields.comparison.feature == 1 %}
 {% if product.type == 'Carpets' or product.type == 'LVT' or product.type == 'Vinyl' or product.type == 'Laminate' or product.type == 'Artificial Grass' or product.type == 'Real Wood' or product.type == 'Accessories & Underlay' or product.type == 'Rugs' or product.type == 'Bed' or product.type == 'Mattress' or product.type == 'Headboard' %}
     <button data-handle="{{ product.handle }}" data-type="{{ product.type }}"{% if variant %} data-variant-id="{{ variant.id }}"{% endif %} aria-label="Compare this product" class="compare-button" data-tooltip="Compare this product">

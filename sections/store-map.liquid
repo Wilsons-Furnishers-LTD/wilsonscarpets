@@ -1,0 +1,98 @@
+{{ 'store-map.css' | asset_url | stylesheet_tag }}
+{%- comment -%}
+    Store map: a Google map of the current store_page metaobject's location, styled like the /pages/stores
+    map (sections/store-locator.liquid). The map itself (style, pin, name label) is drawn by
+    snippets/store-google-map.liquid, which the store banner also uses when its media is set to Map.
+
+    Address card (top left of the map, like Google's embedded map card): store name, address and an "Open in Maps"
+    button - store_finder_place_id (Google Maps URL) if set, otherwise a Google Maps search link.
+    Styles: src/styles/store-map/_index.scss -> assets/store-map.css (npm run build)
+{%- endcomment -%}
+{%- assign store = metaobject -%}
+{%- assign store_name = store.store_finder_name.value | default: store.name.value -%}
+{%- assign store_lat = store.store_finder_lat.value -%}
+{%- assign store_long = store.store_finder_long.value -%}
+{%- assign store_address = store.address.value | newline_to_br | replace: '<br />', ', ' | strip_newlines -%}
+{%- assign place_id = store.google_place_id.value | strip -%}
+
+{%- comment -%} Where the Google Maps links point: coordinates if set, otherwise the store name + address {%- endcomment -%}
+{%- if store_lat != blank and store_long != blank -%}
+    {%- assign maps_destination = store_lat | append: ',' | append: store_long -%}
+{%- else -%}
+    {%- assign maps_destination = store_name | append: ', ' | append: store_address -%}
+{%- endif -%}
+{%- capture place_param -%}{% if place_id != blank %}&query_place_id={{ place_id | url_encode }}{% endif %}{%- endcapture -%}
+{%- assign open_url = store.store_finder_place_id.value | strip -%}
+{%- if open_url == blank -%}
+    {%- capture open_url -%}https://www.google.com/maps/search/?api=1&query={{ maps_destination | url_encode }}{{ place_param }}{%- endcapture -%}
+{%- endif -%}
+
+{%- comment -%} Liquid evaluates and/or right to left, so work out whether there's a location in steps {%- endcomment -%}
+{%- assign has_location = false -%}
+{%- if store_lat != blank and store_long != blank -%}{%- assign has_location = true -%}{%- endif -%}
+{%- if store_address != blank -%}{%- assign has_location = true -%}{%- endif -%}
+
+{% if has_location %}
+    <div class="store-map" data-section-id="{{ section.id }}" data-section-type="store-map">
+        {%- comment -%} Theme .wrapper: same max width (84.625em) and side padding as the rest of the page {%- endcomment -%}
+        <div class="wrapper">
+            <div class="store-map__frame" style="--store-map-height: {{ section.settings.height }}px;">
+                <div class="store-map__map"
+                    id="StoreMap-{{ section.id }}"
+                    role="region"
+                    aria-label="Map showing the location of {{ store_name | escape }}"></div>
+
+                <div class="store-map__card" id="StoreMapCard-{{ section.id }}">
+                    {% if store_name != blank %}
+                        <p class="store-map__card-name">{{ store_name | escape }}</p>
+                    {% endif %}
+                    {% if store_address != blank %}
+                        <address class="store-map__card-address">{{ store_address | escape }}</address>
+                    {% endif %}
+                    <div class="store-map__card-actions">
+                        <a class="store-map__card-open" data-open-link href="{{ open_url | escape }}" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7ZM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7Z"/></svg>
+                            Open in Maps<span class="visually-hidden"> (opens in a new tab)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {%- assign map_id = 'StoreMap-' | append: section.id -%}
+    {% render 'store-google-map', store: store, map_id: map_id, zoom: section.settings.zoom %}
+{% endif %}
+
+{% schema %}
+    {
+        "name": "Store Map",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "range",
+                "id": "zoom",
+                "label": "Zoom",
+                "min": 10,
+                "max": 18,
+                "step": 1,
+                "default": 15
+            },
+            {
+                "type": "range",
+                "id": "height",
+                "label": "Map height (desktop)",
+                "min": 250,
+                "max": 700,
+                "step": 50,
+                "unit": "px",
+                "default": 450
+            }
+        ],
+        "presets": [{
+            "name": "Store Map",
+            "category": "Image"
+        }]
+    }
+{% endschema %}

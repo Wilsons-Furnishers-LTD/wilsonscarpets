@@ -29,8 +29,6 @@ class Compare {
         this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style', 'Door Bar Length'];
         this.specificationsRugs = ['Material', 'Pile Height', 'Style', 'Door Bar Length'];
-        this.specificationsBed = ['Headboard Type', 'Headboard Design', 'Base'];
-        this.specificationsMattressHeadboard = ['Style'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
@@ -57,26 +55,6 @@ class Compare {
         this.openButton = document.querySelector('.compare-open-button');
         this.openButton?.addEventListener('click', () => {
             Compare.track('compare_open', { compare_count: this.getProducts().length });
-            this.openModal();
-        });
-
-        // Link above collection grids. Delegated, as filtering replaces the grid's HTML.
-        // With nothing added yet it points at the first product's compare button instead,
-        // and without the modal it links to the comparison page
-        document.addEventListener('click', event => {
-            if (!event.target.closest('.collection-compare__link')) return;
-
-            const count = this.getProducts().length;
-            if (count && !this.modalContainer) return;
-
-            event.preventDefault();
-
-            if (!count) {
-                this.showCompareHint();
-                return;
-            }
-
-            Compare.track('compare_open', { compare_count: count, origin: 'collection' });
             this.openModal();
         });
 
@@ -262,9 +240,9 @@ class Compare {
     }
 
     updateOpenButton() {
-        const count = this.getProducts().length;
-
         if (!this.openButton) return;
+
+        const count = this.getProducts().length;
 
         this.openButton.hidden = !count;
         this.openButton.setAttribute('aria-label', `Compare products (${count})`);
@@ -380,46 +358,6 @@ class Compare {
 
                 return variant ? { handle, variant: Number(variant) } : { handle };
             });
-    }
-
-    // Scrolls to the first product on the page and shows its compare tooltip
-    showCompareHint() {
-        const button = document.querySelector('.product-grid .compare-button');
-        if (!button) return;
-
-        const product = button.closest('.item') || button;
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        // The header is fixed and covers the top of the page, and it gets shorter once scrolled
-        const getHeaderBottom = () => Math.max(0, ...['shopify-section-header', 'mastHeadTop']
-            .map(id => document.getElementById(id)?.getBoundingClientRect().bottom || 0));
-
-        // Puts the top of the product, where the compare button is, just below the header.
-        // Centring it instead pushed the button off the top below 1024px, where products are taller than the screen
-        const scrollToProduct = behavior => {
-            const top = product.getBoundingClientRect().top + window.scrollY - getHeaderBottom() - 16;
-            window.scrollTo({ top: Math.max(0, top), behavior });
-        };
-
-        scrollToProduct(reduceMotion ? 'auto' : 'smooth');
-
-        // Wait for the scroll to finish so the tooltip's animation isn't missed. The timeout covers
-        // browsers without scrollend, and pages that didn't need to scroll
-        let shown = false;
-        const showTooltip = () => {
-            if (shown) return;
-            shown = true;
-
-            // The header shrinking or images loading above can move the product while scrolling, so correct for it
-            const { top, bottom } = button.getBoundingClientRect();
-            if (top < getHeaderBottom() || bottom > window.innerHeight) scrollToProduct('auto');
-
-            button.classList.add('compare-button--show-tooltip');
-            setTimeout(() => button.classList.remove('compare-button--show-tooltip'), 4000);
-        };
-
-        window.addEventListener('scrollend', showTooltip, { once: true });
-        setTimeout(showTooltip, 1000);
     }
 
     getStoredProducts() {
@@ -542,9 +480,6 @@ class Compare {
 
         this.renderNav();
         this.renderGrid();
-
-        // Nothing left to compare, so close the modal as clearing does
-        if (!products.length) this.closeModal();
     }
 
     // Shared between the modal and the comparison page, so a product is only fetched once
@@ -733,50 +668,7 @@ class Compare {
         return productCard;
     }
 
-    // The custom.specifications metafield (templates/product.compare.liquid), one "Field: value" per line,
-    // as a Map of field -> value. A list metafield comes as an array, a multi-line text one as a string
-    getMetafieldSpecifications(product) {
-        const raw = product.metafields?.specifications;
-        const lines = Array.isArray(raw) ? raw : (typeof raw === 'string' ? raw.split(/\r?\n/) : []);
-        const specifications = new Map();
-
-        lines.forEach(line => {
-            const index = String(line).indexOf(':');
-            if (index === -1) return;
-
-            const field = line.slice(0, index).trim();
-            const value = line.slice(index + 1).trim();
-
-            if (field && value && !specifications.has(field)) specifications.set(field, value);
-        });
-
-        return specifications;
-    }
-
-    // The type's specifications, then any other fields from the products' Specifications metafields,
-    // in the order they first appear. Field names are matched ignoring case
-    getTableSpecifications(type, products) {
-        const specifications = [...this.getSpecifications(type)];
-        const seen = new Set(specifications.map(specification => specification.toLowerCase()));
-
-        products.forEach(product => {
-            this.getMetafieldSpecifications(product).forEach((value, field) => {
-                if (seen.has(field.toLowerCase())) return;
-
-                seen.add(field.toLowerCase());
-                specifications.push(field);
-            });
-        });
-
-        return specifications;
-    }
-
-    // From the Specifications metafield if it has the field, otherwise from "{specification}_" tags
     getSpecificationValue(product, specification) {
-        for (const [field, value] of this.getMetafieldSpecifications(product)) {
-            if (field.toLowerCase() === specification.toLowerCase()) return value;
-        }
-
         const prefix = `${specification}_`;
 
         const value = (product.tags || [])
@@ -916,11 +808,6 @@ class Compare {
                 return this.specificationsAccessories;
             case 'Rugs':
                 return this.specificationsRugs;
-            case 'Bed':
-                return this.specificationsBed;
-            case 'Mattress':
-            case 'Headboard':
-                return this.specificationsMattressHeadboard;
             default:
                 return this.specifications;
         }
@@ -983,7 +870,7 @@ class Compare {
             this.createRow('Stock', products, product => this.createStockValue(product))
         );
 
-        this.getTableSpecifications(type, products)
+        this.getSpecifications(type)
             // Skip specifications none of the products have
             .filter(specification => products.some(product => this.getSpecificationValue(product, specification) !== '-'))
             .forEach(specification => {
@@ -1187,7 +1074,7 @@ class Compare {
     // packSize divides the "was" price to per m², as price should already be. The RRP_ tag is already per m².
     // Sold per item, so have no per m² unit
     getPriceUnit(type) {
-        return ['Accessories & Underlay', 'Rugs', 'Bed', 'Mattress', 'Headboard'].includes(type) ? '' : 'm²';
+        return ['Accessories & Underlay', 'Rugs'].includes(type) ? '' : 'm²';
     }
 
     getRrpPrice(product, price, compareAtInCents = false, packSize = 1) {

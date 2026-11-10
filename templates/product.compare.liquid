@@ -1,8 +1,7 @@
 {%- layout none -%}
 {%- comment -%}
   Product data for the compare table (src/scripts/compare.js), fetched with ?view=compare.
-  The same as products/{handle}.js, plus the Juno metafields the product page uses for stock,
-  and the custom.specifications metafield ("Field: value" lines, as in snippets/product-specifications.liquid).
+  The same as products/{handle}.js, plus the Juno metafields the product page uses for stock.
 {%- endcomment -%}
 
 {%- comment -%} Matches the stock status logic in snippets/product-details-top.liquid {%- endcomment -%}
@@ -34,7 +33,6 @@
     "lowstock": {{ product.metafields.Juno.lowstock.value | json }},
     "delivery_time": {{ product.metafields.Juno.Delivery_time.value | json }},
     "stock_status": {{ stockAvailability | json }},
-    "specifications": {{ product.metafields.custom.specifications.value | json }},
     "variants": [
       {%- for variant in product.variants -%}
         {

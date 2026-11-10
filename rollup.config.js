@@ -8,6 +8,7 @@ const entries = [
   'search',
   'products',
   'finance',
+  'compare',
 ];
 
 const configs = [];

@@ -228,10 +228,26 @@
         );
     };
 
+    // Honeypot filled in = a bot. Send nothing (no Shopify email, no Klaviyo)
+    // but show the normal thank-you screen so it looks like it worked.
+    const isBot = () => !!root.querySelector('[data-hv-honeypot]')?.value.trim();
+
+    const fakeSuccess = () => {
+        const thanks = root.querySelector('template[data-hv-thanks]');
+        form.replaceChildren(thanks.content.cloneNode(true));
+        root.scrollIntoView({ block: 'start' });
+        form.querySelector('[data-hv-fake-success]')?.focus({ preventScroll: true });
+    };
+
     const submit = async () => {
         const btn = root.querySelector('[data-hv-submit]');
         btn.disabled = true;
         btn.textContent = 'Sending…';
+
+        if (isBot()) {
+            fakeSuccess();
+            return;
+        }
 
         const consent = root.querySelector('[data-hv-consent]');
         const optedIn = !!consent?.checked;

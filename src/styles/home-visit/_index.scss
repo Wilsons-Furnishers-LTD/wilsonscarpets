@@ -367,3 +367,13 @@ $hv-radius: 8px;
 .hv__consent input:focus-visible + .hv__consent-box {
     box-shadow: 0 0 0 3px rgba(186, 60, 61, .25);
 }
+
+// Honeypot: off-screen rather than display:none, so bots still see and fill it
+.hv__hp {
+    position: absolute !important;
+    left: -10000px !important;
+    top: auto !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+}

@@ -23,15 +23,19 @@
     data-klaviyo-event="{{ section.settings.klaviyo_event_name | default: 'Booked Home Visit' | strip | escape }}"
   {%- endif %}
 >
-  {%- form 'contact', id: 'home-visit-form', class: 'hv__form', novalidate: 'novalidate' -%}
-    {%- if form.posted_successfully? -%}
-      <div class="hv__step hv__step--done is-active" tabindex="-1" data-hv-success>
+  {%- capture hv_thanks -%}
+      <div class="hv__step hv__step--done is-active" tabindex="-1" {data}>
         <div class="hv__done-icon" aria-hidden="true">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <h2 class="hv__title">{{ section.settings.success_heading }}</h2>
         <div class="hv__text">{{ section.settings.success_text }}</div>
       </div>
+  {%- endcapture -%}
+
+  {%- form 'contact', id: 'home-visit-form', class: 'hv__form', novalidate: 'novalidate' -%}
+    {%- if form.posted_successfully? -%}
+      {{ hv_thanks | replace: '{data}', 'data-hv-success' }}
     {%- else -%}
       <input type="hidden" name="contact[Form]" value="Book a home visit">
 
@@ -174,6 +178,16 @@
           </label>
         </div>
 
+        {%- comment -%}
+          Honeypot: hidden from people (off-screen, not focusable, ignored by screen
+          readers and password managers) but bots that fill in every field will fill
+          it. See src/scripts/home-visit.js. Not display:none, which some bots skip.
+        {%- endcomment -%}
+        <div class="hv__hp" aria-hidden="true">
+          <label for="hv-website">Website</label>
+          <input type="text" id="hv-website" name="contact[website]" value="" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" data-hv-honeypot>
+        </div>
+
         {%- if show_consent -%}
           <input type="hidden" name="contact[Marketing opt-in]" value="No" data-hv-consent-value>
           <label class="hv__consent">
@@ -191,6 +205,8 @@
           <button type="submit" class="hv__btn" data-hv-submit>{{ section.settings.submit_label }}</button>
         </div>
       </section>
+
+      <template data-hv-thanks>{{ hv_thanks | replace: '{data}', 'data-hv-fake-success' }}</template>
 
       <div class="hv__footer">
         <button type="button" class="hv__back" data-hv-back hidden>

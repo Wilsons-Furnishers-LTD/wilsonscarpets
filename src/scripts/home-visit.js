@@ -129,15 +129,123 @@
         }
     };
 
-    const submit = () => {
+    // ---- Klaviyo -------------------------------------------------------
+    // Uses Klaviyo's client API, which is made to be called from the browser
+    // with the public site ID only. The Shopify email is the record of truth,
+    // so a Klaviyo failure never stops the booking from being sent.
+    const KLAVIYO_REVISION = '2024-10-15';
+    const klaviyo = {
+        key: root.dataset.klaviyoKey,
+        list: root.dataset.klaviyoList,
+        event: root.dataset.klaviyoEvent || 'Booked Home Visit',
+    };
+
+    // Klaviyo rejects the whole request if a phone isn't in +44... form, so
+    // convert UK numbers and drop anything we can't make sense of.
+    const toE164 = (raw) => {
+        let d = raw.replace(/[^\d+]/g, '');
+        if (d.startsWith('+')) return /^\+\d{8,15}$/.test(d) ? d : null;
+        if (d.startsWith('00')) d = d.slice(2);
+        else if (d.startsWith('0')) d = `44${d.slice(1)}`;
+        else if (!d.startsWith('44')) return null;
+        return /^44\d{9,10}$/.test(d) ? `+${d}` : null;
+    };
+
+    const collectAnswers = () => {
+        const answers = {};
+        root.querySelectorAll('[data-hv-label]').forEach((step) => {
+            const label = step.dataset.hvLabel;
+            const type = step.dataset.type;
+            let value;
+            if (type === 'single') {
+                value = step.querySelector('input[type="radio"]:checked')?.value;
+            } else if (type === 'multiple') {
+                const picked = [...step.querySelectorAll('[data-hv-multi]:checked')].map((c) => c.value);
+                value = picked.length ? picked : undefined;
+            } else {
+                value = step.querySelector('.hv__input')?.value.trim() || undefined;
+                if (value && type === 'number') {
+                    const n = Number(value.replace(/[£,\s]/g, ''));
+                    if (!Number.isNaN(n)) value = n;
+                }
+            }
+            if (value !== undefined) answers[label] = value;
+        });
+        return answers;
+    };
+
+    const klaviyoPost = (endpoint, data) =>
+        fetch(`https://a.klaviyo.com/client/${endpoint}/?company_id=${encodeURIComponent(klaviyo.key)}`, {
+            method: 'POST',
+            keepalive: true,
+            headers: { 'Content-Type': 'application/json', revision: KLAVIYO_REVISION },
+            body: JSON.stringify({ data }),
+        }).then((res) => {
+            if (!res.ok) throw new Error(`Klaviyo ${endpoint} ${res.status}`);
+        });
+
+    const sendToKlaviyo = (optedIn) => {
+        if (!klaviyo.key) return Promise.resolve();
+        const name = form.querySelector('[name="contact[name]"]').value.trim();
+        const email = form.querySelector('[name="contact[email]"]').value.trim();
+        const phone = toE164(form.querySelector('[name="contact[phone]"]').value);
+        const [firstName, ...rest] = name.split(/\s+/);
+
+        const profile = { email, first_name: firstName, last_name: rest.join(' ') || undefined };
+        if (phone) profile.phone_number = phone;
+
+        const requests = [
+            klaviyoPost('events', {
+                type: 'event',
+                attributes: {
+                    properties: { ...collectAnswers(), 'Marketing opt-in': optedIn, 'Page': window.location.pathname },
+                    metric: { data: { type: 'metric', attributes: { name: klaviyo.event } } },
+                    profile: { data: { type: 'profile', attributes: profile } },
+                },
+            }),
+        ];
+
+        if (optedIn && klaviyo.list) {
+            requests.push(
+                klaviyoPost('subscriptions', {
+                    type: 'subscription',
+                    attributes: {
+                        custom_source: 'Book a home visit form',
+                        profile: {
+                            data: {
+                                type: 'profile',
+                                attributes: { email, subscriptions: { email: { marketing: { consent: 'SUBSCRIBED' } } } },
+                            },
+                        },
+                    },
+                    relationships: { list: { data: { type: 'list', id: klaviyo.list } } },
+                })
+            );
+        }
+
+        return Promise.allSettled(requests).then((results) =>
+            results.forEach((r) => r.status === 'rejected' && console.warn('[home-visit]', r.reason))
+        );
+    };
+
+    const submit = async () => {
         const btn = root.querySelector('[data-hv-submit]');
         btn.disabled = true;
         btn.textContent = 'Sending…';
+
+        const consent = root.querySelector('[data-hv-consent]');
+        const optedIn = !!consent?.checked;
+        const consentValue = root.querySelector('[data-hv-consent-value]');
+        if (consentValue) consentValue.value = optedIn ? 'Yes' : 'No';
+
         // Shopify's contact form ignores array fields, so multi choices go as one line.
         root.querySelectorAll('[data-type="multiple"]').forEach((step) => {
             const picked = [...step.querySelectorAll('[data-hv-multi]:checked')].map((c) => c.value);
             step.querySelector('[data-hv-multi-target]').value = picked.join(', ');
         });
+
+        // Give Klaviyo up to 4 seconds, then send the form regardless.
+        await Promise.race([sendToKlaviyo(optedIn), new Promise((r) => setTimeout(r, 4000))]);
         form.submit();
     };
 

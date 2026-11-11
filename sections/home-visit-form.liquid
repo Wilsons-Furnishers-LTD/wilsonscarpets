@@ -9,7 +9,20 @@
 {{ 'home-visit.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'home-visit.js' | asset_url }}" defer></script>
 
-<div class="hv" data-home-visit>
+{%- assign klaviyo_on = false -%}
+{%- if section.settings.klaviyo_public_key != blank -%}{%- assign klaviyo_on = true -%}{%- endif -%}
+{%- assign show_consent = false -%}
+{%- if klaviyo_on and section.settings.klaviyo_list_id != blank -%}{%- assign show_consent = true -%}{%- endif -%}
+
+<div
+  class="hv"
+  data-home-visit
+  {% if klaviyo_on -%}
+    data-klaviyo-key="{{ section.settings.klaviyo_public_key | strip | escape }}"
+    data-klaviyo-list="{{ section.settings.klaviyo_list_id | strip | escape }}"
+    data-klaviyo-event="{{ section.settings.klaviyo_event_name | default: 'Booked Home Visit' | strip | escape }}"
+  {%- endif %}
+>
   {%- form 'contact', id: 'home-visit-form', class: 'hv__form', novalidate: 'novalidate' -%}
     {%- if form.posted_successfully? -%}
       <div class="hv__step hv__step--done is-active" tabindex="-1" data-hv-success>
@@ -52,6 +65,7 @@
           class="hv__step"
           data-hv-step
           data-type="{{ q.type }}"
+          data-hv-label="{{ q.label | strip | escape }}"
           {% if q.required %}data-required{% endif %}
           tabindex="-1"
           {{ block.shopify_attributes }}
@@ -160,6 +174,17 @@
           </label>
         </div>
 
+        {%- if show_consent -%}
+          <input type="hidden" name="contact[Marketing opt-in]" value="No" data-hv-consent-value>
+          <label class="hv__consent">
+            <input type="checkbox" data-hv-consent>
+            <span class="hv__consent-box" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="hv__consent-label">{{ section.settings.consent_label }}</span>
+          </label>
+        {%- endif -%}
+
         <p class="hv__error" role="alert" data-hv-error></p>
 
         <div class="hv__nav">
@@ -195,7 +220,13 @@
     { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Book my home visit" },
     { "type": "header", "content": "Thank you" },
     { "type": "text", "id": "success_heading", "label": "Heading", "default": "Thanks, we've got your details!" },
-    { "type": "richtext", "id": "success_text", "label": "Text", "default": "<p>One of our flooring experts will be in touch shortly to arrange your home visit.</p>" }
+    { "type": "richtext", "id": "success_text", "label": "Text", "default": "<p>One of our flooring experts will be in touch shortly to arrange your home visit.</p>" },
+    { "type": "header", "content": "Klaviyo" },
+    { "type": "paragraph", "content": "Bookings are always emailed via Shopify. Add a public API key to also send each booking to Klaviyo as an event on the customer's profile." },
+    { "type": "text", "id": "klaviyo_public_key", "label": "Public API key (site ID)", "info": "Klaviyo → Settings → API keys. The 6-character public key, never a private key." },
+    { "type": "text", "id": "klaviyo_event_name", "label": "Event name", "default": "Booked Home Visit", "info": "Use this as the trigger for flows. Changing it starts a new metric in Klaviyo." },
+    { "type": "text", "id": "klaviyo_list_id", "label": "Marketing list ID", "info": "Customers who tick the opt-in box are subscribed to this list. Leave blank to hide the opt-in box." },
+    { "type": "text", "id": "consent_label", "label": "Opt-in text", "default": "Keep me updated with offers and inspiration from Wilsons Carpets by email. You can unsubscribe at any time." }
   ],
   "blocks": [
     {

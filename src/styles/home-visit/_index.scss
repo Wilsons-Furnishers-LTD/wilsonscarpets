@@ -322,3 +322,48 @@ $hv-radius: 8px;
     from { opacity: 0; transform: translateY(-16px); }
     to { opacity: 1; transform: none; }
 }
+
+// Marketing opt-in tickbox on the contact step
+.hv__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 24px 0 0;
+    font-size: 15px;
+    line-height: 1.45;
+    font-weight: 400;
+    color: #2b2b2b;
+    cursor: pointer;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        width: 1px;
+        height: 1px;
+        margin: 0;
+    }
+}
+.hv__consent-box {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    border: 1px solid #a9adaf;
+    border-radius: 5px;
+    background: #fff;
+    color: #fff;
+    transition: background-color .15s, border-color .15s;
+
+    svg { opacity: 0; transition: opacity .15s; }
+}
+.hv__consent input:checked + .hv__consent-box {
+    background: #ba3c3d;
+    border-color: #ba3c3d;
+    svg { opacity: 1; }
+}
+.hv__consent input:focus-visible + .hv__consent-box {
+    box-shadow: 0 0 0 3px rgba(186, 60, 61, .25);
+}

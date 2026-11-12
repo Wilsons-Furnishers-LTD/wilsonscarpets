@@ -77,6 +77,11 @@
                 const msg = qs.length > 1 ? `Please answer "${q.dataset.hvLabel}".` : 'Please answer this question to continue.';
                 return [q.querySelector('input, textarea'), msg];
             }
+            // Required question with "Other" picked: the "Please specify" box must be filled in too.
+            const otherText = q.querySelector('[data-hv-other-text]');
+            if (q.hasAttribute('data-required') && otherText && q.querySelector('[data-hv-other]:checked') && !otherText.value.trim()) {
+                return [otherText, 'Please tell us a bit more about your "Other" answer.'];
+            }
             if (q.dataset.type === 'number') {
                 const field = q.querySelector('.hv__input');
                 const v = field.value.trim().replace(/[£,\s]/g, '');

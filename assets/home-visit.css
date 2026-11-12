@@ -541,3 +541,28 @@
 .pac-item-query {
   font-size: 15px;
 }
+
+.hv__step:has(.hv__options) .hv__nav {
+  flex-wrap: wrap;
+}
+.hv__step:has(.hv__options) .hv__btn {
+  width: 100%;
+  max-width: 420px;
+  justify-content: center;
+}
+
+.hv__step:has(.hv__options--grid) .hv__btn {
+  max-width: none;
+}
+
+.hv button:hover,
+.hv button:focus,
+.hv button:active {
+  border: 0;
+}
+
+.hv .hv__link:hover,
+.hv .hv__link:focus,
+.hv .hv__link:active {
+  background: none;
+}

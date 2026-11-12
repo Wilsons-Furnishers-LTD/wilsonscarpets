@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 48px 40px 64px;
   min-height: 70vh;
-  color: #2b2b2b;
+  color: #414B52;
   font-family: "gill-sans-nova", "Gill Sans Nova", sans-serif;
   box-sizing: border-box;
 }
@@ -66,7 +66,7 @@
   font-size: 24px;
   line-height: 1.3;
   font-weight: 600;
-  color: #2b2b2b;
+  color: #414B52;
   text-transform: none;
   letter-spacing: 0;
 }
@@ -120,7 +120,7 @@
   font-size: 16px;
   line-height: 1.3;
   font-weight: 400;
-  color: #2b2b2b;
+  color: #414B52;
   cursor: pointer;
   transition: border-color 0.15s, background-color 0.15s, box-shadow 0.15s;
 }
@@ -169,7 +169,7 @@
   margin-bottom: 6px;
   font-size: 15px;
   font-weight: 600;
-  color: #2b2b2b;
+  color: #414B52;
 }
 .hv__input-wrap {
   position: relative;
@@ -199,7 +199,7 @@
   font: inherit;
   font-size: 18px;
   line-height: 1.4;
-  color: #2b2b2b;
+  color: #414B52;
   box-shadow: none;
   transition: border-color 0.15s, box-shadow 0.15s;
   -webkit-appearance: none;
@@ -256,7 +256,7 @@
   padding: 12px 20px;
   border: 0;
   border-radius: 0;
-  background: #2b2b2b;
+  background: #414B52;
   color: #fff;
   font: inherit;
   font-size: 16px;
@@ -268,7 +268,7 @@
   transition: background-color 0.15s, transform 0.1s;
 }
 .hv__btn:hover {
-  background: #474747;
+  background: #575E5F;
 }
 .hv__btn:active {
   transform: translateY(1px);
@@ -320,7 +320,7 @@
   cursor: pointer;
 }
 .hv__back:hover {
-  color: #2b2b2b;
+  color: #414B52;
 }
 .hv__back[hidden] {
   display: none;
@@ -400,7 +400,7 @@
   font-size: 15px;
   line-height: 1.45;
   font-weight: 400;
-  color: #2b2b2b;
+  color: #414B52;
   cursor: pointer;
 }
 .hv__consent input {
@@ -515,7 +515,7 @@
   cursor: pointer;
 }
 .hv__link:hover {
-  color: #2b2b2b;
+  color: #414B52;
 }
 
 .pac-container {

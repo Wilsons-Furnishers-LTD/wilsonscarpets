@@ -56,7 +56,7 @@
           "settings": {
             "label": "What is the most important to you when choosing a new floor?",
             "type": "single",
-            "options": "Colours\nPrice\nSoftness\nTimescale\nDurability",
+            "options": "Colours\nPrice\nSoftness\nDurability",
             "required": false,
             "help": "",
             "placeholder": "",

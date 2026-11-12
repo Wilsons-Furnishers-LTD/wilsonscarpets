@@ -15,7 +15,7 @@
 {%- if klaviyo_on and section.settings.klaviyo_list_id != blank -%}{%- assign show_consent = true -%}{%- endif -%}
 
 <div
-  class="hv"
+  class="hv hv--loading"
   data-home-visit
   {% if klaviyo_on -%}
     data-klaviyo-key="{{ section.settings.klaviyo_public_key | strip | escape }}"
@@ -23,6 +23,23 @@
     data-klaviyo-event="{{ section.settings.klaviyo_event_name | default: 'Booked Home Visit' | strip | escape }}"
   {%- endif %}
 >
+  {%- comment -%}
+    Loading spinner: shown until home-visit.js has set the form up (it removes
+    hv--loading), so customers never see every question stacked up first.
+    If the script fails to load, the form is shown anyway after 8 seconds;
+    without JavaScript it is shown straight away.
+  {%- endcomment -%}
+  <div class="hv__loader" role="status">
+    <span class="hv__spinner" aria-hidden="true"></span>
+    <span class="hv__loader-text">Loading…</span>
+  </div>
+  <noscript><style>.hv.hv--loading .hv__form { display: block; } .hv.hv--loading .hv__loader { display: none; }</style></noscript>
+  <script>
+    setTimeout(function () {
+      document.querySelectorAll('[data-home-visit].hv--loading').forEach(function (el) { el.classList.remove('hv--loading'); });
+    }, 8000);
+  </script>
+
   {%- capture hv_thanks -%}
       <div class="hv__step hv__step--done is-active" tabindex="-1" HV_DATA_ATTR>
         <div class="hv__done-icon" aria-hidden="true">

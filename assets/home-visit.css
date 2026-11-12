@@ -536,3 +536,41 @@
 .pac-item-query {
   font-size: 15px;
 }
+
+.hv__loader {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 320px;
+  color: #6b6f72;
+  font-size: 14px;
+}
+
+.hv--loading .hv__form {
+  display: none;
+}
+.hv--loading .hv__loader {
+  display: flex;
+}
+
+.hv__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #eef0f0;
+  border-top-color: #ba3c3d;
+  border-radius: 50%;
+  animation: hv-spin 0.8s linear infinite;
+}
+
+@keyframes hv-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hv__spinner {
+    animation-duration: 2.4s;
+  }
+}

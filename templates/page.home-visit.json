@@ -171,10 +171,10 @@
         "q14": {
           "type": "question",
           "settings": {
-            "label": "Is the answer to any of the following 'Yes'?",
+            "label": "Do any of the following apply to your quote?",
             "type": "multiple",
-            "options": "Do you need a quote for insurance claim?\nDo you want to spread the cost with monthly payments?\nIs there building work currently in progress at the property?\nAre there pets (with claws) that live in the house?",
-            "required": false,
+            "options": "You require a quote for an insurance claim.\nYou would like to spread the cost through monthly payments.\nBuilding work is currently taking place at the property.\nYou have pets with claws living in the property.",
+            "required": true,
             "help": "",
             "placeholder": "",
             "prefix": "",

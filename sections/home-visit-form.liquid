@@ -64,9 +64,8 @@
       {%- comment -%}
         One step per question block. A block with "Show on the same step as the
         previous question" ticked joins the step before it, so several questions
-        can share a screen. Letter keys (A, B, C…) carry on across the step.
+        can share a screen.
       {%- endcomment -%}
-      {%- assign letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' | split: ',' -%}
       {%- for block in section.blocks -%}
         {%- assign q = block.settings -%}
         {%- assign field_name = q.label | strip | escape | prepend: 'contact[' | append: ']' -%}
@@ -80,7 +79,6 @@
         {%- if next_block and next_block.settings.group_with_previous -%}{%- assign ends_step = false -%}{%- endif -%}
 
         {%- if starts_step -%}
-          {%- assign n = 0 -%}
           <section class="hv__step{% unless ends_step %} hv__step--group{% endunless %}" data-hv-step tabindex="-1">
         {%- endif -%}
 
@@ -115,11 +113,9 @@
                         {%- else -%}
                           <input type="checkbox" value="{{ value | escape }}" data-hv-multi>
                         {%- endif -%}
-                        <span class="hv__key" aria-hidden="true">{{ letters[n] }}</span>
                         <span class="hv__option-label">{{ value | escape }}</span>
                         <svg class="hv__tick" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       </label>
-                      {%- assign n = n | plus: 1 -%}
                     {%- endif -%}
                   {%- endfor -%}
                 </div>

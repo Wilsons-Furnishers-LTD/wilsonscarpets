@@ -113,7 +113,7 @@
   align-items: center;
   gap: 12px;
   margin: 0;
-  padding: 10px 14px 10px 10px;
+  padding: 12px 14px 12px 16px;
   border: 1px solid #dcdfe0;
   border-radius: 8px;
   background: #fff;
@@ -143,28 +143,8 @@
   background: rgba(186, 60, 61, 0.06);
   box-shadow: 0 0 0 1px #ba3c3d;
 }
-.hv__option:has(input:checked) .hv__key {
-  background: #ba3c3d;
-  border-color: #ba3c3d;
-  color: #fff;
-}
 .hv__option:has(input:checked) .hv__tick {
   opacity: 1;
-}
-.hv__key {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border: 1px solid #dcdfe0;
-  border-radius: 5px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #6b6f72;
-  background: #fff;
-  transition: inherit;
 }
 .hv__option-label {
   flex: 1 1 auto;
@@ -353,11 +333,6 @@
 }
 .hv__counter:empty {
   display: none;
-}
-@media (hover: none) {
-  .hv__key {
-    display: none;
-  }
 }
 .hv__step--done {
   text-align: center;

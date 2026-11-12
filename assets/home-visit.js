@@ -1,7 +1,7 @@
 /*
  * Book a home visit (sections/home-visit-form.liquid)
  * One question per step, Tally style: Next/Back, progress bar, Enter to continue,
- * letter keys to pick a choice, and single choices move on automatically.
+ * and single choices move on automatically.
  */
 (() => {
     const root = document.querySelector('[data-home-visit]');
@@ -311,35 +311,17 @@
         if (count && e.target.tagName === 'TEXTAREA') count.textContent = e.target.value.length;
     });
 
-    // Keyboard: Enter continues, letters pick choices
+    // Keyboard: Enter continues
     // Listen on the document so keys work before anything in the form has focus,
     // but leave the header search, newsletter popup etc. alone.
     document.addEventListener('keydown', (e) => {
         if (e.metaKey || e.ctrlKey || e.altKey) return;
         if (!root.contains(e.target) && e.target !== document.body) return;
-        const step = steps[current];
-        const inText = e.target.matches('input[type="text"], input[type="email"], input[type="tel"], textarea');
-
         if (e.key === 'Enter') {
             if (e.target.tagName === 'TEXTAREA' && e.shiftKey) return; // new line
             if (e.target.tagName === 'BUTTON') return; // let the button handle it
             e.preventDefault();
             next();
-            return;
-        }
-
-        if (!inText && /^[a-z]$/i.test(e.key)) {
-            const options = step.querySelectorAll('.hv__option input');
-            const input = options[e.key.toUpperCase().charCodeAt(0) - 65];
-            if (!input) return;
-            e.preventDefault();
-            if (input.type === 'radio') {
-                input.checked = true;
-            } else {
-                input.checked = !input.checked;
-            }
-            input.focus();
-            input.dispatchEvent(new Event('change', { bubbles: true }));
         }
     });
 

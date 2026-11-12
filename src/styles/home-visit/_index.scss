@@ -21,19 +21,26 @@ $hv-radius: 8px;
 
     &__form { position: relative; }
 
-    // Progress bar along the top of the page
+    // Progress bar above the form, with the "8 of 21" counter beside it.
+    // Hidden without JS, when every question shows at once.
+    &__progress-row {
+        display: none;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 40px;
+    }
+    &.is-ready &__progress-row { display: flex; }
     &__progress {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: transparent;
-        z-index: 1000;
+        flex: 1 1 auto;
+        height: 6px;
+        border-radius: 3px;
+        background: #eef0f0;
+        overflow: hidden;
     }
     &__progress-bar {
         height: 100%;
         width: 0;
+        border-radius: inherit;
         background: $hv-accent;
         transition: width .35s ease;
     }
@@ -282,7 +289,7 @@ $hv-radius: 8px;
         &:hover { color: $hv-text; }
         &[hidden] { display: none; }
     }
-    &__counter { margin-left: auto; font-size: 13px; color: $hv-muted; }
+    &__counter { flex: 0 0 auto; font-size: 13px; color: $hv-muted; white-space: nowrap; &:empty { display: none; } }
 
     // Hide letter keys on touch screens, where there's no keyboard
     @media (hover: none) { &__key { display: none; } }

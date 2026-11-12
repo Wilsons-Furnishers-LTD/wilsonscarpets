@@ -13,18 +13,26 @@
 .hv__form {
   position: relative;
 }
+.hv__progress-row {
+  display: none;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.hv.is-ready .hv__progress-row {
+  display: flex;
+}
 .hv__progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: transparent;
-  z-index: 1000;
+  flex: 1 1 auto;
+  height: 6px;
+  border-radius: 3px;
+  background: #eef0f0;
+  overflow: hidden;
 }
 .hv__progress-bar {
   height: 100%;
   width: 0;
+  border-radius: inherit;
   background: #ba3c3d;
   transition: width 0.35s ease;
 }
@@ -338,9 +346,13 @@
   display: none;
 }
 .hv__counter {
-  margin-left: auto;
+  flex: 0 0 auto;
   font-size: 13px;
   color: #6b6f72;
+  white-space: nowrap;
+}
+.hv__counter:empty {
+  display: none;
 }
 @media (hover: none) {
   .hv__key {

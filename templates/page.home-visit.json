@@ -77,19 +77,6 @@
             "max_length": 0
           }
         },
-        "q06": {
-          "type": "question",
-          "settings": {
-            "label": "Is there anything else you want to tell us about your project?",
-            "type": "textarea",
-            "options": "",
-            "required": false,
-            "help": "",
-            "placeholder": "",
-            "prefix": "",
-            "max_length": 200
-          }
-        },
         "q07": {
           "type": "question",
           "settings": {
@@ -220,6 +207,19 @@
             "max_length": 0
           }
         },
+        "q06": {
+          "type": "question",
+          "settings": {
+            "label": "Is there anything else you want to tell us about your project?",
+            "type": "textarea",
+            "options": "",
+            "required": false,
+            "help": "",
+            "placeholder": "",
+            "prefix": "",
+            "max_length": 200
+          }
+        },
         "q17": {
           "type": "question",
           "settings": {
@@ -246,12 +246,12 @@
             "max_length": 0
           }
         },
-        "q19": {
+        "q20": {
           "type": "question",
           "settings": {
-            "label": "When would you ideally like your appointment?",
+            "label": "Preferred time of day",
             "type": "multiple",
-            "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+            "options": "Morning\nAfternoon",
             "required": false,
             "help": "",
             "placeholder": "",
@@ -259,12 +259,12 @@
             "max_length": 0
           }
         },
-        "q20": {
+        "q19": {
           "type": "question",
           "settings": {
-            "label": "Preferred time of day",
+            "label": "When would you ideally like your appointment?",
             "type": "multiple",
-            "options": "Morning\nAfternoon",
+            "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
             "required": false,
             "help": "",
             "placeholder": "",
@@ -279,7 +279,6 @@
         "q03",
         "q04",
         "q05",
-        "q06",
         "q07",
         "q08",
         "q09",
@@ -290,10 +289,11 @@
         "q14",
         "q15",
         "q16",
+        "q06",
         "q17",
         "q18",
-        "q19",
-        "q20"
+        "q20",
+        "q19"
       ],
       "settings": {
         "heading": "We'll come to you!",

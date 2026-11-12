@@ -98,7 +98,6 @@ $hv-radius: 0;
         display: grid;
         gap: 8px;
         margin-top: 20px;
-        max-width: 420px;
 
         &--grid {
             max-width: none;
@@ -237,15 +236,6 @@ $hv-radius: 0;
         &:active { transform: translateY(1px); }
         &:focus-visible { outline: 3px solid rgba($hv-accent, .4); outline-offset: 2px; }
         &:disabled { opacity: .6; cursor: default; }
-    }
-    &__hint {
-        font-size: 13px;
-        color: $hv-muted;
-        kbd {
-            font-family: inherit;
-            font-weight: 600;
-        }
-        @media (hover: none) { display: none; }
     }
 
     &__footer {
@@ -388,12 +378,10 @@ $hv-radius: 0;
 // "Please specify" box under an "Other" choice
 .hv__other {
     margin-top: 10px;
-    max-width: 420px;
 
     &[hidden] { display: none; }
     .hv__input { font-size: 16px; padding: 10px 12px; }
 }
-.hv__options--grid + .hv__other { max-width: none; }
 
 // Address lookup on the contact step
 .hv__address {
@@ -448,18 +436,10 @@ $hv-radius: 0;
 // Loading spinner styles are inline in sections/home-visit-form.liquid, so the
 // form is hidden before this stylesheet has loaded.
 
-// On choice questions the Next button is as wide as the options:
-// 420px under a single column, full width under a two-column grid.
-.hv__step:has(.hv__options) {
-    .hv__nav { flex-wrap: wrap; }
-    .hv__btn {
-        width: 100%;
-        max-width: 420px;
-        justify-content: center;
-    }
-}
-.hv__step:has(.hv__options--grid) .hv__btn {
-    max-width: none;
+// Buttons fill the form's width on every step, like the options and inputs.
+.hv .hv__btn {
+    width: 100%;
+    justify-content: center;
 }
 
 // The site's global button:hover/focus adds a 1px border (and a dark
@@ -474,4 +454,10 @@ $hv-radius: 0;
 .hv .hv__link:focus,
 .hv .hv__link:active {
     background: none;
+}
+
+// Text-style buttons keep their natural width (the site sets every button to 100%)
+.hv .hv__back,
+.hv .hv__link {
+    width: auto;
 }

@@ -264,7 +264,7 @@
           "settings": {
             "label": "When would you ideally like your appointment?",
             "type": "multiple",
-            "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday\nSunday",
+            "options": "Monday\nTuesday\nWednesday\nThursday\nFriday\nSaturday",
             "required": false,
             "help": "",
             "placeholder": "",

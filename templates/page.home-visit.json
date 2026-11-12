@@ -253,6 +253,7 @@
             "type": "multiple",
             "options": "Morning\nAfternoon",
             "required": false,
+            "group_with_previous": true,
             "help": "",
             "placeholder": "",
             "prefix": "",

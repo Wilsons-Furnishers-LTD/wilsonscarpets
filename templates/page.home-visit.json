@@ -164,7 +164,7 @@
             "options": "Driveway Parking\nOn Street Parking\nPermit Parking\nNo parking Available\nOther",
             "other_text": true,
             "other_placeholder": "Please specify",
-            "required": false,
+            "required": true,
             "group_with_previous": false,
             "help": "",
             "placeholder": "",

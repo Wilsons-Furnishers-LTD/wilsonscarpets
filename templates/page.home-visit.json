@@ -116,7 +116,7 @@
             "label": "Do any of the following apply to your quote?",
             "type": "multiple",
             "options": "You require a quote for an insurance claim.\nYou would like to spread the cost through monthly payments.\nBuilding work is currently taking place at the property.\nYou have pets with claws living in the property.",
-            "required": true,
+            "required": false,
             "group_with_previous": false,
             "help": "",
             "placeholder": "",

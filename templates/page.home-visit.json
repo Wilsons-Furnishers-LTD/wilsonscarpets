@@ -253,6 +253,7 @@
             "type": "multiple",
             "options": "Morning\nAfternoon",
             "required": false,
+            "group_with_previous": true,
             "help": "",
             "placeholder": "",
             "prefix": "",
@@ -292,8 +293,8 @@
         "q06",
         "q17",
         "q18",
-        "q20",
-        "q19"
+        "q19",
+        "q20"
       ],
       "settings": {
         "heading": "We'll come to you!",

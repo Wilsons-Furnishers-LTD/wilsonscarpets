@@ -112,7 +112,7 @@ $hv-radius: 8px;
         align-items: center;
         gap: 12px;
         margin: 0;
-        padding: 10px 14px 10px 10px;
+        padding: 12px 14px 12px 16px;
         border: 1px solid $hv-border;
         border-radius: $hv-radius;
         background: #fff;
@@ -139,24 +139,8 @@ $hv-radius: 8px;
             border-color: $hv-accent;
             background: rgba($hv-accent, .06);
             box-shadow: 0 0 0 1px $hv-accent;
-            .hv__key { background: $hv-accent; border-color: $hv-accent; color: #fff; }
             .hv__tick { opacity: 1; }
         }
-    }
-    &__key {
-        flex: 0 0 auto;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-        border: 1px solid $hv-border;
-        border-radius: 5px;
-        font-size: 12px;
-        font-weight: 600;
-        color: $hv-muted;
-        background: #fff;
-        transition: inherit;
     }
     &__option-label { flex: 1 1 auto; }
     &__tick { flex: 0 0 auto; color: $hv-accent; opacity: 0; transition: opacity .15s; }
@@ -291,9 +275,6 @@ $hv-radius: 8px;
     }
     &__counter { flex: 0 0 auto; font-size: 13px; color: $hv-muted; white-space: nowrap; &:empty { display: none; } }
 
-    // Hide letter keys on touch screens, where there's no keyboard
-    @media (hover: none) { &__key { display: none; } }
-
     // Thank you
     &__step--done { text-align: center; padding-top: 40px; }
     &__done-icon {
@@ -383,4 +364,12 @@ $hv-radius: 8px;
     width: 1px !important;
     height: 1px !important;
     overflow: hidden !important;
+}
+
+// Several questions on one step: space them out and step the titles down a size
+.hv__step--group .hv__fieldset + .hv__fieldset {
+    margin-top: 40px;
+}
+.hv__step--group .hv__title {
+    font-size: 21px;
 }

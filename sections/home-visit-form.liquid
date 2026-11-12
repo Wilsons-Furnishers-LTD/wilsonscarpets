@@ -61,23 +61,35 @@
         </div>
       </section>
 
-      {%- comment -%} One step per question block {%- endcomment -%}
+      {%- comment -%}
+        One step per question block. A block with "Show on the same step as the
+        previous question" ticked joins the step before it, so several questions
+        can share a screen.
+      {%- endcomment -%}
       {%- for block in section.blocks -%}
         {%- assign q = block.settings -%}
         {%- assign field_name = q.label | strip | escape | prepend: 'contact[' | append: ']' -%}
         {%- assign field_id = 'hv-' | append: block.id -%}
         {%- assign options = q.options | newline_to_br | split: '<br />' -%}
 
-        <section
-          class="hv__step"
-          data-hv-step
-          data-type="{{ q.type }}"
-          data-hv-label="{{ q.label | strip | escape }}"
-          {% if q.required %}data-required{% endif %}
-          tabindex="-1"
-          {{ block.shopify_attributes }}
-        >
-          <fieldset class="hv__fieldset">
+        {%- assign starts_step = true -%}
+        {%- if q.group_with_previous and forloop.first == false -%}{%- assign starts_step = false -%}{%- endif -%}
+        {%- assign next_block = section.blocks[forloop.index] -%}
+        {%- assign ends_step = true -%}
+        {%- if next_block and next_block.settings.group_with_previous -%}{%- assign ends_step = false -%}{%- endif -%}
+
+        {%- if starts_step -%}
+          <section class="hv__step{% unless ends_step %} hv__step--group{% endunless %}" data-hv-step tabindex="-1">
+        {%- endif -%}
+
+          <fieldset
+            class="hv__fieldset"
+            data-hv-question
+            data-type="{{ q.type }}"
+            data-hv-label="{{ q.label | strip | escape }}"
+            {% if q.required %}data-required{% endif %}
+            {{ block.shopify_attributes }}
+          >
             <legend class="hv__title">
               {{ q.label | escape }}{% if q.required %}<span class="hv__req" aria-hidden="true">*</span>{% endif %}
             </legend>
@@ -92,8 +104,6 @@
                   <input type="hidden" name="{{ field_name }}" value="" data-hv-multi-target>
                 {%- endif -%}
                 <div class="hv__options{% if options.size > 6 %} hv__options--grid{% endif %}">
-                  {%- assign letters = 'A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z' | split: ',' -%}
-                  {%- assign n = 0 -%}
                   {%- for option in options -%}
                     {%- assign value = option | strip -%}
                     {%- if value != blank -%}
@@ -103,11 +113,9 @@
                         {%- else -%}
                           <input type="checkbox" value="{{ value | escape }}" data-hv-multi>
                         {%- endif -%}
-                        <span class="hv__key" aria-hidden="true">{{ letters[n] }}</span>
                         <span class="hv__option-label">{{ value | escape }}</span>
                         <svg class="hv__tick" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                       </label>
-                      {%- assign n = n | plus: 1 -%}
                     {%- endif -%}
                   {%- endfor -%}
                 </div>
@@ -143,16 +151,18 @@
             {%- endcase -%}
           </fieldset>
 
+        {%- if ends_step -%}
           <p class="hv__error" role="alert" data-hv-error></p>
 
           <div class="hv__nav">
             <button type="button" class="hv__btn" data-hv-next>
-              {% if q.required %}Next{% else %}<span data-hv-next-label>Skip</span>{% endif %}
+              <span data-hv-next-label>Next</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
             <span class="hv__hint">press <kbd>Enter ↵</kbd></span>
           </div>
-        </section>
+          </section>
+        {%- endif -%}
       {%- endfor -%}
 
       {%- comment -%} Contact details: always the last step {%- endcomment -%}
@@ -267,6 +277,7 @@
         },
         { "type": "textarea", "id": "options", "label": "Choices", "info": "One per line. Only used for 'Choose one' and 'Choose several'." },
         { "type": "checkbox", "id": "required", "label": "Required", "default": false },
+        { "type": "checkbox", "id": "group_with_previous", "label": "Show on the same step as the previous question", "default": false },
         { "type": "text", "id": "help", "label": "Help text" },
         { "type": "text", "id": "placeholder", "label": "Placeholder", "info": "Text answers only" },
         { "type": "text", "id": "prefix", "label": "Prefix", "info": "Short text and number answers only, e.g. £" },

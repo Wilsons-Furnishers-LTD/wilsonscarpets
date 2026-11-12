@@ -447,3 +447,31 @@ $hv-radius: 0;
 
 // Loading spinner styles are inline in sections/home-visit-form.liquid, so the
 // form is hidden before this stylesheet has loaded.
+
+// On choice questions the Next button is as wide as the options:
+// 420px under a single column, full width under a two-column grid.
+.hv__step:has(.hv__options) {
+    .hv__nav { flex-wrap: wrap; }
+    .hv__btn {
+        width: 100%;
+        max-width: 420px;
+        justify-content: center;
+    }
+}
+.hv__step:has(.hv__options--grid) .hv__btn {
+    max-width: none;
+}
+
+// The site's global button:hover/focus adds a 1px border (and a dark
+// background). Cancel the border for every button in this section, and the
+// background for the text-style "Enter address manually" link.
+.hv button:hover,
+.hv button:focus,
+.hv button:active {
+    border: 0;
+}
+.hv .hv__link:hover,
+.hv .hv__link:focus,
+.hv .hv__link:active {
+    background: none;
+}

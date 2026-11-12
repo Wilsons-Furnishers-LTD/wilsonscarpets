@@ -542,17 +542,14 @@
   font-size: 15px;
 }
 
-.hv__step:has(.hv__options) .hv__nav {
+.hv__nav {
   flex-wrap: wrap;
 }
-.hv__step:has(.hv__options) .hv__btn {
+
+.hv .hv__btn {
   width: 100%;
   max-width: 420px;
   justify-content: center;
-}
-
-.hv__step:has(.hv__options--grid) .hv__btn {
-  max-width: none;
 }
 
 .hv button:hover,
@@ -572,4 +569,9 @@
 .hv__count,
 .hv__fields {
   max-width: 420px;
+}
+
+.hv .hv__back,
+.hv .hv__link {
+  width: auto;
 }

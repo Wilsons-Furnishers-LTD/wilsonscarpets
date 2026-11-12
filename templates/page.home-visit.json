@@ -110,62 +110,6 @@
             "max_length": 0
           }
         },
-        "q09": {
-          "type": "question",
-          "settings": {
-            "label": "Do you have any specific colours in mind for your flooring?",
-            "type": "multiple",
-            "options": "Greys\nBrowns\nCreams\nBeiges\nWhites\nBlacks\nBlues\nGolds\nGreens\nOranges\nPinks\nPurples\nReds\nSilvers\nMulticolour",
-            "required": false,
-            "group_with_previous": false,
-            "help": "",
-            "placeholder": "",
-            "prefix": "",
-            "max_length": 0
-          }
-        },
-        "q10": {
-          "type": "question",
-          "settings": {
-            "label": "Do you know what sort of pattern you'd like on your flooring?",
-            "type": "single",
-            "options": "Plain/Solid\nPatterned\nStriped\nHerringbone",
-            "required": false,
-            "group_with_previous": false,
-            "help": "",
-            "placeholder": "",
-            "prefix": "",
-            "max_length": 0
-          }
-        },
-        "q11": {
-          "type": "question",
-          "settings": {
-            "label": "Already fallen in love with a specific range? Let us know which one:",
-            "type": "text",
-            "options": "",
-            "required": false,
-            "group_with_previous": false,
-            "help": "",
-            "placeholder": "",
-            "prefix": "",
-            "max_length": 0
-          }
-        },
-        "q12": {
-          "type": "question",
-          "settings": {
-            "label": "What sort of property are we visiting?",
-            "type": "single",
-            "options": "Semi-detached\nDetached\nTerraced\nFlat\nBungalow",
-            "required": false,
-            "group_with_previous": false,
-            "help": "",
-            "placeholder": "",
-            "prefix": "",
-            "max_length": 0
-          }
-        },
         "q14": {
           "type": "question",
           "settings": {
@@ -222,20 +166,6 @@
             "max_length": 200
           }
         },
-        "q17": {
-          "type": "question",
-          "settings": {
-            "label": "Are you getting quotes elsewhere?",
-            "type": "single",
-            "options": "Yes\nNo",
-            "required": false,
-            "group_with_previous": false,
-            "help": "",
-            "placeholder": "",
-            "prefix": "",
-            "max_length": 0
-          }
-        },
         "q18": {
           "type": "question",
           "settings": {
@@ -287,15 +217,10 @@
         "q05",
         "q07",
         "q08",
-        "q09",
-        "q10",
-        "q11",
-        "q12",
         "q14",
         "q15",
         "q16",
         "q06",
-        "q17",
         "q18",
         "q19",
         "q20"

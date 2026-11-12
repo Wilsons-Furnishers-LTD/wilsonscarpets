@@ -270,7 +270,18 @@ $hv-radius: 0;
         color: $hv-muted;
         text-transform: none;
         cursor: pointer;
-        &:hover { color: $hv-text; }
+        // No hover or focus styling: also cancels the site's global button styles
+        &:hover,
+        &:focus,
+        &:focus-visible,
+        &:active {
+            color: $hv-muted;
+            background: none;
+            border: 0;
+            outline: none;
+            box-shadow: none;
+            text-decoration: none;
+        }
         &[hidden] { display: none; }
     }
     &__counter { flex: 0 0 auto; font-size: 13px; color: $hv-muted; white-space: nowrap; &:empty { display: none; } }

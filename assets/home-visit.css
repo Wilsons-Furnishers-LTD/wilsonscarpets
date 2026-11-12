@@ -566,3 +566,10 @@
 .hv .hv__link:active {
   background: none;
 }
+
+.hv__input-wrap,
+.hv__input--area,
+.hv__count,
+.hv__fields {
+  max-width: 420px;
+}

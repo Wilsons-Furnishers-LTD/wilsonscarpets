@@ -206,6 +206,45 @@
             <span class="hv__label">Phone number<span class="hv__req" aria-hidden="true">*</span></span>
             <input class="hv__input" type="tel" name="contact[phone]" autocomplete="tel" required value="{{ form.phone }}" placeholder="07123 456789">
           </label>
+
+          {%- if section.settings.show_address -%}
+            {%- comment -%}
+              Address: with a Google Maps API key, customers search and pick their
+              address and the fields below fill in (and stay editable). Without a
+              key, or with "Enter address manually", they type it in.
+              Behaviour: src/scripts/home-visit.js (address lookup).
+            {%- endcomment -%}
+            <div
+              class="hv__field hv__address"
+              data-hv-address
+              {% if section.settings.address_required %}data-required{% endif %}
+              {% if section.settings.google_maps_api_key != blank %}data-maps-key="{{ section.settings.google_maps_api_key | strip | escape }}"{% endif %}
+            >
+              <label class="hv__label" for="hv-address-search">
+                Address{% if section.settings.address_required %}<span class="hv__req" aria-hidden="true">*</span>{% endif %}
+              </label>
+              <div class="hv__address-search" data-hv-address-search-wrap hidden>
+                <input
+                  class="hv__input"
+                  id="hv-address-search"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Start typing your address or postcode"
+                  data-hv-address-search
+                >
+                <button type="button" class="hv__link" data-hv-address-manual>Enter address manually</button>
+              </div>
+
+              <div class="hv__address-fields" data-hv-address-fields>
+                <input class="hv__input" type="text" name="contact[Address line 1]" autocomplete="address-line1" placeholder="Address line 1" aria-label="Address line 1" data-hv-addr="line1">
+                <input class="hv__input" type="text" name="contact[Address line 2]" autocomplete="address-line2" placeholder="Address line 2 (optional)" aria-label="Address line 2" data-hv-addr="line2">
+                <div class="hv__address-row">
+                  <input class="hv__input" type="text" name="contact[Town or city]" autocomplete="address-level2" placeholder="Town or city" aria-label="Town or city" data-hv-addr="city">
+                  <input class="hv__input" type="text" name="contact[Postcode]" autocomplete="postal-code" placeholder="Postcode" aria-label="Postcode" data-hv-addr="postcode">
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
         </div>
 
         {%- comment -%}
@@ -263,6 +302,9 @@
     { "type": "text", "id": "contact_heading", "label": "Heading", "default": "Finally, how can we reach you?" },
     { "type": "text", "id": "contact_text", "label": "Text", "default": "We'll be in touch to arrange your home visit." },
     { "type": "text", "id": "submit_label", "label": "Submit button", "default": "Book my home visit" },
+    { "type": "checkbox", "id": "show_address", "label": "Ask for address", "default": true },
+    { "type": "checkbox", "id": "address_required", "label": "Address required", "default": true },
+    { "type": "text", "id": "google_maps_api_key", "label": "Google Maps API key (address lookup)", "info": "A browser key with the Places API enabled, restricted to your domain. Leave blank and customers type their address in by hand." },
     { "type": "header", "content": "Thank you" },
     { "type": "text", "id": "success_heading", "label": "Heading", "default": "Thanks, we've got your details!" },
     { "type": "richtext", "id": "success_text", "label": "Text", "default": "<p>One of our flooring experts will be in touch shortly to arrange your home visit.</p>" },

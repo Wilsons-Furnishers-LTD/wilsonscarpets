@@ -265,7 +265,10 @@
         "klaviyo_public_key": "",
         "klaviyo_event_name": "Booked Home Visit",
         "klaviyo_list_id": "",
-        "consent_label": "Keep me updated with offers and inspiration from Wilsons Carpets by email. You can unsubscribe at any time."
+        "consent_label": "Keep me updated with offers and inspiration from Wilsons Carpets by email. You can unsubscribe at any time.",
+        "show_address": true,
+        "address_required": true,
+        "google_maps_api_key": "AIzaSyDW3vqDk5Ow2bKE3pgC4i9GYi4IxZBcIkQ"
       }
     }
   },

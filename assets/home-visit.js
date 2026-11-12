@@ -63,13 +63,104 @@
         step.classList.toggle('has-error', !!message);
     };
 
+    // ---- Address lookup ------------------------------------------------
+    // Google Places Autocomplete (UK addresses) fills the address fields,
+    // which stay editable. No key, a failed load, or "Enter address manually"
+    // shows the fields to type in.
+    const address = root.querySelector('[data-hv-address]');
+    const addr = (part) => address?.querySelector(`[data-hv-addr="${part}"]`);
+    const addressSearch = address?.querySelector('[data-hv-address-search]');
+    const searchWrap = address?.querySelector('[data-hv-address-search-wrap]');
+    const addressFields = address?.querySelector('[data-hv-address-fields]');
+    const manualBtn = address?.querySelector('[data-hv-address-manual]');
+    const postcodeOk = (v) => /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i.test(v.trim());
+
+    const showAddressFields = (focusPart) => {
+        addressFields.hidden = false;
+        if (manualBtn) manualBtn.hidden = true;
+    };
+
+    const useManualAddress = () => {
+        if (searchWrap) searchWrap.hidden = true;
+        showAddressFields();
+    };
+
+    const fillFromPlace = (place) => {
+        const parts = {};
+        (place.address_components || []).forEach((c) => c.types.forEach((t) => { parts[t] = c.long_name; }));
+        const street = [parts.street_number, parts.route].filter(Boolean).join(' ');
+        const building = [parts.subpremise, parts.premise].filter(Boolean).join(', ');
+        addr('line1').value = building || street || (place.name ?? '');
+        addr('line2').value = building && street ? street : '';
+        addr('city').value = parts.postal_town || parts.locality || parts.administrative_area_level_2 || '';
+        addr('postcode').value = parts.postal_code || '';
+        showAddressFields();
+        // No house number or postcode from Google: put them where they need to type.
+        if (!parts.street_number && !building) addr('line1').focus();
+        else if (!parts.postal_code) addr('postcode').focus();
+        updateNextLabel(steps[current]);
+    };
+
+    const startAddressLookup = (key) => {
+        window.gm_authFailure = useManualAddress; // Google calls this if the key is rejected
+        window.hvInitAddressLookup = () => {
+            if (!window.google?.maps?.places?.Autocomplete) return useManualAddress();
+            const ac = new window.google.maps.places.Autocomplete(addressSearch, {
+                componentRestrictions: { country: 'gb' },
+                fields: ['address_components', 'name'],
+                types: ['address'],
+            });
+            ac.addListener('place_changed', () => fillFromPlace(ac.getPlace()));
+        };
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&libraries=places&loading=async&callback=hvInitAddressLookup`;
+        script.async = true;
+        script.onerror = useManualAddress;
+        document.head.appendChild(script);
+    };
+
+    if (address) {
+        const key = address.dataset.mapsKey;
+        const alreadyFilled = [...addressFields.querySelectorAll('input')].some((i) => i.value.trim());
+        if (key && !alreadyFilled) {
+            searchWrap.hidden = false;
+            addressFields.hidden = true;
+            manualBtn.addEventListener('click', () => {
+                useManualAddress();
+                addr('line1').focus();
+            });
+            startAddressLookup(key);
+        }
+    }
+
+    const validateAddress = () => {
+        if (!address) return null;
+        const required = address.hasAttribute('data-required');
+        if (addressFields.hidden) {
+            if (required || addressSearch.value.trim()) {
+                return [addressSearch, 'Please choose your address from the list, or enter it manually.'];
+            }
+            return null;
+        }
+        if (required) {
+            if (!addr('line1').value.trim()) return [addr('line1'), 'Please enter the first line of your address.'];
+            if (!addr('city').value.trim()) return [addr('city'), 'Please enter your town or city.'];
+            if (!addr('postcode').value.trim()) return [addr('postcode'), 'Please enter your postcode.'];
+        }
+        if (addr('postcode').value.trim() && !postcodeOk(addr('postcode').value)) {
+            return [addr('postcode'), 'Please enter a valid UK postcode.'];
+        }
+        return null;
+    };
+
     const validate = (step) => {
         if (step.dataset.type === 'contact') {
-            const [name, email, phone] = step.querySelectorAll('.hv__input');
+            const field = (n) => step.querySelector(`[name="contact[${n}]"]`);
+            const [name, email, phone] = [field('name'), field('email'), field('phone')];
             if (!name.value.trim()) return [name, 'Please tell us your name.'];
             if (!emailOk(email.value.trim())) return [email, 'Please enter a valid email address.'];
             if (!phoneOk(phone.value)) return [phone, 'Please enter a valid phone number.'];
-            return null;
+            return validateAddress();
         }
         const qs = questionsIn(step);
         for (const q of qs) {
@@ -219,6 +310,15 @@
 
         const profile = { email, first_name: firstName, last_name: rest.join(' ') || undefined };
         if (phone) profile.phone_number = phone;
+        if (address && !addressFields.hidden && addr('line1').value.trim()) {
+            profile.location = {
+                address1: addr('line1').value.trim(),
+                address2: addr('line2').value.trim() || undefined,
+                city: addr('city').value.trim() || undefined,
+                zip: addr('postcode').value.trim().toUpperCase() || undefined,
+                country: 'United Kingdom',
+            };
+        }
 
         const requests = [
             klaviyoPost('events', {
@@ -351,6 +451,10 @@
         if (!root.contains(e.target) && e.target !== document.body) return;
         if (e.key === 'Enter') {
             if (e.target.tagName === 'TEXTAREA' && e.shiftKey) return; // new line
+            if (e.target.matches('[data-hv-address-search]')) {
+                e.preventDefault(); // Google uses Enter to pick the highlighted address
+                return;
+            }
             if (e.target.tagName === 'BUTTON') return; // let the button handle it
             e.preventDefault();
             next();

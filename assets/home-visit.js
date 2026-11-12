@@ -106,7 +106,7 @@
 
     const focusStep = () => {
         const step = steps[current];
-        const field = step.querySelector('.hv__input');
+        const field = step.querySelector('.hv__input:not([data-hv-other-text])');
         const target = field || step;
         target.focus({ preventScroll: true });
         const top = root.getBoundingClientRect().top;
@@ -163,6 +163,14 @@
         return /^44\d{9,10}$/.test(d) ? `+${d}` : null;
     };
 
+    // The value sent for a ticked choice. An "Other" choice with text typed in
+    // its box is sent as "Other: <text>".
+    const choiceValue = (input) => {
+        if (!input.hasAttribute('data-hv-other')) return input.value;
+        const text = input.closest('[data-hv-question]')?.querySelector('[data-hv-other-text]')?.value.trim();
+        return text ? `${input.value}: ${text}` : input.value;
+    };
+
     const collectAnswers = () => {
         const answers = {};
         root.querySelectorAll('[data-hv-label]').forEach((step) => {
@@ -170,9 +178,10 @@
             const type = step.dataset.type;
             let value;
             if (type === 'single') {
-                value = step.querySelector('input[type="radio"]:checked')?.value;
+                const checked = step.querySelector('input[type="radio"]:checked');
+                value = checked ? choiceValue(checked) : undefined;
             } else if (type === 'multiple') {
-                const picked = [...step.querySelectorAll('[data-hv-multi]:checked')].map((c) => c.value);
+                const picked = [...step.querySelectorAll('[data-hv-multi]:checked')].map(choiceValue);
                 value = picked.length ? picked : undefined;
             } else {
                 value = step.querySelector('.hv__input')?.value.trim() || undefined;
@@ -268,8 +277,12 @@
 
         // Shopify's contact form ignores array fields, so multi choices go as one line.
         root.querySelectorAll('[data-type="multiple"]').forEach((step) => {
-            const picked = [...step.querySelectorAll('[data-hv-multi]:checked')].map((c) => c.value);
+            const picked = [...step.querySelectorAll('[data-hv-multi]:checked')].map(choiceValue);
             step.querySelector('[data-hv-multi-target]').value = picked.join(', ');
+        });
+        // A picked "Other" radio sends "Other: <text>" as its value.
+        root.querySelectorAll('input[type="radio"][data-hv-other]:checked').forEach((radio) => {
+            radio.value = choiceValue(radio);
         });
 
         // Give Klaviyo up to 4 seconds, then send the form regardless.
@@ -294,6 +307,20 @@
         if (!step) return;
         showError(step, '');
         updateNextLabel(step);
+
+        // Show the "Please specify" box while an "Other" choice is picked.
+        const question = e.target.closest('[data-hv-question]');
+        const otherWrap = question?.querySelector('[data-hv-other-wrap]');
+        if (otherWrap && e.target.matches('.hv__option input')) {
+            const otherPicked = !!question.querySelector('[data-hv-other]:checked');
+            otherWrap.hidden = !otherPicked;
+            if (otherPicked && e.target.hasAttribute('data-hv-other')) {
+                clearTimeout(autoAdvanceTimer);
+                otherWrap.querySelector('[data-hv-other-text]').focus();
+                return; // stay on the step so they can type
+            }
+        }
+
         // Only jump ahead when the step is a single question; with several on
         // one step the customer may still want to answer the others.
         if (e.target.type === 'radio' && step === steps[current] && questionsIn(step).length === 1) {

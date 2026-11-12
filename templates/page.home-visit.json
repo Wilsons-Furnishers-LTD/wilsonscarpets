@@ -143,7 +143,9 @@
           "settings": {
             "label": "Is there parking for our Mobile Showroom at the property?",
             "type": "single",
-            "options": "Driveway Parking\nOn Street Parking\nPermit Parking\nNo parking Available",
+            "options": "Driveway Parking\nOn Street Parking\nPermit Parking\nNo parking Available\nOther",
+            "other_text": true,
+            "other_placeholder": "Please specify",
             "required": false,
             "group_with_previous": false,
             "help": "",

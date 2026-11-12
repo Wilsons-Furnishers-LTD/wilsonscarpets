@@ -26,7 +26,7 @@
     const progressBar = root.querySelector('[data-hv-progress]');
     const backBtn = root.querySelector('[data-hv-back]');
     const counter = root.querySelector('[data-hv-counter]');
-    const questionCount = steps.length - 1; // the intro isn't a question
+    const questionCount = steps.length - 1; // steps after the intro
 
     let current = Math.max(0, steps.findIndex((s) => s.classList.contains('is-active')));
     let autoAdvanceTimer;
@@ -34,17 +34,25 @@
     const emailOk = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
     const phoneOk = (v) => v.replace(/\D/g, '').length >= 10;
 
-    const hasAnswer = (step) => {
-        const type = step.dataset.type;
-        if (type === 'single') return !!step.querySelector('input[type="radio"]:checked');
-        if (type === 'multiple') return !!step.querySelector('[data-hv-multi]:checked');
-        const field = step.querySelector('.hv__input');
+    // A step holds one or more questions ([data-hv-question]); the intro and
+    // contact steps hold none.
+    const questionsIn = (step) => [...step.querySelectorAll('[data-hv-question]')];
+
+    const isAnswered = (q) => {
+        const type = q.dataset.type;
+        if (type === 'single') return !!q.querySelector('input[type="radio"]:checked');
+        if (type === 'multiple') return !!q.querySelector('[data-hv-multi]:checked');
+        const field = q.querySelector('.hv__input');
         return !!(field && field.value.trim());
     };
 
+    // "Skip" while nothing is answered and nothing on the step is required.
     const updateNextLabel = (step) => {
         const label = step.querySelector('[data-hv-next-label]');
-        if (label) label.textContent = hasAnswer(step) ? 'Next' : 'Skip';
+        if (!label) return;
+        const qs = questionsIn(step);
+        const skippable = qs.every((q) => !q.hasAttribute('data-required')) && !qs.some(isAnswered);
+        label.textContent = skippable ? 'Skip' : 'Next';
     };
 
     const showError = (step, message, field) => {
@@ -63,13 +71,17 @@
             if (!phoneOk(phone.value)) return [phone, 'Please enter a valid phone number.'];
             return null;
         }
-        if (step.hasAttribute('data-required') && !hasAnswer(step)) {
-            return [step.querySelector('input, textarea'), 'Please answer this question to continue.'];
-        }
-        if (step.dataset.type === 'number') {
-            const field = step.querySelector('.hv__input');
-            const v = field.value.trim().replace(/[£,\s]/g, '');
-            if (v && Number.isNaN(Number(v))) return [field, 'Please enter a number.'];
+        const qs = questionsIn(step);
+        for (const q of qs) {
+            if (q.hasAttribute('data-required') && !isAnswered(q)) {
+                const msg = qs.length > 1 ? `Please answer "${q.dataset.hvLabel}".` : 'Please answer this question to continue.';
+                return [q.querySelector('input, textarea'), msg];
+            }
+            if (q.dataset.type === 'number') {
+                const field = q.querySelector('.hv__input');
+                const v = field.value.trim().replace(/[£,\s]/g, '');
+                if (v && Number.isNaN(Number(v))) return [field, 'Please enter a number.'];
+            }
         }
         return null;
     };
@@ -282,7 +294,9 @@
         if (!step) return;
         showError(step, '');
         updateNextLabel(step);
-        if (e.target.type === 'radio' && step === steps[current]) {
+        // Only jump ahead when the step is a single question; with several on
+        // one step the customer may still want to answer the others.
+        if (e.target.type === 'radio' && step === steps[current] && questionsIn(step).length === 1) {
             clearTimeout(autoAdvanceTimer);
             autoAdvanceTimer = setTimeout(next, 350);
         }

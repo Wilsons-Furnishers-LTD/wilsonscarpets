@@ -475,3 +475,11 @@
   height: 1px !important;
   overflow: hidden !important;
 }
+
+.hv__step--group .hv__fieldset + .hv__fieldset {
+  margin-top: 40px;
+}
+
+.hv__step--group .hv__title {
+  font-size: 21px;
+}

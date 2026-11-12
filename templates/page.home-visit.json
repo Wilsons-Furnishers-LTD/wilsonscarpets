@@ -166,20 +166,6 @@
             "max_length": 0
           }
         },
-        "q13": {
-          "type": "question",
-          "settings": {
-            "label": "Is this property your:",
-            "type": "single",
-            "options": "Primary Residence\nSecond Home\nNew Build\nRental Property (private landlord)\nRental Property (Council/Association Landlord)\nOther",
-            "required": false,
-            "group_with_previous": false,
-            "help": "",
-            "placeholder": "",
-            "prefix": "",
-            "max_length": 0
-          }
-        },
         "q14": {
           "type": "question",
           "settings": {
@@ -305,7 +291,6 @@
         "q10",
         "q11",
         "q12",
-        "q13",
         "q14",
         "q15",
         "q16",

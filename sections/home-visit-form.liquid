@@ -6,6 +6,18 @@
   Behaviour: src/scripts/home-visit.js. Styles: src/styles/home-visit/_index.scss.
 {%- endcomment -%}
 
+{%- comment -%}
+  Loading spinner styles are inline (not in home-visit.css) so they apply
+  before the stylesheet arrives; otherwise the form flashes up first.
+{%- endcomment -%}
+<style>
+  .hv__loader { display: none; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 320px; color: #6b6f72; font-size: 14px; }
+  .hv--loading .hv__form { display: none; }
+  .hv--loading .hv__loader { display: flex; }
+  .hv__spinner { width: 32px; height: 32px; border: 3px solid #eef0f0; border-top-color: #ba3c3d; border-radius: 50%; animation: hv-spin .8s linear infinite; }
+  @keyframes hv-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .hv__spinner { animation-duration: 2.4s; } }
+</style>
 {{ 'home-visit.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'home-visit.js' | asset_url }}" defer></script>
 

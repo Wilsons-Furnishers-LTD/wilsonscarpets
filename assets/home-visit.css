@@ -458,3 +458,19 @@
 .hv__step--group .hv__title {
   font-size: 21px;
 }
+
+.hv__other {
+  margin-top: 10px;
+  max-width: 420px;
+}
+.hv__other[hidden] {
+  display: none;
+}
+.hv__other .hv__input {
+  font-size: 16px;
+  padding: 10px 12px;
+}
+
+.hv__options--grid + .hv__other {
+  max-width: none;
+}

@@ -373,3 +373,13 @@ $hv-radius: 8px;
 .hv__step--group .hv__title {
     font-size: 21px;
 }
+
+// "Please specify" box under an "Other" choice
+.hv__other {
+    margin-top: 10px;
+    max-width: 420px;
+
+    &[hidden] { display: none; }
+    .hv__input { font-size: 16px; padding: 10px 12px; }
+}
+.hv__options--grid + .hv__other { max-width: none; }

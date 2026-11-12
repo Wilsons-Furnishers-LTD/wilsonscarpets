@@ -14,6 +14,7 @@
 
     const success = root.querySelector('[data-hv-success]');
     if (success) {
+        root.classList.remove('hv--loading');
         root.scrollIntoView({ block: 'start' });
         success.focus({ preventScroll: true });
         pushEvent('home_visit_form_submitted');
@@ -462,6 +463,7 @@
     });
 
     root.classList.add('is-ready');
+    root.classList.remove('hv--loading'); // hide the loading spinner
     render();
     if (current !== 0) focusStep();
 })();

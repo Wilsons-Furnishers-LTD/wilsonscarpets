@@ -96,7 +96,6 @@
   display: grid;
   gap: 8px;
   margin-top: 20px;
-  max-width: 420px;
 }
 .hv__options--grid {
   max-width: none;
@@ -281,19 +280,6 @@
   opacity: 0.6;
   cursor: default;
 }
-.hv__hint {
-  font-size: 13px;
-  color: #6b6f72;
-}
-.hv__hint kbd {
-  font-family: inherit;
-  font-weight: 600;
-}
-@media (hover: none) {
-  .hv__hint {
-    display: none;
-  }
-}
 .hv__footer {
   display: none;
   align-items: center;
@@ -466,7 +452,6 @@
 
 .hv__other {
   margin-top: 10px;
-  max-width: 420px;
 }
 .hv__other[hidden] {
   display: none;
@@ -474,10 +459,6 @@
 .hv__other .hv__input {
   font-size: 16px;
   padding: 10px 12px;
-}
-
-.hv__options--grid + .hv__other {
-  max-width: none;
 }
 
 .hv__address [hidden] {
@@ -542,13 +523,8 @@
   font-size: 15px;
 }
 
-.hv__nav {
-  flex-wrap: wrap;
-}
-
 .hv .hv__btn {
   width: 100%;
-  max-width: 420px;
   justify-content: center;
 }
 
@@ -562,13 +538,6 @@
 .hv .hv__link:focus,
 .hv .hv__link:active {
   background: none;
-}
-
-.hv__input-wrap,
-.hv__input--area,
-.hv__count,
-.hv__fields {
-  max-width: 420px;
 }
 
 .hv .hv__back,

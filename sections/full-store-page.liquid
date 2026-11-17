@@ -6,24 +6,33 @@
       Gallery        -> snippets/store-gallery-content.liquid        (sections/store-gallery.liquid)
       Map            -> snippets/store-map-content.liquid            (sections/store-map.liquid)
       Google Reviews -> snippets/store-google-reviews-content.liquid (sections/store-google-reviews.liquid)
-    Content comes from the current store_page metaobject, so it only shows on store pages.
+    Store: the store picked in the section's Store setting, so the section can go on any page (e.g. a normal page
+    template). Left empty, it uses the current store_page metaobject, so on store pages it shows that store.
 {%- endcomment -%}
+{%- assign store = section.settings.store | default: metaobject -%}
 <div class="full-store-page" data-section-id="{{ section.id }}" data-section-type="full-store-page">
+    {%- if store == blank and request.design_mode -%}
+        <div class="wrapper">
+            <p>Full Store Page: choose a store in this section's <strong>Store</strong> setting to show its content. This message only shows in the theme editor.</p>
+        </div>
+    {%- endif -%}
+    {%- if store != blank -%}
     {%- for block in section.blocks -%}
         {%- assign part_id = section.id | append: '-' | append: block.id -%}
         <div class="full-store-page__part" {{ block.shopify_attributes }}>
             {%- case block.type -%}
                 {%- when 'banner' -%}
-                    {% render 'store-banner-content', store: metaobject, section_id: part_id, map_zoom: block.settings.map_zoom %}
+                    {% render 'store-banner-content', store: store, section_id: part_id, map_zoom: block.settings.map_zoom %}
                 {%- when 'gallery' -%}
-                    {% render 'store-gallery-content', store: metaobject, section_id: part_id, heading: block.settings.heading %}
+                    {% render 'store-gallery-content', store: store, section_id: part_id, heading: block.settings.heading %}
                 {%- when 'map' -%}
-                    {% render 'store-map-content', store: metaobject, section_id: part_id, zoom: block.settings.zoom, height: block.settings.height %}
+                    {% render 'store-map-content', store: store, section_id: part_id, zoom: block.settings.zoom, height: block.settings.height %}
                 {%- when 'reviews' -%}
-                    {% render 'store-google-reviews-content', store: metaobject, section_id: part_id, heading: block.settings.heading, max_reviews: block.settings.max_reviews, min_rating: block.settings.min_rating %}
+                    {% render 'store-google-reviews-content', store: store, section_id: part_id, heading: block.settings.heading, max_reviews: block.settings.max_reviews, min_rating: block.settings.min_rating %}
             {%- endcase -%}
         </div>
     {%- endfor -%}
+    {%- endif -%}
 </div>
 
 {% schema %}
@@ -31,6 +40,15 @@
         "name": "Full Store Page",
         "class": "index-section",
         "max_blocks": 8,
+        "settings": [
+            {
+                "type": "metaobject",
+                "id": "store",
+                "label": "Store",
+                "metaobject_type": "store_page",
+                "info": "The store whose content is shown. Leave empty on store pages to use that page's store."
+            }
+        ],
         "blocks": [
             {
                 "type": "banner",

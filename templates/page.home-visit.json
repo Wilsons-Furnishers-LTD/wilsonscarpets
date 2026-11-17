@@ -16,7 +16,7 @@
           "type": "shopify://apps/wilsons-forms/blocks/home-visit-form/01a1e974-9f98-7f9e-be3d-27eb5e89be70",
           "settings": {
             "form_handle": "home-visit",
-            "heading": "We'll come to you!",
+            "heading": "We'll come to you! :)",
             "intro": "<p>We have a flooring expert in your area. Please tell us a bit more about your project.</p>",
             "start_label": "Let's go",
             "contact_heading": "Finally, how can we reach you?",
@@ -38,9 +38,31 @@
         "wilsons_forms_home_visit_form_cJRaNG"
       ],
       "settings": {}
+    },
+    "cms_bannergrid_four_icon_dHXQ6f": {
+      "type": "cms_bannergrid-four-icon",
+      "name": "Banner Grid - Icon",
+      "settings": {
+        "title": "Why choose us",
+        "icon_1": "",
+        "title_1": "Image slide",
+        "subheading_1": "Lorem ipsum dolor sit amet",
+        "icon_2": "",
+        "title_2": "Image slide",
+        "subheading_2": "Lorem ipsum dolor sit amet",
+        "icon_3": "",
+        "title_3": "Image slide",
+        "subheading_3": "Lorem ipsum dolor sit amet",
+        "icon_4": "",
+        "title_4": "Image slide",
+        "subheading_4": "Lorem ipsum dolor sit amet",
+        "add_border_top": "add_border_top_no",
+        "add_border_bottom": "add_border_bottom_no"
+      }
     }
   },
   "order": [
-    "1794921784a8846df3"
+    "1794921784a8846df3",
+    "cms_bannergrid_four_icon_dHXQ6f"
   ]
 }

@@ -6,24 +6,40 @@
       Gallery        -> snippets/store-gallery-content.liquid        (sections/store-gallery.liquid)
       Map            -> snippets/store-map-content.liquid            (sections/store-map.liquid)
       Google Reviews -> snippets/store-google-reviews-content.liquid (sections/store-google-reviews.liquid)
-    Content comes from the current store_page metaobject, so it only shows on store pages.
+    Store: on store_page metaobject pages Shopify already loads the store from the URL (metaobject). Anywhere else
+    (e.g. a normal page), the last part of the URL is used as a store_page handle, so /pages/edinburgh shows the
+    store_page with the handle "edinburgh". Nothing is shown if no store matches.
 {%- endcomment -%}
+{%- assign store = metaobject -%}
+{%- if store == blank -%}
+    {%- assign url_handle = request.path | split: '/' | last | url_decode | downcase -%}
+    {%- if url_handle != blank -%}
+        {%- assign store = shop.metaobjects.store_page[url_handle] -%}
+    {%- endif -%}
+{%- endif -%}
 <div class="full-store-page" data-section-id="{{ section.id }}" data-section-type="full-store-page">
+    {%- if store == blank and request.design_mode -%}
+        <div class="wrapper">
+            <p>Full Store Page: no store matches this page's URL ({{ request.path | escape }}). The last part of the URL needs to be a store's handle. This message only shows in the theme editor.</p>
+        </div>
+    {%- endif -%}
+    {%- if store != blank -%}
     {%- for block in section.blocks -%}
         {%- assign part_id = section.id | append: '-' | append: block.id -%}
         <div class="full-store-page__part" {{ block.shopify_attributes }}>
             {%- case block.type -%}
                 {%- when 'banner' -%}
-                    {% render 'store-banner-content', store: metaobject, section_id: part_id, map_zoom: block.settings.map_zoom %}
+                    {% render 'store-banner-content', store: store, section_id: part_id, map_zoom: block.settings.map_zoom %}
                 {%- when 'gallery' -%}
-                    {% render 'store-gallery-content', store: metaobject, section_id: part_id, heading: block.settings.heading %}
+                    {% render 'store-gallery-content', store: store, section_id: part_id, heading: block.settings.heading %}
                 {%- when 'map' -%}
-                    {% render 'store-map-content', store: metaobject, section_id: part_id, zoom: block.settings.zoom, height: block.settings.height %}
+                    {% render 'store-map-content', store: store, section_id: part_id, zoom: block.settings.zoom, height: block.settings.height %}
                 {%- when 'reviews' -%}
-                    {% render 'store-google-reviews-content', store: metaobject, section_id: part_id, heading: block.settings.heading, max_reviews: block.settings.max_reviews, min_rating: block.settings.min_rating %}
+                    {% render 'store-google-reviews-content', store: store, section_id: part_id, heading: block.settings.heading, max_reviews: block.settings.max_reviews, min_rating: block.settings.min_rating %}
             {%- endcase -%}
         </div>
     {%- endfor -%}
+    {%- endif -%}
 </div>
 
 {% schema %}

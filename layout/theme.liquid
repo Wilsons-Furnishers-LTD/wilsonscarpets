@@ -184,7 +184,12 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 {{ 'compare.css' | asset_url | stylesheet_tag }}
 {% endif  %}
 {{ 'search.css' | asset_url | stylesheet_tag }}
+{%- comment -%} The bar at the bottom of the page below 1024px (snippets/mobile-nav.liquid), not on the stores page {%- endcomment -%}
+{% assign show_mobile_nav = true %}
+{% if request.page_type == 'page' and page.handle == 'stores' %}{% assign show_mobile_nav = false %}{% endif %}
+{% if show_mobile_nav %}
 {{ 'mobile-nav.css' | asset_url | stylesheet_tag }}
+{% endif %}
 
 
 </head>
@@ -267,8 +272,10 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 </div>
 
 
+{% if show_mobile_nav %}
 {% render 'mobile-nav' %}
 <script src="{{ 'mobile-nav.js' | asset_url }}" defer></script>
+{% endif %}
 {% section 'compare-modal' %}
 {% section 'footer-scripts' %}
 

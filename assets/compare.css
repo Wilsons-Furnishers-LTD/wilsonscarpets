@@ -1386,15 +1386,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     display: none;
   }
 }
-.collection-compare--pagination {
-  flex: none;
-  margin-right: 1rem;
-}
-@media only screen and (max-width: 47.99em), only screen and (min-width: 64em) {
-  .collection-compare--pagination {
-    display: none;
-  }
-}
 .collection-compare__link {
   display: inline-flex;
   align-items: center;
@@ -1406,14 +1397,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   line-height: 2.375rem;
   white-space: nowrap;
 }
-@media only screen and (max-width: 63.99em) {
-  .collection-compare__link {
-    justify-content: center;
-    width: 2.375rem;
-    height: 2.375rem;
-    padding: 0;
-  }
-}
 .collection-compare__link svg {
   width: 18px;
   height: 18px;
@@ -1422,23 +1405,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   color: #414B52;
   text-decoration: underline;
 }
-@media only screen and (max-width: 63.99em) {
-  .collection-compare__text {
-    display: none;
-  }
-}
 
-@media only screen and (min-width: 48em) and (max-width: 63.99em) {
-  .toolbar-product > .row:has(> .collection-compare--pagination) {
-    display: flex;
-    align-items: center;
-  }
-  .toolbar-product > .row:has(> .collection-compare--pagination) .wrap-pagi {
-    flex: 1;
-    min-width: 0;
-    margin-right: 3.375rem;
-  }
-}
 .compare-open-button {
   position: fixed;
   left: 0;

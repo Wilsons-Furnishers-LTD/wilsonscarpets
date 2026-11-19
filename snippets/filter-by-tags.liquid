@@ -109,7 +109,7 @@
   </div>
   <div class="collection-filters">
     {% if current_tags %}
-      <a href="{{ collection.url }}" class="button clear-filters">Clear filters</a>
+      <a href="{{ collection.url }}" class="clear-filters">Clear filters</a>
     {% endif %}
     <h3 class="tt">Filter by</h3>
     <div class="container">
@@ -218,7 +218,9 @@
 {% endcomment %}
 <style>
   .collection-product .col-main { transition: opacity .2s ease; }
-  .collection-filters .clear-filters { display: block; width: 100%; margin-bottom: 15px; text-align: center; }
+  /* #ba3c3d is $wilson-red in src/styles/_variables.scss */
+  .collection-filters .clear-filters { display: inline-block; margin-bottom: 15px; color: #ba3c3d; text-decoration: underline; }
+  .collection-filters .clear-filters:hover { color: #ba3c3d; text-decoration: none; }
   .collection-product.is-loading .col-main,
   .collection-product.is-loading .collection-filters { opacity: .5; pointer-events: none; }
 </style>

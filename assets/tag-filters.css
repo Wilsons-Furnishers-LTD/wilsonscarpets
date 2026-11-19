@@ -173,6 +173,26 @@
 /* Mobile: pagination sits on the right of the toolbar (also when there's no compare link). */
 @media only screen and (max-width: 63.99em) {
   [data-tag-filters] .toolbar-product .wrap-pagi {
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+  }
+  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination > * {
+    flex: none;
+  }
+  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .prev,
+  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .next {
+    position: static;
+    padding: 0 0.75rem;
+  }
+  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .prev {
+    border-right: 1px solid #e8eaee;
+  }
+  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .next {
+    border-left: 1px solid #e8eaee;
   }
 }

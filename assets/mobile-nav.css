@@ -65,10 +65,15 @@
   height: 26px;
 }
 .mobile-nav__link:hover, .mobile-nav__link:focus-visible {
-  color: #414B52;
-  text-decoration: underline;
+  color: #ba3c3d;
 }
 
+@media only screen and (max-width: 63.99em) {
+  #mastHead #searchToggle,
+  #mastHead .location--mobile {
+    display: none;
+  }
+}
 body {
   padding-bottom: var(--mobile-nav-height);
 }

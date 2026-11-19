@@ -70,9 +70,17 @@
             height: 26px;
         }
         &:hover, &:focus-visible {
-            color: v.$wilson-grey;
-            text-decoration: underline;
+            color: v.$wilson-red;
         }
+    }
+}
+
+// The header's search and store icons, which are in the bar below 1024px. The search toggle stays in the page,
+// as Search in the bar uses it (src/scripts/mobile-nav.js)
+@media only screen and (max-width: 63.99em) {
+    #mastHead #searchToggle,
+    #mastHead .location--mobile {
+        display: none;
     }
 }
 

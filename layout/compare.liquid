@@ -181,6 +181,7 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
 {{ 'search.css' | asset_url | stylesheet_tag }}
+{{ 'mobile-nav.css' | asset_url | stylesheet_tag }}
 
 {% if shop.metafields.comparison.feature == 1 %}
 {{ 'compare.css' | asset_url | stylesheet_tag }}
@@ -343,6 +344,8 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 
 
 
+{% render 'mobile-nav' %}
+<script src="{{ 'mobile-nav.js' | asset_url }}" defer></script>
 {% section 'footer-scripts' %}
 
 

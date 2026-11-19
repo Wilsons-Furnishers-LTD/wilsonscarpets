@@ -7,14 +7,8 @@
 }
 [data-tag-filters] .collection-filters__clear {
   display: inline-block;
-  margin: 1rem 1.875rem;
-  color: #ba3c3d;
+  margin: 0 0 15px;
   text-decoration: underline;
-}
-[data-tag-filters] .collection-filters__clear:hover {
-  color: #ba3c3d;
-}
-[data-tag-filters] .collection-filters__clear {
   cursor: pointer;
 }
 [data-tag-filters] .collection-filters__clear[hidden] {
@@ -168,31 +162,5 @@
   }
   [data-tag-filters] .product-grid .item {
     width: 23.5%;
-  }
-}
-/* Mobile: pagination sits on the right of the toolbar (also when there's no compare link). */
-@media only screen and (max-width: 63.99em) {
-  [data-tag-filters] .toolbar-product .wrap-pagi {
-    display: flex;
-    justify-content: flex-end;
-    padding: 0;
-  }
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination {
-    display: flex;
-    flex-wrap: nowrap;
-  }
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination > * {
-    flex: none;
-  }
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .prev,
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .next {
-    position: static;
-    padding: 0 0.75rem;
-  }
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .prev {
-    border-right: 1px solid #e8eaee;
-  }
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .next {
-    border-left: 1px solid #e8eaee;
   }
 }

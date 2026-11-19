@@ -249,6 +249,8 @@
 
 
         jQuery(document).on('click', '.filter-column h3', function(e) {
+           // On desktop the filters are a horizontal dropdown bar, handled by assets/tag-filters.js.
+           if (window.TagFilters && window.matchMedia('(min-width: 64em)').matches) return;
            jQuery(this).toggleClass('active').next().slideToggle();
         });
         var isMobile = false; //initiate as false

@@ -18,8 +18,8 @@
                         Find it at https://developers.google.com/maps/documentation/places/web-service/place-id
     And on the Google Cloud project for the API key: "Places API (New)" enabled.
 
-    With fewer than 4 reviews to show, a summary of the store on Google (name, address, average rating, stars,
-    review count) sits beside them; see showSummary().
+    A summary of the store on Google (heading + name, address, average rating, stars, review count, "See All Reviews")
+    sits above the reviews, or beside them when there are fewer than 4; see showSummary().
 
     The section renders nothing on the storefront if the store has no Place ID, or Google returns no reviews and no rating.
     The Maps API is loaded by snippets/store-google-maps-loader.liquid (same key as the store locator).
@@ -46,8 +46,8 @@
                 single row of up to 5, so no carousel. See setupCarousel() below and .store-reviews__carousel.
             {%- endcomment -%}
             {%- comment -%}
-                With fewer than 4 reviews to show, a summary of the store on Google (name, address, average rating,
-                stars, number of reviews) fills the space beside the cards. Filled in by showSummary() below.
+                A summary of the store on Google (name, address, average rating, stars, number of reviews) above the
+                cards, or beside them with fewer than 4 reviews. Filled in by showSummary() below.
             {%- endcomment -%}
             <div class="store-reviews__body" data-body>
                 <div class="store-reviews__summary" data-summary hidden>
@@ -180,9 +180,9 @@
                 });
             }
 
-            // The store's name, address, average rating and review count on Google, shown beside the cards
-            // when there are fewer than 4 of them
-            function showSummary(place) {
+            // The store's name, address, average rating and review count on Google, shown above the cards,
+            // or beside them (side = true) when there are fewer than 4
+            function showSummary(place, side) {
                 var summary = root.querySelector('[data-summary]');
                 var count = place.userRatingCount || 0;
                 var placeName = summary.querySelector('[data-place-name]');
@@ -214,7 +214,9 @@
                 var header = root.querySelector('.store-reviews__header');
                 if (header && !header.children.length) header.remove();
                 summary.hidden = false;
-                root.querySelector('[data-body]').classList.add('has-summary');
+                var body = root.querySelector('[data-body]');
+                body.classList.add('has-summary');
+                if (side) body.classList.add('is-side');
             }
 
             async function init() {
@@ -227,12 +229,12 @@
                     var reviews = (place.reviews || [])
                         .filter(function (r) { return (r.rating || 0) >= minRating; })
                         .slice(0, maxReviews);
-                    var withSummary = reviews.length < 4 && typeof place.rating === 'number';
+                    var withSummary = typeof place.rating === 'number';
                     if (!reviews.length && !withSummary) return;
 
                     var list = root.querySelector('[data-list]');
                     reviews.forEach(function (r) { list.appendChild(reviewCard(r)); });
-                    if (withSummary) showSummary(place);
+                    if (withSummary) showSummary(place, reviews.length < 4);
 
                     root.hidden = false;
                     if (reviews.length > 3) setupCarousel(list);

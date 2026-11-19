@@ -147,7 +147,9 @@
                                     {% if closest_store != blank %}
                                         {%- comment -%} The closest store's alt_name if it has one, otherwise its usual name {%- endcomment -%}
                                         {%- assign closest_name = closest_store.alt_name.value | strip | default: closest_store.store_finder_name.value | default: closest_store.name.value -%}
-                                        <a class="store-banner__closest-link" href="{{ closest_store.system.url }}">
+                                        {%- comment -%} Its Store Finder Page URL, or its store page if that's empty (same as the store locator) {%- endcomment -%}
+                                        {%- assign closest_url = closest_store.store_finder_page_url.value | append: '' | strip | default: closest_store.system.url -%}
+                                        <a class="store-banner__closest-link" href="{{ closest_url }}">
                                             View {{ closest_name | escape }} Store
                                         </a>
                                     {% endif %}

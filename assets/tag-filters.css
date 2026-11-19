@@ -195,8 +195,4 @@
   [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .next {
     border-left: 1px solid #e8eaee;
   }
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .page:not(.current),
-  [data-tag-filters] .toolbar-product .wrap-pagi .collection-pagination .deco {
-    display: none;
-  }
 }

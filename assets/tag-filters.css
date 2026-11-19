@@ -8,11 +8,11 @@
 [data-tag-filters] .collection-filters__clear {
   display: inline-block;
   margin: 1rem 1.875rem;
-  color: #c12c27;
+  color: #ba3c3d;
   text-decoration: underline;
 }
 [data-tag-filters] .collection-filters__clear:hover {
-  color: #c12c27;
+  color: #ba3c3d;
 }
 [data-tag-filters] .collection-filters__clear {
   cursor: pointer;

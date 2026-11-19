@@ -1,9 +1,10 @@
 :root {
+  --mobile-nav-margin: 20px;
   --mobile-nav-height: 0px;
 }
 @media only screen and (max-width: 63.99em) {
   :root {
-    --mobile-nav-height: calc(4.25rem + env(safe-area-inset-bottom, 0px));
+    --mobile-nav-height: calc(4.25rem + var(--mobile-nav-margin) * 2 + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -13,14 +14,13 @@
 @media only screen and (max-width: 63.99em) {
   .mobile-nav {
     position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    right: var(--mobile-nav-margin);
+    bottom: calc(var(--mobile-nav-margin) + env(safe-area-inset-bottom, 0px));
+    left: var(--mobile-nav-margin);
     z-index: 900000;
     display: block;
-    padding-bottom: env(safe-area-inset-bottom, 0px);
     background-color: #fff;
-    box-shadow: 0 -2px 5px rgba(50, 50, 50, 0.1490196078);
+    box-shadow: 0 1px 5px rgba(50, 50, 50, 0.1490196078);
   }
 }
 .mobile-nav__list {

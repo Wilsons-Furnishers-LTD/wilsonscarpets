@@ -185,7 +185,16 @@
             function showSummary(place) {
                 var summary = root.querySelector('[data-summary]');
                 var count = place.userRatingCount || 0;
-                summary.querySelector('[data-place-name]').textContent = place.displayName || '';
+                var placeName = summary.querySelector('[data-place-name]');
+                placeName.textContent = place.displayName || '';
+                // The section heading moves in front of the store name: "Google Reviews: Wilsons Carpets, Mansfield".
+                // It stays the h2, styled as the store name, and replaces the h3.
+                var heading = root.querySelector('.store-reviews__heading');
+                if (heading) {
+                    heading.textContent = heading.textContent.trim() + (placeName.textContent ? ': ' + placeName.textContent : '');
+                    heading.className = 'store-reviews__place';
+                    placeName.replaceWith(heading);
+                }
                 summary.querySelector('[data-place-address]').textContent = place.formattedAddress || '';
                 summary.querySelector('[data-place-rating]').textContent = place.rating.toFixed(1);
                 var starRow = stars(place.rating);
@@ -196,6 +205,9 @@
                 // "See All Reviews" moves from the header to under the rating
                 var allLink = root.querySelector('.store-reviews__all');
                 if (allLink) summary.appendChild(allLink);
+                // Heading and button have both moved, so the header is empty - remove it (and its bottom margin)
+                var header = root.querySelector('.store-reviews__header');
+                if (header && !header.children.length) header.remove();
                 summary.hidden = false;
                 root.querySelector('[data-body]').classList.add('has-summary');
             }

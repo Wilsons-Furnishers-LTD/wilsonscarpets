@@ -9,8 +9,7 @@
   If you need to modify this file, please contact Juno eCommerce at shopify@junowebdesign.com.
 {%- endcomment -%}
 
-{%- comment -%} 4 products per row on desktop, so keep pages to full rows of 4. {%- endcomment -%}
-{% assign products_per_page = 4 | times: settings.number_of_rows %}
+{% assign products_per_page = settings.products_per_row | times: settings.number_of_rows %}
 {% assign numbers = 'zero, one, two, three, four, five, six' | split: ',' %}
 {% assign products_per_row = settings.products_per_row | times: 1 %}
 {% assign products_per_row = numbers[products_per_row] | strip | append: '-per-row' %}
@@ -21,7 +20,7 @@
 
 {% paginate collection.products by products_per_page %}
 
-<div class="collection-product {{products_per_page}} {{section.settings.banner_per_page}} {{section.blocks.size}} {% if collection.image %}yes-banner{% else %}no-banner{% endif %}" data-tag-filters data-collection-url="{{ collection.url }}" data-page-size="{{ products_per_page }}" data-default-sort="{{ collection.default_sort_by }}">
+<div class="collection-product {{products_per_page}} {{section.settings.banner_per_page}} {{section.blocks.size}} {% if collection.image %}yes-banner{% else %}no-banner{% endif %}">
 {% if collection.image %}
   <div class="c-breadcrumb">
     <div class="wrapper">
@@ -284,12 +283,8 @@
   JavaScript for collection sorting.
 {% endcomment %}
 <script>
-    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
-        // Sorting is handled asynchronously by assets/tag-filters.js; this is a no-JS-module fallback.
-        if (window.TagFilters) return;
-        Shopify.queryParams.sort_by = jQuery(this).val();
-        location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
-    });
+    // Sort changes are handled asynchronously in snippets/filter-by-tags.liquid
+    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}');
 </script>
 
 <script>
@@ -337,9 +332,6 @@
 </script>
 
 {% render 'quick-view-ajaxify-cart' %}
-
-{{ 'tag-filters.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'tag-filters.js' | asset_url }}" defer="defer"></script>
 
 
 

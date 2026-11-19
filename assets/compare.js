@@ -58,13 +58,13 @@ class Compare {
             this.openModal();
         });
 
-        let compareButtons = document.querySelectorAll('.compare-button');
-        let that = this;
-        compareButtons.forEach(compareButton => {
-            compareButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                that.handleCompareClick(compareButton);
-            });
+        // Delegated, so buttons on product cards swapped in by the AJAX collection filters still work
+        document.addEventListener('click', event => {
+            const compareButton = event.target.closest('.compare-button');
+            if (!compareButton) return;
+
+            event.preventDefault();
+            this.handleCompareClick(compareButton);
         });
 
         const clearButton = document.getElementById('clear-product-ids');
@@ -1447,6 +1447,8 @@ class RecentlyViewed {
             grid.querySelectorAll('.compare-button').forEach(button => {
                 button.addEventListener('click', event => {
                     event.preventDefault();
+                    // Keeps the delegated .compare-button handler in bindModalEvents from also running
+                    event.stopPropagation();
                     onCompare(button);
                 });
             });

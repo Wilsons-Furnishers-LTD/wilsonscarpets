@@ -1,0 +1,200 @@
+[data-tag-filters] {
+    .product-grid {
+        transition: opacity 0.2s ease;
+    }
+
+    &.tag-filters--loading .product-grid,
+    &.tag-filters--loading .collection-pagination {
+        opacity: 0.4;
+        pointer-events: none;
+    }
+
+    .collection-filters__clear {
+        display: inline-block;
+        margin: 0 0 15px;
+        text-decoration: underline;
+        cursor: pointer;
+
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    .wrap-pagi[hidden] {
+        display: none;
+    }
+}
+
+/* Desktop: filters become a horizontal bar of dropdowns above the product grid.
+   Mobile keeps the existing slide-out panel opened by the "Filter by" button. */
+@media only screen and (min-width: 64em) {
+    [data-tag-filters] {
+        .col-left,
+        .col-main {
+            float: none;
+            width: 100%;
+        }
+
+        .col-left {
+            position: relative;
+            z-index: 20;
+        }
+
+        .collection-filters {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem 1rem;
+            margin-top: 20px;
+            padding: 0 0 1.25rem;
+            border-bottom: 1px solid #e8eaee;
+
+            .tt {
+                display: block;
+                margin: 0;
+                padding: 0;
+                background: none;
+                font-size: 0.9375rem;
+                font-weight: 900;
+            }
+
+            > .container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.625rem;
+                width: auto;
+                max-width: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .collection-filters__clear {
+                order: 3;
+                margin: 0;
+                font-size: 0.9375rem;
+            }
+
+            .filter-column {
+                position: relative;
+                padding: 0;
+                border: 0;
+
+                > h3 {
+                    margin: 0;
+                    padding: 0.625rem 2.5rem 0.625rem 1rem;
+                    background: #fff;
+                    border: 1px solid #d5d9de;
+                    border-radius: 3px;
+                    font-size: 0.9375rem;
+                    line-height: 1.4;
+                    white-space: nowrap;
+                    user-select: none;
+
+                    &:hover,
+                    &:focus-visible {
+                        border-color: #414b52;
+                    }
+
+                    &:after {
+                        content: '' !important;
+                        font-family: inherit !important;
+                        width: 0.4375rem;
+                        height: 0.4375rem;
+                        top: 50%;
+                        right: 1rem;
+                        border-right: 2px solid currentColor;
+                        border-bottom: 2px solid currentColor;
+                        transform: translateY(-70%) rotate(45deg);
+                        transition: transform 0.2s ease;
+                    }
+                }
+
+                &.is-open > h3 {
+                    border-color: #414b52;
+
+                    &:after {
+                        transform: translateY(-20%) rotate(-135deg);
+                    }
+                }
+
+                &.has-active > h3 {
+                    font-weight: 900;
+                }
+
+                // Keep dropdowns near the right edge inside the page.
+                &:nth-last-child(-n + 2) .advanced-filters {
+                    left: auto;
+                    right: 0;
+                }
+            }
+
+            .filter-column__count {
+                display: inline-block;
+                min-width: 1.25rem;
+                margin-left: 0.25rem;
+                padding: 0 0.375rem;
+                border-radius: 0.625rem;
+                background: #414b52;
+                color: #fff;
+                font-size: 0.75rem;
+                line-height: 1.25rem;
+                text-align: center;
+
+                &[hidden] {
+                    display: none;
+                }
+            }
+
+            // !important beats the inline display set by the mobile accordion.
+            .advanced-filters {
+                display: none !important;
+                position: absolute;
+                top: calc(100% + 0.375rem);
+                left: 0;
+                z-index: 30;
+                min-width: 15rem;
+                max-height: 22.5rem;
+                overflow-y: auto;
+                margin: 0;
+                padding: 1rem 1.25rem 0.5rem;
+                background: #fff;
+                border: 1px solid #e8eaee;
+                border-radius: 3px;
+                box-shadow: 0 4px 16px rgba(50, 50, 50, 0.15);
+            }
+
+            .filter-column.is-open .advanced-filters {
+                display: flex !important;
+            }
+        }
+    }
+}
+
+/* Desktop product grid: 4 per row (3 on smaller desktops). Uses gap instead of the
+   theme's nth-child margins so banner tiles don't break the row alignment. */
+@media only screen and (min-width: 64em) {
+    [data-tag-filters] .product-grid {
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 3%;
+
+        .item {
+            width: 31.3333%;
+            margin-right: 0;
+        }
+
+        #noProducts {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (min-width: 72em) {
+    [data-tag-filters] .product-grid {
+        column-gap: 2%;
+
+        .item {
+            width: 23.5%;
+        }
+    }
+}

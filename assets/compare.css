@@ -1442,7 +1442,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 .compare-open-button {
   position: fixed;
   left: 0;
-  bottom: 10px;
+  bottom: calc(var(--mobile-nav-height, 0px) + 10px);
   z-index: 999999;
   display: inline-flex;
   flex-direction: column-reverse;

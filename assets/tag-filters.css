@@ -7,8 +7,14 @@
 }
 [data-tag-filters] .collection-filters__clear {
   display: inline-block;
-  margin: 0 0 15px;
+  margin: 1rem 1.875rem;
+  color: #c12c27;
   text-decoration: underline;
+}
+[data-tag-filters] .collection-filters__clear:hover {
+  color: #c12c27;
+}
+[data-tag-filters] .collection-filters__clear {
   cursor: pointer;
 }
 [data-tag-filters] .collection-filters__clear[hidden] {

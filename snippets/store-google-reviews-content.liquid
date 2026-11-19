@@ -18,7 +18,10 @@
                         Find it at https://developers.google.com/maps/documentation/places/web-service/place-id
     And on the Google Cloud project for the API key: "Places API (New)" enabled.
 
-    The section renders nothing on the storefront if the store has no Place ID or Google returns no reviews.
+    With fewer than 4 reviews to show, a summary of the store on Google (name, address, average rating, stars,
+    review count) sits beside them; see showSummary().
+
+    The section renders nothing on the storefront if the store has no Place ID, or Google returns no reviews and no rating.
     The Maps API is loaded by snippets/store-google-maps-loader.liquid (same key as the store locator).
     Styles: src/styles/store-google-reviews/_index.scss -> assets/store-google-reviews.css (npm run build)
 {%- endcomment -%}
@@ -42,14 +45,37 @@
                 looping previous / next arrows - 3 cards in view up to 1199px, 2 on tablets, 1 on phones. From 1200px it's a
                 single row of up to 5, so no carousel. See setupCarousel() below and .store-reviews__carousel.
             {%- endcomment -%}
-            <div class="store-reviews__carousel" data-carousel>
-                <div class="store-reviews__list" role="list" data-list></div>
-                <button type="button" class="store-reviews__nav store-reviews__nav--prev" data-prev aria-label="Previous reviews" hidden>
-                    <i class="fas fa-chevron-left" aria-hidden="true"></i>
-                </button>
-                <button type="button" class="store-reviews__nav store-reviews__nav--next" data-next aria-label="Next reviews" hidden>
-                    <i class="fas fa-chevron-right" aria-hidden="true"></i>
-                </button>
+            {%- comment -%}
+                With fewer than 4 reviews to show, a summary of the store on Google (name, address, average rating,
+                stars, number of reviews) fills the space beside the cards. Filled in by showSummary() below.
+            {%- endcomment -%}
+            <div class="store-reviews__body" data-body>
+                <div class="store-reviews__summary" data-summary hidden>
+                    <h3 class="store-reviews__place" data-place-name></h3>
+                    <p class="store-reviews__address" data-place-address></p>
+                    <div class="store-reviews__overall">
+                        <span class="store-reviews__average" data-place-rating></span>
+                        <span data-place-stars></span>
+                        <span class="store-reviews__count" data-place-count></span>
+                    </div>
+                    <p class="store-reviews__unverified">
+                        Reviews aren't verified
+                        <span class="store-reviews__info" title="Google doesn't check that reviews are from real customers">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M11.1 10.5h1.8V17h-1.8zM12 6.8a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3z" fill="currentColor"/></svg>
+                            <span class="visually-hidden">(Google doesn't check that reviews are from real customers)</span>
+                        </span>
+                    </p>
+                </div>
+
+                <div class="store-reviews__carousel" data-carousel>
+                    <div class="store-reviews__list" role="list" data-list></div>
+                    <button type="button" class="store-reviews__nav store-reviews__nav--prev" data-prev aria-label="Previous reviews" hidden>
+                        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="store-reviews__nav store-reviews__nav--next" data-next aria-label="Next reviews" hidden>
+                        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -161,19 +187,39 @@
                 });
             }
 
+            // The store's name, address, average rating and review count on Google, shown beside the cards
+            // when there are fewer than 4 of them
+            function showSummary(place) {
+                var summary = root.querySelector('[data-summary]');
+                var count = place.userRatingCount || 0;
+                summary.querySelector('[data-place-name]').textContent = place.displayName || '';
+                summary.querySelector('[data-place-address]').textContent = place.formattedAddress || '';
+                summary.querySelector('[data-place-rating]').textContent = place.rating.toFixed(1);
+                var starRow = stars(place.rating);
+                starRow.classList.add('store-reviews__star-row--large');
+                summary.querySelector('[data-place-stars]').replaceWith(starRow);
+                summary.querySelector('[data-place-count]').textContent =
+                    count.toLocaleString('en-GB') + (count === 1 ? ' review' : ' reviews');
+                summary.hidden = false;
+                root.querySelector('[data-body]').classList.add('has-summary');
+            }
+
             async function init() {
                 try {
                     var places = await google.maps.importLibrary('places');
                     var place = new places.Place({ id: placeId });
-                    await place.fetchFields({ fields: ['reviews'] });
+                    // All one request, billed once at the reviews/rating tier
+                    await place.fetchFields({ fields: ['reviews', 'displayName', 'formattedAddress', 'rating', 'userRatingCount'] });
 
                     var reviews = (place.reviews || [])
                         .filter(function (r) { return (r.rating || 0) >= minRating; })
                         .slice(0, maxReviews);
-                    if (!reviews.length) return;
+                    var withSummary = reviews.length < 4 && typeof place.rating === 'number';
+                    if (!reviews.length && !withSummary) return;
 
                     var list = root.querySelector('[data-list]');
                     reviews.forEach(function (r) { list.appendChild(reviewCard(r)); });
+                    if (withSummary) showSummary(place);
 
                     root.hidden = false;
                     if (reviews.length > 3) setupCarousel(list);

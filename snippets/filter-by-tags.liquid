@@ -109,7 +109,7 @@
   </div>
   <div class="collection-filters">
     <h3 class="tt">Filter by</h3>
-    <a href="{{ collection.url }}" class="collection-filters__clear" data-filter-clear{% if current_tags.size == 0 %} hidden{% endif %}>Clear all</a>
+    <a href="{{ collection.url }}" class="collection-filters__clear" data-filter-clear{% unless current_tags.size > 0 %} hidden{% endunless %}>Clear all</a>
     <div class="container">
       {% assign markupToOutput = '' %}
       {% assign markupActiveToOutput = '' %}

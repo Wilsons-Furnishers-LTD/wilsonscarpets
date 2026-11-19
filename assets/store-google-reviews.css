@@ -96,6 +96,9 @@
   flex-direction: column;
   gap: 30px;
 }
+.store-reviews__body.has-summary .store-reviews__list {
+  justify-content: flex-end;
+}
 @media (min-width: 1200px) {
   .store-reviews__body.has-summary {
     flex-direction: row;

@@ -148,22 +148,6 @@
   font-size: 18px;
   color: #6b7175;
 }
-.store-reviews__unverified {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin: 12px 0 0;
-  font-size: 14px;
-  color: #6b7175;
-}
-.store-reviews__info {
-  display: inline-flex;
-  cursor: help;
-}
-.store-reviews__info svg {
-  width: 16px;
-  height: 16px;
-}
 .store-reviews__carousel {
   position: relative;
 }

@@ -69,6 +69,12 @@
   text-decoration: underline;
 }
 
+@media only screen and (max-width: 63.99em) {
+  #mastHead #searchToggle,
+  #mastHead .location--mobile {
+    display: none;
+  }
+}
 body {
   padding-bottom: var(--mobile-nav-height);
 }

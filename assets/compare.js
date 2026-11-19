@@ -61,19 +61,20 @@ class Compare {
         // Link above collection grids, and Compare in the bar at the bottom of the page below 1024px
         // (snippets/mobile-nav.liquid). Delegated, as filtering replaces the grid's HTML.
         // With nothing added yet it points at the first product's compare button instead, and without
-        // the modal, or without a compare button on the page to point at, it links to the comparison page
+        // the modal, or without a compare button showing on the page to point at, it links to the comparison page
         document.addEventListener('click', event => {
             const link = event.target.closest('.collection-compare__link, .mobile-nav__link--compare');
             if (!link) return;
 
             const count = this.getProducts().length;
             if (count && !this.modalContainer) return;
-            if (!count && !document.querySelector('.product-grid .compare-button')) return;
+            const hintButton = count ? null : Compare.findHintButton();
+            if (!count && !hintButton) return;
 
             event.preventDefault();
 
             if (!count) {
-                this.showCompareHint();
+                this.showCompareHint(hintButton);
                 return;
             }
 
@@ -384,9 +385,18 @@ class Compare {
             });
     }
 
-    // Scrolls to the first product on the page and shows its compare tooltip
-    showCompareHint() {
-        const button = document.querySelector('.product-grid .compare-button');
+    // The first compare button showing on the page, for showCompareHint. On collection pages that's the first
+    // product in the grid, and on product pages the product's own, on the photo in view. Buttons on carousel
+    // slides out of view, or hidden, are skipped
+    static findHintButton() {
+        return [...document.querySelectorAll('.compare-button')].find(button => {
+            const { left, right, width, height } = button.getBoundingClientRect();
+            return width > 0 && height > 0 && left >= 0 && right <= window.innerWidth;
+        }) || null;
+    }
+
+    // Scrolls to the product with the given compare button (findHintButton) and shows its compare tooltip
+    showCompareHint(button) {
         if (!button) return;
 
         const product = button.closest('.item') || button;

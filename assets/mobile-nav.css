@@ -65,7 +65,7 @@
   height: 26px;
 }
 .mobile-nav__link:hover, .mobile-nav__link:focus-visible {
-  color: #414B52;
+  color: #ba3c3d;
   text-decoration: underline;
 }
 

@@ -6,9 +6,10 @@
 :root {
     --mobile-nav-margin: 30px;
     --mobile-nav-margin-bottom: 15px;
+    --mobile-nav-bar-height: 3.5rem;
     --mobile-nav-height: 0px;
     @media only screen and (max-width: 63.99em) {
-        --mobile-nav-height: calc(4.25rem + var(--mobile-nav-margin) + var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
+        --mobile-nav-height: calc(var(--mobile-nav-bar-height) + var(--mobile-nav-margin) + var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
     }
 }
 
@@ -57,17 +58,17 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 6px;
-        min-width: 4.5rem;
-        height: 4.25rem;
+        gap: 4px;
+        min-width: 4rem;
+        height: var(--mobile-nav-bar-height);
         color: v.$wilson-grey;
-        font-size: .8125rem;
+        font-size: .75rem;
         font-weight: 900;
         line-height: 1;
         text-decoration: none;
         svg {
-            width: 26px;
-            height: 26px;
+            width: 22px;
+            height: 22px;
         }
         &:hover, &:focus-visible {
             color: v.$wilson-red;

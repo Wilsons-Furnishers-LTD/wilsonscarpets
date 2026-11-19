@@ -66,7 +66,6 @@
 }
 .mobile-nav__link:hover, .mobile-nav__link:focus-visible {
   color: #ba3c3d;
-  text-decoration: underline;
 }
 
 @media only screen and (max-width: 63.99em) {

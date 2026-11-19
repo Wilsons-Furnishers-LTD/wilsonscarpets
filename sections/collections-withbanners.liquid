@@ -1,4 +1,5 @@
-{% assign products_per_page = settings.products_per_row | times: settings.number_of_rows %}
+{%- comment -%} 4 products per row on desktop, so keep pages to full rows of 4. {%- endcomment -%}
+{% assign products_per_page = 4 | times: settings.number_of_rows %}
 {% assign numbers = 'zero, one, two, three, four, five, six' | split: ',' %}
 {% assign products_per_row = settings.products_per_row | times: 1 %}
 {% assign products_per_row = numbers[products_per_row] | strip | append: '-per-row' %}

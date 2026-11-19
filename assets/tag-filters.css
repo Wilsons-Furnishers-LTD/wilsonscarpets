@@ -140,3 +140,27 @@
     display: flex !important;
   }
 }
+/* Desktop product grid: 4 per row (3 on smaller desktops). Uses gap instead of the
+   theme's nth-child margins so banner tiles don't break the row alignment. */
+@media only screen and (min-width: 64em) {
+  [data-tag-filters] .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 3%;
+  }
+  [data-tag-filters] .product-grid .item {
+    width: 31.3333%;
+    margin-right: 0;
+  }
+  [data-tag-filters] .product-grid #noProducts {
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 72em) {
+  [data-tag-filters] .product-grid {
+    column-gap: 2%;
+  }
+  [data-tag-filters] .product-grid .item {
+    width: 23.5%;
+  }
+}

@@ -111,7 +111,7 @@
   .store-reviews__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) .store-reviews__all {
     grid-column: 2;
     grid-row: 1/span 3;
-    align-self: center;
+    align-self: start;
     margin-top: 0;
   }
 }

@@ -15,6 +15,7 @@
  */
 
 const DATA_SECTION = 'collection-filter-data';
+const DESKTOP = window.matchMedia('(min-width: 64em)');
 const NEXT_LABEL = 'Next <i class="icon-chevron-right"></i>';
 const PREV_LABEL = '<i class="icon-chevron-left"></i> Prev';
 
@@ -41,6 +42,8 @@ class TagFilters {
         this.page = parseInt(params.get('page'), 10) || 1;
 
         this.bind();
+        this.decorateDropdowns();
+        this.updateCounts();
 
         // A shared/bookmarked filter URL: apply it straight away.
         if (params.has('filter')) {
@@ -104,6 +107,13 @@ class TagFilters {
 
     bind() {
         this.root.addEventListener('click', (e) => {
+            const toggle = e.target.closest('.collection-filters .filter-column > h3');
+            if (toggle && DESKTOP.matches) {
+                e.preventDefault();
+                this.toggleDropdown(toggle.parentElement);
+                return;
+            }
+
             const filterLink = e.target.closest('.collection-filters .advanced-filter a');
             if (filterLink) {
                 e.preventDefault();
@@ -138,6 +148,23 @@ class TagFilters {
                 this.update();
             });
         }
+
+        // Dropdowns: close on outside click, Escape, or switching to the mobile layout.
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.collection-filters .filter-column')) this.closeDropdowns();
+        });
+        document.addEventListener('keydown', (e) => {
+            const heading = e.target.closest && e.target.closest('.collection-filters .filter-column > h3');
+            if (heading && DESKTOP.matches && (e.key === 'Enter' || e.key === ' ')) {
+                e.preventDefault();
+                this.toggleDropdown(heading.parentElement);
+            } else if (e.key === 'Escape' && this.panel && this.panel.querySelector('.filter-column.is-open')) {
+                const open = this.panel.querySelector('.filter-column.is-open > h3');
+                this.closeDropdowns();
+                if (open) open.focus();
+            }
+        });
+        DESKTOP.addEventListener('change', () => this.closeDropdowns());
 
         window.addEventListener('popstate', () => {
             const params = new URLSearchParams(window.location.search);
@@ -252,10 +279,53 @@ class TagFilters {
             if (fresh && current) {
                 current.innerHTML = fresh.innerHTML;
                 if (typeof window.reorderTagFilters === 'function') window.reorderTagFilters(this.panel);
+                this.decorateDropdowns();
             }
         } catch (error) {
             console.error(error);
         }
+    }
+
+    /* ---------- Desktop dropdown bar ---------- */
+
+    decorateDropdowns() {
+        if (!this.panel) return;
+        this.panel.querySelectorAll('.filter-column').forEach((column) => {
+            const heading = column.querySelector(':scope > h3');
+            if (!heading || heading.dataset.dropdown) return;
+            heading.dataset.dropdown = 'true';
+            heading.setAttribute('role', 'button');
+            heading.setAttribute('tabindex', '0');
+            heading.setAttribute('aria-expanded', 'false');
+            heading.insertAdjacentHTML('beforeend', ' <span class="filter-column__count" hidden></span>');
+        });
+    }
+
+    toggleDropdown(column, open = !column.classList.contains('is-open')) {
+        this.closeDropdowns(column);
+        column.classList.toggle('is-open', open);
+        const heading = column.querySelector(':scope > h3');
+        if (heading) heading.setAttribute('aria-expanded', String(open));
+    }
+
+    closeDropdowns(except = null) {
+        if (!this.panel) return;
+        this.panel.querySelectorAll('.filter-column.is-open').forEach((column) => {
+            if (column !== except) this.toggleDropdown(column, false);
+        });
+    }
+
+    updateCounts() {
+        if (!this.panel) return;
+        this.panel.querySelectorAll('.filter-column').forEach((column) => {
+            const count = column.querySelectorAll('.advanced-filter.active-filter').length;
+            column.classList.toggle('has-active', count > 0);
+            const badge = column.querySelector('.filter-column__count');
+            if (badge) {
+                badge.textContent = count;
+                badge.hidden = count === 0;
+            }
+        });
     }
 
     renderPanelState() {
@@ -269,6 +339,7 @@ class TagFilters {
         });
         const clear = this.panel.querySelector('[data-filter-clear]');
         if (clear) clear.hidden = active.size === 0;
+        this.updateCounts();
     }
 
     // Banner tiles are mixed into the grid at fixed positions on every page.

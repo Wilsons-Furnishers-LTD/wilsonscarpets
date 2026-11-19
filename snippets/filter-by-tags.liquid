@@ -109,6 +109,7 @@
   </div>
   <div class="collection-filters">
     <h3 class="tt">Filter by</h3>
+    <a href="{{ collection.url }}" class="collection-filters__clear" data-filter-clear{% if current_tags.size == 0 %} hidden{% endif %}>Clear all</a>
     <div class="container">
       {% assign markupToOutput = '' %}
       {% assign markupActiveToOutput = '' %}
@@ -216,27 +217,8 @@
     		//	jQuery('.active-filter').closest('.filter-column').children('h3').trigger('click');
     		//});
 
-        var filters = jQuery('.advanced-filter'),
-            el,
-            elGroup,
-            elHandle,
-            activeTagInGroup;
-
-        filters.on('click', function(e) {
-            el = jQuery(this);
-            elGroup = el.data('group');
-            elHandle = el.data('handle');
-            activeTagInGroup = jQuery('.active-filter[data-group="'+ elGroup +'"]');
-            // If the tag clicked is not already active and its group contains an active tag, we will swap tag within the group.
-            if ( !el.hasClass('active-filter')  && activeTagInGroup.size() ) {
-    				e.preventDefault();
-            location.href = location.href
-                // swap tag
-                .replace(activeTagInGroup.data('handle'), elHandle)
-                // go back to page 1
-                .replace(/(&page=\d+)|(page=\d+&)|(\?page=\d+jQuery)/, '');
-            }
-    		});
+        // Filter clicks are handled asynchronously by assets/tag-filters.js,
+        // which allows several tags per group to be selected at once.
 
     		// var collectionFilters = jQuery('.collection-filters');
     		// var filter = jQuery('.advanced-filter', collectionFilters);
@@ -266,7 +248,7 @@
     		// });
 
 
-        jQuery('.filter-column h3').on('click', function(e) {
+        jQuery(document).on('click', '.filter-column h3', function(e) {
            jQuery(this).toggleClass('active').next().slideToggle();
         });
         var isMobile = false; //initiate as false
@@ -309,7 +291,9 @@
                 return (a.txt < b.txt) ? -1 : (a.txt > b.txt) ? 1 : 0;
             });
         };
-        jQuery('.advanced-filters').each(function() {
+        // Exposed so assets/tag-filters.js can re-run it after refreshing the filter list.
+        window.reorderTagFilters = function(scope) {
+        jQuery('.advanced-filters', scope || document).each(function() {
             var $filters = jQuery(this);
             var toObj = [];
             var $li = jQuery('> li', $filters);
@@ -384,6 +368,8 @@
                 $filters.append(e.el);
             });
         });
+        };
+        window.reorderTagFilters();
     });
   </script>
 {% endif %}

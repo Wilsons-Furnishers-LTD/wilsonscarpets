@@ -29,6 +29,7 @@ class Compare {
         this.specificationsRealWood = ['Thickness', 'Pack Size (M²)', 'Planks Per Pack', 'Plank Size', 'Oak Layer', 'Finish', 'Style'];
         this.specificationsAccessories = ['TOG Rating', 'Pack Size (M²)', 'Density', 'Impact sound reduction', 'Material', 'Style', 'Door Bar Length'];
         this.specificationsRugs = ['Material', 'Pile Height', 'Style', 'Door Bar Length'];
+        this.specificationsBeds = ['Style'];
         this.specificationsArtificialGrass = ['Pile Height', 'Material', 'Pile Weight', 'Total Weight', 'Style', 'Drainage Holes'];
 
         if (!this.products) this.bindModalEvents();
@@ -871,6 +872,10 @@ class Compare {
                 return this.specificationsAccessories;
             case 'Rugs':
                 return this.specificationsRugs;
+            case 'Beds':
+            case 'Mattress':
+            case 'Headboard':
+                return this.specificationsBeds;
             default:
                 return this.specifications;
         }
@@ -1137,7 +1142,7 @@ class Compare {
     // packSize divides the "was" price to per m², as price should already be. The RRP_ tag is already per m².
     // Sold per item, so have no per m² unit
     getPriceUnit(type) {
-        return ['Accessories & Underlay', 'Rugs'].includes(type) ? '' : 'm²';
+        return ['Accessories & Underlay', 'Rugs', 'Beds', 'Mattress', 'Headboard'].includes(type) ? '' : 'm²';
     }
 
     getRrpPrice(product, price, compareAtInCents = false, packSize = 1) {

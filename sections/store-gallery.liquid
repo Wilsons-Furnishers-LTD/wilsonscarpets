@@ -1,0 +1,21 @@
+{% render 'store-gallery-content', store: metaobject, section_id: section.id, heading: section.settings.heading %}
+
+{% schema %}
+    {
+        "name": "Store Gallery",
+        "class": "index-section",
+        "settings": [
+            {
+                "type": "text",
+                "id": "heading",
+                "label": "Title",
+                "info": "Shown above the store's text, beside the gallery.",
+                "default": "About the store"
+            }
+        ],
+        "presets": [{
+            "name": "Store Gallery",
+            "category": "Image"
+        }]
+    }
+{% endschema %}

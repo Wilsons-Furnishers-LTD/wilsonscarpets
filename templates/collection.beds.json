@@ -8,10 +8,9 @@
  * ------------------------------------------------------------
  */
 {
-  "layout": "compare",
-    "sections": {
+  "sections": {
     "main": {
-      "type": "main-content",
+      "type": "collection-beds",
       "settings": {}
     }
   },

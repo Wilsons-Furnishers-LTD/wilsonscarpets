@@ -108,6 +108,9 @@
     <i class="icon-times"></i>
   </div>
   <div class="collection-filters">
+    {% if current_tags %}
+      <a href="{{ collection.url }}" class="clear-filters">Clear filters</a>
+    {% endif %}
     <h3 class="tt">Filter by</h3>
     <div class="container">
       {% assign markupToOutput = '' %}
@@ -215,6 +218,9 @@
 {% endcomment %}
 <style>
   .collection-product .col-main { transition: opacity .2s ease; }
+  /* #ba3c3d is $wilson-red in src/styles/_variables.scss */
+  .collection-filters .clear-filters { display: inline-block; margin-top: 20px; margin-bottom: 15px; color: #ba3c3d; font-weight: 700; text-decoration: underline; }
+  .collection-filters .clear-filters:hover { color: #ba3c3d; text-decoration: none; }
   .collection-product.is-loading .col-main,
   .collection-product.is-loading .collection-filters { opacity: .5; pointer-events: none; }
 </style>
@@ -415,8 +421,8 @@
       return url.toString();
     }
 
-    // Tag filters: add/remove the tag, any number at once, without reloading
-    $doc.on('click', '.collection-filters .advanced-filter a', function(e) {
+    // Tag filters: add/remove the tag, any number at once, without reloading. Clear filters goes back to the collection URL
+    $doc.on('click', '.collection-filters .advanced-filter a, .collection-filters .clear-filters', function(e) {
       e.preventDefault();
       loadResults(buildFilterUrl(this.href), true, false);
     });

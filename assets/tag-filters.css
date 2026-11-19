@@ -1,0 +1,19 @@
+[data-tag-filters] .product-grid {
+  transition: opacity 0.2s ease;
+}
+[data-tag-filters].tag-filters--loading .product-grid, [data-tag-filters].tag-filters--loading .collection-pagination {
+  opacity: 0.4;
+  pointer-events: none;
+}
+[data-tag-filters] .collection-filters__clear {
+  display: inline-block;
+  margin: 0 0 15px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+[data-tag-filters] .collection-filters__clear[hidden] {
+  display: none;
+}
+[data-tag-filters] .wrap-pagi[hidden] {
+  display: none;
+}

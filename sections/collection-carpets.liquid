@@ -21,7 +21,7 @@
 {% paginate collection.products by products_per_page %}
 
 
-<div class="collection-product {{products_per_page}} {{section.settings.banner_per_page}} {{section.blocks.size}} {% if collection.image %}has-banner{% else %}no-banner{% endif %}">
+<div class="collection-product {{products_per_page}} {{section.settings.banner_per_page}} {{section.blocks.size}} {% if collection.image %}has-banner{% else %}no-banner{% endif %}" data-tag-filters data-collection-url="{{ collection.url }}" data-page-size="{{ products_per_page }}" data-default-sort="{{ collection.default_sort_by }}">
     {% if collection.image %}
     {% assign collection_image = collection.image | img_url: 'master' %}
     {% assign collection_image_mobile = collection.image | img_url: '640x600', crop: 'center' %}
@@ -239,6 +239,8 @@
 {% endcomment %}
 <script>
     jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+        // Sorting is handled asynchronously by assets/tag-filters.js; this is a no-JS-module fallback.
+        if (window.TagFilters) return;
         Shopify.queryParams.sort_by = jQuery(this).val();
         location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
     });
@@ -289,6 +291,9 @@
 </script>
 
 {% render 'quick-view-ajaxify-cart' %}
+
+{{ 'tag-filters.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tag-filters.js' | asset_url }}" defer="defer"></script>
 
 
 

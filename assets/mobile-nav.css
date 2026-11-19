@@ -72,6 +72,12 @@
   width: 22px;
   height: 22px;
 }
+@media only screen and (min-width: 751px) {
+  .mobile-nav__link svg {
+    width: 26px;
+    height: 26px;
+  }
+}
 .mobile-nav__link:hover, .mobile-nav__link:focus-visible {
   color: #ba3c3d;
 }

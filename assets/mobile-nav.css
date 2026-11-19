@@ -23,6 +23,18 @@
     background-color: #fff;
     box-shadow: 0 1px 5px rgba(50, 50, 50, 0.1490196078);
   }
+  .mobile-nav::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--mobile-nav-margin) * -1);
+    right: calc(var(--mobile-nav-margin) * -1);
+    bottom: calc((var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px)) * -1);
+    left: calc(var(--mobile-nav-margin) * -1);
+    z-index: -1;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
 }
 .mobile-nav__list {
   display: flex;

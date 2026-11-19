@@ -184,6 +184,10 @@
   display: none;
 }
 @media (max-width: 1199px) {
+  .store-reviews__carousel {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
   .store-reviews__carousel.is-carousel .store-reviews__list {
     flex-wrap: nowrap;
     overflow-x: auto;

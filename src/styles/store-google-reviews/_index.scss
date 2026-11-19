@@ -232,10 +232,11 @@
     }
 
     @media (max-width: 1199px) {
-        > .wrapper {
-            padding-left: 20px;
-            padding-right: 20px;
+        &__carousel {
+            margin-left: 20px;
+            margin-right: 20px;
         }
+
         &__carousel.is-carousel &__list {
             flex-wrap: nowrap;
             overflow-x: auto;

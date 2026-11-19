@@ -58,14 +58,17 @@ class Compare {
             this.openModal();
         });
 
-        // Link above collection grids. Delegated, as filtering replaces the grid's HTML.
-        // With nothing added yet it points at the first product's compare button instead,
-        // and without the modal it links to the comparison page
+        // Link above collection grids, and Compare in the bar at the bottom of the page below 1024px
+        // (snippets/mobile-nav.liquid). Delegated, as filtering replaces the grid's HTML.
+        // With nothing added yet it points at the first product's compare button instead, and without
+        // the modal, or without a compare button on the page to point at, it links to the comparison page
         document.addEventListener('click', event => {
-            if (!event.target.closest('.collection-compare__link')) return;
+            const link = event.target.closest('.collection-compare__link, .mobile-nav__link--compare');
+            if (!link) return;
 
             const count = this.getProducts().length;
             if (count && !this.modalContainer) return;
+            if (!count && !document.querySelector('.product-grid .compare-button')) return;
 
             event.preventDefault();
 
@@ -74,7 +77,8 @@ class Compare {
                 return;
             }
 
-            Compare.track('compare_open', { compare_count: count, origin: 'collection' });
+            const origin = link.classList.contains('mobile-nav__link--compare') ? 'mobile_nav' : 'collection';
+            Compare.track('compare_open', { compare_count: count, origin });
             this.openModal();
         });
 

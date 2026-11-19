@@ -9,6 +9,7 @@ const entries = [
   'products',
   'finance',
   'compare',
+  'mobile-nav',
 ];
 
 const configs = [];

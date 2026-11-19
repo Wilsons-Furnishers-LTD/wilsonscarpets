@@ -1,0 +1,82 @@
+@use './../variables' as v;
+
+// Sticky bar at the bottom of the page below 1024px (snippets/mobile-nav.liquid), with a 30px margin above
+// and to the sides, and 15px below. The height is the space it takes at the bottom of the screen,
+// including the margin above and below
+:root {
+    --mobile-nav-margin: 30px;
+    --mobile-nav-margin-bottom: 15px;
+    --mobile-nav-height: 0px;
+    @media only screen and (max-width: 63.99em) {
+        --mobile-nav-height: calc(4.25rem + var(--mobile-nav-margin) + var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+.mobile-nav {
+    display: none;
+    @media only screen and (max-width: 63.99em) {
+        // A strip across the bottom of the screen that blurs the page behind it. The margin is padding,
+        // so the solid white bar (the list) sits inside it, unaffected by the blur
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        // Below the header (900001), so its menus and search cover the bar, and the compare modal (1000000)
+        z-index: 900000;
+        display: block;
+        padding: var(--mobile-nav-margin) var(--mobile-nav-margin) calc(var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        // Fades the blur in over the margin above the bar, so there's no hard edge at the top.
+        // Fully shown from the top of the bar, so the bar itself isn't faded
+        -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--mobile-nav-margin));
+        mask-image: linear-gradient(to bottom, transparent, #000 var(--mobile-nav-margin));
+        // Taps on the blurred margin go through to the page
+        pointer-events: none;
+    }
+    &__list {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: #fff;
+        box-shadow: 0 1px 5px #32323226;
+        pointer-events: auto;
+    }
+    &__item {
+        margin: 0;
+        padding: 0;
+        &::before {
+            content: none;
+        }
+    }
+    &__link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-width: 4.5rem;
+        height: 4.25rem;
+        color: v.$wilson-grey;
+        font-size: .8125rem;
+        font-weight: 900;
+        line-height: 1;
+        text-decoration: none;
+        svg {
+            width: 26px;
+            height: 26px;
+        }
+        &:hover, &:focus-visible {
+            color: v.$wilson-grey;
+            text-decoration: underline;
+        }
+    }
+}
+
+// Keeps the end of the page clear of the bar
+body {
+    padding-bottom: var(--mobile-nav-height);
+}

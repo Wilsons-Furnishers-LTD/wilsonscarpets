@@ -2,8 +2,8 @@
   In collection toolbars, shown when a product on the page has a compare button
   (the types match snippets/compare-button.liquid). compare.js opens the compare modal from here,
   or points at the first compare button when nothing has been added yet.
-  Rendered twice, as placement 'sorter' next to "Sort by" from 1024px, and 'pagination' left of the
-  pagination below that, where the filter and sort bar is moved out of the toolbar
+  Rendered as placement 'sorter' next to "Sort by", from 1024px only. Below that Compare is in the bar
+  at the bottom of the page (snippets/mobile-nav.liquid)
 {%- endcomment -%}
 {% if shop.metafields.comparison.feature == 1 %}
   {% assign compare_types = 'Carpets|LVT|Vinyl|Laminate|Artificial Grass|Real Wood|Accessories & Underlay|Rugs' | split: '|' %}

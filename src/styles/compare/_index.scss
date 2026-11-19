@@ -1412,9 +1412,9 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     }
 }
 
-// Next to "Sort by" in collection toolbars (snippets/collection-compare-link.liquid), matching its label
-// A box with the same shadow as the sorter and pagination. Rendered next to the sorter from 1024px,
-// and left of the pagination below that (see snippets/collection-compare-link.liquid)
+// Next to "Sort by" in collection toolbars (snippets/collection-compare-link.liquid), matching its label.
+// A box with the same shadow as the sorter and pagination. From 1024px only, below that Compare is in the
+// bar at the bottom of the page (snippets/mobile-nav.liquid)
 .collection-compare {
     display: flex;
     align-items: center;
@@ -1428,14 +1428,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             display: none;
         }
     }
-    &--pagination {
-        flex: none;
-        // Not gap, as the row's clearfix pseudo-elements would count as flex items
-        margin-right: 1rem;
-        @media only screen and (min-width: 64em) {
-            display: none;
-        }
-    }
     &__link {
         display: inline-flex;
         align-items: center;
@@ -1446,14 +1438,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
         font-weight: 900;
         line-height: 2.375rem;
         white-space: nowrap;
-        // Icon only, square to match the pagination's 38px pages. The height is set as there's no text
-        // to give it one, and the width as the pagination is balanced against it, see below
-        @media only screen and (max-width: 63.99em) {
-            justify-content: center;
-            width: 2.375rem;
-            height: 2.375rem;
-            padding: 0;
-        }
         svg {
             width: 18px;
             height: 18px;
@@ -1463,32 +1447,13 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             text-decoration: underline;
         }
     }
-    // Icon only below 1024px. The link's aria-label still names it
-    &__text {
-        @media only screen and (max-width: 63.99em) {
-            display: none;
-        }
-    }
-}
-
-// Puts the link and the pagination side by side. The filter and sort bar is positioned out of this row (main.css).
-// The pagination's right margin matches the link and its margin, so the pagination stays centred on the screen
-@media only screen and (max-width: 63.99em) {
-    .toolbar-product > .row:has(> .collection-compare--pagination) {
-        display: flex;
-        align-items: center;
-        .wrap-pagi {
-            flex: 1;
-            min-width: 0;
-            margin-right: calc(2.375rem + 1rem);
-        }
-    }
 }
 
 .compare-open-button {
     position: fixed;
     left: 0;
-    bottom: 10px;
+    // Above the bar at the bottom of the page below 1024px (src/styles/mobile-nav/_index.scss)
+    bottom: calc(var(--mobile-nav-height, 0px) + 10px);
     // Below the modal (1000000) so it's covered while the modal is open
     z-index: 999999;
     display: inline-flex;

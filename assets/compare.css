@@ -1390,7 +1390,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   flex: none;
   margin-right: 1rem;
 }
-@media only screen and (min-width: 64em) {
+@media only screen and (max-width: 47.99em), only screen and (min-width: 64em) {
   .collection-compare--pagination {
     display: none;
   }
@@ -1428,7 +1428,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   }
 }
 
-@media only screen and (max-width: 63.99em) {
+@media only screen and (min-width: 48em) and (max-width: 63.99em) {
   .toolbar-product > .row:has(> .collection-compare--pagination) {
     display: flex;
     align-items: center;

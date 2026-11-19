@@ -15,22 +15,12 @@
 @media only screen and (max-width: 63.99em) {
   .mobile-nav {
     position: fixed;
-    right: var(--mobile-nav-margin);
-    bottom: calc(var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
-    left: var(--mobile-nav-margin);
+    right: 0;
+    bottom: 0;
+    left: 0;
     z-index: 900000;
     display: block;
-    background-color: #fff;
-    box-shadow: 0 1px 5px rgba(50, 50, 50, 0.1490196078);
-  }
-  .mobile-nav::before {
-    content: "";
-    position: absolute;
-    top: calc(var(--mobile-nav-margin) * -1);
-    right: calc(var(--mobile-nav-margin) * -1);
-    bottom: calc((var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px)) * -1);
-    left: calc(var(--mobile-nav-margin) * -1);
-    z-index: -1;
+    padding: var(--mobile-nav-margin) var(--mobile-nav-margin) calc(var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     pointer-events: none;
@@ -43,6 +33,9 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  background-color: #fff;
+  box-shadow: 0 1px 5px rgba(50, 50, 50, 0.1490196078);
+  pointer-events: auto;
 }
 .mobile-nav__item {
   margin: 0;

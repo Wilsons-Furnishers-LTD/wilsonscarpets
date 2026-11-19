@@ -102,6 +102,124 @@
         }
     }
 
+    // Store summary (name, address, average rating, review count, "See All Reviews"), shown whenever Google has a
+    // rating for the store (.has-summary, set by the script). Normally it sits above the cards. With fewer than 4
+    // reviews (.is-side) the cards are pushed right, and from 1200px the summary sits to the left of them, taking
+    // the space of 2 of the 5 card slots so the cards stay their usual width.
+    &__summary {
+        &[hidden] {
+            display: none;
+        }
+
+        // "See All Reviews", moved here from the header by the script
+        .store-reviews__all {
+            margin-top: 20px;
+        }
+    }
+
+    &__body.has-summary {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    // Summary above the cards (4+ reviews), from 600px: "See All Reviews" on the right, level with the top of
+    // the title. On phones it stays underneath.
+    &__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) {
+        @media (min-width: 600px) {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            column-gap: 30px;
+
+            > * {
+                grid-column: 1;
+            }
+
+            .store-reviews__all {
+                grid-column: 2;
+                grid-row: 1 / span 3;
+                align-self: start;
+                margin-top: 0;
+            }
+        }
+    }
+
+    &__body.is-side {
+        // Cards pushed to the right, so any empty slots sit between the summary and the cards
+        .store-reviews__list {
+            justify-content: flex-end;
+        }
+
+        @media (min-width: 1200px) {
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px;
+
+            .store-reviews__summary {
+                flex: 0 0 calc(40% - 12px);
+                box-sizing: border-box;
+                padding-right: 20px;
+            }
+
+            .store-reviews__carousel {
+                flex: 1 1 auto;
+                min-width: 0;
+            }
+
+            .store-reviews__list {
+                --cards: 3;
+            }
+        }
+    }
+
+    &__place {
+        margin: 0 0 6px;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1.15;
+        color: v.$wilson-grey;
+
+        @media (max-width: 599px) {
+            font-size: 24px;
+        }
+    }
+
+    // Store name after "Google Reviews:"
+    &__place-name {
+        opacity: .7;
+    }
+
+    &__address {
+        margin: 0 0 18px;
+        padding-top: 8px;
+        font-size: 16px;
+        line-height: 1.35;
+        color: #6b7175;
+    }
+
+    &__overall {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px 12px;
+
+        // Centred on the rating number (the card star rows are pinned to the top with align-self: flex-start)
+        .store-reviews__star-row {
+            align-self: center;
+        }
+    }
+
+    &__average {
+        font-size: 44px;
+        line-height: 1;
+        color: v.$wilson-grey;
+    }
+
+    &__count {
+        font-size: 18px;
+        color: #6b7175;
+    }
+
     // Carousel: only with more than 3 reviews (.is-carousel, set by the script) and only below 1200px.
     // The list becomes one swipeable row that snaps to each card; --cards (3 / 2 / 1, from the list rules above)
     // sets how many are in view. Arrows match the product page's "more products" carousel arrows.
@@ -273,6 +391,13 @@
             margin-right: 1px;
             fill: currentColor;
         }
+    }
+
+    // Bigger stars in the store summary
+    &__star-row--large svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 2px;
     }
 
     &__star-row-empty {

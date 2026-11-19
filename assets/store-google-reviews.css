@@ -88,6 +88,95 @@
     --gap: 12px;
   }
 }
+.store-reviews__summary[hidden] {
+  display: none;
+}
+.store-reviews__summary .store-reviews__all {
+  margin-top: 20px;
+}
+.store-reviews__body.has-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+@media (min-width: 600px) {
+  .store-reviews__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 30px;
+  }
+  .store-reviews__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) > * {
+    grid-column: 1;
+  }
+  .store-reviews__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) .store-reviews__all {
+    grid-column: 2;
+    grid-row: 1/span 3;
+    align-self: start;
+    margin-top: 0;
+  }
+}
+.store-reviews__body.is-side .store-reviews__list {
+  justify-content: flex-end;
+}
+@media (min-width: 1200px) {
+  .store-reviews__body.is-side {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .store-reviews__body.is-side .store-reviews__summary {
+    flex: 0 0 calc(40% - 12px);
+    box-sizing: border-box;
+    padding-right: 20px;
+  }
+  .store-reviews__body.is-side .store-reviews__carousel {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .store-reviews__body.is-side .store-reviews__list {
+    --cards: 3;
+  }
+}
+.store-reviews__place {
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #414B52;
+}
+@media (max-width: 599px) {
+  .store-reviews__place {
+    font-size: 24px;
+  }
+}
+.store-reviews__place-name {
+  opacity: 0.7;
+}
+.store-reviews__address {
+  margin: 0 0 18px;
+  padding-top: 8px;
+  font-size: 16px;
+  line-height: 1.35;
+  color: #6b7175;
+}
+.store-reviews__overall {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 12px;
+}
+.store-reviews__overall .store-reviews__star-row {
+  align-self: center;
+}
+.store-reviews__average {
+  font-size: 44px;
+  line-height: 1;
+  color: #414B52;
+}
+.store-reviews__count {
+  font-size: 18px;
+  color: #6b7175;
+}
 .store-reviews__carousel {
   position: relative;
 }
@@ -232,6 +321,11 @@
   height: 14px;
   margin-right: 1px;
   fill: currentColor;
+}
+.store-reviews__star-row--large svg {
+  width: 24px;
+  height: 24px;
+  margin-right: 2px;
 }
 .store-reviews__star-row-empty {
   display: inline-flex;

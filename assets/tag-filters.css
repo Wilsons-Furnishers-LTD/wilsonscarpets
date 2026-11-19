@@ -170,3 +170,9 @@
     width: 23.5%;
   }
 }
+/* Mobile: pagination sits on the right of the toolbar (also when there's no compare link). */
+@media only screen and (max-width: 63.99em) {
+  [data-tag-filters] .toolbar-product .wrap-pagi {
+    text-align: right;
+  }
+}

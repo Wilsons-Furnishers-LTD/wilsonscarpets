@@ -1408,10 +1408,8 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
 }
 @media only screen and (max-width: 63.99em) {
   .collection-compare__link {
-    justify-content: center;
-    width: 2.375rem;
     height: 2.375rem;
-    padding: 0;
+    padding: 0 0.75rem;
   }
 }
 .collection-compare__link svg {
@@ -1422,11 +1420,6 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   color: #414B52;
   text-decoration: underline;
 }
-@media only screen and (max-width: 63.99em) {
-  .collection-compare__text {
-    display: none;
-  }
-}
 
 @media only screen and (max-width: 63.99em) {
   .toolbar-product > .row:has(> .collection-compare--pagination) {
@@ -1436,7 +1429,7 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   .toolbar-product > .row:has(> .collection-compare--pagination) .wrap-pagi {
     flex: 1;
     min-width: 0;
-    margin-right: 3.375rem;
+    text-align: right;
   }
 }
 .compare-open-button {

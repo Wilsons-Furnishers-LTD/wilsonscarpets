@@ -1,4 +1,9 @@
 class Compare {
+    // Where the Compare link goes to show the compare hint from pages without a compare button,
+    // and the session storage flag that shows it there
+    static hintCollectionUrl = '/collections/carpets';
+    static pendingHintKey = 'compare_pending_hint';
+
     constructor(options = {}) {
         this.storageKey = 'compare_product_handles';
         this.maxProducts = 4;
@@ -60,21 +65,33 @@ class Compare {
 
         // Link above collection grids, and Compare in the bar at the bottom of the page below 1024px
         // (snippets/mobile-nav.liquid). Delegated, as filtering replaces the grid's HTML.
-        // With nothing added yet it points at the first product's compare button instead, and without
-        // the modal, or without a compare button showing on the page to point at, it links to the comparison page
+        // With nothing added yet it points at the first product's compare button instead, or without a compare
+        // button showing on the page, goes to the carpets collection to point at one there (see showPendingCompareHint).
+        // With products added but without the modal, it links to the comparison page
         document.addEventListener('click', event => {
             const link = event.target.closest('.collection-compare__link, .mobile-nav__link--compare');
             if (!link) return;
 
             const count = this.getProducts().length;
             if (count && !this.modalContainer) return;
-            const hintButton = count ? null : Compare.findHintButton();
-            if (!count && !hintButton) return;
 
             event.preventDefault();
 
             if (!count) {
-                this.showCompareHint(hintButton);
+                const hintButton = Compare.findHintButton();
+
+                if (hintButton) {
+                    this.showCompareHint(hintButton);
+                    return;
+                }
+
+                try {
+                    sessionStorage.setItem(Compare.pendingHintKey, '1');
+                } catch (error) {
+                    // Still goes to the collection, without the hint
+                }
+
+                window.location.href = Compare.hintCollectionUrl;
                 return;
             }
 
@@ -383,6 +400,21 @@ class Compare {
 
                 return variant ? { handle, variant: Number(variant) } : { handle };
             });
+    }
+
+    // Shows the compare hint when the Compare link sent someone here from a page without a compare button.
+    // The flag is cleared first, so it's only shown once
+    showPendingCompareHint() {
+        let pending = false;
+
+        try {
+            pending = sessionStorage.getItem(Compare.pendingHintKey) === '1';
+            sessionStorage.removeItem(Compare.pendingHintKey);
+        } catch (error) {
+            return;
+        }
+
+        if (pending) this.showCompareHint(Compare.findHintButton());
     }
 
     // The first compare button showing on the page, for showCompareHint. On collection pages that's the first
@@ -1535,6 +1567,7 @@ const recentlyViewed = new RecentlyViewed();
 recentlyViewed.recordProductPage();
 
 const compare = new Compare();
+compare.showPendingCompareHint();
 let comparisonPage = null;
 
 const comparisonPageApp = document.getElementById('comparison-page-app');

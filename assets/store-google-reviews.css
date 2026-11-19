@@ -99,6 +99,22 @@
   flex-direction: column;
   gap: 30px;
 }
+@media (min-width: 600px) {
+  .store-reviews__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 30px;
+  }
+  .store-reviews__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) > * {
+    grid-column: 1;
+  }
+  .store-reviews__body.has-summary:not(.is-side) .store-reviews__summary:not([hidden]) .store-reviews__all {
+    grid-column: 2;
+    grid-row: 1/span 3;
+    align-self: center;
+    margin-top: 0;
+  }
+}
 .store-reviews__body.is-side .store-reviews__list {
   justify-content: flex-end;
 }

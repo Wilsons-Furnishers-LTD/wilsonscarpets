@@ -1439,6 +1439,11 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
     margin-right: 3.375rem;
   }
 }
+@media screen and (max-width: 768px) {
+  .toolbar-product:not(:has(.wrap-pagi)) {
+    padding: 0;
+  }
+}
 .compare-open-button {
   position: fixed;
   left: 0;

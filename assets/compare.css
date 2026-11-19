@@ -1452,6 +1452,10 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   .toolbar-product > .row:has(> .collection-compare--pagination) .wrap-pagi .collection-pagination .next {
     border-left: 1px solid #e8eaee;
   }
+  .toolbar-product > .row:has(> .collection-compare--pagination) .wrap-pagi .collection-pagination .page:not(.current),
+  .toolbar-product > .row:has(> .collection-compare--pagination) .wrap-pagi .collection-pagination .deco {
+    display: none;
+  }
 }
 .compare-open-button {
   position: fixed;

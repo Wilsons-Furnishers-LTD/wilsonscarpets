@@ -1,10 +1,11 @@
 :root {
   --mobile-nav-margin: 30px;
+  --mobile-nav-margin-bottom: 15px;
   --mobile-nav-height: 0px;
 }
 @media only screen and (max-width: 63.99em) {
   :root {
-    --mobile-nav-height: calc(4.25rem + var(--mobile-nav-margin) * 2 + env(safe-area-inset-bottom, 0px));
+    --mobile-nav-height: calc(4.25rem + var(--mobile-nav-margin) + var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -15,7 +16,7 @@
   .mobile-nav {
     position: fixed;
     right: var(--mobile-nav-margin);
-    bottom: calc(var(--mobile-nav-margin) + env(safe-area-inset-bottom, 0px));
+    bottom: calc(var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
     left: var(--mobile-nav-margin);
     z-index: 900000;
     display: block;

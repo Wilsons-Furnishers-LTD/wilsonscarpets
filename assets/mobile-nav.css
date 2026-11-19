@@ -21,8 +21,8 @@
     z-index: 900000;
     display: block;
     padding: var(--mobile-nav-margin) var(--mobile-nav-margin) calc(var(--mobile-nav-margin-bottom) + env(safe-area-inset-bottom, 0px));
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     pointer-events: none;
   }
 }

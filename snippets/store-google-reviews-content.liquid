@@ -191,13 +191,7 @@
                 // It stays the h2, styled as the store name, and replaces the h3.
                 var heading = root.querySelector('.store-reviews__heading');
                 if (heading) {
-                    var label = heading.textContent.trim();
-                    if (placeName.textContent) {
-                        // "Google Reviews:" in its own span so it can be faded (.store-reviews__place-label)
-                        heading.textContent = '';
-                        heading.appendChild(text('span', 'store-reviews__place-label', label + ':'));
-                        heading.appendChild(document.createTextNode(' ' + placeName.textContent));
-                    }
+                    heading.textContent = heading.textContent.trim() + (placeName.textContent ? ': ' + placeName.textContent : '');
                     heading.className = 'store-reviews__place';
                     placeName.replaceWith(heading);
                 }

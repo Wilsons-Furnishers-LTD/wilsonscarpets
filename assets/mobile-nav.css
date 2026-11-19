@@ -19,6 +19,7 @@
     left: var(--mobile-nav-margin);
     z-index: 900000;
     display: block;
+    border-radius: 3px;
     background-color: #fff;
     box-shadow: 0 1px 5px rgba(50, 50, 50, 0.1490196078);
   }

@@ -91,6 +91,9 @@
 .store-reviews__summary[hidden] {
   display: none;
 }
+.store-reviews__summary .store-reviews__all {
+  margin-top: 20px;
+}
 .store-reviews__body.has-summary {
   display: flex;
   flex-direction: column;

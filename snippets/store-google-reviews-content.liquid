@@ -193,6 +193,9 @@
                 summary.querySelector('[data-place-stars]').replaceWith(starRow);
                 summary.querySelector('[data-place-count]').textContent =
                     count.toLocaleString('en-GB') + (count === 1 ? ' review' : ' reviews');
+                // "See All Reviews" moves from the header to under the rating
+                var allLink = root.querySelector('.store-reviews__all');
+                if (allLink) summary.appendChild(allLink);
                 summary.hidden = false;
                 root.querySelector('[data-body]').classList.add('has-summary');
             }

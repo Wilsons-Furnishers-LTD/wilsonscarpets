@@ -1,4 +1,9 @@
 class Compare {
+    // Where the Compare link goes to show the compare hint from pages without a compare button,
+    // and the session storage flag that shows it there
+    static hintCollectionUrl = '/collections/carpets';
+    static pendingHintKey = 'compare_pending_hint';
+
     constructor(options = {}) {
         this.storageKey = 'compare_product_handles';
         this.maxProducts = 4;
@@ -55,6 +60,43 @@ class Compare {
         this.openButton = document.querySelector('.compare-open-button');
         this.openButton?.addEventListener('click', () => {
             Compare.track('compare_open', { compare_count: this.getProducts().length });
+            this.openModal();
+        });
+
+        // Link above collection grids, and Compare in the bar at the bottom of the page below 1024px
+        // (snippets/mobile-nav.liquid). Delegated, as filtering replaces the grid's HTML.
+        // With nothing added yet it points at the first product's compare button instead, or without a compare
+        // button showing on the page, goes to the carpets collection to point at one there (see showPendingCompareHint).
+        // With products added but without the modal, it links to the comparison page
+        document.addEventListener('click', event => {
+            const link = event.target.closest('.collection-compare__link, .mobile-nav__link--compare');
+            if (!link) return;
+
+            const count = this.getProducts().length;
+            if (count && !this.modalContainer) return;
+
+            event.preventDefault();
+
+            if (!count) {
+                const hintButton = Compare.findHintButton();
+
+                if (hintButton) {
+                    this.showCompareHint(hintButton);
+                    return;
+                }
+
+                try {
+                    sessionStorage.setItem(Compare.pendingHintKey, '1');
+                } catch (error) {
+                    // Still goes to the collection, without the hint
+                }
+
+                window.location.href = Compare.hintCollectionUrl;
+                return;
+            }
+
+            const origin = link.classList.contains('mobile-nav__link--compare') ? 'mobile_nav' : 'collection';
+            Compare.track('compare_open', { compare_count: count, origin });
             this.openModal();
         });
 
@@ -240,9 +282,9 @@ class Compare {
     }
 
     updateOpenButton() {
-        if (!this.openButton) return;
-
         const count = this.getProducts().length;
+
+        if (!this.openButton) return;
 
         this.openButton.hidden = !count;
         this.openButton.setAttribute('aria-label', `Compare products (${count})`);
@@ -358,6 +400,70 @@ class Compare {
 
                 return variant ? { handle, variant: Number(variant) } : { handle };
             });
+    }
+
+    // Shows the compare hint when the Compare link sent someone here from a page without a compare button.
+    // The flag is cleared first, so it's only shown once
+    showPendingCompareHint() {
+        let pending = false;
+
+        try {
+            pending = sessionStorage.getItem(Compare.pendingHintKey) === '1';
+            sessionStorage.removeItem(Compare.pendingHintKey);
+        } catch (error) {
+            return;
+        }
+
+        if (pending) this.showCompareHint(Compare.findHintButton());
+    }
+
+    // The first compare button showing on the page, for showCompareHint. On collection pages that's the first
+    // product in the grid, and on product pages the product's own, on the photo in view. Buttons on carousel
+    // slides out of view, or hidden, are skipped
+    static findHintButton() {
+        return [...document.querySelectorAll('.compare-button')].find(button => {
+            const { left, right, width, height } = button.getBoundingClientRect();
+            return width > 0 && height > 0 && left >= 0 && right <= window.innerWidth;
+        }) || null;
+    }
+
+    // Scrolls to the product with the given compare button (findHintButton) and shows its compare tooltip
+    showCompareHint(button) {
+        if (!button) return;
+
+        const product = button.closest('.item') || button;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // The header is fixed and covers the top of the page, and it gets shorter once scrolled
+        const getHeaderBottom = () => Math.max(0, ...['shopify-section-header', 'mastHeadTop']
+            .map(id => document.getElementById(id)?.getBoundingClientRect().bottom || 0));
+
+        // Puts the top of the product, where the compare button is, just below the header.
+        // Centring it instead pushed the button off the top below 1024px, where products are taller than the screen
+        const scrollToProduct = behavior => {
+            const top = product.getBoundingClientRect().top + window.scrollY - getHeaderBottom() - 16;
+            window.scrollTo({ top: Math.max(0, top), behavior });
+        };
+
+        scrollToProduct(reduceMotion ? 'auto' : 'smooth');
+
+        // Wait for the scroll to finish so the tooltip's animation isn't missed. The timeout covers
+        // browsers without scrollend, and pages that didn't need to scroll
+        let shown = false;
+        const showTooltip = () => {
+            if (shown) return;
+            shown = true;
+
+            // The header shrinking or images loading above can move the product while scrolling, so correct for it
+            const { top, bottom } = button.getBoundingClientRect();
+            if (top < getHeaderBottom() || bottom > window.innerHeight) scrollToProduct('auto');
+
+            button.classList.add('compare-button--show-tooltip');
+            setTimeout(() => button.classList.remove('compare-button--show-tooltip'), 4000);
+        };
+
+        window.addEventListener('scrollend', showTooltip, { once: true });
+        setTimeout(showTooltip, 1000);
     }
 
     getStoredProducts() {
@@ -480,6 +586,9 @@ class Compare {
 
         this.renderNav();
         this.renderGrid();
+
+        // Nothing left to compare, so close the modal as clearing does
+        if (!products.length) this.closeModal();
     }
 
     // Shared between the modal and the comparison page, so a product is only fetched once
@@ -1458,6 +1567,7 @@ const recentlyViewed = new RecentlyViewed();
 recentlyViewed.recordProductPage();
 
 const compare = new Compare();
+compare.showPendingCompareHint();
 let comparisonPage = null;
 
 const comparisonPageApp = document.getElementById('comparison-page-app');

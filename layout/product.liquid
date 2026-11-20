@@ -180,7 +180,8 @@ data-cdn="{{ 'filename.js' | asset_url | split:'/assets/filename.js' | first }}/
 
 {{ 'main.css' | asset_url | stylesheet_tag }}
 {{ 'search.css' | asset_url | stylesheet_tag }}
-{% if shop.metafields.custom.compare_feature == true %}
+{{ 'mobile-nav.css' | asset_url | stylesheet_tag }}
+{% if shop.metafields.comparison.feature == 1 %}
 {{ 'compare.css' | asset_url | stylesheet_tag }}
 {% endif  %}
 
@@ -317,6 +318,8 @@ window.KlarnaThemeGlobals.data_purchase_amount =
 </div>
 
 
+{% render 'mobile-nav' %}
+<script src="{{ 'mobile-nav.js' | asset_url }}" defer></script>
 {% section 'compare-modal' %}
 {% section 'footer-scripts' %}
 

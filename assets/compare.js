@@ -1291,24 +1291,32 @@ class Compare {
         clearTimeout(this.shudderTimer);
         this.shudderTimer = setTimeout(() => this.shudderLimitWarning(), shudderDelay);
 
-        // Fade the warning out after 5 seconds, restarting the countdown if it's shown again
-        this.limitWarning?.classList.remove('is-fading');
+        // Slide the warning up after 4 seconds, restarting the countdown if it's shown again
+        this.resetLimitWarningSlide();
         clearTimeout(this.limitFadeTimer);
         clearTimeout(this.limitHideTimer);
-        this.limitFadeTimer = setTimeout(() => this.fadeLimitWarning(type || ''), shudderDelay + 5000);
+        this.limitFadeTimer = setTimeout(() => this.slideUpLimitWarning(type || ''), shudderDelay + 4000);
     }
 
-    fadeLimitWarning(type) {
+    slideUpLimitWarning(type) {
         const warning = this.limitWarning;
 
-        // Nothing to fade if it's already hidden, or now showing for another type
+        // Nothing to slide up if it's already hidden, or now showing for another type
         if (!warning || warning.hidden || type !== this.activeType) return this.dismissLimitWarning(type);
 
-        warning.classList.add('is-fading');
+        // Fix the current height so it can transition down to 0
+        warning.style.height = `${warning.offsetHeight}px`;
+        void warning.offsetWidth;
+        warning.classList.add('is-sliding-up');
 
-        // Matches the opacity transition in the styles
+        // Matches the height transition in the styles
         clearTimeout(this.limitHideTimer);
         this.limitHideTimer = setTimeout(() => this.dismissLimitWarning(type), 400);
+    }
+
+    resetLimitWarningSlide() {
+        this.limitWarning?.classList.remove('is-sliding-up');
+        this.limitWarning?.style.removeProperty('height');
     }
 
     dismissLimitWarning(type = this.activeType) {
@@ -1319,7 +1327,7 @@ class Compare {
 
         if (!this.limitWarning) return;
 
-        this.limitWarning.classList.remove('is-fading');
+        this.resetLimitWarningSlide();
 
         // Another type may be showing by now, so only hide the warning if it's for this one
         if (type === this.activeType) this.limitWarning.hidden = true;

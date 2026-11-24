@@ -105,6 +105,7 @@
                                 </select>
                                 </div>
                             </div>
+                            {% render 'collection-compare-link', placement: 'sorter' %}
                         </div>
                         {% if paginate.pages > 1 %}
                         <div class="wrap-pagi">
@@ -272,8 +273,10 @@
   JavaScript for collection sorting.
 {% endcomment %}
 <script>
-    // Sort changes are handled asynchronously in snippets/filter-by-tags.liquid
-    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}');
+    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+        Shopify.queryParams.sort_by = jQuery(this).val();
+        location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
+    });
 </script>
 
 <script>

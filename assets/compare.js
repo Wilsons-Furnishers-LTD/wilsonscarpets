@@ -1286,8 +1286,43 @@ class Compare {
         }
 
         // The warning sits on the modal, so it shows whether or not the add product panel is open
+        const shudderDelay = wasOpen || !this.modalContainer ? 0 : 300;
+
         clearTimeout(this.shudderTimer);
-        this.shudderTimer = setTimeout(() => this.shudderLimitWarning(), wasOpen || !this.modalContainer ? 0 : 300);
+        this.shudderTimer = setTimeout(() => this.shudderLimitWarning(), shudderDelay);
+
+        // Fade the warning out after 5 seconds, restarting the countdown if it's shown again
+        this.limitWarning?.classList.remove('is-fading');
+        clearTimeout(this.limitFadeTimer);
+        clearTimeout(this.limitHideTimer);
+        this.limitFadeTimer = setTimeout(() => this.fadeLimitWarning(type || ''), shudderDelay + 5000);
+    }
+
+    fadeLimitWarning(type) {
+        const warning = this.limitWarning;
+
+        // Nothing to fade if it's already hidden, or now showing for another type
+        if (!warning || warning.hidden || type !== this.activeType) return this.dismissLimitWarning(type);
+
+        warning.classList.add('is-fading');
+
+        // Matches the opacity transition in the styles
+        clearTimeout(this.limitHideTimer);
+        this.limitHideTimer = setTimeout(() => this.dismissLimitWarning(type), 400);
+    }
+
+    dismissLimitWarning(type = this.activeType) {
+        clearTimeout(this.limitFadeTimer);
+        clearTimeout(this.limitHideTimer);
+
+        this.limitReachedTypes.delete(type);
+
+        if (!this.limitWarning) return;
+
+        this.limitWarning.classList.remove('is-fading');
+
+        // Another type may be showing by now, so only hide the warning if it's for this one
+        if (type === this.activeType) this.limitWarning.hidden = true;
     }
 
     shudderLimitWarning() {
@@ -1380,10 +1415,7 @@ class Compare {
                     <path d="M6 6l12 12M18 6L6 18"/>
                 </svg>
             `;
-            closeButton.addEventListener('click', () => {
-                this.limitReachedTypes.delete(this.activeType);
-                warning.hidden = true;
-            });
+            closeButton.addEventListener('click', () => this.dismissLimitWarning());
 
             warning.append(message, closeButton);
 

@@ -226,6 +226,12 @@ html.compare-modal-is-open {
     margin-right: 15px;
   }
 }
+.compare-modal-container .compare-modal__limit-warning {
+  transition: opacity 0.4s ease;
+}
+.compare-modal-container .compare-modal__limit-warning.is-fading {
+  opacity: 0;
+}
 .compare-modal-container .compare-modal__limit-warning[hidden] {
   display: none;
 }
@@ -991,9 +997,13 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
   color: #414B52;
   font-size: 14px;
   line-height: 1.4;
+  transition: opacity 0.4s ease;
 }
 #comparison-page-app .compare-modal__limit-warning.is-shuddering {
   animation: compare-shudder 0.5s ease-in-out;
+}
+#comparison-page-app .compare-modal__limit-warning.is-fading {
+  opacity: 0;
 }
 #comparison-page-app .compare-modal__limit-warning[hidden] {
   display: none;

@@ -361,7 +361,6 @@
           return;
         }
         var url = new URL(link.href, window.location.origin);
-        url.search = '';
         url.searchParams.set('view', 'count');
         url = url.toString();
         if (filterCounts[url] !== undefined) {

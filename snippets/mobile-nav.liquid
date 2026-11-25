@@ -1,7 +1,6 @@
 {%- comment -%}
   Sticky bar at the bottom of every page below 1024px (src/styles/mobile-nav/_index.scss).
   Search opens the header search (src/scripts/mobile-nav.js), and falls back to the search page without JS.
-  Compare is handled by compare.js, and is only shown when the comparison feature is on
 {%- endcomment -%}
 <nav class="mobile-nav" aria-label="Quick links">
   <ul class="mobile-nav__list">
@@ -14,19 +13,6 @@
         <span class="mobile-nav__label">Search</span>
       </a>
     </li>
-    {% if shop.metafields.comparison.feature == 1 %}
-      <li class="mobile-nav__item">
-        <a href="/pages/compare" class="mobile-nav__link mobile-nav__link--compare">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M4 8h16"/>
-            <path d="m16 4 4 4-4 4"/>
-            <path d="M20 16H4"/>
-            <path d="m8 12-4 4 4 4"/>
-          </svg>
-          <span class="mobile-nav__label">Compare</span>
-        </a>
-      </li>
-    {% endif %}
     <li class="mobile-nav__item">
       <a href="/pages/stores" class="mobile-nav__link mobile-nav__link--stores">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

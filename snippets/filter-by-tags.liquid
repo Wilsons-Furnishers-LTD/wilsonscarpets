@@ -115,7 +115,6 @@
     <div class="container">
       {% assign markupToOutput = '' %}
       {% assign markupActiveToOutput = '' %}
-      {% assign activeButtonsToOutput = '' %}
       {% comment %}
         Loop through tag categories
       {% endcomment %}
@@ -144,7 +143,9 @@
           {% endif %}
 
           {% assign markupToOutput = markupToOutput | append: '<div id="' | append: thisTile_class | append: '" class="filter-column">' %}
-        {% assign markupToOutput = markupToOutput | append: '<h3>' | append: thisTile | append: '</h3><ul class="advanced-filters">' %}
+        {% comment %} The placeholder is swapped for this group's selected filter buttons once its tags are looped {% endcomment %}
+        {% assign activeButtonsToOutput = '' %}
+        {% assign markupToOutput = markupToOutput | append: '<h3>' | append: thisTile | append: '</h3><!--active-filter-buttons--><ul class="advanced-filters">' %}
           {% comment %}
             Loop through collection tags
           {% endcomment %}
@@ -194,6 +195,11 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          {% comment %} The selected filters in this group as buttons under its title; clicking one removes it {% endcomment %}
+          {% if activeButtonsToOutput != '' %}
+            {% assign activeButtonsToOutput = '<ul class="active-filter-buttons">' | append: activeButtonsToOutput | append: '</ul>' %}
+          {% endif %}
+          {% assign markupToOutput = markupToOutput | replace: '<!--active-filter-buttons-->', activeButtonsToOutput %}
           {% assign markupToOutput = markupToOutput | append: '</ul>' %}
           {% assign markupToOutput = markupToOutput | append: '</div>' %}
         {% endif %}
@@ -204,11 +210,6 @@
         {% assign markupActiveToOutput = markupActiveToOutput | prepend: '<ul id="filters-current">' %}
         {% assign markupActiveToOutput = markupActiveToOutput | append: '<li class="clear-all"' | append: '">' | append: clearAllToAdd | append: '</li>' %}
         {% assign markupActiveToOutput = markupActiveToOutput | append: '</ul>' %}
-      {% endif %}
-
-      {% comment %} The selected filters as buttons at the top; clicking one removes it {% endcomment %}
-      {% if activeButtonsToOutput != '' %}
-        <ul class="active-filter-buttons">{{ activeButtonsToOutput }}</ul>
       {% endif %}
 
       {{ markupToOutput }}
@@ -473,7 +474,7 @@
 
     // Filter group show/hide
     $doc.on('click', '.collection-filters .filter-column h3', function() {
-      $(this).toggleClass('active').next().slideToggle();
+      $(this).toggleClass('active').siblings('.advanced-filters').slideToggle();
     });
 
     // Mobile filter panel. all.js binds these directly, which is lost once the markup is swapped

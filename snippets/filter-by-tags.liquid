@@ -221,6 +221,9 @@
   /* #ba3c3d is $wilson-red in src/styles/_variables.scss */
   .collection-filters .clear-filters { display: inline-block; margin-top: 20px; margin-bottom: 15px; color: #ba3c3d; font-weight: 700; text-decoration: underline; }
   .collection-filters .clear-filters:hover { color: #ba3c3d; text-decoration: none; }
+  @media (max-width: 1023px) {
+    .collection-filters .clear-filters { margin-left: 15px; }
+  }
   .collection-product.is-loading .col-main,
   .collection-product.is-loading .collection-filters { opacity: .5; pointer-events: none; }
 </style>

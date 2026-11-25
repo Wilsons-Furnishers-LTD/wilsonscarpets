@@ -13,9 +13,40 @@
       "type": "main-content-page",
       "disabled": true,
       "settings": {}
+    },
+    "1795615739d591fd54": {
+      "type": "apps",
+      "blocks": {
+        "wilsons_forms_home_visit_form_XDEM7P": {
+          "type": "shopify://apps/wilsons-forms/blocks/home-visit-form/01a1e974-9f98-7f9e-be3d-27eb5e89be70",
+          "settings": {
+            "form_handle": "home-visit",
+            "heading": "We'll come to you!",
+            "intro": "<p>We have a flooring expert in your area. Please tell us a bit more about your project.</p>",
+            "start_label": "Let's go",
+            "contact_heading": "Finally, how can we reach you?",
+            "contact_text": "We'll be in touch to arrange your home visit.",
+            "submit_label": "Book my home visit",
+            "show_address": true,
+            "address_required": true,
+            "google_maps_api_key": "",
+            "success_heading": "Thanks, we've got your details!",
+            "success_text": "<p>One of our flooring experts will be in touch shortly to arrange your home visit.</p>",
+            "klaviyo_public_key": "",
+            "klaviyo_event_name": "Booked Home Visit",
+            "klaviyo_list_id": "",
+            "consent_label": "Keep me updated with offers and inspiration from Wilsons Carpets by email. You can unsubscribe at any time."
+          }
+        }
+      },
+      "block_order": [
+        "wilsons_forms_home_visit_form_XDEM7P"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "1795615739d591fd54"
   ]
 }

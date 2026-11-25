@@ -1,0 +1,455 @@
+@use './../variables' as v;
+
+// sections/store-banner.liquid
+.store-banner {
+    background: #f7f7f7;
+    color: v.$wilson-grey;
+    font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
+
+    // Wraps the store details and the photo / map. Desktop: two equal halves within $store-content-max (1354px),
+    // centred like the rest of the site; the grey background still runs the full width.
+    &__container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+
+        @media (min-width: v.$store-columns-from) {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            max-width: v.$store-content-max;
+            min-height: 560px;
+            margin: 0 auto;
+        }
+
+        // Narrower than 1364px: 20px either side (src/styles/_variables.scss), the same as the other store sections
+        @media (max-width: v.$store-side-padding-until) {
+            box-sizing: border-box;
+            padding-left: v.$store-side-padding;
+            padding-right: v.$store-side-padding;
+        }
+    }
+
+    // Column width and gutters are shared with the store gallery (src/styles/_variables.scss) so they line up
+    &__info {
+        display: flex;
+        justify-content: center;
+        // No side padding of its own: the container's 20px gives the spacing on tablets and phones
+        padding: 24px 0 32px;
+
+        @media (min-width: v.$store-columns-from) {
+            display: block;
+            padding: 24px 0 60px;
+        }
+    }
+
+    // Desktop: the details line up with the whole store gallery (thumbnails + large image) - the same left edge as
+    // the gallery (.store-gallery__gallery), to $store-gallery-end-gap short of the middle of the page.
+    // (% margins are of the half-page column.)
+    &__inner {
+        width: 100%;
+        
+
+        @media (min-width: v.$store-columns-from) {
+            width: auto;
+            max-width: none;
+            
+            margin-right: v.$store-gallery-end-gap;
+        }
+
+        // Smaller desktops (990-1199px): 40px, matching the store gallery
+        @media (min-width: v.$store-columns-from) and (max-width: v.$store-gallery-end-gap-small-until) {
+            margin-right: v.$store-gallery-end-gap-small;
+        }
+    }
+
+    // Looks come from the theme's .breadcrumb styles (same as collection pages); this only sets the spacing
+    &__breadcrumb {
+        margin-bottom: 8px;
+        padding-top: 0;
+    }
+
+    &__title {
+        margin: 0 0 32px;
+        font-size: 32px;
+        line-height: 1.2;
+        font-weight: 700;
+        color: v.$wilson-grey;
+        text-transform: none;
+
+        @media (max-width: 600px) {
+            font-size: 26px;
+        }
+    }
+
+    &__card {
+        background: #fff;
+        padding: 20px 20px 24px;
+        margin-bottom: 20px;
+        
+        &--split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            @media (max-width: 1000px) {
+                gap: 10px;
+            }
+            @media (max-width: 600px) {
+                gap: 25px;
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+
+    address {
+        line-height: 22px;
+    }
+
+    &__heading {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 14px;
+        font-size: 17px;
+        font-weight: 700;
+        color: v.$wilson-grey;
+        text-transform: none;
+        letter-spacing: 0;
+
+        svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+    }
+
+    &__text {
+        padding-left: 30px;
+        font-style: normal;
+    }
+
+    // Phone numbers in the Beds / Carpet box
+    &__dept-phone {
+        color: v.$wilson-red;
+        font-weight: 700;
+        text-decoration: underline;
+
+        &:hover,
+        &:focus-visible {
+            color: v.$wilson-grey;
+        }
+    }
+
+    // Get Directions, under the address and lined up with its text
+    &__address-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        margin-top: 16px;
+        padding-left: 30px;
+
+        .store-banner__button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        // Get Directions here is a text link, the same as the "Directions →" link on /pages/stores
+        // (.getdirectionstore in src/styles/storelocator/_index.scss): red, bold, underlined, no icon
+        .store-banner__button--directions {
+            display: inline;
+            width: auto;
+            min-height: 0;
+            padding: 0;
+            background: none;
+            color: v.$wilson-red;
+            font-size: 14px;
+            font-weight: 900;
+            text-decoration: underline;
+            white-space: nowrap;
+
+            svg {
+                display: none;
+            }
+
+            &:hover,
+            &:focus-visible {
+                background: none;
+                color: v.$wilson-grey;
+            }
+        }
+    }
+
+    // Closest store link under Get Directions: the same text-link look (red, bold, underlined)
+    &__closest-link {
+        margin-top: 10px;
+        color: v.$wilson-red;
+        font-size: 14px;
+        font-weight: 900;
+        text-decoration: underline;
+
+        &:hover,
+        &:focus-visible {
+            color: v.$wilson-grey;
+        }
+    }
+
+    // The "→" after Get Directions only shows on the text link under the address
+    &__directions-arrow {
+        display: none;
+
+        .store-banner__address-buttons & {
+            display: inline;
+        }
+    }
+
+    &__hours {
+        padding-left: 30px;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        td {
+            padding: 0;
+            border: 0;
+            font-size: 14px;
+            padding-bottom: 10px;
+            &:first-child {
+                font-weight: 700;
+            }
+
+            &:last-child {
+                text-align: right;
+            }
+        }
+
+        // Today's row (set by the script in sections/store-banner.liquid): red and bold, day and times
+        tr.is-today td {
+            color: v.$wilson-red;
+            font-weight: 700;
+        }
+    }
+
+    &__details {
+        ul {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px 12px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            li {
+                display: flex;
+            }
+            @media (max-width: 600px) {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        li::before {
+            content: '\2713\00a0';
+        }
+
+        a {
+            color: inherit;
+            text-decoration: underline;
+        }
+    }
+
+    &__buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 16px;
+        margin-top: 36px;
+
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+        }
+
+        // Full width of the row (e.g. Email when the store has a bed number and so no phone button).
+        // Only in this grid - in the sticky bar it's an ordinary button.
+        .store-banner__button--wide {
+            grid-column: 1 / -1;
+        }
+    }
+
+    &__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 6px 12px;
+        background: v.$wilson-red;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color .2s;
+
+        &:hover,
+        &:focus-visible {
+            background: v.$wilson-grey;
+            color: #fff;
+        }
+
+        svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+    }
+
+    &__image {
+        position: relative;
+        min-height: 280px;
+        overflow: hidden;
+
+        // Desktop: the photo's top lines up with the first content box (address / opening hours) and its bottom with
+        // the buttons, the same as the map; set by the script in sections/store-banner.liquid.
+        @media (min-width: v.$store-columns-from) {
+            margin-top: var(--store-banner-media-top, 0px);
+            margin-bottom: var(--store-banner-media-bottom, 0px);
+        }
+
+        // Map instead of the photo: a little taller on phones and tablets so there's room to see the area
+        &--map {
+            background: #e9e9e9;
+
+            @media (max-width: 989px) {
+                min-height: 320px;
+            }
+        }
+
+        // Map on desktop: the same width as the store details beside it. The details are
+        // (half page) - (left gap) - $store-gallery-end-gap wide, and the map starts at the middle of the page,
+        // so its right margin is that same left gap + $store-gallery-end-gap. (% margins are of the half-page column.)
+        &--map {
+            @media (min-width: v.$store-columns-from) {
+                max-width: none;
+                
+                // Top lines up with the first content box and bottom with the buttons; set by the script in
+                // sections/store-banner.liquid
+                margin-top: var(--store-banner-media-top, 0px);
+                margin-bottom: var(--store-banner-media-bottom, 0px);
+                // Framed like the content boxes beside it (.store-banner__card) so it stands out from the background
+                border: 1px solid #dcdddf;
+                box-shadow: 0 2px 8px rgba(50, 50, 50, .1);
+            }
+        }
+
+        // Direct children only (>): Google draws the map out of <img> tiles inside .store-banner__map,
+        // and those mustn't be stretched to fill the box
+        > img,
+        > .placeholder-svg,
+        > .store-banner__map {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+// Sticky bar (sections/store-banner.liquid): the banner's buttons, fixed under the site header once the banner is
+// out of view. --store-banner-bar-top is the header's bottom edge, set by the section's script.
+// The header (#shopify-section-header) is z-index 900001, so the bar sits just beneath it and slides out from behind it.
+.store-banner-bar {
+    position: fixed;
+    top: var(--store-banner-bar-top, 0px);
+    left: 0;
+    right: 0;
+    z-index: 900000;
+    background: #f7f7f7;
+    border-bottom: 1px solid #e3e3e3;
+    box-shadow: 0 2px 5px rgba(50, 50, 50, .12);
+    color: v.$wilson-grey;
+    font-family: 'gill-sans-nova', 'Gill Sans Nova', sans-serif;
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform .3s ease-out, visibility 0s linear .3s;
+
+    &.is-visible {
+        transform: none;
+        visibility: visible;
+        transition: transform .3s ease-out, visibility 0s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+
+        &.is-visible {
+            transition: none;
+        }
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        gap: 16px 24px;
+        box-sizing: border-box;
+        max-width: v.$store-content-max;
+        margin: 0 auto;
+        padding: 10px 20px;
+
+        @media (max-width: v.$store-side-padding-until) {
+            padding-left: v.$store-side-padding;
+            padding-right: v.$store-side-padding;
+        }
+
+        @media (max-width: 749px) {
+            padding: 8px 16px;
+        }
+    }
+
+    &__title {
+        margin: 0;
+        flex-shrink: 0;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.2;
+
+        // Phones: just the buttons, there isn't room for the name as well
+        @media (max-width: 749px) {
+            display: none;
+        }
+    }
+
+    // One row, right-aligned; scrolls sideways if the buttons don't fit (e.g. on phones)
+    &__buttons {
+        display: flex;
+        gap: 8px;
+        margin-left: auto;
+        overflow-x: auto;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        @media (max-width: 749px) {
+            margin-left: 0;
+        }
+
+        .store-banner__button {
+            flex-shrink: 0;
+            min-height: 36px;
+            padding: 6px 14px;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+    }
+}
+
+
+#insta-feed {
+    max-width: 1394px;
+    margin: 0 auto;
+}
+
+.instafeed-new-layout-wrapper {
+    gap: 30px !important;
+}

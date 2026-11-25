@@ -1,0 +1,175 @@
+{%- comment -%}
+    Full Store Page: the whole store page (banner, gallery, map, Google reviews) in one section, for the
+    store_page metaobject template (templates/metaobject/store_page.json). Each part is a block, so parts can be
+    reordered, hidden or removed in the theme editor. The markup is shared with the individual store sections:
+      Banner         -> snippets/store-banner-content.liquid         (sections/store-banner.liquid)
+      Gallery        -> snippets/store-gallery-content.liquid        (sections/store-gallery.liquid)
+      Map            -> snippets/store-map-content.liquid            (sections/store-map.liquid)
+      Google Reviews -> snippets/store-google-reviews-content.liquid (sections/store-google-reviews.liquid)
+    Store: the store_page whose Store Finder Page URL field matches the current page's URL. Assumed field key -
+    change it below if your store_page definition uses a different one:
+      store_finder_page_url - URL or single line text: a full URL (https://www.wilsonscarpets.com/pages/edinburgh)
+                              or a path (/pages/edinburgh). Domain, query string, #anchor, letter case and a
+                              trailing slash are ignored when comparing.
+    If no store's URL matches, the current store_page metaobject is used (on store pages), otherwise nothing is shown.
+{%- endcomment -%}
+{%- assign current_path = request.path | downcase -%}
+{%- assign current_last = current_path | slice: -1, 1 -%}
+{%- if current_last == '/' and current_path.size > 1 -%}{%- assign current_path = current_path | remove_last: '/' -%}{%- endif -%}
+
+{%- assign store = nil -%}
+{%- for candidate in shop.metaobjects.store_page.values -%}
+    {%- assign finder_url = candidate.store_finder_page_url.value | append: '' | strip | downcase -%}
+    {%- if finder_url == blank -%}{%- continue -%}{%- endif -%}
+    {%- comment -%} Reduce a full URL to its path: drop the scheme and domain, then the query string and #anchor {%- endcomment -%}
+    {%- if finder_url contains '://' -%}
+        {%- assign finder_url = finder_url | split: '://' | last -%}
+        {%- assign finder_domain = finder_url | split: '/' | first -%}
+        {%- assign finder_url = finder_url | remove_first: finder_domain -%}
+    {%- endif -%}
+    {%- assign finder_url = finder_url | split: '?' | first | split: '#' | first -%}
+    {%- assign finder_first = finder_url | slice: 0, 1 -%}
+    {%- if finder_first != '/' -%}{%- assign finder_url = '/' | append: finder_url -%}{%- endif -%}
+    {%- assign finder_last = finder_url | slice: -1, 1 -%}
+    {%- if finder_last == '/' and finder_url.size > 1 -%}{%- assign finder_url = finder_url | remove_last: '/' -%}{%- endif -%}
+
+    {%- if finder_url == current_path -%}
+        {%- assign store = candidate -%}
+        {%- break -%}
+    {%- endif -%}
+{%- endfor -%}
+{%- if store == blank -%}{%- assign store = metaobject -%}{%- endif -%}
+
+<div class="full-store-page" data-section-id="{{ section.id }}" data-section-type="full-store-page">
+    {%- if store == blank and request.design_mode -%}
+        <div class="wrapper">
+            <p>Full Store Page: no store's <strong>Store Finder Page URL</strong> matches this page ({{ request.path | escape }}). This message only shows in the theme editor.</p>
+        </div>
+    {%- endif -%}
+    {%- if store != blank -%}
+    {%- for block in section.blocks -%}
+        {%- assign part_id = section.id | append: '-' | append: block.id -%}
+        <div class="full-store-page__part" {{ block.shopify_attributes }}>
+            {%- case block.type -%}
+                {%- when 'banner' -%}
+                    {% render 'store-banner-content', store: store, section_id: part_id, map_zoom: block.settings.map_zoom %}
+                {%- when 'gallery' -%}
+                    {% render 'store-gallery-content', store: store, section_id: part_id, heading: block.settings.heading %}
+                {%- when 'map' -%}
+                    {% render 'store-map-content', store: store, section_id: part_id, zoom: block.settings.zoom, height: block.settings.height %}
+                {%- when 'reviews' -%}
+                    {% render 'store-google-reviews-content', store: store, section_id: part_id, heading: block.settings.heading, max_reviews: block.settings.max_reviews, min_rating: block.settings.min_rating %}
+            {%- endcase -%}
+        </div>
+    {%- endfor -%}
+    {%- endif -%}
+</div>
+
+{% schema %}
+    {
+        "name": "Full Store Page",
+        "class": "index-section",
+        "max_blocks": 8,
+        "blocks": [
+            {
+                "type": "banner",
+                "name": "Store Banner",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "range",
+                        "id": "map_zoom",
+                        "label": "Map zoom",
+                        "info": "For stores whose Store Banner Show Map field is on.",
+                        "min": 10,
+                        "max": 18,
+                        "step": 1,
+                        "default": 15
+                    }
+                ]
+            },
+            {
+                "type": "gallery",
+                "name": "Store Gallery",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Title",
+                        "info": "Shown above the store's text, beside the gallery.",
+                        "default": "About the store"
+                    }
+                ]
+            },
+            {
+                "type": "map",
+                "name": "Store Map",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "range",
+                        "id": "zoom",
+                        "label": "Zoom",
+                        "min": 10,
+                        "max": 18,
+                        "step": 1,
+                        "default": 15
+                    },
+                    {
+                        "type": "range",
+                        "id": "height",
+                        "label": "Map height (desktop)",
+                        "min": 250,
+                        "max": 700,
+                        "step": 50,
+                        "unit": "px",
+                        "default": 450
+                    }
+                ]
+            },
+            {
+                "type": "reviews",
+                "name": "Store Google Reviews",
+                "limit": 1,
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "heading",
+                        "label": "Heading",
+                        "default": "Google Reviews"
+                    },
+                    {
+                        "type": "range",
+                        "id": "max_reviews",
+                        "label": "Number of reviews",
+                        "info": "Google returns up to 5 reviews.",
+                        "min": 1,
+                        "max": 5,
+                        "step": 1,
+                        "default": 5
+                    },
+                    {
+                        "type": "range",
+                        "id": "min_rating",
+                        "label": "Only show reviews rated at least",
+                        "min": 1,
+                        "max": 5,
+                        "step": 1,
+                        "default": 4
+                    }
+                ]
+            }
+        ],
+        "presets": [{
+            "name": "Full Store Page",
+            "category": "Image",
+            "blocks": [
+                { "type": "banner" },
+                { "type": "gallery" },
+                { "type": "map" },
+                { "type": "reviews" }
+            ]
+        }]
+    }
+{% endschema %}

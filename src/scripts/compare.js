@@ -240,9 +240,9 @@ class Compare {
     }
 
     updateOpenButton() {
-        if (!this.openButton) return;
-
         const count = this.getProducts().length;
+
+        if (!this.openButton) return;
 
         this.openButton.hidden = !count;
         this.openButton.setAttribute('aria-label', `Compare products (${count})`);
@@ -480,6 +480,9 @@ class Compare {
 
         this.renderNav();
         this.renderGrid();
+
+        // Nothing left to compare, so close the modal as clearing does
+        if (!products.length) this.closeModal();
     }
 
     // Shared between the modal and the comparison page, so a product is only fetched once

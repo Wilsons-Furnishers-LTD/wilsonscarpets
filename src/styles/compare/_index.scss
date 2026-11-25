@@ -68,6 +68,61 @@
         border-color: v.$wilson-grey;
         background-color: v.$wilson-yellow;
     }
+    // Tooltip from data-tooltip, shown to the left as the button sits in the card's top-right corner.
+    // ::after is the label, ::before the arrow pointing at the button
+    &[data-tooltip]::before,
+    &[data-tooltip]::after {
+        position: absolute;
+        top: 50%;
+        transform: translate(4px, -50%);
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    }
+    &[data-tooltip]::before {
+        content: '';
+        right: calc(100% + 7px);
+        border: 7px solid transparent;
+        border-right-width: 0;
+        border-left-color: v.$wilson-yellow;
+    }
+    &[data-tooltip]::after {
+        content: attr(data-tooltip);
+        right: calc(100% + 12px);
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: v.$wilson-yellow;
+        color: v.$wilson-grey;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+    &[data-tooltip]:hover::before,
+    &[data-tooltip]:hover::after,
+    &[data-tooltip]:focus-visible::before,
+    &[data-tooltip]:focus-visible::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, -50%);
+        transition-delay: 0.3s, 0.3s, 0.3s;
+        // Slides in, then nudges towards the button for the first 2 seconds before settling
+        animation: compare-tooltip-nudge 2s ease-in-out 0.3s both;
+    }
+}
+@keyframes compare-tooltip-nudge {
+    0% { transform: translate(4px, -50%); }
+    15%, 50%, 85%, 100% { transform: translate(0, -50%); }
+    32%, 67% { transform: translate(-3px, -50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .compare-button[data-tooltip]:hover::before,
+    .compare-button[data-tooltip]:hover::after,
+    .compare-button[data-tooltip]:focus-visible::before,
+    .compare-button[data-tooltip]:focus-visible::after {
+        animation: none;
+    }
 }
 .compare-modal__header--amount {
     display: flex;

@@ -5,6 +5,7 @@ const entries = [
   'storelocator',
   'about',
   'filters',
+  'tag-filters',
   'search',
   'products',
   'finance',

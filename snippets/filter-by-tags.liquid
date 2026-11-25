@@ -427,9 +427,18 @@
       return url.toString();
     }
 
-    // Tag filters: add/remove the tag, any number at once, without reloading. Clear filters goes back to the collection URL
-    $doc.on('click', '.collection-filters .advanced-filter a, .collection-filters .clear-filters', function(e) {
+    // Tag filters: add/remove the tag, any number at once, without reloading
+    $doc.on('click', '.collection-filters .advanced-filter a', function(e) {
       e.preventDefault();
+      loadResults(buildFilterUrl(this.href), true, false);
+    });
+
+    // Clear filters goes back to the collection URL, and slides the mobile filter panel out (same breakpoint as main.css)
+    $doc.on('click', '.collection-filters .clear-filters', function(e) {
+      e.preventDefault();
+      if (window.matchMedia('(max-width: 63.99em)').matches) {
+        $('body').removeClass('open-filter');
+      }
       loadResults(buildFilterUrl(this.href), true, false);
     });
 

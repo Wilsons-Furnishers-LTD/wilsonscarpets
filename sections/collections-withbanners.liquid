@@ -105,7 +105,6 @@
                                 </select>
                                 </div>
                             </div>
-                            {% render 'collection-compare-link', placement: 'sorter' %}
                         </div>
                         {% if paginate.pages > 1 %}
                         <div class="wrap-pagi">
@@ -196,7 +195,7 @@
         {% assign thisCollectionsVideosArray = thisCollectionsVideos | split: "|||" %}
         {% assign thisCollectionsImagePositionsArray = thisCollectionsImagePositions | split: "|||" %}
         {% assign thisCollectionsVideoPositionsArray = thisCollectionsVideoPositions | split: "|||" %}
-                <div class="product-grid">
+                <div class="product-grid" data-page-size="{{ paginate.page_size }}">
                     {% assign loopCounter = 1 %}
                     {% for product in collection.products %}
                         {% comment %}
@@ -270,13 +269,10 @@
 </div>
 
 {% comment %}
-  JavaScript for collection sorting.
+  Sets the current sort. Changing it is handled asynchronously by assets/tag-filters.js (see snippets/filter-by-tags).
 {% endcomment %}
 <script>
-    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
-        Shopify.queryParams.sort_by = jQuery(this).val();
-        location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
-    });
+    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}');
 </script>
 
 <script>

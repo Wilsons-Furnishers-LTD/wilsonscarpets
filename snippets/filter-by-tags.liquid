@@ -103,11 +103,12 @@
 
 {% endif %}
 
-{% if collection.tags.size > 0 %}
+{% if collection.all_tags.size > 0 %}
   <div class="filters-close">
     <i class="icon-times"></i>
   </div>
-  <div class="collection-filters">
+  <div class="collection-filters" data-tag-filters>
+    <a href="{{ collection.url }}" class="clear-filters"{% unless current_tags %} hidden{% endunless %}>Clear filters</a>
     <h3 class="tt">Filter by</h3>
     <div class="container">
       {% assign markupToOutput = '' %}
@@ -145,7 +146,8 @@
             Loop through collection tags
           {% endcomment %}
           {% assign this_loop_counter = 0 %}
-          {% for tag in collection.tags %}
+          {% comment %} all_tags, not tags: on a filtered URL collection.tags only lists the matching products' tags, which would hide the other options in a group {% endcomment %}
+          {% for tag in collection.all_tags %}
 
             {% assign thisFilter = cat_item | append: '_' %}
             {% if tag contains thisFilter %}
@@ -216,27 +218,7 @@
     		//	jQuery('.active-filter').closest('.filter-column').children('h3').trigger('click');
     		//});
 
-        var filters = jQuery('.advanced-filter'),
-            el,
-            elGroup,
-            elHandle,
-            activeTagInGroup;
-
-        filters.on('click', function(e) {
-            el = jQuery(this);
-            elGroup = el.data('group');
-            elHandle = el.data('handle');
-            activeTagInGroup = jQuery('.active-filter[data-group="'+ elGroup +'"]');
-            // If the tag clicked is not already active and its group contains an active tag, we will swap tag within the group.
-            if ( !el.hasClass('active-filter')  && activeTagInGroup.size() ) {
-    				e.preventDefault();
-            location.href = location.href
-                // swap tag
-                .replace(activeTagInGroup.data('handle'), elHandle)
-                // go back to page 1
-                .replace(/(&page=\d+)|(page=\d+&)|(\?page=\d+jQuery)/, '');
-            }
-    		});
+        // Filter clicks (several per group allowed) are handled asynchronously by assets/tag-filters.js
 
     		// var collectionFilters = jQuery('.collection-filters');
     		// var filter = jQuery('.advanced-filter', collectionFilters);
@@ -387,3 +369,16 @@
     });
   </script>
 {% endif %}
+
+{% comment %}
+  Asynchronous, multi-select filtering, sorting and pagination: src/scripts/tag-filters.js.
+  Outside the all_tags check so sorting and pagination stay asynchronous when no filters show.
+{% endcomment %}
+<script type="application/json" id="tag-filters-config">
+  {
+    "collectionUrl": {{ collection.url | json }},
+    "defaultSort": {{ collection.default_sort_by | json }}
+  }
+</script>
+{{ 'tag-filters.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'tag-filters.js' | asset_url }}" defer></script>

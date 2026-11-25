@@ -107,7 +107,7 @@
   <div class="filters-close">
     <i class="icon-times"></i>
   </div>
-  <div class="collection-filters">
+  <div class="collection-filters" data-products-count="{{ collection.products_count }}">
     {% if current_tags %}
       <a href="{{ collection.url }}" class="clear-filters">Clear filters</a>
     {% endif %}
@@ -239,12 +239,25 @@
   .collection-filters .active-filter-buttons a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 0; background: #e7e7e74d; color: #414b52; font-size: 14px; line-height: 1.2; text-decoration: none; }
   .collection-filters .active-filter-buttons a:hover,
   .collection-filters .active-filter-buttons a:focus { background: #414b52; color: #fff; }
-  /* Overrides main.css: no border round a selected colour swatch (transparent, so the swatch doesn't shift) */
-  .collection-filters .advanced-filter.Filter-Colour_.active-filter img { border-color: transparent; }
+  /* Overrides main.css: a yellow border round a selected colour swatch. #F2BF00 is $wilson-yellow in src/styles/_variables.scss */
+  .collection-filters .advanced-filter.Filter-Colour_.active-filter img { border-color: #F2BF00; }
+  .collection-filters .advanced-filter.Filter-Colour_ img { border-radius: 8px; }
   .collection-filters .advanced-filter.active-filter a { font-weight: 400; }
   .collection-filters .active-filter-buttons__remove { font-size: 16px; line-height: 1; }
+  /* Spinner shown in place of a filter's count while it loads */
+  .collection-filters .advanced-filter__count--loading { display: inline-block; margin-left: 6px; vertical-align: middle; line-height: 0; }
+  .collection-filters .advanced-filter__spinner { display: inline-block; width: 10px; height: 10px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; opacity: .5; animation: advanced-filter-spin .7s linear infinite; }
+  @keyframes advanced-filter-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .collection-filters .advanced-filter__spinner { animation-duration: 2s; }
+  }
   .collection-product.is-loading .col-main,
-  .collection-product.is-loading .collection-filters { opacity: .5; pointer-events: none; }
+  .collection-product.is-loading .collection-filters { pointer-events: none; }
+  .collection-product.is-loading .col-main { opacity: .5; }
+  /* Below 1024px the filter panel stays at full opacity while results load */
+  @media (min-width: 1024px) {
+    .collection-product.is-loading .collection-filters { opacity: .5; }
+  }
 </style>
 <script>
   // Lets section-level sort handlers know sorting is handled here without a reload
@@ -337,6 +350,65 @@
       });
     }
 
+    // Product count after each tag filter. The ones not selected are fetched from the URL their link goes to,
+    // using templates/collection.count.liquid, a few at a time and remembered for the page. Selected ones
+    // show the current number of results. Runs after reorderFilters, which sorts by the link text
+    var filterCounts = {};
+    var filterCountsRun = 0;
+
+    function showFilterCount(link, count) {
+      $(link).find('.advanced-filter__count').remove();
+      $(link).append('<span class="advanced-filter__count"> (' + count + ')</span>');
+    }
+
+    function loadFilterCounts() {
+      var $panel = $('.collection-filters').first();
+      var currentCount = $panel.data('products-count');
+      var run = ++filterCountsRun;
+      var queue = [];
+
+      $panel.find('.advanced-filter > a').each(function() {
+        var link = this;
+        if ($(link).parent().hasClass('active-filter')) {
+          if (currentCount !== undefined) showFilterCount(link, currentCount);
+          return;
+        }
+        var url = new URL(link.href, window.location.origin);
+        url.searchParams.set('view', 'count');
+        url = url.toString();
+        if (filterCounts[url] !== undefined) {
+          showFilterCount(link, filterCounts[url]);
+        } else {
+          // A spinner holds the count's place until its fetch finishes
+          $(link).find('.advanced-filter__count').remove();
+          $(link).append('<span class="advanced-filter__count advanced-filter__count--loading" aria-hidden="true"><span class="advanced-filter__spinner"></span></span>');
+          queue.push({ link: link, url: url });
+        }
+      });
+
+      function next() {
+        // The filters were reloaded, so these links are gone; that run fetches its own
+        if (run !== filterCountsRun) return;
+        var item = queue.shift();
+        if (!item) return;
+        fetch(item.url, { credentials: 'same-origin' })
+          .then(function(response) { return response.ok ? response.text() : ''; })
+          .then(function(text) {
+            var count = parseInt(text, 10);
+            if (isNaN(count)) throw new Error('No count');
+            filterCounts[item.url] = count;
+            if (run === filterCountsRun) showFilterCount(item.link, count);
+          })
+          .catch(function() {
+            // No count to show, so the spinner goes
+            $(item.link).find('.advanced-filter__count--loading').remove();
+          })
+          .then(next);
+      }
+
+      for (var i = 0; i < 4; i++) next();
+    }
+
     function setSorter(url) {
       var sortBy = new URL(url, window.location.origin).searchParams.get('sort_by');
       $('.collection-product .sort-by').val(sortBy || defaultSortBy);
@@ -404,6 +476,7 @@
             $filters.html(remoteFilters.innerHTML);
             reorderFilters();
             restoreColumnState(columnState);
+            loadFilterCounts();
           }
           setSorter(url);
 
@@ -452,12 +525,9 @@
       loadResults(buildFilterUrl(this.href), true, false);
     });
 
-    // Clear filters goes back to the collection URL, and slides the mobile filter panel out (same breakpoint as main.css)
+    // Clear filters goes back to the collection URL; the mobile filter panel stays open
     $doc.on('click', '.collection-filters .clear-filters', function(e) {
       e.preventDefault();
-      if (window.matchMedia('(max-width: 63.99em)').matches) {
-        $('body').removeClass('open-filter');
-      }
       loadResults(buildFilterUrl(this.href), true, false);
     });
 
@@ -497,6 +567,7 @@
     });
 
     reorderFilters();
+    loadFilterCounts();
 
     // On mobile only the first group (Colour) starts open. The others are marked active, like a
     // group closed by clicking its heading, so they show the plus icon

@@ -143,7 +143,9 @@
           {% endif %}
 
           {% assign markupToOutput = markupToOutput | append: '<div id="' | append: thisTile_class | append: '" class="filter-column">' %}
-        {% assign markupToOutput = markupToOutput | append: '<h3>' | append: thisTile | append: '</h3><ul class="advanced-filters">' %}
+        {% comment %} The placeholder is swapped for this group's selected filter buttons once its tags are looped {% endcomment %}
+        {% assign activeButtonsToOutput = '' %}
+        {% assign markupToOutput = markupToOutput | append: '<h3>' | append: thisTile | append: '</h3><!--active-filter-buttons--><ul class="advanced-filters">' %}
           {% comment %}
             Loop through collection tags
           {% endcomment %}
@@ -176,6 +178,9 @@
                   {% endif %}
                   {% assign markupToOutput = markupToOutput | append: '<li class="advanced-filter active-filter ' | append: thisFilter | append: '" data-group="' | append: cat_item | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: tagTextToAdd | append: '</li>' %}
                   {% assign hasActive = '' %}
+                  {% assign removeTitle = 'Remove filter ' | append: tagText %}
+                  {% assign activeButton = tagText | link_to_remove_tag: tag | replace: thisTitleTag, removeTitle | replace: '</a>', ' <span class="active-filter-buttons__remove" aria-hidden="true">&times;</span></a>' %}
+                  {% assign activeButtonsToOutput = activeButtonsToOutput | append: '<li class="' | append: thisFilter | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: activeButton | append: '</li>' %}
                   {% assign markupActiveToOutput = markupActiveToOutput | append: '<li class="advanced-filter active-filter ' | append: thisFilter | append: '" data-group="' | append: cat_item | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: tagTextToAdd | append: '</li>' %}
                 {% else %}
                   {% assign tagTextToAdd = tagText | link_to_add_tag: tag | replace: thisTitleTag, currentTitleTag %}
@@ -190,6 +195,11 @@
               {% endif %}
             {% endif %}
           {% endfor %}
+          {% comment %} The selected filters in this group as buttons under its title; clicking one removes it {% endcomment %}
+          {% if activeButtonsToOutput != '' %}
+            {% assign activeButtonsToOutput = '<ul class="active-filter-buttons">' | append: activeButtonsToOutput | append: '</ul>' %}
+          {% endif %}
+          {% assign markupToOutput = markupToOutput | replace: '<!--active-filter-buttons-->', activeButtonsToOutput %}
           {% assign markupToOutput = markupToOutput | append: '</ul>' %}
           {% assign markupToOutput = markupToOutput | append: '</div>' %}
         {% endif %}
@@ -224,6 +234,15 @@
   @media (max-width: 1023px) {
     .collection-filters .clear-filters { margin-left: 1.875rem; }
   }
+  .collection-filters .active-filter-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 15px; padding: 0; list-style: none; }
+  .collection-filters .active-filter-buttons li { margin: 0; padding: 0; }
+  .collection-filters .active-filter-buttons a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 0; background: #e7e7e74d; color: #414b52; font-size: 14px; line-height: 1.2; text-decoration: none; }
+  .collection-filters .active-filter-buttons a:hover,
+  .collection-filters .active-filter-buttons a:focus { background: #414b52; color: #fff; }
+  /* Overrides main.css: no border round a selected colour swatch (transparent, so the swatch doesn't shift) */
+  .collection-filters .advanced-filter.Filter-Colour_.active-filter img { border-color: transparent; }
+  .collection-filters .advanced-filter.active-filter a { font-weight: 400; }
+  .collection-filters .active-filter-buttons__remove { font-size: 16px; line-height: 1; }
   .collection-product.is-loading .col-main,
   .collection-product.is-loading .collection-filters { opacity: .5; pointer-events: none; }
 </style>
@@ -428,7 +447,7 @@
     }
 
     // Tag filters: add/remove the tag, any number at once, without reloading
-    $doc.on('click', '.collection-filters .advanced-filter a', function(e) {
+    $doc.on('click', '.collection-filters .advanced-filter a, .collection-filters .active-filter-buttons a', function(e) {
       e.preventDefault();
       loadResults(buildFilterUrl(this.href), true, false);
     });
@@ -458,7 +477,7 @@
 
     // Filter group show/hide
     $doc.on('click', '.collection-filters .filter-column h3', function() {
-      $(this).toggleClass('active').next().slideToggle();
+      $(this).toggleClass('active').siblings('.advanced-filters').slideToggle();
     });
 
     // Mobile filter panel. all.js binds these directly, which is lost once the markup is swapped

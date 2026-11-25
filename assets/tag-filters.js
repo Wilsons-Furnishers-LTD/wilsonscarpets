@@ -202,7 +202,9 @@ class TagFilters {
         if (!this.cache.has(url)) {
             const request = fetch(url, { credentials: 'same-origin' })
                 .then((response) => {
-                    if (!response.ok) throw new Error(`${response.status} for ${url}`);
+                    // Shopify answers a tag combination with no products with a 404, but still renders
+                    // the page (with no products), so that's an empty result rather than a failure
+                    if (!response.ok && response.status !== 404) throw new Error(`${response.status} for ${url}`);
                     return response.text();
                 })
                 .then((html) => new DOMParser().parseFromString(html, 'text/html'));
@@ -229,7 +231,15 @@ class TagFilters {
         } catch (error) {
             if (requestId !== this.requestId) return;
             console.error('Tag filters:', error);
-            window.location.href = url;
+            if (this.isMultiSelect()) {
+                // Only this script can build these results, and it runs again on a reload of this ?tags= URL,
+                // so falling back to a page load would reload forever
+                this.grid.innerHTML = '<p id="noProducts">Sorry, these products couldn\'t be loaded. Please try again.</p>';
+                this.setPagination('');
+            } else {
+                // A plain tag URL, which the server renders without this script fetching anything
+                window.location.href = url;
+            }
         } finally {
             if (requestId === this.requestId) this.wrapper.classList.remove('is-loading');
         }

@@ -243,6 +243,13 @@
   .collection-filters .advanced-filter.Filter-Colour_.active-filter img { border-color: transparent; }
   .collection-filters .advanced-filter.active-filter a { font-weight: 400; }
   .collection-filters .active-filter-buttons__remove { font-size: 16px; line-height: 1; }
+  /* Spinner shown in place of a filter's count while it loads */
+  .collection-filters .advanced-filter__count--loading { display: inline-block; margin-left: 6px; vertical-align: middle; line-height: 0; }
+  .collection-filters .advanced-filter__spinner { display: inline-block; width: 10px; height: 10px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; opacity: .5; animation: advanced-filter-spin .7s linear infinite; }
+  @keyframes advanced-filter-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .collection-filters .advanced-filter__spinner { animation-duration: 2s; }
+  }
   .collection-product.is-loading .col-main,
   .collection-product.is-loading .collection-filters { pointer-events: none; }
   .collection-product.is-loading .col-main { opacity: .5; }
@@ -371,6 +378,9 @@
         if (filterCounts[url] !== undefined) {
           showFilterCount(link, filterCounts[url]);
         } else {
+          // A spinner holds the count's place until its fetch finishes
+          $(link).find('.advanced-filter__count').remove();
+          $(link).append('<span class="advanced-filter__count advanced-filter__count--loading" aria-hidden="true"><span class="advanced-filter__spinner"></span></span>');
           queue.push({ link: link, url: url });
         }
       });
@@ -384,12 +394,14 @@
           .then(function(response) { return response.ok ? response.text() : ''; })
           .then(function(text) {
             var count = parseInt(text, 10);
-            if (!isNaN(count)) {
-              filterCounts[item.url] = count;
-              if (run === filterCountsRun) showFilterCount(item.link, count);
-            }
+            if (isNaN(count)) throw new Error('No count');
+            filterCounts[item.url] = count;
+            if (run === filterCountsRun) showFilterCount(item.link, count);
           })
-          .catch(function() {})
+          .catch(function() {
+            // No count to show, so the spinner goes
+            $(item.link).find('.advanced-filter__count--loading').remove();
+          })
           .then(next);
       }
 

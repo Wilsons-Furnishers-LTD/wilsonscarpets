@@ -311,9 +311,6 @@
           });
           reorder = sortFunc(numberNoUnit).concat(sortFunc(toObj));
         }
-        // Selected filters go to the top of their list, keeping the order above within each part
-        reorder = reorder.filter(function(e) { return e.el.hasClass('active-filter'); })
-          .concat(reorder.filter(function(e) { return !e.el.hasClass('active-filter'); }));
         $filters.empty();
         reorder.forEach(function(e) {
           $filters.append(e.el);

@@ -239,8 +239,8 @@
   .collection-filters .active-filter-buttons a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 0; background: #e7e7e74d; color: #414b52; font-size: 14px; line-height: 1.2; text-decoration: none; }
   .collection-filters .active-filter-buttons a:hover,
   .collection-filters .active-filter-buttons a:focus { background: #414b52; color: #fff; }
-  /* Overrides main.css: no border round a selected colour swatch (transparent, so the swatch doesn't shift) */
-  .collection-filters .advanced-filter.Filter-Colour_.active-filter img { border-color: transparent; }
+  /* Overrides main.css: a yellow border round a selected colour swatch. #F2BF00 is $wilson-yellow in src/styles/_variables.scss */
+  .collection-filters .advanced-filter.Filter-Colour_.active-filter img { border-color: #F2BF00; }
   .collection-filters .advanced-filter.active-filter a { font-weight: 400; }
   .collection-filters .active-filter-buttons__remove { font-size: 16px; line-height: 1; }
   /* Spinner shown in place of a filter's count while it loads */

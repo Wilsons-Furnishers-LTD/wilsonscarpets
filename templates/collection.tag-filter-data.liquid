@@ -3,8 +3,8 @@
   Data for the asynchronous collection tag filters (src/scripts/tag-filters.js), requested as
   /collections/<handle>/<tag-a>+<tag-b>?view=tag-filter-data&sort_by=...&page=N
 
-  Used when a filter group has more than one tag selected (e.g. Grey OR Beige): Shopify tag URLs
-  only AND tags together, so the script fetches one URL per tag combination and merges the results.
+  Used when more than one tag is selected (e.g. Grey OR Twist): Shopify tag URLs only AND tags
+  together, so the script fetches one URL per tag and merges the results.
   The data-* values let it de-duplicate and re-sort the merged list. 50 is the most a for loop returns per page.
 {%- endcomment -%}
 {%- paginate collection.products by 50 -%}

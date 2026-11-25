@@ -4,20 +4,20 @@
  * collections-withbanners and collection-accessories).
  *
  * - Filters, sorting and pagination update the product grid in place, with browser history.
- * - Any number of tags can be selected. Tags in the same group (e.g. two colours) are OR'd,
- *   tags in different groups (e.g. colour + style) are AND'd.
+ * - Any number of tags can be selected, and they are all OR'd: a product is shown if it has
+ *   any one of the selected tags (e.g. Grey OR Beige OR Twist).
  *
  * Shopify tag URLs (/collections/x/tag-a+tag-b) only AND tags together, so there are two modes:
- *  - Every group has at most one tag selected: the normal tag URL is requested through the
- *    Section Rendering API and its grid and pagination are swapped in. The URL stays the
- *    server-rendered tag URL, so reloading or sharing it works without JavaScript.
- *  - A group has several tags selected: one tag URL per combination (Grey+Twist, Beige+Twist...)
+ *  - One tag selected: the normal tag URL is requested through the Section Rendering API and
+ *    its grid and pagination are swapped in. The URL stays the server-rendered tag URL, so
+ *    reloading or sharing it works without JavaScript.
+ *  - Several tags selected: one tag URL per tag (/collections/x/grey, /collections/x/twist...)
  *    is fetched with the collection.tag-filter-data template, and the results are merged,
  *    de-duplicated, sorted and paginated here. The URL becomes /collections/x?tags=a,b,c.
  */
 
 const DATA_VIEW = 'tag-filter-data';
-const MAX_DATA_PAGES = 20; // 50 products a page, per tag combination
+const MAX_DATA_PAGES = 20; // 50 products a page, per tag
 const COLOUR_GROUP = 'filter-colour';
 const NEXT_LABEL = 'Next <i class="icon-chevron-right"></i>';
 const PREV_LABEL = '<i class="icon-chevron-left"></i> Prev';
@@ -73,8 +73,9 @@ class TagFilters {
         this.bind();
         history.replaceState({ tagFilters: true }, '', window.location.href);
 
-        // Pages with several tags in a group are only built client-side
-        if (new URLSearchParams(window.location.search).has('tags')) {
+        // Pages with several tags are only built client-side (an old /collections/x/a+b URL
+        // was rendered by Shopify as a AND b, so rebuild that as a OR b too)
+        if (this.isMultiSelect()) {
             this.update({ history: 'replace' });
         } else {
             this.rewritePaginationLinks();
@@ -105,16 +106,18 @@ class TagFilters {
         return [...byGroup].filter(([, handles]) => handles.length);
     }
 
-    isMultiSelect() {
-        return this.selectedByGroup().some(([, handles]) => handles.length > 1);
+    /** Selected handles in panel order */
+    selectedHandles() {
+        return this.selectedByGroup().flatMap(([, handles]) => handles);
     }
 
-    /** Every AND-able combination of the selected tags, one tag from each group */
+    isMultiSelect() {
+        return this.selected.size > 1;
+    }
+
+    /** One tag URL per selected tag, since every selected tag is OR'd */
     combinations() {
-        return this.selectedByGroup().reduce(
-            (combos, [, handles]) => combos.flatMap((combo) => handles.map((handle) => [...combo, handle])),
-            [[]]
-        );
+        return this.selectedHandles().map((handle) => [handle]);
     }
 
     tagPath(handles) {
@@ -127,9 +130,9 @@ class TagFilters {
         let path;
         if (this.isMultiSelect()) {
             path = this.collectionUrl;
-            params.set('tags', this.selectedByGroup().flatMap(([, handles]) => handles).join(','));
+            params.set('tags', this.selectedHandles().join(','));
         } else {
-            path = this.tagPath(this.selectedByGroup().map(([, handles]) => handles[0]));
+            path = this.tagPath(this.selectedHandles());
         }
         if (this.sort && this.sort !== this.defaultSort) params.set('sort_by', this.sort);
         if (page > 1) params.set('page', page);
@@ -245,12 +248,12 @@ class TagFilters {
         }
     }
 
-    /** One tag per group: render the real tag URL through this section */
+    /** At most one tag: render the real tag URL through this section */
     async loadSection() {
         const [, query = ''] = this.pageUrl().split('?');
         const params = new URLSearchParams(query);
         params.set('section_id', this.sectionId);
-        const path = this.tagPath(this.selectedByGroup().map(([, handles]) => handles[0]));
+        const path = this.tagPath(this.selectedHandles());
         const doc = await this.fetchDocument(`${path}?${params}`);
 
         const remoteGrid = doc.querySelector('.product-grid');
@@ -267,7 +270,7 @@ class TagFilters {
         };
     }
 
-    /** Several tags in a group: fetch every combination, then merge, sort and paginate here */
+    /** Several tags: fetch each tag's products, then merge, sort and paginate here */
     async loadMerged() {
         const combos = this.combinations();
         const results = await Promise.all(combos.map((combo) => this.fetchAllProducts(combo)));

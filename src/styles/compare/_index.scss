@@ -68,6 +68,69 @@
         border-color: v.$wilson-grey;
         background-color: v.$wilson-yellow;
     }
+    // Added by compare.js to point at the button, along with its tooltip below
+    &--show-tooltip {
+        background-color: v.$wilson-yellow;
+    }
+    // Tooltip from data-tooltip, shown to the left as the button sits in the card's top-right corner.
+    // ::after is the label, ::before the arrow pointing at the button
+    &[data-tooltip]::before,
+    &[data-tooltip]::after {
+        position: absolute;
+        top: 50%;
+        transform: translate(4px, -50%);
+        pointer-events: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    }
+    &[data-tooltip]::before {
+        content: '';
+        right: calc(100% + 7px);
+        border: 7px solid transparent;
+        border-right-width: 0;
+        border-left-color: v.$wilson-yellow;
+    }
+    &[data-tooltip]::after {
+        content: attr(data-tooltip);
+        right: calc(100% + 12px);
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: v.$wilson-yellow;
+        color: v.$wilson-grey;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+    &[data-tooltip]:hover::before,
+    &[data-tooltip]:hover::after,
+    &[data-tooltip]:focus-visible::before,
+    &[data-tooltip]:focus-visible::after,
+    &--show-tooltip[data-tooltip]::before,
+    &--show-tooltip[data-tooltip]::after {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(0, -50%);
+        transition-delay: 0.3s, 0.3s, 0.3s;
+        // Slides in, then nudges towards the button for the first 2 seconds before settling
+        animation: compare-tooltip-nudge 2s ease-in-out 0.3s both;
+    }
+}
+@keyframes compare-tooltip-nudge {
+    0% { transform: translate(4px, -50%); }
+    15%, 50%, 85%, 100% { transform: translate(0, -50%); }
+    32%, 67% { transform: translate(-3px, -50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .compare-button[data-tooltip]:hover::before,
+    .compare-button[data-tooltip]:hover::after,
+    .compare-button[data-tooltip]:focus-visible::before,
+    .compare-button[data-tooltip]:focus-visible::after,
+    .compare-button--show-tooltip[data-tooltip]::before,
+    .compare-button--show-tooltip[data-tooltip]::after {
+        animation: none;
+    }
 }
 .compare-modal__header--amount {
     display: flex;
@@ -1345,6 +1408,79 @@ button.comparison-share__option, button.comparison-share__option:hover, button.c
             inset: 0;
             z-index: 2;
             background-color: rgba(0, 0, 0, 0.5);
+        }
+    }
+}
+
+// Next to "Sort by" in collection toolbars (snippets/collection-compare-link.liquid), matching its label
+// A box with the same shadow as the sorter and pagination. Rendered next to the sorter from 1024px,
+// and left of the pagination below that (see snippets/collection-compare-link.liquid)
+.collection-compare {
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #fff;
+    box-shadow: 0 1px 5px #32323226;
+    &--sorter {
+        float: left;
+        margin-left: 1rem;
+        @media only screen and (max-width: 63.99em) {
+            display: none;
+        }
+    }
+    &--pagination {
+        flex: none;
+        // Not gap, as the row's clearfix pseudo-elements would count as flex items
+        margin-right: 1rem;
+        @media only screen and (min-width: 64em) {
+            display: none;
+        }
+    }
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0 .9375rem;
+        color: v.$wilson-grey;
+        font-size: .9375rem;
+        font-weight: 900;
+        line-height: 2.375rem;
+        white-space: nowrap;
+        // Icon only, square to match the pagination's 38px pages. The height is set as there's no text
+        // to give it one, and the width as the pagination is balanced against it, see below
+        @media only screen and (max-width: 63.99em) {
+            justify-content: center;
+            width: 2.375rem;
+            height: 2.375rem;
+            padding: 0;
+        }
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+        &:hover, &:focus-visible {
+            color: v.$wilson-grey;
+            text-decoration: underline;
+        }
+    }
+    // Icon only below 1024px. The link's aria-label still names it
+    &__text {
+        @media only screen and (max-width: 63.99em) {
+            display: none;
+        }
+    }
+}
+
+// Puts the link and the pagination side by side. The filter and sort bar is positioned out of this row (main.css).
+// The pagination's right margin matches the link and its margin, so the pagination stays centred on the screen
+@media only screen and (max-width: 63.99em) {
+    .toolbar-product > .row:has(> .collection-compare--pagination) {
+        display: flex;
+        align-items: center;
+        .wrap-pagi {
+            flex: 1;
+            min-width: 0;
+            margin-right: calc(2.375rem + 1rem);
         }
     }
 }

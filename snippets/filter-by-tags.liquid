@@ -244,7 +244,12 @@
   .collection-filters .advanced-filter.active-filter a { font-weight: 400; }
   .collection-filters .active-filter-buttons__remove { font-size: 16px; line-height: 1; }
   .collection-product.is-loading .col-main,
-  .collection-product.is-loading .collection-filters { opacity: .5; pointer-events: none; }
+  .collection-product.is-loading .collection-filters { pointer-events: none; }
+  .collection-product.is-loading .col-main { opacity: .5; }
+  /* Below 1024px the filter panel stays at full opacity while results load */
+  @media (min-width: 1024px) {
+    .collection-product.is-loading .collection-filters { opacity: .5; }
+  }
 </style>
 <script>
   // Lets section-level sort handlers know sorting is handled here without a reload

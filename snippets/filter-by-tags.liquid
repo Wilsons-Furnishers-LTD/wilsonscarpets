@@ -498,8 +498,11 @@
 
     reorderFilters();
 
+    // On mobile only the first group (Colour) starts open. The others are marked active, like a
+    // group closed by clicking its heading, so they show the plus icon
     if (isMobile) {
       $('.filter-column').not(':first').each(function() {
+        $(this).children('h3').addClass('active');
         $(this).find('.advanced-filters').hide();
       });
     }

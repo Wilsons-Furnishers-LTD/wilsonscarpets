@@ -107,7 +107,7 @@
   <div class="filters-close">
     <i class="icon-times"></i>
   </div>
-  <div class="collection-filters">
+  <div class="collection-filters" data-products-count="{{ collection.products_count }}">
     {% if current_tags %}
       <a href="{{ collection.url }}" class="clear-filters">Clear filters</a>
     {% endif %}
@@ -337,6 +337,61 @@
       });
     }
 
+    // Product count after each tag filter. The ones not selected are fetched from the URL their link goes to,
+    // using templates/collection.count.liquid, a few at a time and remembered for the page. Selected ones
+    // show the current number of results. Runs after reorderFilters, which sorts by the link text
+    var filterCounts = {};
+    var filterCountsRun = 0;
+
+    function showFilterCount(link, count) {
+      $(link).find('.advanced-filter__count').remove();
+      $(link).append('<span class="advanced-filter__count"> (' + count + ')</span>');
+    }
+
+    function loadFilterCounts() {
+      var $panel = $('.collection-filters').first();
+      var currentCount = $panel.data('products-count');
+      var run = ++filterCountsRun;
+      var queue = [];
+
+      $panel.find('.advanced-filter > a').each(function() {
+        var link = this;
+        if ($(link).parent().hasClass('active-filter')) {
+          if (currentCount !== undefined) showFilterCount(link, currentCount);
+          return;
+        }
+        var url = new URL(link.href, window.location.origin);
+        url.search = '';
+        url.searchParams.set('view', 'count');
+        url = url.toString();
+        if (filterCounts[url] !== undefined) {
+          showFilterCount(link, filterCounts[url]);
+        } else {
+          queue.push({ link: link, url: url });
+        }
+      });
+
+      function next() {
+        // The filters were reloaded, so these links are gone; that run fetches its own
+        if (run !== filterCountsRun) return;
+        var item = queue.shift();
+        if (!item) return;
+        fetch(item.url, { credentials: 'same-origin' })
+          .then(function(response) { return response.ok ? response.text() : ''; })
+          .then(function(text) {
+            var count = parseInt(text, 10);
+            if (!isNaN(count)) {
+              filterCounts[item.url] = count;
+              if (run === filterCountsRun) showFilterCount(item.link, count);
+            }
+          })
+          .catch(function() {})
+          .then(next);
+      }
+
+      for (var i = 0; i < 4; i++) next();
+    }
+
     function setSorter(url) {
       var sortBy = new URL(url, window.location.origin).searchParams.get('sort_by');
       $('.collection-product .sort-by').val(sortBy || defaultSortBy);
@@ -404,6 +459,7 @@
             $filters.html(remoteFilters.innerHTML);
             reorderFilters();
             restoreColumnState(columnState);
+            loadFilterCounts();
           }
           setSorter(url);
 
@@ -497,6 +553,7 @@
     });
 
     reorderFilters();
+    loadFilterCounts();
 
     // On mobile only the first group (Colour) starts open. The others are marked active, like a
     // group closed by clicking its heading, so they show the plus icon

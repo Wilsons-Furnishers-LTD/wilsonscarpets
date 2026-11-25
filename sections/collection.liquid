@@ -99,7 +99,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="product-grid" data-page-size="{{ paginate.page_size }}">
+                <div class="product-grid">
                     {% assign loopCounter = 1 %}
 					{% for product in collection.products %}
 						{% comment %}
@@ -150,14 +150,12 @@
   JavaScript for collection sorting.
 {% endcomment %}
 <script>
-    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}')
-    {%- comment -%} On the carpets site sorting is handled asynchronously by assets/tag-filters.js (see snippets/filter-by-tags) {%- endcomment -%}
-    {%- if request.host == 'wilsons-beds.myshopify.com' or request.host == 'wilsonsbeds.com' -%}
-    .on('change', function() {
+    jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}').on('change', function() {
+        // Carpet collections sort asynchronously in snippets/filter-by-tags.liquid
+        if (window.asyncTagFilters) return;
         Shopify.queryParams.sort_by = jQuery(this).val();
         location.search = jQuery.param(Shopify.queryParams).replace(/\+/g, '%20');
-    })
-    {%- endif -%};
+    });
 </script>
 
 <script>

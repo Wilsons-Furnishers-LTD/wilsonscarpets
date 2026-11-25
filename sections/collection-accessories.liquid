@@ -171,7 +171,7 @@
 
 
 
-                <div class="product-grid" data-page-size="{{ paginate.page_size }}">
+                <div class="product-grid">
                     {% assign loopCounter = 1 %}
                     {% for product in collection.products %}
                         {% comment %}
@@ -250,9 +250,10 @@
 </div>
 
 {% comment %}
-  Sets the current sort. Changing it is handled asynchronously by assets/tag-filters.js (see snippets/filter-by-tags).
+  JavaScript for collection sorting.
 {% endcomment %}
 <script>
+    // Sort changes are handled asynchronously in snippets/filter-by-tags.liquid
     jQuery('.sort-by').val('{{ collection.sort_by | default: collection.default_sort_by }}');
 </script>
 

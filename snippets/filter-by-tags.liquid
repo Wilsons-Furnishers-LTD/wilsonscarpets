@@ -107,7 +107,7 @@
   <div class="filters-close">
     <i class="icon-times"></i>
   </div>
-  <div class="collection-filters" data-products-count="{{ collection.products_count }}">
+  <div class="collection-filters">
     {% if current_tags %}
       <a href="{{ collection.url }}" class="clear-filters">Clear filters</a>
     {% endif %}
@@ -179,7 +179,9 @@
                   {% assign markupToOutput = markupToOutput | append: '<li class="advanced-filter active-filter ' | append: thisFilter | append: '" data-group="' | append: cat_item | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: tagTextToAdd | append: '</li>' %}
                   {% assign hasActive = '' %}
                   {% assign removeTitle = 'Remove filter ' | append: tagText %}
-                  {% assign activeButton = tagText | link_to_remove_tag: tag | replace: thisTitleTag, removeTitle | replace: '</a>', ' <span class="active-filter-buttons__remove" aria-hidden="true">&times;</span></a>' %}
+                  {% comment %} On a tag-filtered URL, products_count is the number of products matching all the selected tags {% endcomment %}
+                  {% assign activeButtonEnd = ' <span class="active-filter-buttons__count">(' | append: collection.products_count | append: ')</span> <span class="active-filter-buttons__remove" aria-hidden="true">&times;</span></a>' %}
+                  {% assign activeButton = tagText | link_to_remove_tag: tag | replace: thisTitleTag, removeTitle | replace: '</a>', activeButtonEnd %}
                   {% assign activeButtonsToOutput = activeButtonsToOutput | append: '<li class="' | append: thisFilter | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: activeButton | append: '</li>' %}
                   {% assign markupActiveToOutput = markupActiveToOutput | append: '<li class="advanced-filter active-filter ' | append: thisFilter | append: '" data-group="' | append: cat_item | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: tagTextToAdd | append: '</li>' %}
                 {% else %}
@@ -337,60 +339,6 @@
       });
     }
 
-    // Product count after each tag filter. The ones not selected are fetched from the URL their link goes to,
-    // using templates/collection.count.liquid, a few at a time and remembered for the page. Selected ones
-    // show the current number of results. Runs after reorderFilters, which sorts by the link text
-    var filterCounts = {};
-    var filterCountsRun = 0;
-
-    function showFilterCount(link, count) {
-      $(link).find('.advanced-filter__count').remove();
-      $(link).append('<span class="advanced-filter__count"> (' + count + ')</span>');
-    }
-
-    function loadFilterCounts() {
-      var $panel = $('.collection-filters').first();
-      var currentCount = $panel.data('products-count');
-      var run = ++filterCountsRun;
-      var queue = [];
-
-      $panel.find('.advanced-filter > a').each(function() {
-        var link = this;
-        if ($(link).parent().hasClass('active-filter')) {
-          if (currentCount !== undefined) showFilterCount(link, currentCount);
-          return;
-        }
-        var url = new URL(link.href, window.location.origin);
-        url.searchParams.set('view', 'count');
-        url = url.toString();
-        if (filterCounts[url] !== undefined) {
-          showFilterCount(link, filterCounts[url]);
-        } else {
-          queue.push({ link: link, url: url });
-        }
-      });
-
-      function next() {
-        // The filters were reloaded, so these links are gone; that run fetches its own
-        if (run !== filterCountsRun) return;
-        var item = queue.shift();
-        if (!item) return;
-        fetch(item.url, { credentials: 'same-origin' })
-          .then(function(response) { return response.ok ? response.text() : ''; })
-          .then(function(text) {
-            var count = parseInt(text, 10);
-            if (!isNaN(count)) {
-              filterCounts[item.url] = count;
-              if (run === filterCountsRun) showFilterCount(item.link, count);
-            }
-          })
-          .catch(function() {})
-          .then(next);
-      }
-
-      for (var i = 0; i < 4; i++) next();
-    }
-
     function setSorter(url) {
       var sortBy = new URL(url, window.location.origin).searchParams.get('sort_by');
       $('.collection-product .sort-by').val(sortBy || defaultSortBy);
@@ -458,7 +406,6 @@
             $filters.html(remoteFilters.innerHTML);
             reorderFilters();
             restoreColumnState(columnState);
-            loadFilterCounts();
           }
           setSorter(url);
 
@@ -552,7 +499,6 @@
     });
 
     reorderFilters();
-    loadFilterCounts();
 
     // On mobile only the first group (Colour) starts open. The others are marked active, like a
     // group closed by clicking its heading, so they show the plus icon

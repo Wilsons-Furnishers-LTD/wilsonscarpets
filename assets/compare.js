@@ -1427,6 +1427,7 @@ class Compare {
     }
 }
 
+<<<<<<< HEAD
 // Products viewed on this device, newest first, shown under the comparison on the comparison page
 class RecentlyViewed {
     constructor() {
@@ -1520,6 +1521,8 @@ class RecentlyViewed {
 const recentlyViewed = new RecentlyViewed();
 recentlyViewed.recordProductPage();
 
+=======
+>>>>>>> fa00bb60 (updated share links URLs)
 const compare = new Compare();
 let comparisonPage = null;
 
@@ -1534,6 +1537,7 @@ if (comparisonPageApp) {
 
     comparisonPageApp.append(nav, gridsContainer);
 
+<<<<<<< HEAD
     const isSharedLink = new URLSearchParams(window.location.search).has('compare');
 
     // Shared links don't include the type, so look it up from each product before showing the tables.
@@ -1579,6 +1583,12 @@ if (comparisonPageApp) {
         });
 
         renderRecentlyViewed();
+=======
+    comparisonPage = new Compare({
+        nav,
+        gridsContainer,
+        products: Compare.getUrlProducts(),
+>>>>>>> fa00bb60 (updated share links URLs)
     });
 }
 
@@ -1626,10 +1636,26 @@ class CompareShare {
         return `${url}?${params.join('&')}`;
     }
 
+    getShareUrl() {
+        const root = window.Shopify?.routes?.root || '/';
+        const url = new URL(`${root}pages/compare`, window.location.origin);
+        const products = this.getProducts();
+
+        if (products.length) url.searchParams.set('compare', JSON.stringify(products));
+
+        return url.toString();
+    }
+
     updateLinks() {
+<<<<<<< HEAD
         // The products change as they're added and removed, so build the links on open.
         // The link goes on its own line, as these messages are plain text and can't link words
         const text = method => `${this.message}:\n${this.getShareUrl(method)}`;
+=======
+        // The products change as they're added and removed, so build the links on open
+        const url = this.getShareUrl();
+        const text = `${this.message}: ${url}`;
+>>>>>>> fa00bb60 (updated share links URLs)
 
         const links = {
             whatsapp: `https://wa.me/?text=${encodeURIComponent(text('whatsapp'))}`,
@@ -1664,7 +1690,11 @@ class CompareShare {
         if (!this.copyLabel) return;
 
         try {
+<<<<<<< HEAD
             await navigator.clipboard.writeText(this.getShareUrl('copy'));
+=======
+            await navigator.clipboard.writeText(this.getShareUrl());
+>>>>>>> fa00bb60 (updated share links URLs)
             this.copyLabel.textContent = 'Link copied';
             this.trackShare('copy');
         } catch (error) {

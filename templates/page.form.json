@@ -9,11 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-content-page",
-      "disabled": true,
-      "settings": {}
-    },
     "1795615739d591fd54": {
       "type": "apps",
       "blocks": {
@@ -46,7 +41,6 @@
     }
   },
   "order": [
-    "main",
     "1795615739d591fd54"
   ]
 }

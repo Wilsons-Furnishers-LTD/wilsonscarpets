@@ -115,6 +115,7 @@
     <div class="container">
       {% assign markupToOutput = '' %}
       {% assign markupActiveToOutput = '' %}
+      {% assign activeButtonsToOutput = '' %}
       {% comment %}
         Loop through tag categories
       {% endcomment %}
@@ -176,6 +177,9 @@
                   {% endif %}
                   {% assign markupToOutput = markupToOutput | append: '<li class="advanced-filter active-filter ' | append: thisFilter | append: '" data-group="' | append: cat_item | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: tagTextToAdd | append: '</li>' %}
                   {% assign hasActive = '' %}
+                  {% assign removeTitle = 'Remove filter ' | append: tagText %}
+                  {% assign activeButton = tagText | link_to_remove_tag: tag | replace: thisTitleTag, removeTitle | replace: '</a>', ' <span class="active-filter-buttons__remove" aria-hidden="true">&times;</span></a>' %}
+                  {% assign activeButtonsToOutput = activeButtonsToOutput | append: '<li class="' | append: thisFilter | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: activeButton | append: '</li>' %}
                   {% assign markupActiveToOutput = markupActiveToOutput | append: '<li class="advanced-filter active-filter ' | append: thisFilter | append: '" data-group="' | append: cat_item | append: '" data-handle="' | append: thisTagHandle | append: '">' | append: tagTextToAdd | append: '</li>' %}
                 {% else %}
                   {% assign tagTextToAdd = tagText | link_to_add_tag: tag | replace: thisTitleTag, currentTitleTag %}
@@ -202,6 +206,11 @@
         {% assign markupActiveToOutput = markupActiveToOutput | append: '</ul>' %}
       {% endif %}
 
+      {% comment %} The selected filters as buttons at the top; clicking one removes it {% endcomment %}
+      {% if activeButtonsToOutput != '' %}
+        <ul class="active-filter-buttons">{{ activeButtonsToOutput }}</ul>
+      {% endif %}
+
       {{ markupToOutput }}
     </div>
   <!-- <a href="" data-link="{{collection.url}}" class="submit-filters button">Apply Filter</a> -->
@@ -224,6 +233,12 @@
   @media (max-width: 1023px) {
     .collection-filters .clear-filters { margin-left: 1.875rem; }
   }
+  .collection-filters .active-filter-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 15px; padding: 0; list-style: none; }
+  .collection-filters .active-filter-buttons li { margin: 0; padding: 0; }
+  .collection-filters .active-filter-buttons a { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1px solid #ba3c3d; border-radius: 999px; background: #fff; color: #ba3c3d; font-size: 14px; line-height: 1.2; text-decoration: none; }
+  .collection-filters .active-filter-buttons a:hover,
+  .collection-filters .active-filter-buttons a:focus { background: #ba3c3d; color: #fff; }
+  .collection-filters .active-filter-buttons__remove { font-size: 16px; line-height: 1; }
   .collection-product.is-loading .col-main,
   .collection-product.is-loading .collection-filters { opacity: .5; pointer-events: none; }
 </style>
@@ -428,7 +443,7 @@
     }
 
     // Tag filters: add/remove the tag, any number at once, without reloading
-    $doc.on('click', '.collection-filters .advanced-filter a', function(e) {
+    $doc.on('click', '.collection-filters .advanced-filter a, .collection-filters .active-filter-buttons a', function(e) {
       e.preventDefault();
       loadResults(buildFilterUrl(this.href), true, false);
     });
